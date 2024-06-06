@@ -1,0 +1,35 @@
+{
+  "socialMedias": [
+    {
+      "name": "Twitter",
+      "icon": "",
+      "iconHover": "",
+      "url": "#"
+    },
+    {
+      "name": "pinterest",
+      "icon": "",
+      "iconHover": "",
+      "url": "#"
+    },
+    {
+      "name": "Youtube",
+      "icon": "",
+      "iconHover": "",
+      "url": "#"
+    },
+    {
+      "name": "Facebook",
+      "icon": "",
+      "iconHover": "",
+      "url": "#"
+    },
+    {
+      "name": "Instergram",
+      "icon": "",
+      "iconHover": "",
+      "url": "#"
+    }
+  ]
+
+}
