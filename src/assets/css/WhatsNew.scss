@@ -1,0 +1,39 @@
+.fluid-container {
+  max-width: 85.75rem;
+  margin: auto;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+
+  .filter-container {
+    width: 25%;
+    padding: 0 15px;
+    background-image: url("../images/screenshots/filter.png");
+    border: 1px solid green;
+  }
+
+  .main-container {
+    border: 1px solid green;
+    width: 75%;
+    padding: 0 15px;
+
+    .banner-container {
+      height: 385px;
+      background-image: url('../images/na_May24_wk4_AG_OTM_CDP_Hero_D_WhatsNew.webp');
+      background-size: cover;
+      background-repeat: no-repeat;
+      display: flex;
+      flex-direction: row;
+      justify-content: right;
+      align-items: center;
+      p.banner-text {
+        font-size: 1.875rem;
+        color: white;
+        font-weight: 600;
+        margin: 3.75rem;
+
+      }
+    }
+  }
+}
+
