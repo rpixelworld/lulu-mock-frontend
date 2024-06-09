@@ -1,0 +1,64 @@
+.banner-container {
+  display: flex;
+  flex-direction: column;
+
+  .banner {
+    height: 385px;
+    background-image: url('../images/na_May24_wk4_AG_OTM_CDP_Hero_D_WhatsNew.webp');
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
+
+    p.banner-text {
+      font-size: 1.875rem;
+      color: white;
+      font-weight: 600;
+      margin: 3.75rem;
+    }
+  }
+  .swipe-container {
+    //border: 1px solid blueviolet;
+
+    padding: 0 3.125rem;
+
+    ul.swipe-wrapper {
+      display: flex;
+      flex-direction: row;
+
+      li {
+        //border: 1px solid blueviolet;
+        height: 56px;
+        list-style: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 30px 0 10px;
+        cursor: pointer;
+
+        a {
+          color: black;
+          text-decoration: none;
+        }
+        a.selected {
+          font-weight: 800;
+        }
+
+        a::after {
+          content: "";
+          display: block;
+          height: .125rem;
+          position: relative;
+          top: 1.0625rem;
+          transition: background .3s ease-in-out;
+        }
+
+        a.selected::after, a:hover::after {
+          background: #c8102e;;
+        }
+      }
+    }
+  }
+}
