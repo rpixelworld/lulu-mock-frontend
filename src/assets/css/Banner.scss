@@ -21,8 +21,8 @@
   }
   .swipe-container {
     //border: 1px solid blueviolet;
-
     padding: 0 3.125rem;
+    height: 56px;
 
     ul.swipe-wrapper {
       display: flex;
@@ -30,7 +30,7 @@
 
       li {
         //border: 1px solid blueviolet;
-        height: 56px;
+        //height: 56px;
         list-style: none;
         display: flex;
         justify-content: center;
