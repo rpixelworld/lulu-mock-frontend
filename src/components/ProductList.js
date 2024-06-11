@@ -58,11 +58,11 @@ export const ProductList = ()=> {
             </div>
         </div>
         <div className="paging-container">
-            <p>View
+            <p>View&nbsp;
                 { pagination.curPage==pagination.totalPage
                     ? pagination.totalProducts
                     : pagination.curPage*pagination.perPage}
-                of
+                &nbsp;of&nbsp;
                 {pagination.totalProducts}
             </p>
             {pagination.totalPage > pagination.curPage
