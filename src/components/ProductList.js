@@ -1,6 +1,6 @@
 import '../assets/css/ProductList.scss'
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useRef, useState} from "react";
+import {useEffect} from "react";
 import {fetchProducts} from "../redux/actions/productAction";
 
 export const ProductList = ()=> {
@@ -22,25 +22,24 @@ export const ProductList = ()=> {
             if(pagination && pagination.curPage<pagination.totalPage){
                 dispatch(fetchProducts(pagination.curPage+1))
             }
-
         }
     }
 
+    const handleViewMore = ()=> {
+        dispatch(fetchProducts(pagination.curPage+1))
+    }
 
     useEffect(() => {
         dispatch(fetchProducts())
     }, []);
 
     useEffect(() => {
-        // console.log("add listener")
-        window.addEventListener('scroll', handleScroll)
-        // return () => {
-        //     window.removeEventListener('scroll', handleScroll);
-        //     console.log("remove listener")
-        // };
+        if(pagination.curPage==1 && pagination.totalPage>1) {
+            window.addEventListener('scroll', handleScroll)
+        }
     }, [productList])
 
-    return (
+    return (<>
         <div className="productlist-container">
             <div className="row">
                 {productList
@@ -56,13 +55,19 @@ export const ProductList = ()=> {
                         )
                     })
                 }
-                {/*<div className="product"></div>*/}
-                {/*<div className="product"></div>*/}
-                {/*<div className="product"></div>*/}
-                {/*<div className="product"></div>*/}
-                {/*<div className="product"></div>*/}
-                {/*<div className="product"></div>*/}
             </div>
         </div>
-    )
+        <div className="paging-container">
+            <p>View
+                { pagination.curPage==pagination.totalPage
+                    ? pagination.totalProducts
+                    : pagination.curPage*pagination.perPage}
+                of
+                {pagination.totalProducts}
+            </p>
+            {pagination.totalPage > pagination.curPage
+                ? <button type='button' onClick={handleViewMore}>view more products</button>
+                : ''}
+        </div>
+    </>)
 }

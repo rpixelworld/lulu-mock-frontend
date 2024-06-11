@@ -24,3 +24,34 @@
     }
   }
 }
+.paging-container {
+  border: 1px dashed blue;
+  margin: 4rem 0 4rem 0;
+  text-align: center;
+
+  p {
+    font-size: 1.1875rem;
+    font-weight: 500;
+    line-height: 1.5rem;
+    margin: 0 0 1rem;
+  }
+
+  button {
+    max-width: 19.4375rem;
+    width: 31.75%;
+    background-color: #fff;
+    color: #000;
+    border: .0625rem solid #000;
+    border-radius: .25rem;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    padding: 1rem;
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: .075rem;
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+}
