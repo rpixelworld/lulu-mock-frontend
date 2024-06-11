@@ -1,0 +1,166 @@
+.footer-mainContainer {
+    margin: auto;
+    width: 1440px;
+    box-sizing: border-box;
+    border: 1px black solid;
+    transform: scaleY(1);
+    transform-origin: top;
+    background-color: white; /* 背景色 */
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    padding: 0 0 0 50px ;
+    background-color: white; /* 背景色 */
+    margin: 0 150px -70px 0;
+}
+
+.footer-column {
+    padding: -10px 0 0 10px;
+    margin: 0 100px 0 0;
+    img {
+        height: 14px;
+        position: relative;
+        left: 150px;
+        bottom: 115px;
+    }
+}
+
+.footer-column a {
+
+    font: 14px Calibre, Helvetica Neue, Helvetica, Roboto, Arial, sans-serif;
+    font-size: .855rem;    // 字体大小
+    -webkit-font-smoothing: antialiased;
+    font-weight: 400;
+    letter-spacing: .055rem;   // 字体紧凑
+    color: #53565A;
+    text-decoration: none;
+    position: relative; /* 为伪元素定位 */
+    line-height: 20px;
+}
+
+.footer-column a::after {
+    content: '';
+    position: absolute;
+    bottom: -.3125rem; /* 调整下划线位置 */
+    left: 0;
+    width: 100%;
+    height: 0.125rem;
+    background-color: #c8102e;
+    transform: scaleX(0);
+    transition: transform 0.25s ease-in-out; /* 修改动画效果 */
+    transform-origin: bottom left; /* 设置动画起点 */
+}
+
+.footer-column a:hover::after {
+    transform: scaleX(1);
+}
+
+.footer-column a:hover {
+    color: #53565A; /* 保持字体颜色不变 */
+}
+
+.footer-column ul {
+    list-style-type: none;
+    padding: 2px;
+    margin: 0 0 15px 0 ;
+}
+
+.footer-column ul li {
+    margin-top: 25px;
+    margin-bottom: 10px;
+    line-height: 10px;
+}
+
+.footer-column ul li a {
+    font: 14px Calibre, Helvetica Neue, Helvetica, Roboto, Arial, sans-serif;
+    color: #53565A;
+}
+
+.footer-social {
+    display: flex;
+    margin:  20px 0 0;
+    padding: 0 0 24px;
+    position: relative;
+    bottom: 285px;
+    left: 675px;
+
+    div{
+        width: 70px;
+    }
+    a{
+        margin-top: 10px;
+        margin-right: 50px;
+        color: #53565A;
+        transition: color 0.3s;
+
+        &:hover {
+            color: #999999;
+        }
+    }
+}
+
+.footer-bottom {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 13px;
+    color: #53565A;
+    div {
+        padding-left: 50px;
+    }
+}
+
+
+
+.footer-bottom-hr {
+    width: 1px;
+    height: 20px;
+    border: none;
+    background: #D9D6D6 ;
+    //transform: rotate(90deg);
+    transform-origin: left;
+    margin: 0 20px;
+}
+.footer-terms {
+    display: flex;
+    flex-direction: row-reverse;
+    //padding-right: 30px;
+    position: relative;
+    left: -100px;
+}
+
+.footer-terms a {
+    font: 14px Calibre, Helvetica Neue, Helvetica, Roboto, Arial, sans-serif;
+    font-size: .675rem;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 400;
+    letter-spacing: .005rem;
+    color: #53565A;
+    text-decoration: none;
+    position: relative; /* 为伪元素定位 */
+}
+
+.footer-terms a::after {
+    content: '';
+    position: absolute;
+    bottom: -.3125rem; /* 调整下划线位置 */
+    left: 0;
+    width: 100%;
+    height: 0.125rem;
+    background-color: #c8102e;
+    transform: scaleX(0);
+    transition: transform 0.25s ease-in-out; /* 修改动画效果 */
+    transform-origin: bottom left; /* 设置动画起点 */
+}
+
+.footer-terms a:hover::after {
+    transform: scaleX(1);
+}
+
+.footer-terms a:hover {
+    color: #53565A; /* 保持字体颜色不变 */
+}
