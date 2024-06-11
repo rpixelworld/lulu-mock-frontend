@@ -4,18 +4,18 @@
   border: 1px solid black;
   display: flex;
   flex-direction: row;
-
-  .filter-container {
-    width: 25%;
-    padding: 0 15px;
-    background-image: url("../images/screenshots/filter.png");
-    border: 1px solid green;
-  }
+  //
+  //.filter-container {
+  //  width: 25%;
+  //  padding: 0 15px;
+  //  border: 1px solid green;
+  //}
 
   .main-container {
     border: 1px solid green;
     width: 75%;
     padding: 0 15px;
+
 
   }
 }

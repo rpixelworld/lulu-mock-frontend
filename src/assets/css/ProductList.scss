@@ -1,0 +1,26 @@
+.productlist-container {
+  border: 1px dashed lightcoral;
+  margin-top: 1rem;
+  width: 100%;
+  display: block;
+
+  .row {
+    margin-right: -.78125rem;
+    margin-left: -.78125rem;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    .product {
+      padding-right: .78125rem;
+      padding-left: .78125rem;
+      margin-bottom: 2rem;
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: 33.33%;
+      max-width: 33.33%;
+      height: 540px;
+      border: 1px solid darkblue;
+    }
+  }
+}

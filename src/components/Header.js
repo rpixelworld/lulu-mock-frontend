@@ -13,7 +13,7 @@ export const Header = ()=> {
 
             //console.log('has child');
             topDistance = window.scrollY + obj.getBoundingClientRect().top;
-            console.log('topDistance', topDistance)
+            // console.log('topDistance', topDistance)
             //console.log(topDistance);
 
         }
@@ -28,7 +28,7 @@ export const Header = ()=> {
         if ( (topDistance) < scrollTop ) {
             obj.className = obj.className + ' fixed'
             // document.body.classList.add('sticky-page-nav');
-            console.log('sticky');
+            // console.log('sticky');
         }
     }
     window.onload = ()=> {
