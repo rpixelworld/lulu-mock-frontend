@@ -1,188 +1,198 @@
 {
-  "menus": [
-    {
-      "text": "My Account",
-      "isBold": true,
-      "subs": [
+    "menus": [
         {
-          "text": "Membership Program",
-          "url": "#"
+            "text": "MY ACCOUNT",
+            "isBold": true,
+            "subs": [
+                {
+                    "text": "Membership Program",
+                    "url": "#"
+                },
+                {
+                    "text": "Sign In",
+                    "url": "#"
+                },
+                {
+                    "text": "Register",
+                    "url": "#"
+                },
+                {
+                    "text": "Order Status",
+                    "url": "#"
+                },
+                {
+                    "text": "Returns",
+                    "url": "#"
+                }
+            ]
         },
         {
-          "text": "Sign In",
-          "url": "#"
+            "text": "HELP",
+            "isBold": true,
+            "subs": [
+                {
+                    "text": "FAQ",
+                    "url": "#"
+                },
+                {
+                    "text": "Accessibility Statement",
+                    "url": "#"
+                },
+                {
+                    "text": "Services",
+                    "url": "#"
+                },
+                {
+                    "text": "Ordering",
+                    "url": "#"
+                },
+                {
+                    "text": "Shipping Policy",
+                    "url": "#"
+                },
+                {
+                    "text": "Returns",
+                    "url": "#"
+                },
+                {
+                    "text": "Redeem Gift Cards",
+                    "url": "#"
+                },
+                {
+                    "text": "Sizing",
+                    "url": "#"
+                },
+                {
+                    "text": "Our Products",
+                    "url": "#"
+                }
+            ]
         },
         {
-          "text": "Register",
-          "url": "#"
+            "text": "ABOUT US",
+            "isBold": true,
+            "subs": [
+                {
+                    "text": "Our Business",
+                    "url": "#"
+                },
+                {
+                    "text": "Media",
+                    "url": "#"
+                },
+                {
+                    "text": "Investors",
+                    "url": "#"
+                },
+                {
+                    "text": "Strategic Sales",
+                    "url": "#"
+                },
+                {
+                    "text": "Affiliates and Creators",
+                    "url": "#"
+                },
+                {
+                    "text": "Sweat Collective",
+                    "url": "#"
+                },
+                {
+                    "text": "Team Canada",
+                    "url": "#"
+                },
+                {
+                    "text": "FURTHER",
+                    "url": "#"
+                }
+            ]
         },
         {
-          "text": "Order Status",
-          "url": "#"
+            "text": "CONTACT US",
+            "isBold": true,
+            "subs": [
+                {
+                    "text": "Live Chat",
+                    "url": "#"
+                },
+                {
+                    "text": "Email Sign Up",
+                    "url": "#"
+                },
+                {
+                    "text": "Contact Us",
+                    "url": "#"
+                }
+            ]
         },
         {
-          "text": "Returns",
-          "url": "#"
+            "text": "CAREERS",
+            "isBold": true,
+            "url": "#"
+        },
+        {
+            "text": "COMMUNITY",
+            "isBold": true,
+            "url": "#"
+        },
+        {
+            "text": "LIKE NEW",
+            "isBold": true,
+            "url": "#"
+        },
+        {
+            "text": "SUSTAINABILITY",
+            "isBold": true,
+            "url": "#"
+        },
+        {
+            "text": "SOCIAL IMPACT",
+            "isBold": true,
+            "url": "#"
+        },
+        {
+            "text": "DIVERSITY AND INCLUSION",
+            "isBold": true,
+            "url": "#"
+        },
+        {
+            "text": "LULULEMON APPS",
+            "isBold": true,
+            "url": "#"
+        },
+        {
+            "text": "SITEMAP",
+            "isBold": true,
+            "url": "#"
+        },
+        {
+            "text": "GIFT CARDS",
+            "isBold": true,
+            "url": "#"
+        },
+        {
+            "text": "STORE LOCATOR",
+            "isBold": true,
+            "url": "#"
+        },
+        {
+            "text": "Privacy Policy",
+            "isBold": false,
+            "url": "#"
+        },
+        {
+            "text": "Your Privacy Choices",
+            "isBold": false,
+            "url": "#"
+        },
+        {
+            "text": "California Privacy Rights",
+            "isBold": false,
+            "url": "#"
+        },
+        {
+            "text": "California Transparency Act",
+            "isBold": false,
+            "url": "#"
         }
-      ]
-    },
-    {
-      "text": "Help",
-      "isBold": true,
-      "subs": [
-        {
-          "text": "FAQ",
-          "url": "#"
-        },
-        {
-          "text": "Accessibility Statement",
-          "url": "#"
-        },
-        {
-          "text": "Services",
-          "url": "#"
-        },
-        {
-          "text": "Ordering",
-          "url": "#"
-        },
-        {
-          "text": "Shipping Policy",
-          "url": "#"
-        },
-        {
-          "text": "Returns",
-          "url": "#"
-        },
-        {
-          "text": "Redeem Gift Cards",
-          "url": "#"
-        },
-        {
-          "text": "Sizing",
-          "url": "#"
-        },
-        {
-          "text": "Our Products",
-          "url": "#"
-        }
-      ]
-    },
-    {
-      "text": "About Us",
-      "isBold": true,
-      "subs": [
-        {
-          "text": "Our Business",
-          "url": "#"
-        },
-        {
-          "text": "Media",
-          "url": "#"
-        },
-        {
-          "text": "Investors",
-          "url": "#"
-        },
-        {
-          "text": "Strategic Sales",
-          "url": "#"
-        },
-        {
-          "text": "Affiliates and Creators",
-          "url": "#"
-        },
-        {
-          "text": "Sweat Collective",
-          "url": "#"
-        },
-        {
-          "text": "Team Canada",
-          "url": "#"
-        },
-        {
-          "text": "FURTHER",
-          "url": "#"
-        }
-      ]
-    },
-    {
-      "text": "Contact Us",
-      "isBold": true,
-      "subs": [
-        {
-          "text": "Live Chat",
-          "url": "#"
-        },
-        {
-          "text": "Email Sign Up",
-          "url": "#"
-        },
-        {
-          "text": "Contact Us",
-          "url": "#"
-        }
-      ]
-    },
-    {
-      "text": "Careers",
-      "isBold": true,
-      "url": "#"
-    },
-    {
-      "text": "Community",
-      "isBold": true,
-      "url": "#"
-    },
-    {
-      "text": "Sustainability",
-      "isBold": true,
-      "url": "#"
-    },
-    {
-      "text": "Social Impact",
-      "isBold": true,
-      "url": "#"
-    },
-    {
-      "text": "Diversity and Inclusive",
-      "isBold": true,
-      "url": "#"
-    },
-    {
-      "text": "LuLuLemon Apps",
-      "isBold": true,
-      "url": "#"
-    },
-    {
-      "text": "Gift Cards",
-      "isBold": true,
-      "url": "#"
-    },
-    {
-      "text": "Store Locator",
-      "isBold": true,
-      "url": "#"
-    },
-    {
-      "text": "Privacy Policy",
-      "isBold": false,
-      "url": "#"
-    },
-    {
-      "text": "Your Privacy Choices <img src='https://images.lululemon.com/is/content/lululemon/ccpa-icon'/>",
-      "isBold": false,
-      "url": "#"
-    },
-    {
-      "text": "UK Modern Slavery Act",
-      "isBold": false,
-      "url": "#"
-    },
-    {
-      "text": "California Transparency Act",
-      "isBold": false,
-      "url": "#"
-    }
-  ]
+    ]
 }
