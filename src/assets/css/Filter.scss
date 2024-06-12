@@ -1,0 +1,131 @@
+.filter-container {
+
+  width: 25%;
+  padding: 0 15px;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  hr {
+    width: 88%;
+    color: #acacb5;
+  }
+
+  .filter-title {
+    font-size: 30px;
+    text-align: center;
+    margin: 40px 0 20px 0;
+  }
+  //background-color: bisque;
+
+}
+.accordion-container {
+  font-size: 17px;
+  .accordion-view-more-header {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 0 20px;
+    font-size: 19px;
+  }
+  .accordion-header {
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 19px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0 20px;
+    .icon {
+      width:24px ;
+      height: 24px;
+      position: relative ;
+      top: 2px;
+      //background: linear-gradient(to right, transparent 50%, black 50%, black 50%, transparent 50%); /* 创建竖杠 */
+      //background-size: 200% 100%; /* 用于过渡效果 */
+      //transition: background-position 0.5s ease; /* 过渡效果 */
+      transition: transform 1s ease-in-out !important;
+    }
+
+  }
+  .accordion-box {
+    .doted {
+      border-top: 3px dotted #acacb5;
+      font-weight: bold;
+    }
+    transition: 1.5s ease-in-out !important;
+    //display: block;
+    input {
+      margin: 0 10px 0 20px;
+    }
+  }
+}
+
+.type-box {
+  width: 100%;
+  margin: 0 5px 0 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-items: center;
+  flex-wrap: wrap;
+}
+.typeColorContainer {
+  padding: 6px 2px;
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: left;
+  flex-wrap: wrap;
+
+
+
+  .typeColor {
+    cursor: pointer;
+    margin: 0 6px 0 10px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    //transition: all ease-in-out 0.1s;
+    //transition: box-shadow 0.3s ease, outline 0.3s ease;
+    &:hover {
+      outline: 2px solid white;
+      box-shadow: 0 0 1px 3px grey;
+    }
+  }
+}
+.size-box {
+  width: 250px;
+  display: flex;
+  margin: auto;
+  flex-wrap: wrap;
+
+  .size-number-one {
+    text-align: center;
+    font-size: 1.1875rem;
+    font-weight: bold;
+    margin: 5px;
+    width: 45px;
+    height: 40px;
+    position: relative;
+    background-color: white;
+    border-radius: .25rem;
+    border: .0625rem solid #d3d5d7;
+  }
+  .size-number-two {
+    font-size: 1.1875rem;
+    font-weight: bold;
+    margin: 10px;
+    height: 40px;
+    position: relative;
+    background-color: white;
+    border-radius: .25rem;
+    border: .0625rem solid #d3d5d7;
+  }
+}

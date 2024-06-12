@@ -1,0 +1,211 @@
+.childmenus-container {
+  transition: height 0.2s ease-out;
+  position: absolute;
+  top: 52px; /* Adjust this value based on your layout */
+  left: 0;
+  padding-left: 140px;
+  z-index: 9; /* Ensure it's above other content */
+  margin-left: 0;
+  background-color: white;
+  //cursor: pointer;
+  width: 100%;
+
+  .childmenus-wrapper {
+    width: 85.75rem;
+    margin: auto;
+    padding: 10px 38px;
+
+    display: flex;
+    flex-direction: row;
+
+    .child-menus {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      width: 75%;
+
+      .feature-menus {
+        min-width: calc(85.75rem * 0.75 * 0.25);
+        margin: 10px 20px 10px 0;
+        //margin-right: -20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 18px;
+        border-right: 1px solid gray;
+      }
+
+      .catagory-menus {
+        width: calc(85.75rem * 0.75 * 0.75);
+        margin: 10px 20px 10px 0;
+        //padding: 0 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+
+        div.catagory-title {
+          margin: 0;
+          font-size: 14px;
+          font-weight: 600;
+          text-transform: uppercase;
+          display: inline;
+
+
+          //ion-icon::before {
+          //  content: 'nbsp;nbsp;nbsp;';
+          //}
+        }
+
+        .catagory-submenus {
+          display: flex;
+        }
+
+        .two-column {
+          width: 400px;
+          //max-width: 75%;
+          flex-direction: row;
+          column-count: 2;
+          flex-wrap: wrap;
+          row-gap: 18px;
+          column-gap: 0;
+        }
+        .one-column {
+          width: calc(85.75rem * 0.75 * 0.25);
+          min-width: 25%;
+          margin-left: 0;
+          flex-direction: column;
+          //justify-content: space-between;
+          gap: 18px;
+        }
+
+        a {
+          min-width: 200px;
+        }
+      }
+    }
+
+    .child-advertisement {
+      width: 25%;
+      cursor: pointer;
+      margin-bottom: 20px ;
+      .image-style {
+        img {
+          width: 100%;
+          height: 200px;
+        }
+      }
+
+      .adv-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      .adv-desc {
+        font-size: 14px;
+        //text-align: justify;
+        padding-right: 60px;
+        margin-bottom: 10px;
+      }
+
+      .link {
+        font-size: 15px;
+        font-weight: 600;
+      }
+    }
+  }
+
+
+  .activity-container {
+    width: 100%;
+    height: 80px;
+    background-color: #fafafa;
+    .activity {
+      width: 85.75rem;
+      margin: auto;
+      padding: 10px 38px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .title {
+        min-width: calc(85.75rem * 0.75 * 0.25);
+        height: 40px;
+        margin: 10px 0;
+        border-right: 1px solid gray;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        font-weight: 500;
+        color: gray;
+      }
+
+      .activity-items {
+        width: 50%;
+        margin: 10px 20px;
+        display: flex;
+        flex-direction: row;
+      }
+
+      a {
+        display: block;
+        min-width: 100px;
+      }
+
+      .shop-link {
+        width: 25%;
+        text-align: right;
+        font-size: 14px;
+        font-weight: 500;
+        text-transform: uppercase;
+        //margin-top: 10px;
+      }
+    }
+  }
+
+  ion-icon {
+    color: #d21919;
+    font-size: 14px;
+    padding: 0;
+  }
+
+  a {
+    //min-width: 200px;
+    text-decoration: none;
+    color: black;
+    font-size: 14px;
+    font-weight: normal;
+
+    span {
+      position: relative;
+    }
+
+    span::after {
+      content: '';
+      position: absolute;
+      left: 0; /* Adjust this value to control the starting position */
+      bottom: -8px; /* Adjust this value to control the distance from the text */
+      width: 100%; /* Full width of the underline */
+      height: 2px; /* Set the thickness of the underline */
+      background-color: #d21919; /* Set the color of the underline */
+      transform: scaleX(0); /* Start with the underline hidden */
+      transform-origin: left; /* The underline will grow from left to right */
+      transition: transform 0.3s ease; /* Transition effect for the underline */
+    }
+
+    span:hover::after {
+      transform: scaleX(1); /* Show the underline on hover */
+    }
+  }
+
+}
+
+
+
+
+
+
+
+
+
+
