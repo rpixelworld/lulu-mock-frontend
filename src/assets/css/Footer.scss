@@ -1,6 +1,6 @@
 .footer-mainContainer {
     margin: auto;
-    width: 1440px;
+    width: 100%;
     box-sizing: border-box;
     border: 1px black solid;
     transform: scaleY(1);
@@ -15,6 +15,8 @@
     padding: 0 0 0 50px ;
     background-color: white; /* 背景色 */
     margin: 0 150px -70px 0;
+    width: 85.75rem;
+    margin: auto;
 }
 
 .footer-column {
@@ -85,7 +87,7 @@
     padding: 0 0 24px;
     position: relative;
     bottom: 285px;
-    left: 675px;
+    left: 980px;
 
     div{
         width: 70px;
@@ -102,6 +104,10 @@
     }
 }
 
+.line-before-bttom {
+    width: 85.75rem;
+}
+
 .footer-bottom {
     height: 50px;
     display: flex;
@@ -112,6 +118,8 @@
     div {
         padding-left: 50px;
     }
+    width: 85.75rem;
+    margin: auto;
 }
 
 

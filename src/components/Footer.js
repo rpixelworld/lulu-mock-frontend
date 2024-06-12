@@ -123,7 +123,7 @@ export const Footer = () => {
                     </div>
 
             </div>
-            <hr width={'1440px'}/>
+            <hr className='line-before-bttom'/>
             <div className='footer-bottom'>
                 <div>© lululemon athletica 1818 Cornwall Ave, Vancouver BC V6J 1C7</div>
                 <div className='footer-terms'>
