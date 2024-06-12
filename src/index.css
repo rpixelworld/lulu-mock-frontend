@@ -15,36 +15,36 @@ body {
 /*
 The followng is only for testing, can be removed when Header is ready
  */
-.header-topbar {
-  margin: 0 auto 2px auto;
-  border: 1px solid black;
-  width: 85.75rem;
-  background-image: url("./assets/images/screenshots/top.png");
-  background-size: contain;
-  background-position: right;
-  background-repeat: no-repeat;
-  height: 34px;
+/*.header-topbar {*/
+/*  margin: 0 auto 2px auto;*/
+/*  border: 1px solid black;*/
+/*  width: 85.75rem;*/
+/*  background-image: url("./assets/images/screenshots/top.png");*/
+/*  background-size: contain;*/
+/*  background-position: right;*/
+/*  background-repeat: no-repeat;*/
+/*  height: 34px;*/
 
-}
+/*}*/
 
-.header-menubar-holder {
-  border: 1px solid blue;
-  margin: 0;
-  height: 60px;
-  background-color: grey;
-  position: relative;
+/*.header-menubar-holder {*/
+/*  border: 1px solid blue;*/
+/*  margin: 0;*/
+/*  height: 60px;*/
+/*  background-color: grey;*/
+/*  position: relative;*/
 
-  .header-menubar-wrapper.fixed {
-    border: 1px solid red;
-    height: 60px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background-color: white;
-    z-index: 9;
-  }
+/*  .header-menubar-wrapper.fixed {*/
+/*    border: 1px solid red;*/
+/*    height: 60px;*/
+/*    position: fixed;*/
+/*    top: 0;*/
+/*    left: 0;*/
+/*    width: 100%;*/
+/*    background-color: white;*/
+/*    z-index: 9;*/
+/*  }*/
 
-}
+/*}*/
 
 
