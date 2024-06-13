@@ -11,9 +11,10 @@
   margin: 10px 15px;
   position: relative;
   top: 5px;
+  left: -20px;
 
   hr {
-    width: 95%;
+    width: 93%;
     color: rgba(241, 240, 240, 0.1);
   }
   .icon {
@@ -62,22 +63,25 @@
     display: flex;
     flex-direction: column;
     position: relative;
-    left: 10px;
 
     .need-fix {
-      width: 14px;
+      width: 16px;
       height: 2px;
       background-color: black;
-      position: relative;
-      top: -8px;
-      left: -6px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+
     }
     .move-to-horizontal {
+      position: absolute;
+      left: 48%;
+      transform: translateX(-48%);
       text-align: center;
       width: 2px;
       height: 16px;
       background-color: black;
-      animation: move-to-horizontal 0.8s forwards;
+      animation: move-to-horizontal 0.4s forwards;
     }
     @keyframes move-to-horizontal {
       0% {
@@ -88,10 +92,13 @@
       }
     }
     .move-to-vertical {
+      position: absolute;
+      transform: translateX(-48%);
+      left: 48%;
       width: 2px;
       height: 16px;
       background-color: black;
-      animation: move-to-vertical 0.8s forwards;
+      animation: move-to-vertical 0.4s forwards;
     }
     @keyframes move-to-vertical {
       0% {
@@ -105,7 +112,7 @@
   }
   .accordion-box {
     .checkList {
-      width: 293px;
+      width: 265px;
       height: 40px;
       display: flex;
       flex-direction: row;
@@ -117,6 +124,7 @@
     }
     .doted {
       border-top: 3px dotted #acacb5;
+      border-bottom: none;
       font-weight: bold;
     }
     transition: 1.5s ease-in-out !important;
@@ -128,8 +136,8 @@
 }
 
 .type-box {
-  width: 100%;
-  margin: 0 5px 0 0;
+  width: 265px;
+  margin: auto;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -140,7 +148,7 @@
 .typeColorContainer {
   padding: 6px 2px;
   margin: 0 0 10px;
-  width: 40%;
+  width: 132px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -197,6 +205,7 @@
     font-size: 1.1875rem;
     font-weight: bold;
     margin: 5px;
+    padding: 0;
     width: 45px;
     height: 40px;
     position: relative;

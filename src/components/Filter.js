@@ -40,6 +40,7 @@ export const Filter = () => {
         <CardCheckBox filter={filters} obj='Category'/>
         <CardCheckBox filter={filters} obj='Type'/>
         <CardColor filter={filters} obj='Colour'/>
+        <CardCheckBox filter={filters} obj='Activity' />
         <CardSize filter={filters} obj='Size'/>
         <CardCheckBox filter={filters} obj='SizeType'/>
         <CardCheckBox filter={filters} obj='Collection'/>

@@ -3,6 +3,7 @@ import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxRoundedIcon from '@mui/icons-material/CheckBoxRounded';
 import {useDispatch} from "react-redux";
 import {fetchProducts} from "../redux/actions/productAction";
+import AddedMinusMark from "./Add-MinusMark";
 
 const CardCheckBox = ({filter, obj}) => {
 
@@ -47,18 +48,7 @@ const CardCheckBox = ({filter, obj}) => {
             <div className="accordion-header" onClick={hiddenList} >
                 <div><p>{obj}</p></div>
                 {/*+/-*/}
-                <div className='add-minus'>
-                    {isHidden
-                    ? <><div className='move-to-vertical'></div>
-                        <div className='need-fix'/>
-                    </>
-                    : <>
-                        <div className='move-to-horizontal'></div>
-                        <div className='need-fix'/>
-                    </>
-                }
-                </div>
-
+                <AddedMinusMark status={isHidden} posistion={{left:'-15px'}}/>
             </div>
             {!isHidden && (<>
                 <div className='accordion-box'>
@@ -84,15 +74,7 @@ const CardCheckBox = ({filter, obj}) => {
                     <div className='accordion-view-more-header' style={{color:'#53565a'}} onClick={show}>
                         <div>{showMore ? 'View More' : 'View Less'}</div>
                         {/*+/-*/}
-                        <div className='add-minus'>{showMore
-                            ? <><div className='move-to-vertical' style={{background:"#56535a"}}></div>
-                                <div className='need-fix' style={{background:"#56535a"}}/>
-                            </>
-                            : <>
-                                <div className='move-to-horizontal' style={{background:"#56535a"}}></div>
-                                <div className='need-fix' style={{background:"#56535a"}}/>
-                            </>
-                        }</div>
+                        <AddedMinusMark status={showMore} style={{background:"#56535a"}} posistion={{left:'10px'}}/>
                     </div>
                 </>)}
             </>)}
