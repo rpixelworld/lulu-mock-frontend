@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {useDispatch} from "react-redux";
 import {fetchProducts} from "../redux/actions/productAction";
+import AddedMinusMark from "./Add-MinusMark";
 
 
 const CardSize =({filter,obj})=> {
@@ -42,18 +43,7 @@ const CardSize =({filter,obj})=> {
             <div className="accordion-header" onClick={hiddenList}>
                 <div><p>{obj}</p></div>
                 {/*+/-*/}
-                <div className='add-minus'>
-                    {isHidden
-                        ? <>
-                            <div className='move-to-vertical'></div>
-                            <div className='need-fix'/>
-                        </>
-                        : <>
-                            <div className='move-to-horizontal'></div>
-                            <div className='need-fix'/>
-                        </>
-                    }
-                </div>
+                <AddedMinusMark status={isHidden} posistion={{left:'-15px'}}/>
             </div>
             {!isHidden && (<>
                 <div className='accordion-container'>
