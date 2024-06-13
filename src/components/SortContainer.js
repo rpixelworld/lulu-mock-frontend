@@ -3,13 +3,15 @@ import {useEffect, useRef, useState} from "react";
 import KeyboardArrowDownOutlinedIcon from '@mui/icons-material/KeyboardArrowDownOutlined';
 import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import {FormControl, MenuItem, Select} from "@mui/material";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {sortProduct} from "../redux/actions/productAction";
 
 export const SortContainer = ()=> {
     const anchorRefs = useRef([])
     const [sortDropDownDisplay, setSortDropDownDisplay] = useState(false)
     const [sortBy, setSortBy] = useState('Featured')
 
+    const dispatch = useDispatch()
     const pagination = useSelector(state => state.productReducer.pagination)
 
     const handleAnchorClick = (index) => {
@@ -29,6 +31,10 @@ export const SortContainer = ()=> {
         console.log(e)
         setSortBy(e.target.textContent)
         setSortDropDownDisplay(prev => !prev)
+        if(e.target.textContent=='Price: High to Low' || e.target.textContent=='Price: Low to High'){
+            dispatch(sortProduct(e.target.textContent))
+        }
+
     }
     return (
         <div className="sort-container">

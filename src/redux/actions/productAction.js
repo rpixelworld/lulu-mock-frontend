@@ -36,3 +36,10 @@ export const fetchProducts = (pageNo=1, filters={})=> dispatch => {
 
         })
 }
+
+export const sortProduct = (sortBy=4) => {
+    return {
+        type: Constants.ACTION_SORT_PRODUCTLIST,
+        payload: sortBy
+    }
+}

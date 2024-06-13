@@ -37,7 +37,24 @@ export const productReducer = (state=initState, action)=>{
                 pagination: action.payload['pageParams'],
                 selectedFilters: action.payload['filters']
             }
-
+        case Constants.ACTION_SORT_PRODUCTLIST:
+            const tobeSorted = [...state.productList];
+            tobeSorted.sort((proda, prodb) => {
+                let priceA = proda.price;
+                let priceB = prodb.price;
+                priceA = priceA.indexOf('-')>0  ? priceA.substring(priceA.indexOf('$')+1, priceA.indexOf('-')-1)
+                                                : priceA.substring(priceA.indexOf('$')+1, priceA.indexOf('CAD'))
+                priceB = priceB.indexOf('-')>0  ? priceB.substring(priceB.indexOf('$')+1, priceB.indexOf('-')-1)
+                                                : priceB.substring(priceB.indexOf('$')+1, priceB.indexOf('CAD'))
+                if(action.payload=='Price: Low to High'){
+                    return Number(priceA) - Number(priceB)
+                }
+                if(action.payload=='Price: High to Low'){
+                    return Number(priceB) - Number(priceA)
+                }
+            })
+            console.log("tobeSorted ===> ", tobeSorted)
+            return {...state, productList: tobeSorted}
         default:
             return state
     }
