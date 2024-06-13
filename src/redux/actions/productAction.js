@@ -2,16 +2,16 @@ import axios from "axios";
 import Constants from "../../Constants";
 
 export const fetchProducts = (pageNo=1, filters={})=> dispatch => {
-    // let url = `${Constants.BASE_URL}/product/allProducts?page=${pageNo}&mykey=${Constants.MY_KEY}`
-    let url = `./data/mock_allproducts_${pageNo}.json`
+    let url = `${Constants.BASE_URL}/product/allProducts?page=${pageNo}&mykey=${Constants.MY_KEY}`
+    // let url = `./data/mock_allproducts_${pageNo}.json`
     let options = {
-        method: "GET",
+        method: "POST",
         mode: "cors",
         headers: {
             "Content-Type": "application/json",
             // 'Content-Type': 'application/x-www-form-urlencoded',
         },
-        // body: JSON.stringify(filters)
+        body: JSON.stringify(filters)
     }
     fetch(url, options)
         .then(resp => {

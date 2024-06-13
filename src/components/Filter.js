@@ -9,7 +9,7 @@ import CardSize from "./Card-Size";
 
 export const Filter = () => {
     const dispatch = useDispatch();
-    const filters = useSelector(state => state.filterReducer.filterLibrary)
+    const filters = useSelector(state => state.productReducer.selectedFilters)
 
     useEffect(() => {
         dispatch(fetchFilters())

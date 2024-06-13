@@ -1,4 +1,3 @@
-
 import {useState} from "react";
 
 const CardColor=({filter,obj})=>{
@@ -35,14 +34,14 @@ const CardColor=({filter,obj})=>{
                 <div className=' type-box'>
                     {filter && filter[obj] && filter[obj].length > 0 &&
                         filter[obj].map((item, index) =>
-                                <div className='typeColorContainer'
-                                     onClick={() => toggleSelected(index)}>
-                                    <img key={index} className={`typeColor ${selectedColor[index] ? 'selected' : ''}`} src={item.swatch} alt={item.alt}/>
-                                    <p className='text-color'> {item.alt}</p>
-                                </div>
-                            )}
-                    </div>
-                }
+                            <div className='typeColorContainer'
+                                 onClick={() => toggleSelected(index)}>
+                                <img key={index} className={`typeColor ${selectedColor[index] ? 'selected' : ''}`} src={item.swatch} alt={item.alt}/>
+                                <p className='text-color'> {item.alt}</p>
+                            </div>
+                        )}
+                </div>
+            }
 
             <br/>
             <hr/>

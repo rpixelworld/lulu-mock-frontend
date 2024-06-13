@@ -1,4 +1,6 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {useDispatch} from "react-redux";
+import {fetchProducts} from "../redux/actions/productAction";
 
 
 const CardSize =({filter,obj})=> {
@@ -7,6 +9,10 @@ const CardSize =({filter,obj})=> {
     const ctSizeONESIZE=filter && filter[obj] &&filter[obj].slice(-1)
     const [isHidden, setIsHidden] = useState(false);
     const [clickedButtons, setClickedButtons] = useState({});
+
+    const dispatch = useDispatch();
+    let seletedFilters = JSON.parse(JSON.stringify(filter))
+
     const hiddenList = () => {
         setIsHidden(!isHidden)
     }
@@ -14,7 +20,23 @@ const CardSize =({filter,obj})=> {
         setClickedButtons((prevState) => ({
             ...prevState, [index]: !prevState[index],
         }));
+
+        seletedFilters[obj][index]['isChecked'] = !seletedFilters[obj][index]['isChecked']
+        dispatch(fetchProducts(1, seletedFilters))
+
     };
+
+    useEffect(() => {
+        if(filter[obj] && filter[obj].length>0){
+            // console.log(filter[obj])
+            let receivedBoxes = {};
+            filter[obj].forEach((item,index) => {
+                receivedBoxes[index] = item.isChecked
+            })
+            // console.log(obj, '===>', receivedCheckbox)
+            setClickedButtons(receivedBoxes)
+        }
+    }, [filter[obj]]);
     return <>
         <div className='accordion-container'>
             <div className="accordion-header" onClick={hiddenList}>
@@ -39,7 +61,7 @@ const CardSize =({filter,obj})=> {
                         <div className='size-box'>
                             {filter && filter[obj] && filter[obj].length > 0 &&
                                 ctSize0to20.map((item, index) =>
-                                    <div>
+                                    <div key={`${obj}_${item.name}`}>
                                         <button key={index}
                                                 onClick={() => toggleButtonClick(index)}
                                                 style={{
@@ -53,7 +75,7 @@ const CardSize =({filter,obj})=> {
                         <div className='size-box'>
                             {filter && filter[obj] && filter[obj].length > 0 &&
                                 ctSizeXStoXXXL.map((item, index) =>
-                                    <div>
+                                    <div key={`${obj}_${item.name}`}>
                                         <button key={index+40}
                                                 onClick={() => toggleButtonClick(index+40)}
                                                 style={{
@@ -67,7 +89,7 @@ const CardSize =({filter,obj})=> {
                         <div className='size-box'>
                             {filter && filter[obj] && filter[obj].length > 0 &&
                                 ctSizeONESIZE.map((item, index) =>
-                                    <div>
+                                    <div key={`${obj}_${item.name}`}>
                                         <button key={index+52}
                                                 onClick={() => toggleButtonClick(index+52)}
                                                 style={{

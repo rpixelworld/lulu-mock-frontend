@@ -17,7 +17,7 @@ export const TabBar = ()=> {
         let keyIndexName = tab.split('_')
         let newFilters = JSON.parse(JSON.stringify(selectedFilters));
         newFilters[keyIndexName[0]][keyIndexName[1]]['isChecked']=false;
-        console.log(newFilters)
+        // console.log(newFilters)
         dispatch(fetchProducts(1, newFilters))
     }
 
@@ -28,8 +28,13 @@ export const TabBar = ()=> {
             if(Array.isArray(selectedFilters[key])){
                 selectedFilters[key].forEach(
                     (filter,index) => {
-                        console.log(key, filter)
-                        filter.isChecked && buttons.push(key+'_'+index+'_'+filter.name)
+                        // console.log(key, filter)
+                        if(key==='Colour') {
+                            filter.isChecked && buttons.push(key+'_'+index+'_'+filter.alt)
+                        }
+                        else {
+                            filter.isChecked && buttons.push(key+'_'+index+'_'+filter.name)
+                        }
                     }
                 )
             }
@@ -43,7 +48,7 @@ export const TabBar = ()=> {
                 {tabButtons.map( tab => {
                     // let arr = tab.split('_');
                     return (
-                        <div className="tab" onClick={()=>{handleRemoveFilter(tab)}}>
+                        <div key={tab} className="tab" onClick={()=>{handleRemoveFilter(tab)}}>
                             {tab.split('_')[2]} <ion-icon name="close-outline"></ion-icon>
                         </div>
                     )

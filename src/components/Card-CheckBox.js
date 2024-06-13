@@ -1,12 +1,20 @@
-import {useState} from "react";
-
+import {useEffect, useState} from "react";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxRoundedIcon from '@mui/icons-material/CheckBoxRounded';
+import {useDispatch} from "react-redux";
+import {fetchProducts} from "../redux/actions/productAction";
 
 const CardCheckBox = ({filter, obj}) => {
+
     const [isHidden, setIsHidden] = useState(false);
     const [showMore, setShowMore] = useState(true);
     const [checkBox, setCheckBox] = useState({});
+
+    const dispatch = useDispatch();
+    let seletedFilters = JSON.parse(JSON.stringify(filter))
+
     const hiddenList = () => {
         setIsHidden(!isHidden)
     }
@@ -18,7 +26,24 @@ const CardCheckBox = ({filter, obj}) => {
             ...prevState,
             [index]: !prevState[index],
         }));
+
+        seletedFilters[obj][index]['isChecked'] = !seletedFilters[obj][index]['isChecked']
+        dispatch(fetchProducts(1, seletedFilters))
+
     };
+
+    useEffect(() => {
+        if(filter[obj] && filter[obj].length>0){
+            // console.log(filter[obj])
+            let receivedCheckbox = {};
+            filter[obj].forEach((item,index) => {
+                receivedCheckbox[index] = item.isChecked
+            })
+            // console.log(obj, '===>', receivedCheckbox)
+            setCheckBox(receivedCheckbox)
+        }
+    }, [filter[obj]]);
+
     return <>
         <div className='accordion-container'>
             <div className="accordion-header" onClick={hiddenList} >
@@ -41,7 +66,7 @@ const CardCheckBox = ({filter, obj}) => {
                 <div className='accordion-box'>
                     {filter && filter[obj] && filter[obj].length > 0 &&
                         filter[obj].slice(0, 5).map((item, index) =>
-                            <div  className='checkList' onClick={()=>toggleCheck(index)}>
+                            <div key={`${obj}_${item.name}`} className='checkList' onClick={()=>toggleCheck(index)}>
                                 {checkBox[index] ? <CheckBoxRoundedIcon className='icon'/> :<CheckBoxOutlineBlankIcon className='icon'/> }
                                 <p>{item.name}</p>
                             </div>)}
@@ -51,7 +76,7 @@ const CardCheckBox = ({filter, obj}) => {
                         <div className='accordion-box'>
                             {filter && filter[obj] && filter[obj].length > 0 &&
                                 filter[obj].slice(5).map((item, index) =>
-                                    <div  className='checkList' onClick={()=>toggleCheck(index+5)}>
+                                    <div key={`${obj}_${item.name}`} className='checkList' onClick={()=>toggleCheck(index+5)}>
                                         {checkBox[index+5] ? <CheckBoxRoundedIcon className='icon'/> :<CheckBoxOutlineBlankIcon className='icon'/> }
                                         <p>{item.name}</p>
                                     </div>)}
