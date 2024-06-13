@@ -1,6 +1,5 @@
 import {useState} from "react";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
+
 
 const CardSize =({filter,obj})=> {
     const ctSize0to20=filter && filter[obj] && filter[obj].slice && filter[obj].slice(0,39)
@@ -19,8 +18,20 @@ const CardSize =({filter,obj})=> {
     return <>
         <div className='accordion-container'>
             <div className="accordion-header" onClick={hiddenList}>
-                <p>{obj}</p>
-                <div>{isHidden ? <AddIcon className='add-icon'/> : <RemoveIcon className='add-icon'/>}</div>
+                <div><p>{obj}</p></div>
+                {/*+/-*/}
+                <div className='add-minus'>
+                    {isHidden
+                        ? <>
+                            <div className='move-to-vertical'></div>
+                            <div className='need-fix'/>
+                        </>
+                        : <>
+                            <div className='move-to-horizontal'></div>
+                            <div className='need-fix'/>
+                        </>
+                    }
+                </div>
             </div>
             {!isHidden && (<>
                 <div className='accordion-container'>
