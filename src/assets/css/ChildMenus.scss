@@ -4,7 +4,7 @@
   top: 52px; /* Adjust this value based on your layout */
   left: 0;
   padding-left: 140px;
-  z-index: 9; /* Ensure it's above other content */
+  z-index: 9999999999; /* Ensure it's above other content */
   margin-left: 0;
   background-color: white;
   //cursor: pointer;
@@ -14,6 +14,8 @@
     width: 85.75rem;
     margin: auto;
     padding: 10px 38px;
+    background-color: white;
+
 
     display: flex;
     flex-direction: row;
@@ -23,6 +25,7 @@
       flex-direction: row;
       justify-content: space-between;
       width: 75%;
+      z-index: 9999 !important;
 
       .feature-menus {
         min-width: calc(85.75rem * 0.75 * 0.25);

@@ -61,19 +61,30 @@ header {
     position: fixed;
     top: 0;
     left: 0;
+    height: 76px;
+    //width: 85.75rem;
+    width: 100%;
+    margin: 0 auto;
+    //padding: 0 1.5625rem;
+    padding: 0 calc((100% - 85.75rem)/2 + 1.5625rem);
+    background-color: white;
+    z-index: 9;
+    display: flex;
+    justify-content: center;
   }
 
   .header-menubar-wrapper {
     //position: relative;
     height: 76px;
-    width: 85.75rem;
-    //width: 100%;
+    //width: 85.75rem;
+    width: 100%;
     margin: 0 auto;
-    padding: 0 1.5625rem;
+    //padding: 0 1.5625rem;
+    padding: 0 calc((100% - 85.75rem)/2 + 1.5625rem);
     background-color: white;
     z-index: 9;
     display: flex;
-    align-items: center;
+    justify-content: center;
 
     .header-menubar {
       width: 85.57rem;
@@ -138,7 +149,8 @@ header {
 .header-input {
   display: flex;
   position: relative;
-  margin-right: 10px;
+  //margin-right: 15px;
+  align-items: center;
   input {
     border-color: #53565a;
     border-radius: 4px;
@@ -159,12 +171,9 @@ header {
 }
 .header-input-icon2 {
   margin-right: 10px;
-  margin-top: 10px;
 }
 .header-input-icon3 {
   margin-right: 10px;
-  margin-top: 10px;
 }
 .header-input-icon4 {
-  margin-top: 10px;
 }
