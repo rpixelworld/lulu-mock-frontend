@@ -2,6 +2,7 @@ import '../assets/css/ProductList.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {fetchProducts} from "../redux/actions/productAction";
+import Product from "./Product";
 
 export const ProductList = ()=> {
 
@@ -47,12 +48,13 @@ export const ProductList = ()=> {
                     && productList.length > 0
                     && productList.map((prod, index) => {
                         return (
-                            <div key={prod.productId + index} className="product">
-                                <p>{index+1}</p>
-                                <p>{prod.productId}</p>
-                                <p>{prod.name}</p>
-                                <p>{prod.price}</p>
-                            </div>
+                            <Product key={prod.productId + index} product={prod} />
+                            // <div key={prod.productId + index} className="product">
+                            //     <p>{index+1}</p>
+                            //     <p>{prod.productId}</p>
+                            //     <p>{prod.name}</p>
+                            //     <p>{prod.price}</p>
+                            // </div>
                         )
                     })
                 }
