@@ -1,4 +1,5 @@
 import '../assets/css/ChildMenus.scss'
+import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 
 export const ChildMenus = ({handleMouseEnter, handleMouseLeave, display, title, submenus, advertisement, activities})=> {
     if(display) {
@@ -21,7 +22,7 @@ export const ChildMenus = ({handleMouseEnter, handleMouseLeave, display, title, 
                             return <>
                                 <div className='catagory-menus'>
                                     <div className='catagory-title'>{catagory.name}&nbsp;&nbsp;
-                                        <ion-icon name="arrow-forward-outline"></ion-icon>
+                                        <div className="mui-icon"><ArrowForwardOutlinedIcon/></div>
                                     </div>
                                     <div className={menuClass}>
                                         {catagoryMenus.map(catMenu => <a href={catMenu.url}><span>{catMenu.name}</span></a>)}
@@ -35,7 +36,9 @@ export const ChildMenus = ({handleMouseEnter, handleMouseLeave, display, title, 
                             src={advertisement.picture}/></div>
                         <div className='adv-title'>{advertisement.title}</div>
                         <div className='adv-desc'>{advertisement.description}</div>
-                        <div className='link'>{advertisement.link.text} &nbsp;&nbsp;<ion-icon name="arrow-forward-outline"></ion-icon></div>
+                        <div className='link'>{advertisement.link.text} &nbsp;&nbsp;
+                            <div className="mui-icon"><ArrowForwardOutlinedIcon/></div>
+                        </div>
                     </div>
                 </div>
                 {activities && activities.length>0 && (
@@ -45,7 +48,8 @@ export const ChildMenus = ({handleMouseEnter, handleMouseLeave, display, title, 
                         <div className='activity-items'>
                             {activities.map((act,i) => <a key={i} href={act.url}><span>{act.text}</span></a>)}
                         </div>
-                        <div className='shop-link'>SHOP ALL {title} &nbsp;&nbsp;<ion-icon name="arrow-forward-outline"></ion-icon>
+                        <div className='shop-link'>SHOP ALL {title} &nbsp;&nbsp;
+                            <div className="mui-icon"><ArrowForwardOutlinedIcon/></div>
                         </div>
                     </div>
                 </div>)}

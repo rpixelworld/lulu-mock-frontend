@@ -4,15 +4,19 @@ import PinDropOutlinedIcon from '@mui/icons-material/PinDropOutlined';
 import CardGiftcardOutlinedIcon from '@mui/icons-material/CardGiftcardOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
+import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import {ChildMenus} from "./ChildMenus";
 
-export const Header = ()=> {
+export const Header = () => {
 
     const menubarWapper = useRef();
     const [hoverMenu, setHoverMenu] = useState(0)
     const [menuList, setMenuList] = useState([])
 
-    const navAnimation = (obj)=> {
+    const navAnimation = (obj) => {
         // console.log(obj, obj.className)
         obj.className = obj.className.replace('fixed', '');
 
@@ -22,30 +26,30 @@ export const Header = ()=> {
             topDistance = window.scrollY + obj.getBoundingClientRect().top;
         }
         let scrollTop = window.scrollY;
-        if ( (topDistance) > scrollTop ) {
+        if ((topDistance) > scrollTop) {
             obj.className = obj.className.replace('fixed', '');
         }
 
-        if ( (topDistance) < scrollTop ) {
+        if ((topDistance) < scrollTop) {
             obj.className = obj.className + ' fixed'
         }
     }
-    window.onload = ()=> {
+    window.onload = () => {
         navAnimation(menubarWapper.current);
     };
 
-    window.onresize = ()=> {
+    window.onresize = () => {
         navAnimation(menubarWapper.current);
     };
 
-    window.onscroll = ()=> {
+    window.onscroll = () => {
         navAnimation(menubarWapper.current);
     };
 
-    const handleHoverMenu = (parent)=> {
+    const handleHoverMenu = (parent) => {
         setHoverMenu(parent)
     }
-    const handleUnhoverMenu = ()=> {
+    const handleUnhoverMenu = () => {
         setHoverMenu(0)
     }
 
@@ -62,19 +66,19 @@ export const Header = ()=> {
         <header>
             <div className='header-menu'>
                 <div className='menu-item'>
-                    <PinDropOutlinedIcon sx={{paddingTop:'4px'}}/>
+                    <PinDropOutlinedIcon sx={{paddingTop: '4px'}}/>
                     <a href="#">Store Locator</a>
                 </div>
                 <div className='menu-item'>
-                    <CardGiftcardOutlinedIcon sx={{paddingTop:'4px'}}/>
+                    <CardGiftcardOutlinedIcon sx={{paddingTop: '4px'}}/>
                     <a href="#">Gift Cards</a>
                 </div>
                 <div className='menu-item'>
-                    <HelpOutlineOutlinedIcon sx={{paddingTop:'4px'}}/>
+                    <HelpOutlineOutlinedIcon sx={{paddingTop: '4px'}}/>
                     <a href="#">Get Help</a>
                 </div>
                 <div className='menu-item'>
-                    <LanguageOutlinedIcon sx={{paddingTop:'4px'}}/>
+                    <LanguageOutlinedIcon sx={{paddingTop: '4px'}}/>
                     <a href="#">USA</a>
                 </div>
             </div>
@@ -88,98 +92,36 @@ export const Header = ()=> {
                         </div>
 
                         <ul>
-                            {menuList.filter(menu=>menu.parent==0).map(rootMenu=> {
+                            {menuList.filter(menu => menu.parent == 0).map(rootMenu => {
                                 return <r key={rootMenu.id}>
-                                    <li onMouseEnter={() => {handleHoverMenu(rootMenu.id)}}
+                                    <li onMouseEnter={() => {
+                                        handleHoverMenu(rootMenu.id)
+                                    }}
                                         onMouseLeave={handleUnhoverMenu}> {rootMenu.name}
                                     </li>
-                                    <ChildMenus handleMouseEnter={() => {handleHoverMenu(rootMenu.id) }}
-                                        handleMouseLeave={handleUnhoverMenu}
-                                        parent={rootMenu.id}
-                                        display={hoverMenu === rootMenu.id}
-                                        title={rootMenu.name}
-                                        submenus={menuList.filter(menu=>menu.rootMenu==rootMenu.id)}
-                                        advertisement={rootMenu.adv}
-                                        activities={rootMenu.activity}/>
+                                    <ChildMenus handleMouseEnter={() => {
+                                        handleHoverMenu(rootMenu.id)
+                                    }}
+                                                handleMouseLeave={handleUnhoverMenu}
+                                                parent={rootMenu.id}
+                                                display={hoverMenu === rootMenu.id}
+                                                title={rootMenu.name}
+                                                submenus={menuList.filter(menu => menu.rootMenu == rootMenu.id)}
+                                                advertisement={rootMenu.adv}
+                                                activities={rootMenu.activity}/>
                                 </r>
                             })}
-                            {/*<li*/}
-                            {/*    onMouseEnter={() => {*/}
-                            {/*        handleHoverMenu(1000)*/}
-                            {/*    }}*/}
-                            {/*    onMouseLeave={handleUnhoverMenu}>women*/}
-                            {/*</li>*/}
-                            {/*<ChildMenus*/}
-                            {/*    handleMouseEnter={() => {*/}
-                            {/*        handleHoverMenu(1000)*/}
-                            {/*    }}*/}
-                            {/*    handleMouseLeave={handleUnhoverMenu}*/}
-                            {/*    parent={1000}*/}
-                            {/*    display={hoverMenu === 1000}*/}
-                            {/*    title='women'/>*/}
-
-                            {/*<li onMouseEnter={() => {*/}
-                            {/*    handleHoverMenu(1001)*/}
-                            {/*}}*/}
-                            {/*    onMouseLeave={handleUnhoverMenu}>men*/}
-                            {/*</li>*/}
-                            {/*<ChildMenus*/}
-                            {/*    handleMouseEnter={() => {*/}
-                            {/*        handleHoverMenu(10001)*/}
-                            {/*    }}*/}
-                            {/*    handleMouseLeave={handleUnhoverMenu}*/}
-                            {/*    parent={1001} display={hoverMenu === 1001} title='MEN'/>*/}
-
-                            {/*<li onMouseEnter={() => {*/}
-                            {/*    handleHoverMenu(1002)*/}
-                            {/*}}*/}
-                            {/*    onMouseLeave={handleUnhoverMenu}>accessories*/}
-                            {/*</li>*/}
-                            {/*<ChildMenus*/}
-                            {/*    handleMouseEnter={() => {*/}
-                            {/*        handleHoverMenu(1002)*/}
-                            {/*    }}*/}
-                            {/*    handleMouseLeave={handleUnhoverMenu}*/}
-                            {/*    parent={1002} display={hoverMenu === 1002} title='accessories'/>*/}
-
-                            {/*<li onMouseEnter={() => {*/}
-                            {/*    handleHoverMenu(1003)*/}
-                            {/*}}*/}
-                            {/*    onMouseLeave={handleUnhoverMenu}>shoes*/}
-                            {/*</li>*/}
-                            {/*<ChildMenus*/}
-                            {/*    handleMouseEnter={() => {*/}
-                            {/*        handleHoverMenu(1003)*/}
-                            {/*    }}*/}
-                            {/*    handleMouseLeave={handleUnhoverMenu}*/}
-                            {/*    parent={1003} display={hoverMenu === 1003} title='shoes'/>*/}
-
-                            {/*<li onMouseEnter={() => {*/}
-                            {/*    handleHoverMenu(1004)*/}
-                            {/*}}*/}
-                            {/*    onMouseLeave={handleUnhoverMenu}>father's day*/}
-                            {/*</li>*/}
-                            {/*<ChildMenus*/}
-                            {/*    handleMouseEnter={() => {*/}
-                            {/*        handleHoverMenu(1004)*/}
-                            {/*    }}*/}
-                            {/*    handleMouseLeave={handleUnhoverMenu}*/}
-                            {/*    parent={1004} display={hoverMenu === 1004} title="father's day"/>*/}
                         </ul>
                     </div>
-
-
-                    {/*<div className='header-bar-fetch'>*/}
-                    {/*    <div className="header-bar-fetch-item">*/}
-                    {/*        <a href="#">women</a>*/}
-                    {/*    </div>*/}
-                    {/*    <div className="header-bar-fetch-item">*/}
-                    {/*        <a href="#">men</a>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
+                    <div className="header-input">
+                        <div className="header-input-icon1"><SearchOutlinedIcon/></div>
+                        <input type="text" placeholder={'Search'}/>
+                        <div className="header-input-icon2"><AccountCircleOutlinedIcon/> </div>
+                        <div className="header-input-icon3"><FavoriteBorderOutlinedIcon/></div>
+                        <div className="header-input-icon4"><ShoppingBagOutlinedIcon/></div>
+                    </div>
                 </div>
             </div>
-
         </header>
     )
 
