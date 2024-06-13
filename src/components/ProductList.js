@@ -3,8 +3,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {fetchProducts} from "../redux/actions/productAction";
 import Product from "./Product";
+import {useParams} from "react-router-dom";
 
 export const ProductList = ()=> {
+
+    // let valuePassed = useParams();
+    // console.log(valuePassed.key, valuePassed.index)
 
     const dispatch = useDispatch()
     const productList = useSelector(state => state.productReducer.productList)
@@ -18,7 +22,7 @@ export const ProductList = ()=> {
         let windowHeight = window.innerHeight;
         const documentHeight = document.documentElement.scrollHeight;
         // console.log('scrollY===>', scrollY, 'windowHeight===>', windowHeight, 'documentHeight===>', documentHeight)
-        if (scrollY + windowHeight >= documentHeight - 100) {
+        if (scrollY + windowHeight >= documentHeight - 1000) {
             console.log("last line, scroll listener removed")
             window.removeEventListener('scroll', handleScroll);
             if(pagination && pagination.curPage<pagination.totalPage){
@@ -32,7 +36,14 @@ export const ProductList = ()=> {
     }
 
     useEffect(() => {
-        dispatch(fetchProducts())
+        // if(valuePassed && valuePassed.key && valuePassed.index && selectedFilters && selectedFilters[valuePassed.key] && selectedFilters[valuePassed.key].length>0){
+        //         const parmFilters = JSON.parse(JSON.stringify(selectedFilters))
+        //         parmFilters[valuePassed.key][valuePassed.index].isChecked=true
+        //         dispatch(fetchProducts(1, parmFilters))
+        // }
+        // else{
+            dispatch(fetchProducts())
+        // }
     }, []);
 
     useEffect(() => {

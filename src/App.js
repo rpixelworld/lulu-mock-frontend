@@ -8,7 +8,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<WhatsNew />}/>
+            <Route index element={<WhatsNew />}/>
+            {/*<Route path='/whatsnew/:key/:index' element={<WhatsNew />} />*/}
         </Route>
       </Routes>
     </BrowserRouter>

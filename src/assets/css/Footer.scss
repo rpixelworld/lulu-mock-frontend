@@ -2,10 +2,11 @@
     margin: auto;
     width: 100%;
     box-sizing: border-box;
-    border: 1px black solid;
+    //border: 1px black solid;
     transform: scaleY(1);
     transform-origin: top;
     background-color: white; /* 背景色 */
+    padding-top: 20px;
 }
 
 .footer-container {
