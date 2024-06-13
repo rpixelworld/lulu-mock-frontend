@@ -1,6 +1,5 @@
 import {useState} from "react";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
+
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxRoundedIcon from '@mui/icons-material/CheckBoxRounded';
 
@@ -24,7 +23,19 @@ const CardCheckBox = ({filter, obj}) => {
         <div className='accordion-container'>
             <div className="accordion-header" onClick={hiddenList} >
                 <div><p>{obj}</p></div>
-                <div>{isHidden ? <AddIcon className='add-icon'/> : <RemoveIcon className='add-icon'/>}</div>
+                {/*+/-*/}
+                <div className='add-minus'>
+                    {isHidden
+                    ? <><div className='move-to-vertical'></div>
+                        <div className='need-fix'/>
+                    </>
+                    : <>
+                        <div className='move-to-horizontal'></div>
+                        <div className='need-fix'/>
+                    </>
+                }
+                </div>
+
             </div>
             {!isHidden && (<>
                 <div className='accordion-box'>
@@ -49,7 +60,16 @@ const CardCheckBox = ({filter, obj}) => {
                     <br/>
                     <div className='accordion-view-more-header' style={{color:'#53565a'}} onClick={show}>
                         <div>{showMore ? 'View More' : 'View Less'}</div>
-                        <div>{showMore ? <AddIcon className='icon'/> : <RemoveIcon className='icon'/>}</div>
+                        {/*+/-*/}
+                        <div className='add-minus'>{showMore
+                            ? <><div className='move-to-vertical' style={{background:"#56535a"}}></div>
+                                <div className='need-fix' style={{background:"#56535a"}}/>
+                            </>
+                            : <>
+                                <div className='move-to-horizontal' style={{background:"#56535a"}}></div>
+                                <div className='need-fix' style={{background:"#56535a"}}/>
+                            </>
+                        }</div>
                     </div>
                 </>)}
             </>)}
