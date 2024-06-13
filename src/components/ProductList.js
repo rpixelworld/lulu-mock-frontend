@@ -8,6 +8,7 @@ export const ProductList = ()=> {
     const dispatch = useDispatch()
     const productList = useSelector(state => state.productReducer.productList)
     const pagination = useSelector(state => state.productReducer.pagination)
+    const selectedFilters = useSelector(state => state.productReducer.selectedFilters)
 
     //for infinite scrolling
     const handleScroll = ()=> {
@@ -20,13 +21,13 @@ export const ProductList = ()=> {
             console.log("last line, scroll listener removed")
             window.removeEventListener('scroll', handleScroll);
             if(pagination && pagination.curPage<pagination.totalPage){
-                dispatch(fetchProducts(pagination.curPage+1))
+                dispatch(fetchProducts(pagination.curPage+1, selectedFilters))
             }
         }
     }
 
     const handleViewMore = ()=> {
-        dispatch(fetchProducts(pagination.curPage+1))
+        dispatch(fetchProducts(pagination.curPage+1, selectedFilters))
     }
 
     useEffect(() => {

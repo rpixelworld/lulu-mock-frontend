@@ -34,7 +34,8 @@ export const productReducer = (state=initState, action)=>{
             console.log('productList.length===>', state.productList.length, 'temp.length===>', temp.length)
             return {...state,
                 productList: temp,
-                pagination: action.payload['pageParams']
+                pagination: action.payload['pageParams'],
+                selectedFilters: action.payload['filters']
             }
 
         default:
