@@ -97,7 +97,7 @@ export const Header = () => {
                                     <li onMouseEnter={() => {
                                         handleHoverMenu(rootMenu.id)
                                     }}
-                                        onMouseLeave={handleUnhoverMenu}> {rootMenu.name}
+                                        onMouseLeave={handleUnhoverMenu} className={rootMenu.isSpecial?'special':''}> {rootMenu.name}
                                     </li>
                                     <ChildMenus handleMouseEnter={() => {
                                         handleHoverMenu(rootMenu.id)

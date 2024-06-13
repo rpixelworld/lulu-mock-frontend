@@ -138,6 +138,10 @@ header {
         li:hover::after {
           transform: scaleX(1);
         }
+
+        li.special {
+          color: red;
+        }
       }
 
     }
