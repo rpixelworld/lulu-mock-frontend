@@ -90,11 +90,11 @@ const CardSize =({filter,obj})=> {
                             {filter && filter[obj] && filter[obj].length > 0 &&
                                 ctSizeONESIZE.map((item, index) =>
                                     <div key={`${obj}_${item.name}`}>
-                                        <button key={index+52}
-                                                onClick={() => toggleButtonClick(index+52)}
+                                        <button key={index+53}
+                                                onClick={() => toggleButtonClick(index+53)}
                                                 style={{
-                                                    backgroundColor: clickedButtons[index+52] ? "black" : "white",
-                                                    color: clickedButtons[index+52] ? "white" : "black",
+                                                    backgroundColor: clickedButtons[index+53] ? "black" : "white",
+                                                    color: clickedButtons[index+53] ? "white" : "black",
                                                 }}
                                                 className='size-number-two'>{item.name}</button>
                                     </div>)}
