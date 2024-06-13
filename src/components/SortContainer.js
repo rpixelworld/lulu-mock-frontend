@@ -8,6 +8,7 @@ import {useSelector} from "react-redux";
 export const SortContainer = ()=> {
     const anchorRefs = useRef([])
     const [sortDropDownDisplay, setSortDropDownDisplay] = useState(false)
+    const [sortBy, setSortBy] = useState('Featured')
 
     const pagination = useSelector(state => state.productReducer.pagination)
 
@@ -20,10 +21,15 @@ export const SortContainer = ()=> {
         }
     }
 
-    const toggleDropDown = ()=> {
+    const toggleDropDown = (e)=> {
         setSortDropDownDisplay(prev => !prev)
     }
 
+    const selectSortBy = (e) => {
+        console.log(e)
+        setSortBy(e.target.textContent)
+        setSortDropDownDisplay(prev => !prev)
+    }
     return (
         <div className="sort-container">
             <div className="row">
@@ -39,7 +45,7 @@ export const SortContainer = ()=> {
                 </div>
                 <div className="sorting-wrapper">
                     <p>Sort by </p>
-                    <p className='pointer' onClick={toggleDropDown}>Featured </p>
+                    <p className='pointer' onClick={toggleDropDown}>{sortBy}</p>
                     <KeyboardArrowDownOutlinedIcon
                         sx={{paddingTop:'0.6rem',cursor:'pointer'}}
                         onClick={toggleDropDown}/>
@@ -48,11 +54,11 @@ export const SortContainer = ()=> {
 
                     <div className={sortDropDownDisplay?'custom-dropdown':'custom-dropdown hide'} >
                         <ul>
-                            <li value='Featured'>Featured</li>
-                            <li>New Arrivals</li>
-                            <li>Top Rated</li>
-                            <li>Price: High to Low</li>
-                            <li>Price: Low to High</li>
+                            <li onClick={selectSortBy} value='Featured'>Featured</li>
+                            <li onClick={selectSortBy} value='New Arrivals'>New Arrivals</li>
+                            <li onClick={selectSortBy} value='Top Rated'>Top Rated</li>
+                            <li onClick={selectSortBy} value='Price: High to Low'>Price: High to Low</li>
+                            <li onClick={selectSortBy} value='Price: Low to High'>Price: Low to High</li>
                         </ul>
                     </div>
                 </div>

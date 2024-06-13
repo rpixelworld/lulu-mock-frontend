@@ -9,9 +9,12 @@ body {
   padding: 0;
   font-family: Calibre, Helvetica Neue, Helvetica, Roboto, Arial, sans-serif;
   font-size: 16px;
+  overflow-x: hidden;
 }
 
-
+path {
+  z-index: 9;
+}
 /*
 The followng is only for testing, can be removed when Header is ready
  */

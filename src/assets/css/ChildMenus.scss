@@ -4,7 +4,7 @@
   top: 52px; /* Adjust this value based on your layout */
   left: 0;
   padding-left: 140px;
-  z-index: 9; /* Ensure it's above other content */
+  z-index: 9999999999; /* Ensure it's above other content */
   margin-left: 0;
   background-color: white;
   //cursor: pointer;
@@ -14,6 +14,8 @@
     width: 85.75rem;
     margin: auto;
     padding: 10px 38px;
+    background-color: white;
+
 
     display: flex;
     flex-direction: row;
@@ -23,6 +25,7 @@
       flex-direction: row;
       justify-content: space-between;
       width: 75%;
+      z-index: 9999 !important;
 
       .feature-menus {
         min-width: calc(85.75rem * 0.75 * 0.25);
@@ -48,7 +51,7 @@
           font-size: 14px;
           font-weight: 600;
           text-transform: uppercase;
-          display: inline;
+          display: flex;
 
 
           //ion-icon::before {
@@ -111,6 +114,7 @@
       .link {
         font-size: 15px;
         font-weight: 600;
+        display: flex;
       }
     }
   }
@@ -154,6 +158,7 @@
       }
 
       .shop-link {
+        display: flex;
         width: 25%;
         text-align: right;
         font-size: 14px;
@@ -201,8 +206,15 @@
 
 }
 
-
-
+.mui-icon{
+  transition: transform 0.3s ease;
+  color: #d21919;
+  margin-top: -5px;
+  margin-right: 5px;
+}
+.mui-icon:hover {
+  transform: translateX(10px);
+}
 
 
 

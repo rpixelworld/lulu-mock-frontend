@@ -61,7 +61,16 @@ header {
     position: fixed;
     top: 0;
     left: 0;
-    //left: calc((100% - 85.75rem) / 2);
+    height: 76px;
+    //width: 85.75rem;
+    width: 100%;
+    margin: 0 auto;
+    //padding: 0 1.5625rem;
+    padding: 0 calc((100% - 85.75rem)/2 + 1.5625rem);
+    background-color: white;
+    z-index: 9;
+    display: flex;
+    justify-content: center;
   }
 
   .header-menubar-wrapper {
@@ -70,11 +79,12 @@ header {
     //width: 85.75rem;
     width: 100%;
     margin: 0 auto;
-    padding: 0 1.5625rem;
+    //padding: 0 1.5625rem;
+    padding: 0 calc((100% - 85.75rem)/2 + 1.5625rem);
     background-color: white;
     z-index: 9;
     display: flex;
-    align-items: center;
+    justify-content: center;
 
     .header-menubar {
       width: 85.57rem;
@@ -128,6 +138,10 @@ header {
         li:hover::after {
           transform: scaleX(1);
         }
+
+        li.special {
+          color: red;
+        }
       }
 
     }
@@ -136,81 +150,34 @@ header {
 
 
 
-.header-bar-fetch-item {
-  position: relative;
-}
-
-.header-fetch-container {
-  position: absolute;
-}
-
-
-
-.header-bar-icon {
+.header-input {
   display: flex;
-  justify-content: space-between;
-  margin-right: 50px;
-
-  a {
-    padding: 15px;
-    text-decoration: none;
-    color: black;
-    font-size: 15px;
-    position: relative;
-    margin-left: -10px;
-  }
-
-  a::after {
-    content: '';
-    position: absolute;
-    left: 15px;
-    bottom: 5px;
-    width: 50px;
-    height: 2px;
-    background-color: #d21919;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.3s ease;
-  }
-
-  a:hover::after {
-    transform: scaleX(1);
-  }
-
+  position: relative;
+  //margin-right: 15px;
+  align-items: center;
   input {
-    border: 2px solid black;
+    border-color: #53565a;
     border-radius: 4px;
     width: 250px;
-    height: 45px;
-
+    height: 50px;
+    padding-left: 40px;
+    margin-right: 10px;
     &:focus {
-      border-color: black;
-      outline: none; /* Optional: Remove the default outline */
+      outline: none;
     }
-
-
   }
 }
+.header-input-icon1 {
+  position: absolute;
+  left: 10px;
+  top: 30%;
 
-.header-bar-input-icon {
-  position: relative;
-  display: inline-block;
-  margin-right: 20px;
-  margin-top: -10px;
-
-  i {
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
-  #search-input {
-    padding-left: 40px; /* Adjust padding based on icon size */
-  }
-
-  #search-input::after {
-    border-color: black;
-  }
-
+}
+.header-input-icon2 {
+  margin-right: 10px;
+}
+.header-input-icon3 {
+  margin-right: 10px;
+}
+.header-input-icon4 {
 }

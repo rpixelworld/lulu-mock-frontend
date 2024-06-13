@@ -16,7 +16,7 @@ export const productReducer = (state=initState, action)=>{
     switch (action.type){
         case Constants.ACTION_FETCH_FILTERS:
             console.log('FETCH_FILTERS', action.payload);
-            return {...state, selectedFilters:action.payload}
+            return {...state, selectedFilters: action.payload}
 
         case Constants.ACTION_FETCH_PRODUCTLIST:
             console.log(action.payload['products'])
@@ -34,7 +34,8 @@ export const productReducer = (state=initState, action)=>{
             console.log('productList.length===>', state.productList.length, 'temp.length===>', temp.length)
             return {...state,
                 productList: temp,
-                pagination: action.payload['pageParams']
+                pagination: action.payload['pageParams'],
+                selectedFilters: action.payload['filters']
             }
 
         default:
