@@ -3,7 +3,8 @@
   position: absolute;
   top: 52px; /* Adjust this value based on your layout */
   left: 0;
-  padding-left: 138px;
+  //padding-left: 138px;
+  padding-left: calc((100% - 85.75rem)/2);
   z-index: 999 !important; /* Ensure it's above other content */
   margin-left: 0;
   //margin-top: 20px;
@@ -13,6 +14,7 @@
 
   .childmenus-wrapper {
     //width: 85.75rem;
+    //margin: auto;
     width: 78rem;
     margin: 0;
 
@@ -28,6 +30,7 @@
       flex-direction: row;
       justify-content: space-between;
       width: 75%;
+      margin-left: 110px;
       z-index: 9999 !important;
 
       .feature-menus {
@@ -128,10 +131,11 @@
     height: 80px;
     background-color: #fafafa;
     margin-bottom: 36px;
+
     .activity {
       width: 85.75rem;
-      margin: auto;
-      padding: 10px 20px;
+      //margin: auto;
+      padding: 10px 20px 10px 128px;
       display: flex;
       flex-direction: row;
       align-items: center;
