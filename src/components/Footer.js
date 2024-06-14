@@ -66,9 +66,7 @@ export const Footer = () => {
                     ))}
                     <img src="https://images.lululemon.com/is/content/lululemon/ccpa-icon" alt=""/>
                 </div>
-
-            </div>
-            <div className='footer-social'>
+                <div className='footer-social footer-column'>
                     <div>
                         <a href="https://x.com/lululemon">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="20" height="20">
@@ -122,7 +120,10 @@ export const Footer = () => {
                         </a>
                     </div>
 
+                </div>
+
             </div>
+
             <hr className='line-before-bttom'/>
             <div className='footer-bottom'>
                 <div>© lululemon athletica 1818 Cornwall Ave, Vancouver BC V6J 1C7</div>
