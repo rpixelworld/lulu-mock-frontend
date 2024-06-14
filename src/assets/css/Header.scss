@@ -54,7 +54,6 @@ header {
   width: 100%;
   margin: 0;
   height: 76px;
-  position: relative;
   background-color: white;
 
   .header-menubar-wrapper.fixed {
@@ -175,6 +174,32 @@ header {
 }
 .header-input-icon2 {
   margin-right: 10px;
+  display: flex;
+
+  a{
+    text-decoration: none;
+    white-space: nowrap;
+    font-size: 14px;
+    margin-top: 3px;
+    color: black;
+    padding-left: 3px;
+  }
+  a::after {
+    content: '';
+    position: absolute;
+    left: 285px;
+    bottom: 20px;
+    width: 50px;
+    height: 2px;
+    background-color: #d21919;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  a:hover::after {
+    transform: scaleX(1);
+  }
 }
 .header-input-icon3 {
   margin-right: 10px;
