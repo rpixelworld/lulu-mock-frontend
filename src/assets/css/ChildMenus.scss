@@ -3,17 +3,18 @@
   position: absolute;
   top: 52px; /* Adjust this value based on your layout */
   left: 0;
-  padding-left: 140px;
-  z-index: 9999999999; /* Ensure it's above other content */
+  padding-left: 138px;
+  z-index: 999 !important; /* Ensure it's above other content */
   margin-left: 0;
   background-color: white;
   //cursor: pointer;
   width: 100%;
 
   .childmenus-wrapper {
-    width: 85.75rem;
-    margin: auto;
-    padding: 10px 38px;
+    //width: 85.75rem;
+    width: 78rem;
+    margin: 0;
+    padding: 10px 20px;
     background-color: white;
 
 
@@ -73,7 +74,7 @@
           column-gap: 0;
         }
         .one-column {
-          width: calc(85.75rem * 0.75 * 0.25);
+          width: 200px;
           min-width: 25%;
           margin-left: 0;
           flex-direction: column;
@@ -99,20 +100,20 @@
       }
 
       .adv-title {
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         font-weight: 600;
-        margin-bottom: 4px;
+        margin-bottom: 8px;
       }
 
       .adv-desc {
         font-size: 14px;
         //text-align: justify;
         padding-right: 60px;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
       }
 
       .link {
-        font-size: 15px;
+        font-size: 14px;
         font-weight: 600;
         display: flex;
       }
@@ -128,7 +129,7 @@
     .activity {
       width: 85.75rem;
       margin: auto;
-      padding: 10px 38px;
+      padding: 10px 20px;
       display: flex;
       flex-direction: row;
       align-items: center;
