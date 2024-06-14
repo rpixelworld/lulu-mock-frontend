@@ -116,7 +116,8 @@ export const Header = () => {
                     <div className="header-input">
                         <div className="header-input-icon1"><SearchOutlinedIcon/></div>
                         <input type="text" placeholder={'Search'}/>
-                        <div className="header-input-icon2"><AccountCircleOutlinedIcon/> </div>
+                        <div className="header-input-icon2"><AccountCircleOutlinedIcon/>
+                            <a href="#">Sign In</a></div>
                         <div className="header-input-icon3"><FavoriteBorderOutlinedIcon/></div>
                         <div className="header-input-icon4"><ShoppingBagOutlinedIcon/></div>
                     </div>
