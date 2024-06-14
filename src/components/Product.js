@@ -72,12 +72,12 @@ const Product = ({ product }) => {
                             src={currentImage}
                             alt={product.name}
                         />
-                        <LikedProducts
-                            productId={product.productId}
-                            isLiked={likedProducts.includes(product.productId)}
-                            toggleLike={toggleLike}
-                        />
                     </div>
+                    <LikedProducts
+                        productId={product.productId}
+                        isLiked={likedProducts.includes(product.productId)}
+                        toggleLike={toggleLike}
+                    />
                 </div>
             </div>
             <div className="product-details">
