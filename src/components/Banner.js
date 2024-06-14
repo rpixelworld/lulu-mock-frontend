@@ -1,5 +1,6 @@
 import '../assets/css/Banner.scss'
 import {useRef} from "react";
+import {Link} from "react-router-dom";
 
 export const Banner = ()=> {
 
@@ -26,24 +27,24 @@ export const Banner = ()=> {
                     <li onClick={() => {
                         handleSwipeClick(0)
                     }}>
-                        <a className='selected'
+                        <Link to='/' className='selected'
                            ref={(element) => {
                                anchorRefs.current.push(element)
-                           }} href="#">All What's New</a>
+                           }}>All What's New</Link>
                     </li>
                     <li onClick={() => {
                         handleSwipeClick(1)
                     }}>
-                        <a ref={(element) => {
+                        <Link to='/whatsnew/Gender/1' ref={(element) => {
                             anchorRefs.current.push(element)
-                        }} href="#">Women's What's New</a>
+                        }} >Women's What's New</Link>
                     </li>
                     <li onClick={() => {
                         handleSwipeClick(2)
                     }}>
-                        <a ref={(element) => {
+                        <Link to='/whatsnew/Gender/0' ref={(element) => {
                             anchorRefs.current.push(element)
-                        }} href="#">Men's What's New</a>
+                        }}>Men's What's New</Link>
                     </li>
                     <li onClick={() => {
                         handleSwipeClick(3)

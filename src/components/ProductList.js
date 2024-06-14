@@ -7,13 +7,14 @@ import {useParams} from "react-router-dom";
 
 export const ProductList = ()=> {
 
-    // let valuePassed = useParams();
-    // console.log(valuePassed.key, valuePassed.index)
+    let valuePassed = useParams();
+    console.log(valuePassed.key, valuePassed.index)
 
     const dispatch = useDispatch()
     const productList = useSelector(state => state.productReducer.productList)
     const pagination = useSelector(state => state.productReducer.pagination)
     const selectedFilters = useSelector(state => state.productReducer.selectedFilters)
+
 
     //for infinite scrolling
     const handleScroll = ()=> {
@@ -36,14 +37,7 @@ export const ProductList = ()=> {
     }
 
     useEffect(() => {
-        // if(valuePassed && valuePassed.key && valuePassed.index && selectedFilters && selectedFilters[valuePassed.key] && selectedFilters[valuePassed.key].length>0){
-        //         const parmFilters = JSON.parse(JSON.stringify(selectedFilters))
-        //         parmFilters[valuePassed.key][valuePassed.index].isChecked=true
-        //         dispatch(fetchProducts(1, parmFilters))
-        // }
-        // else{
             dispatch(fetchProducts())
-        // }
     }, []);
 
     useEffect(() => {
@@ -52,6 +46,25 @@ export const ProductList = ()=> {
         }
     }, [productList])
 
+    useEffect(() => {
+        if(valuePassed && valuePassed.key && valuePassed.index){
+            // if(selectedFilters && selectedFilters[valuePassed.key] && selectedFilters[valuePassed.key].length>0) {
+            const parmFilters = JSON.parse(JSON.stringify(selectedFilters))
+            for(let i=0; i<parmFilters[valuePassed.key].length; i++){
+                if(i!=valuePassed.index){
+                    parmFilters[valuePassed.key][i].isChecked = false
+                }
+                else {
+                    parmFilters[valuePassed.key][valuePassed.index].isChecked = true
+                }
+            }
+            dispatch(fetchProducts(1, parmFilters))
+            // }
+        }
+        else {
+            dispatch(fetchProducts())
+        }
+    }, [valuePassed]);
     return (<>
         <div className="productlist-container">
             <div className="row">
