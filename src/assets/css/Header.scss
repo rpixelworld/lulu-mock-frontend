@@ -26,16 +26,16 @@ header {
   a {
     text-decoration: none;
     color: black;
-    font-size: 14px;
-    padding: 5px 10px;
+    font-size: 12px;
+    padding: 5px 5px;
     position: relative;
   }
 
   a::after {
     content: '';
     position: absolute;
-    left: 10px;
-    bottom: -2px;
+    left: 8px;
+    bottom: 2px;
     width: 80%;
     height: 2px;
     background-color: #d21919;
@@ -52,7 +52,6 @@ header {
 .header-menubar-holder {
   position: relative;
   width: 100%;
-  margin-top: 10px;
   height: 76px;
   background-color: white;
 
@@ -174,7 +173,7 @@ header {
 
 }
 .header-input-icon2 {
-  margin-right: 10px;
+  margin-right: 20px;
   display: flex;
 
   a{
@@ -203,7 +202,5 @@ header {
   }
 }
 .header-input-icon3 {
-  margin-right: 10px;
-}
-.header-input-icon4 {
+  margin-right: 20px;
 }
