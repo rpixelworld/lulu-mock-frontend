@@ -23,14 +23,15 @@ export const ProductDetail = () => {
 
                     <div className="productintro-container">
                         <div className="carousel-container">
-
+                            <h2>Carousel</h2>
                         </div>
                         <div className="detailinfo-container">
-                            <h1>{productDetail.productId}</h1>
+                            <h2>Product Introduction & detail</h2>
+                            <h2>{productDetail.productId}</h2>
                             <h2>{productDetail.name}</h2>
                         </div>
                         <div className="verticalrecos-container">
-
+                            <h2>You may like</h2>
                         </div>
                     </div>
 
