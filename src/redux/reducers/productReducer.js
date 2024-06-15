@@ -8,7 +8,8 @@ const initState = {
         curPage:0,
         totalPage:0,
     },
-    selectedFilters:{}
+    selectedFilters:{},
+    productDetail: {}
 
 }
 
@@ -55,6 +56,8 @@ export const productReducer = (state=initState, action)=>{
             })
             console.log("tobeSorted ===> ", tobeSorted)
             return {...state, productList: tobeSorted}
+        case Constants.ACTION_FETCH_PRODUCT_DETAIL:
+            return {...state, productDetail: action.payload}
         default:
             return state
     }

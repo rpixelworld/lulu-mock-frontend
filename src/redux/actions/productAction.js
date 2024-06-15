@@ -43,3 +43,21 @@ export const sortProduct = (sortBy=4) => {
         payload: sortBy
     }
 }
+
+export const fetchProductDetail = (productId) => dispatch => {
+    // let url = `${Constants.BASE_URL}/product/${productId}?mykey=${Constants.MY_KEY}`
+    let url = `./data/product_${productId}.json`
+    fetch(url)
+        .then(resp => {
+            console.log(resp)
+            if (resp.ok) {
+                return resp.json()
+            }
+        })
+        .then(res => {
+            dispatch({
+                type: Constants.ACTION_FETCH_PRODUCT_DETAIL,
+                payload: res.rs
+            })
+        })
+}

@@ -1,0 +1,263 @@
+{
+  "version": "LU_API_v2.0.1",
+  "author": "ItLabPro data source for internal bootcamp use only! Copyright @ http://itlabpro.io/",
+  "status": "Success",
+  "rs": {
+    "productId": "prod10550089",
+    "swatches": [
+      {
+        "colorId": "56496",
+        "swatch": "http://api-lulu.hibitbyte.com/static/images/swatches/Pink_Peony_56496.jpg",
+        "swatchAlt": "Pink Peony"
+      },
+      {
+        "colorId": "32650",
+        "swatch": "http://api-lulu.hibitbyte.com/static/images/swatches/Faint_Lavender_32650.jpg",
+        "swatchAlt": "Faint Lavender"
+      },
+      {
+        "colorId": "52291",
+        "swatch": "http://api-lulu.hibitbyte.com/static/images/swatches/Pastel_Blue_52291.jpg",
+        "swatchAlt": "Pastel Blue"
+      },
+      {
+        "colorId": "55058",
+        "swatch": "http://api-lulu.hibitbyte.com/static/images/swatches/Prosecco-White_55058.jpg",
+        "swatchAlt": "Prosecco/White"
+      },
+      {
+        "colorId": "53474",
+        "swatch": "http://api-lulu.hibitbyte.com/static/images/swatches/Cirrus_Wash_Alpine_White_Cirrus_Blue_Soft_Denim_53474.jpg",
+        "swatchAlt": "Cirrus Wash Alpine White Cirrus Blue Soft Denim"
+      },
+      {
+        "colorId": "54428",
+        "swatch": "http://api-lulu.hibitbyte.com/static/images/swatches/Magenta_Purple_54428.jpg",
+        "swatchAlt": "Magenta Purple"
+      },
+      {
+        "colorId": "33985",
+        "swatch": "http://api-lulu.hibitbyte.com/static/images/swatches/Dewy_33985.jpg",
+        "swatchAlt": "Dewy"
+      },
+      {
+        "colorId": "32493",
+        "swatch": "http://api-lulu.hibitbyte.com/static/images/swatches/Heathered_Core_Ultra_Light_Grey_32493.jpg",
+        "swatchAlt": "Heathered Core Ultra Light Grey"
+      },
+      {
+        "colorId": "0002",
+        "swatch": "http://api-lulu.hibitbyte.com/static/images/swatches/White_0002.jpg",
+        "swatchAlt": "White"
+      },
+      {
+        "colorId": "0001",
+        "swatch": "http://api-lulu.hibitbyte.com/static/images/swatches/Black_0001.jpg",
+        "swatchAlt": "Black"
+      }
+    ],
+    "images": [
+      {
+        "colorId": "56496",
+        "colorAlt": "Pink Peony",
+        "mainCarousel": {
+          "media": "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/56496/prod10550089_56496_img0.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/56496/prod10550089_56496_img1.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/56496/prod10550089_56496_img2.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/56496/prod10550089_56496_img3.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/56496/prod10550089_56496_img4.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/56496/prod10550089_56496_img5.jpg",
+          "alt": "Pink Peony Love Long Sleeve Shirt"
+        },
+        "whyWeMadeThis": [
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/56496/prod10550089_56496_whyWeMadeThis_img0.jpg",
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/56496/prod10550089_56496_whyWeMadeThis_img1.jpg"
+        ]
+      },
+      {
+        "colorId": "32650",
+        "colorAlt": "Faint Lavender",
+        "mainCarousel": {
+          "media": "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/32650/prod10550089_32650_img0.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/32650/prod10550089_32650_img1.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/32650/prod10550089_32650_img2.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/32650/prod10550089_32650_img3.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/32650/prod10550089_32650_img4.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/32650/prod10550089_32650_img5.jpg",
+          "alt": "Faint Lavender Love Long Sleeve Shirt"
+        },
+        "whyWeMadeThis": [
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/32650/prod10550089_32650_whyWeMadeThis_img0.jpg",
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/32650/prod10550089_32650_whyWeMadeThis_img1.jpg"
+        ]
+      },
+      {
+        "colorId": "52291",
+        "colorAlt": "Pastel Blue",
+        "mainCarousel": {
+          "media": "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/52291/prod10550089_52291_img0.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/52291/prod10550089_52291_img1.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/52291/prod10550089_52291_img2.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/52291/prod10550089_52291_img3.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/52291/prod10550089_52291_img4.jpg",
+          "alt": "Pastel Blue Love Long Sleeve Shirt"
+        },
+        "whyWeMadeThis": [
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/52291/prod10550089_52291_whyWeMadeThis_img0.jpg",
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/52291/prod10550089_52291_whyWeMadeThis_img1.jpg"
+        ]
+      },
+      {
+        "colorId": "55058",
+        "colorAlt": "Prosecco/White",
+        "mainCarousel": {
+          "media": "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/55058/prod10550089_55058_img0.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/55058/prod10550089_55058_img1.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/55058/prod10550089_55058_img2.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/55058/prod10550089_55058_img3.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/55058/prod10550089_55058_img4.jpg",
+          "alt": "Prosecco/White Love Long Sleeve Shirt"
+        },
+        "whyWeMadeThis": [
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/55058/prod10550089_55058_whyWeMadeThis_img0.jpg",
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/55058/prod10550089_55058_whyWeMadeThis_img1.jpg"
+        ]
+      },
+      {
+        "colorId": "53474",
+        "colorAlt": "Cirrus Wash Alpine White Cirrus Blue Soft Denim",
+        "mainCarousel": {
+          "media": "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/53474/prod10550089_53474_img0.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/53474/prod10550089_53474_img1.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/53474/prod10550089_53474_img2.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/53474/prod10550089_53474_img3.jpg",
+          "alt": "Cirrus Wash Alpine White Cirrus Blue Soft Denim Love Long Sleeve Shirt"
+        },
+        "whyWeMadeThis": [
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/53474/prod10550089_53474_whyWeMadeThis_img0.jpg",
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/53474/prod10550089_53474_whyWeMadeThis_img1.jpg"
+        ]
+      },
+      {
+        "colorId": "54428",
+        "colorAlt": "Magenta Purple",
+        "mainCarousel": {
+          "media": "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/54428/prod10550089_54428_img0.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/54428/prod10550089_54428_img1.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/54428/prod10550089_54428_img2.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/54428/prod10550089_54428_img3.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/54428/prod10550089_54428_img4.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/54428/prod10550089_54428_img5.jpg",
+          "alt": "Magenta Purple Love Long Sleeve Shirt"
+        },
+        "whyWeMadeThis": [
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/54428/prod10550089_54428_whyWeMadeThis_img0.jpg",
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/54428/prod10550089_54428_whyWeMadeThis_img1.jpg"
+        ]
+      },
+      {
+        "colorId": "33985",
+        "colorAlt": "Dewy",
+        "mainCarousel": {
+          "media": "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/33985/prod10550089_33985_img0.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/33985/prod10550089_33985_img1.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/33985/prod10550089_33985_img2.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/33985/prod10550089_33985_img3.jpg",
+          "alt": "Dewy Love Long Sleeve Shirt"
+        },
+        "whyWeMadeThis": [
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/33985/prod10550089_33985_whyWeMadeThis_img0.jpg",
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/33985/prod10550089_33985_whyWeMadeThis_img1.jpg"
+        ]
+      },
+      {
+        "colorId": "32493",
+        "colorAlt": "Heathered Core Ultra Light Grey",
+        "mainCarousel": {
+          "media": "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/32493/prod10550089_32493_img0.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/32493/prod10550089_32493_img1.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/32493/prod10550089_32493_img2.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/32493/prod10550089_32493_img3.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/32493/prod10550089_32493_img4.jpg",
+          "alt": "Heathered Core Ultra Light Grey Love Long Sleeve Shirt"
+        },
+        "whyWeMadeThis": [
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/32493/prod10550089_32493_whyWeMadeThis_img0.jpg",
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/32493/prod10550089_32493_whyWeMadeThis_img1.jpg"
+        ]
+      },
+      {
+        "colorId": "0002",
+        "colorAlt": "White",
+        "mainCarousel": {
+          "media": "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/0002/prod10550089_0002_img0.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/0002/prod10550089_0002_img1.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/0002/prod10550089_0002_img2.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/0002/prod10550089_0002_img3.jpg",
+          "alt": "White Love Long Sleeve Shirt"
+        },
+        "whyWeMadeThis": [
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/0002/prod10550089_0002_whyWeMadeThis_img0.jpg",
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/0002/prod10550089_0002_whyWeMadeThis_img1.jpg"
+        ]
+      },
+      {
+        "colorId": "0001",
+        "colorAlt": "Black",
+        "mainCarousel": {
+          "media": "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/0001/prod10550089_0001_img0.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/0001/prod10550089_0001_img1.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/0001/prod10550089_0001_img2.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/0001/prod10550089_0001_img3.jpg",
+          "alt": "Black Love Long Sleeve Shirt"
+        },
+        "whyWeMadeThis": [
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/0001/prod10550089_0001_whyWeMadeThis_img0.jpg",
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10550089/0001/prod10550089_0001_whyWeMadeThis_img1.jpg"
+        ]
+      }
+    ],
+    "name": "Love Long Sleeve Shirt",
+    "price": "$58 - $64 CAD",
+    "sizes": [
+      {
+        "title": "Select Size",
+        "details": [
+          "0",
+          "2",
+          "4",
+          "6",
+          "8",
+          "10",
+          "12",
+          "14",
+          "16",
+          "18",
+          "20"
+        ]
+      }
+    ],
+    "featureTitles": [
+      {
+        "iconPath": "http://api-lulu.hibitbyte.com/static/images/icons/Designed_for_On_the_Move.svg",
+        "title": "Designed for On the Move",
+        "isLink": true
+      },
+      {
+        "iconPath": "http://api-lulu.hibitbyte.com/static/images/icons/Super-Soft_Pima_Cotton_Fabric.svg",
+        "title": "Super-Soft, Pima Cotton Fabric",
+        "isLink": true
+      },
+      {
+        "iconPath": "http://api-lulu.hibitbyte.com/static/images/icons/Classic_Fit_Hip_Length.svg",
+        "title": "Classic Fit, Hip Length",
+        "isLink": true
+      }
+    ],
+    "whyWeMadeThis": "Lots of reasons to love this long sleeve. Soft cotton fabric, just the right stretch, and a casual fit for every day of the week.",
+    "featurePanels": [
+      {
+        "iconPath": "http://api-lulu.hibitbyte.com/static/images/icons/Designed_for_On_the_Move.svg",
+        "title": "Designed for On the Move",
+        "isPanel": false
+      },
+      {
+        "iconPath": "http://api-lulu.hibitbyte.com/static/images/icons/Super-Soft_Pima_Cotton_Fabric(Click_to_Expand).svg",
+        "title": "Super-Soft, Pima Cotton Fabric(Click to Expand)",
+        "isPanel": true,
+        "content": [
+          "Soft",
+          "Four-way stretch",
+          "Naturally breathable",
+          "Added Lycra® fibre for stretch and shape retention"
+        ]
+      },
+      {
+        "iconPath": "http://api-lulu.hibitbyte.com/static/images/icons/Classic_Fit_Hip_Length(Click_to_Expand).svg",
+        "title": "Classic Fit, Hip Length(Click to Expand)",
+        "isPanel": true,
+        "content": [
+          "An easy fit that floats away from your body",
+          "Sits below the waistband for moderate, everyday coverage"
+        ]
+      },
+      {
+        "iconPath": "http://api-lulu.hibitbyte.com/static/images/icons/Material_and_care(Click_to_Expand).svg",
+        "title": "Material and care(Click to Expand)",
+        "isPanel": true,
+        "content": [
+          "Body fabric back: 94% Pima cotton, 6% Lycra® elastane",
+          "Wash with like colours",
+          "Machine wash cold",
+          "Do not bleach",
+          "Tumble dry low",
+          "Do not iron",
+          "Do not dry clean",
+          "Imported"
+        ]
+      }
+    ]
+  },
+  "message": "ItLabPro data source for internal bootcamp use only! Copyright @ http://itlabpro.io/"
+}

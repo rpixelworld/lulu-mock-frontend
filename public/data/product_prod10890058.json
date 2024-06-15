@@ -1,0 +1,175 @@
+{
+  "version": "LU_API_v2.0.1",
+  "author": "ItLabPro data source for internal bootcamp use only! Copyright @ http://itlabpro.io/",
+  "status": "Success",
+  "rs": {
+    "productId": "prod10890058",
+    "swatches": [
+      {
+        "colorId": "45772",
+        "swatch": "http://api-lulu.hibitbyte.com/static/images/swatches/Brier_Rose_45772.jpg",
+        "swatchAlt": "Brier Rose"
+      },
+      {
+        "colorId": "36763",
+        "swatch": "http://api-lulu.hibitbyte.com/static/images/swatches/Grey_Sage_36763.jpg",
+        "swatchAlt": "Grey Sage"
+      },
+      {
+        "colorId": "45609",
+        "swatch": "http://api-lulu.hibitbyte.com/static/images/swatches/Ancient_Copper_45609.jpg",
+        "swatchAlt": "Ancient Copper"
+      },
+      {
+        "colorId": "45773",
+        "swatch": "http://api-lulu.hibitbyte.com/static/images/swatches/Pink_Pastel_45773.jpg",
+        "swatchAlt": "Pink Pastel"
+      },
+      {
+        "colorId": "3385",
+        "swatch": "http://api-lulu.hibitbyte.com/static/images/swatches/Black-Gold_3385.jpg",
+        "swatchAlt": "Black/Gold"
+      }
+    ],
+    "images": [
+      {
+        "colorId": "45772",
+        "colorAlt": "Brier Rose",
+        "mainCarousel": {
+          "media": "http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/45772/prod10890058_45772_img0.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/45772/prod10890058_45772_img1.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/45772/prod10890058_45772_img2.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/45772/prod10890058_45772_img3.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/45772/prod10890058_45772_img4.jpg",
+          "alt": "Brier Rose Curved Wristlet"
+        },
+        "whyWeMadeThis": [
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/45772/prod10890058_45772_whyWeMadeThis_img0.jpg",
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/45772/prod10890058_45772_whyWeMadeThis_img1.jpg"
+        ]
+      },
+      {
+        "colorId": "36763",
+        "colorAlt": "Grey Sage",
+        "mainCarousel": {
+          "media": "http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/36763/prod10890058_36763_img0.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/36763/prod10890058_36763_img1.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/36763/prod10890058_36763_img2.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/36763/prod10890058_36763_img3.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/36763/prod10890058_36763_img4.jpg",
+          "alt": "Grey Sage Curved Wristlet"
+        },
+        "whyWeMadeThis": [
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/36763/prod10890058_36763_whyWeMadeThis_img0.jpg",
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/36763/prod10890058_36763_whyWeMadeThis_img1.jpg"
+        ]
+      },
+      {
+        "colorId": "45609",
+        "colorAlt": "Ancient Copper",
+        "mainCarousel": {
+          "media": "http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/45609/prod10890058_45609_img0.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/45609/prod10890058_45609_img1.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/45609/prod10890058_45609_img2.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/45609/prod10890058_45609_img3.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/45609/prod10890058_45609_img4.jpg",
+          "alt": "Ancient Copper Curved Wristlet"
+        },
+        "whyWeMadeThis": [
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/45609/prod10890058_45609_whyWeMadeThis_img0.jpg",
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/45609/prod10890058_45609_whyWeMadeThis_img1.jpg"
+        ]
+      },
+      {
+        "colorId": "45773",
+        "colorAlt": "Pink Pastel",
+        "mainCarousel": {
+          "media": "http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/45773/prod10890058_45773_img0.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/45773/prod10890058_45773_img1.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/45773/prod10890058_45773_img2.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/45773/prod10890058_45773_img3.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/45773/prod10890058_45773_img4.jpg",
+          "alt": "Pink Pastel Curved Wristlet"
+        },
+        "whyWeMadeThis": [
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/45773/prod10890058_45773_whyWeMadeThis_img0.jpg",
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/45773/prod10890058_45773_whyWeMadeThis_img1.jpg"
+        ]
+      },
+      {
+        "colorId": "3385",
+        "colorAlt": "Black/Gold",
+        "mainCarousel": {
+          "media": "http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/3385/prod10890058_3385_img0.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/3385/prod10890058_3385_img1.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/3385/prod10890058_3385_img2.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/3385/prod10890058_3385_img3.jpg | http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/3385/prod10890058_3385_img4.jpg",
+          "alt": "black/gold Curved Wristlet"
+        },
+        "whyWeMadeThis": [
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/3385/prod10890058_3385_whyWeMadeThis_img0.jpg",
+          "http://api-lulu.hibitbyte.com/static/images/productImages/prod10890058/3385/prod10890058_3385_whyWeMadeThis_img1.jpg"
+        ]
+      }
+    ],
+    "name": "Curved Wristlet",
+    "price": "$48 CAD",
+    "sizes": [
+      {
+        "title": "Size",
+        "details": []
+      }
+    ],
+    "featureTitles": [
+      {
+        "iconPath": "http://api-lulu.hibitbyte.com/static/images/icons/Designed_for_On_the_Move.svg",
+        "title": "Designed for On the Move",
+        "isLink": true
+      },
+      {
+        "iconPath": "http://api-lulu.hibitbyte.com/static/images/icons/Water-Repellent_Fabric.svg",
+        "title": "Water-Repellent Fabric",
+        "isLink": false
+      },
+      {
+        "iconPath": "http://api-lulu.hibitbyte.com/static/images/icons/Dimensions.svg",
+        "title": "Dimensions",
+        "isLink": true
+      },
+      {
+        "iconPath": "http://api-lulu.hibitbyte.com/static/images/icons/Product_Features.svg",
+        "title": "Product Features",
+        "isLink": true
+      }
+    ],
+    "whyWeMadeThis": "This slim wristlet makes the perfect clutch. It has plenty of pockets and a hidden phone slot in the middle.",
+    "featurePanels": [
+      {
+        "iconPath": "http://api-lulu.hibitbyte.com/static/images/icons/Designed_for_On_the_Move.svg",
+        "title": "Designed for On the Move",
+        "isPanel": false
+      },
+      {
+        "iconPath": "http://api-lulu.hibitbyte.com/static/images/icons/Water-Repellent_Fabric.svg",
+        "title": "Water-Repellent Fabric",
+        "isPanel": false
+      },
+      {
+        "iconPath": "http://api-lulu.hibitbyte.com/static/images/icons/Dimensions(Click_to_Expand).svg",
+        "title": "Dimensions(Click to Expand)",
+        "isPanel": true,
+        "content": [
+          "22cm x 3cm x 11.5cm (8.5\" x 1.2\" x 4.5\")"
+        ]
+      },
+      {
+        "iconPath": "http://api-lulu.hibitbyte.com/static/images/icons/Product_Features(Click_to_Expand).svg",
+        "title": "Product Features(Click to Expand)",
+        "isPanel": true,
+        "content": [
+          "Interior slots to organize your cards",
+          "Removable wrist strap lets you go hands free or clip on your keychain"
+        ]
+      },
+      {
+        "iconPath": "http://api-lulu.hibitbyte.com/static/images/icons/Material_and_care(Click_to_Expand).svg",
+        "title": "Material and care(Click to Expand)",
+        "isPanel": true,
+        "content": [
+          "Lining: 100% Polyester",
+          "Trim: 100% Polyester",
+          "Body: 100% Nylon",
+          "Spot clean",
+          "Do not wash",
+          "Do not bleach",
+          "Do not tumble dry",
+          "Do not iron",
+          "Do not dry clean",
+          "Imported"
+        ]
+      }
+    ]
+  },
+  "message": "ItLabPro data source for internal bootcamp use only! Copyright @ http://itlabpro.io/"
+}
