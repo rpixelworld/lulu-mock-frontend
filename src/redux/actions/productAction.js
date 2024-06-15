@@ -46,7 +46,8 @@ export const sortProduct = (sortBy=4) => {
 
 export const fetchProductDetail = (productId) => dispatch => {
     // let url = `${Constants.BASE_URL}/product/${productId}?mykey=${Constants.MY_KEY}`
-    let url = `./data/product_${productId}.json`
+    let url = `../data/product_prod10550089.json`
+    console.log(url)
     fetch(url)
         .then(resp => {
             console.log(resp)
