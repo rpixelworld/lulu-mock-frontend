@@ -9,7 +9,8 @@ const initState = {
         totalPage:0,
     },
     selectedFilters:{},
-    productDetail: {}
+    productDetail: {},
+    productCatagories: ''
 
 }
 
@@ -58,6 +59,9 @@ export const productReducer = (state=initState, action)=>{
             return {...state, productList: tobeSorted}
         case Constants.ACTION_FETCH_PRODUCT_DETAIL:
             return {...state, productDetail: action.payload}
+        case Constants.ACTION_FETCH_PRODUCT_CATAGORY:
+            console.log(action.payload)
+            return {...state, productCatagories: action.payload}
         default:
             return state
     }

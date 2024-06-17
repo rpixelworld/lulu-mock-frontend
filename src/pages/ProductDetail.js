@@ -2,21 +2,28 @@ import '../assets/css/ProductDetail.scss'
 import {useEffect} from "react";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchProductDetail} from "../redux/actions/productAction";
+import {fetchProductCatagories, fetchProductDetail} from "../redux/actions/productAction";
+import {Breadcrumb} from "../components/Breadcrumb";
 
 export const ProductDetail = () => {
 
     let valuePassed = useParams();
     const dispatch = useDispatch()
     const productDetail = useSelector(state => state.productReducer.productDetail)
+    const productCatagories = useSelector(state => state.productReducer.productCatagories)
 
     useEffect(() => {
         if(valuePassed && valuePassed.productId){
             dispatch(fetchProductDetail(valuePassed.productId))
+            dispatch(fetchProductCatagories(valuePassed.productId))
         }
     }, [valuePassed]);
 
-    if(productDetail) {
+    // useEffect(() => {
+    //     productDetail && dispatch(fetchProductCatagories(productDetail.productId))
+    // }, [productDetail]);
+
+    if(productDetail && productDetail.productId) {
         return (
             <div className='productdetail-container'>
                 <div className="productdetail-container-wrapper">
@@ -26,6 +33,7 @@ export const ProductDetail = () => {
                             <h2>Carousel</h2>
                         </div>
                         <div className="detailinfo-container">
+                            <Breadcrumb catagories={productCatagories}/>
                             <h2>Product Introduction & detail</h2>
                             <h2>{productDetail.productId}</h2>
                             <h2>{productDetail.name}</h2>
@@ -55,6 +63,13 @@ export const ProductDetail = () => {
 
             </div>
         )
+    }
+    else {
+        return <div className='productdetail-container'>
+            <div className="productdetail-container-wrapper">
+                <h2>not available</h2>
+            </div>
+        </div>
     }
 
 }

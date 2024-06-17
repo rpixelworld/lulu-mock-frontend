@@ -1,9 +1,10 @@
 import axios from "axios";
 import Constants from "../../Constants";
+import product from "../../components/Product";
 
 export const fetchProducts = (pageNo=1, filters={})=> dispatch => {
     let url = `${Constants.BASE_URL}/product/allProducts?page=${pageNo}&mykey=${Constants.MY_KEY}`
-    // let url = `./data/mock_allproducts_${pageNo}.json`
+    // let url = Constants.LOCAL_BASE_URL + `/data/mock_allproducts_${pageNo}.json`
     let options = {
         method: "POST",
         mode: "cors",
@@ -59,6 +60,22 @@ export const fetchProductDetail = (productId) => dispatch => {
             dispatch({
                 type: Constants.ACTION_FETCH_PRODUCT_DETAIL,
                 payload: res.rs
+            })
+        })
+}
+
+export const fetchProductCatagories = (productId) => dispatch => {
+    let url = Constants.LOCAL_BASE_URL + '/data/products_catagories.json'
+    fetch(url)
+        .then(resp => {
+            if (resp.ok) {
+                return resp.json()
+            }
+        })
+        .then(res => {
+            dispatch({
+                type: Constants.ACTION_FETCH_PRODUCT_CATAGORY,
+                payload: res[productId]
             })
         })
 }
