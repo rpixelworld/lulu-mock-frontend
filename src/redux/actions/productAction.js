@@ -21,7 +21,7 @@ export const fetchProducts = (pageNo=1, filters={})=> dispatch => {
             }
         })
         .then(result => {
-            console.log(result)
+            // console.log(result)
             if(pageNo>1){
                 dispatch({
                     type: Constants.ACTION_FETCH_PRODUCTLIST_MORE,
@@ -48,10 +48,10 @@ export const sortProduct = (sortBy=4) => {
 export const fetchProductDetail = (productId) => dispatch => {
     // let url = `${Constants.BASE_URL}/product/${productId}?mykey=${Constants.MY_KEY}`
     let url = Constants.LOCAL_BASE_URL + '/data/product_'+productId+'.json'
-    console.log(url)
+    // console.log(url)
     fetch(url)
         .then(resp => {
-            console.log(resp)
+            // console.log(resp)
             if (resp.ok) {
                 return resp.json()
             }

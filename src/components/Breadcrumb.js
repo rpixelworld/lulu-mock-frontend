@@ -1,13 +1,13 @@
 import '../assets/css/Breadcrumb.scss'
 export const Breadcrumb = ({catagories}) => {
-    let catagoryArr = catagories.split('|')
+    // let catagoryArr = catagories.split('|')
 
     return (
         <nav>
             <ul className="breadcrumb">
-                {catagoryArr.map((cat, index) => {
+                {catagories.map((cat, index) => {
                     return (
-                        <li data-slash={index!=catagoryArr.length-1?'/':''}>
+                        <li data-slash={index!=catagories.length-1?'/':''}>
                             <a href="">{cat}</a>
                         </li>
                     )

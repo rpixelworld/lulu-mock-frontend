@@ -1,0 +1,39 @@
+div.title {
+  padding-top: .9375rem;
+
+  h2 {
+    width: 50%;
+    margin: 0 auto;
+    padding: 0;
+    text-align: center;
+    font-size: 36px;
+    font-weight: 600
+  }
+}
+
+div.carousel-container {
+  padding-top: 1.875rem;
+
+  .swiper-container {
+    cursor: grab;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+
+    .swiper-wrapper {
+      transform: translate3d(0px, 0px, 0px);
+      padding-bottom: 2.5rem;
+      transition-timing-function: ease-out;
+      margin: 0 auto;
+      position: relative;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      display: flex;
+      transition-property: transform;
+      box-sizing: initial;
+    }
+  }
+}

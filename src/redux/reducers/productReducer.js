@@ -8,6 +8,7 @@ const initState = {
         curPage:0,
         totalPage:0,
     },
+    templateFilters:{},
     selectedFilters:{},
     productDetail: {},
     productCatagories: ''
@@ -17,11 +18,15 @@ const initState = {
 export const productReducer = (state=initState, action)=>{
     switch (action.type){
         case Constants.ACTION_FETCH_FILTERS:
-            console.log('FETCH_FILTERS', action.payload);
+            // console.log('FETCH_FILTERS', action.payload);
             return {...state, selectedFilters: action.payload}
 
+        case Constants.ACTION_FETCH_TEMPLATE_FILTERS:
+            // console.log('FETCH_FILTERS', action.payload);
+            return {...state, templateFilters: action.payload}
+
         case Constants.ACTION_FETCH_PRODUCTLIST:
-            console.log(action.payload['products'])
+            // console.log(action.payload['products'])
             return {...state,
                 productList: action.payload['products'],
                 pagination: action.payload['pageParams'],
@@ -33,7 +38,7 @@ export const productReducer = (state=initState, action)=>{
         case Constants.ACTION_FETCH_PRODUCTLIST_MORE:
             const temp = [...state.productList, ...action.payload['products']]
             // temp.push(action.payload['products'])
-            console.log('productList.length===>', state.productList.length, 'temp.length===>', temp.length)
+            // console.log('productList.length===>', state.productList.length, 'temp.length===>', temp.length)
             return {...state,
                 productList: temp,
                 pagination: action.payload['pageParams'],
@@ -55,12 +60,12 @@ export const productReducer = (state=initState, action)=>{
                     return Number(priceB) - Number(priceA)
                 }
             })
-            console.log("tobeSorted ===> ", tobeSorted)
+            // console.log("tobeSorted ===> ", tobeSorted)
             return {...state, productList: tobeSorted}
         case Constants.ACTION_FETCH_PRODUCT_DETAIL:
             return {...state, productDetail: action.payload}
         case Constants.ACTION_FETCH_PRODUCT_CATAGORY:
-            console.log(action.payload)
+            // console.log(action.payload)
             return {...state, productCatagories: action.payload}
         default:
             return state
