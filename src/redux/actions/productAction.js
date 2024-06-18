@@ -38,6 +38,37 @@ export const fetchProducts = (pageNo=1, filters={})=> dispatch => {
         })
 }
 
+export const fetchRecommendations = (productId, filters={})=> dispatch => {
+    let url = `${Constants.BASE_URL}/product/allProducts?page=1&mykey=${Constants.MY_KEY}`
+    // let url = Constants.LOCAL_BASE_URL + `/data/mock_allproducts_${pageNo}.json`
+    let options = {
+        method: "POST",
+        mode: "cors",
+        headers: {
+            "Content-Type": "application/json",
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify(filters)
+    }
+    // console.log("filter======>", filters)
+    fetch(url, options)
+        .then(resp => {
+            if(resp.ok){
+                return resp.json()
+            }
+        })
+        .then(result => {
+            // console.log(result)
+            dispatch({
+                type: Constants.ACTION_FETCH_RECOMMENDATIONS,
+                payload: {
+                    productId: productId,
+                    recommends: result.rs
+                }
+            })
+        })
+}
+
 export const sortProduct = (sortBy=4) => {
     return {
         type: Constants.ACTION_SORT_PRODUCTLIST,

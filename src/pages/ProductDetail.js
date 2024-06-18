@@ -14,11 +14,8 @@ export const ProductDetail = () => {
     let valuePassed = useParams();
     const dispatch = useDispatch()
     const productDetail = useSelector(state => state.productReducer.productDetail)
-    const productCatagories = useSelector(state => state.productReducer.productCatagories)
     const templateFilters = useSelector(state => state.productReducer.templateFilters)
-    const recommendProductList = useSelector(state => state.productReducer.productList)
-
-    const [categoryArr, setCategoryArr] = useState([])
+    const productCatagories = useSelector(state => state.productReducer.productCatagories)
 
     useEffect(() => {
         if(valuePassed && valuePassed.productId){
@@ -28,46 +25,23 @@ export const ProductDetail = () => {
         }
     }, [valuePassed]);
 
-    useEffect(() => {
-        if(productCatagories && productCatagories.length>0){
-            setCategoryArr(productCatagories.split('|'))
-        }
-    }, [productCatagories]);
-
-    useEffect(() => {
-        if(templateFilters && templateFilters['Gender']){
-            const recommendFilters = JSON.parse(JSON.stringify(templateFilters))
-            for(let i=0; i<categoryArr.length; i++) {
-                if(i==0 && (categoryArr[0].includes('Men') || categoryArr[0].includes('Women'))){
-                    let index = Breadsrumb_CatagoryIndex['Gender'][categoryArr[0]];
-                    recommendFilters['Gender'][index].isChecked=true
-                }
-                else {
-                    let index = Breadsrumb_CatagoryIndex['Catagory'][categoryArr[i]];
-                    recommendFilters['Category'][index].isChecked=true
-                }
-            }
-            dispatch(fetchProducts(1, recommendFilters))
-        }
-    }, [categoryArr, templateFilters]);
-
     if(productDetail && productDetail.productId) {
         return (
             <div className='productdetail-container'>
                 <div className="productdetail-container-wrapper">
 
                     <div className="productintro-container">
-                        <div className="carousel-container">
+                        <div className="recommendation-container">
                             <h2>Carousel</h2>
                         </div>
                         <div className="detailinfo-container">
-                            <Breadcrumb catagories={categoryArr}/>
+                            <Breadcrumb/>
                             <h2>Product Introduction & detail</h2>
                             <h2>{productDetail.productId}</h2>
                             <h2>{productDetail.name}</h2>
                         </div>
                         <div className="verticalrecos-container">
-                            {recommendProductList && recommendProductList.length>3 && <YouMayLike recommendations={recommendProductList.slice(0,4)} />}
+                            <YouMayLike />
                         </div>
                     </div>
 

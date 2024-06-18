@@ -11,7 +11,9 @@ const initState = {
     templateFilters:{},
     selectedFilters:{},
     productDetail: {},
-    productCatagories: ''
+    productCatagories: '',
+    youMayLike:[],
+    youMayAlsoLike:[]
 
 }
 
@@ -44,6 +46,7 @@ export const productReducer = (state=initState, action)=>{
                 pagination: action.payload['pageParams'],
                 selectedFilters: action.payload['filters']
             }
+
         case Constants.ACTION_SORT_PRODUCTLIST:
             const tobeSorted = [...state.productList];
             tobeSorted.sort((proda, prodb) => {
@@ -62,11 +65,43 @@ export const productReducer = (state=initState, action)=>{
             })
             // console.log("tobeSorted ===> ", tobeSorted)
             return {...state, productList: tobeSorted}
+
         case Constants.ACTION_FETCH_PRODUCT_DETAIL:
             return {...state, productDetail: action.payload}
+
         case Constants.ACTION_FETCH_PRODUCT_CATAGORY:
             // console.log(action.payload)
             return {...state, productCatagories: action.payload}
+
+        case Constants.ACTION_FETCH_RECOMMENDATIONS:
+            const productId = action.payload.productId
+            const recommendProductList = action.payload.recommends.products
+            // console.log("recommendProductList====>", recommendProductList)
+            let count = 0;
+            let recommendeds = [];
+            let recommendations1 = []
+            let recommendations2 = []
+            for(let i=0; i<recommendProductList.length; i++){
+                // console.log('productId===', productId, 'recommendProductList[i].productId=====', recommendProductList[i].productId)
+                if(productId == recommendProductList[i].productId || recommendeds.includes(recommendProductList[i].productId)){
+                    continue;
+                }
+                if(count<4){
+                    recommendeds.push(recommendProductList[i].productId)
+                    recommendations1.push(recommendProductList[i])
+                    count ++
+                }
+                else if(count>3 && count<8){
+                    recommendeds.push(recommendProductList[i].productId)
+                    recommendations2.push(recommendProductList[i])
+                    count ++
+                }
+            }
+            console.log('recommendProductList===>', recommendProductList)
+            console.log('recommendations1===>', recommendations1)
+            console.log('recommendations2===>', recommendations2)
+            return {...state, youMayLike: recommendations1, youMayAlsoLike: recommendations2}
+
         default:
             return state
     }
