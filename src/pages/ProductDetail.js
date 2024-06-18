@@ -8,6 +8,7 @@ import {YouMayLike} from "../components/YouMayLike";
 import {fetchTemplateFilters} from "../redux/actions/filterAction";
 import {Breadsrumb_CatagoryIndex} from "../Constants";
 import {YouMayAlsoLike} from "../components/YouMayAlsoLike";
+import {ProductCarousel} from "../components/ProductCarousel";
 
 export const ProductDetail = () => {
 
@@ -58,7 +59,7 @@ export const ProductDetail = () => {
 
                     <div className="productintro-container">
                         <div className="carousel-container">
-                            <h2>Carousel</h2>
+                            <ProductCarousel/>
                         </div>
                         <div className="detailinfo-container">
                             <Breadcrumb catagories={categoryArr}/>
