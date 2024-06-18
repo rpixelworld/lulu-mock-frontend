@@ -77,8 +77,8 @@ export const sortProduct = (sortBy=4) => {
 }
 
 export const fetchProductDetail = (productId) => dispatch => {
-    // let url = `${Constants.BASE_URL}/product/${productId}?mykey=${Constants.MY_KEY}`
-    let url = Constants.LOCAL_BASE_URL + '/data/product_'+productId+'.json'
+    let url = `${Constants.BASE_URL}/product/${productId}?mykey=${Constants.MY_KEY}`
+    // let url = Constants.LOCAL_BASE_URL + '/data/product_'+productId+'.json'
     // console.log(url)
     fetch(url)
         .then(resp => {
@@ -93,6 +93,22 @@ export const fetchProductDetail = (productId) => dispatch => {
                 payload: res.rs
             })
         })
+
+    url = Constants.LOCAL_BASE_URL + '/data/products_catagories.json'
+    fetch(url)
+        .then(resp => {
+            if (resp.ok) {
+                return resp.json()
+            }
+        })
+        .then(res => {
+            dispatch({
+                type: Constants.ACTION_FETCH_PRODUCT_CATAGORY,
+                payload: res[productId]
+            })
+        })
+
+
 }
 
 export const fetchProductCatagories = (productId) => dispatch => {

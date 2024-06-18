@@ -67,10 +67,10 @@ export const productReducer = (state=initState, action)=>{
             return {...state, productList: tobeSorted}
 
         case Constants.ACTION_FETCH_PRODUCT_DETAIL:
-            return {...state, productDetail: action.payload}
+            return {...state, productDetail: action.payload, youMayLike: [], youMayAlsoLike: []}
 
         case Constants.ACTION_FETCH_PRODUCT_CATAGORY:
-            // console.log(action.payload)
+            console.log('ACTION_FETCH_PRODUCT_CATAGORY====>', action.payload)
             return {...state, productCatagories: action.payload}
 
         case Constants.ACTION_FETCH_RECOMMENDATIONS:

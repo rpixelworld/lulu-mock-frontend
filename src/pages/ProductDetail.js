@@ -18,10 +18,14 @@ export const ProductDetail = () => {
     const productCatagories = useSelector(state => state.productReducer.productCatagories)
 
     useEffect(() => {
+        dispatch(fetchTemplateFilters())
+    }, []);
+
+    useEffect(() => {
         if(valuePassed && valuePassed.productId){
             dispatch(fetchProductDetail(valuePassed.productId))
-            dispatch(fetchProductCatagories(valuePassed.productId))
-            dispatch(fetchTemplateFilters())
+            // dispatch(fetchProductCatagories(valuePassed.productId))
+
         }
     }, [valuePassed]);
 

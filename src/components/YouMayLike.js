@@ -15,10 +15,10 @@ export const YouMayLike = () => {
                 <h4>You may like</h4>
                 {youMayLike && youMayLike.length>0 && youMayLike.map(prod =>
                     <div key={prod.productId} className="recommend-product">
-                        <Link className='picture-link' to={`${Constants.LOCAL_BASE_URL}/product/${prod.productId}?colour=${prod.images[0].colorId}`} alt={prod.name} >
+                        <a className='picture-link' href={`${Constants.LOCAL_BASE_URL}/product/${prod.productId}?colour=${prod.images[0].colorId}`} alt={prod.name} >
                             <img src={prod.images[0].mainCarousel.media.split(' | ')[0]} alt={prod.name } />
-                        </Link>
-                        <Link to={`${Constants.LOCAL_BASE_URL}/product/${prod.productId}?colour=${prod.images[0].colorId}`} className="title-link">{prod.name}</Link>
+                        </a>
+                        <a href={`${Constants.LOCAL_BASE_URL}/product/${prod.productId}?colour=${prod.images[0].colorId}`} className="title-link">{prod.name}</a>
                     </div>
                 )}
             </div>

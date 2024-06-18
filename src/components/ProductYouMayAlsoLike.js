@@ -1,5 +1,6 @@
 import Constants from "../Constants";
 import {useState} from "react";
+import {Link} from "react-router-dom";
 
 export const ProductYouMayAlsoLike = ({product}) => {
 
