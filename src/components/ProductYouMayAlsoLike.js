@@ -57,7 +57,7 @@ export const ProductYouMayAlsoLike = ({product}) => {
                     <a href=""><h3>{product.name}</h3></a>
                     </div>
                     <div className="price">
-                        <span className="number">{product.price}</span>
+                        <span className="number">{product.price.replace('CAD', '')}</span>
                         <span className='currency'> CAD</span>
                     </div>
                 </div>
