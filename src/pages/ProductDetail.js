@@ -43,6 +43,7 @@ export const ProductDetail = () => {
                             <h2>Product Introduction & detail</h2>
                             <h2>{productDetail.productId}</h2>
                             <h2>{productDetail.name}</h2>
+                            <img width='200px' src={productDetail.images[0].whyWeMadeThis[0]} alt=""/>
                         </div>
                         <div className="verticalrecos-container">
                             <YouMayLike />

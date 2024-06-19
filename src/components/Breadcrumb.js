@@ -24,8 +24,7 @@ export const Breadcrumb = () => {
     useEffect(() => {
         const catArr = productCatagories.split('|')
         setCategoryArr(catArr)
-        if(templateFilters && templateFilters['Gender']){
-
+        if(templateFilters && templateFilters['Gender'] && catArr.length>0 && catArr[0]!=''){
             const recommendFilters = JSON.parse(JSON.stringify(templateFilters))
             // console.log(recommendFilters, catArr)
             for(let i=0; i<catArr.length; i++) {
@@ -49,13 +48,14 @@ export const Breadcrumb = () => {
     return (
         <nav>
             <ul className="breadcrumb">
-                {categoryArr.map((cat, index) => {
+                {categoryArr.length>0 && categoryArr[0]!='' && categoryArr.map((cat, index) => {
                     return (
                         <li data-slash={index!=categoryArr.length-1?'/':''}>
                             <a href="">{cat}</a>
                         </li>
                     )
                 })}
+                {categoryArr.length==1 && categoryArr[0]=='' && <li data-slash=''><a href="">NO CATEGORY</a></li>}
             </ul>
         </nav>
     )

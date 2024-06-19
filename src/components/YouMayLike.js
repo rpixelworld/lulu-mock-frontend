@@ -8,7 +8,7 @@ export const YouMayLike = () => {
     const youMayLike = useSelector(state => state.productReducer.youMayLike)
 
     // console.log('youMayLike.length===>',youMayLike.length)
-
+    if(youMayLike && youMayLike.length>0){
     return (
         <section className="youmaylike-wrapper">
             <div style={{maxWidth: '87px'}}>
@@ -23,5 +23,5 @@ export const YouMayLike = () => {
                 )}
             </div>
         </section>
-    )
+    )}
 }
