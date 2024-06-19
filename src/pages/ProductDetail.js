@@ -74,7 +74,7 @@ export const ProductDetail = () => {
     else {
         return <div className='productdetail-container'>
             <div className="productdetail-container-wrapper">
-                <h2>not available</h2>
+                <h2 style={{textAlign: "center"}}>Not available</h2>
             </div>
         </div>
     }

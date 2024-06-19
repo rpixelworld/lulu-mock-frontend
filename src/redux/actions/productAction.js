@@ -83,14 +83,14 @@ export const fetchProductDetail = (productId) => dispatch => {
     fetch(url)
         .then(resp => {
             // console.log(resp)
-            if (resp.ok) {
+            if (resp.ok && resp.status==200) {
                 return resp.json()
             }
         })
         .then(res => {
             dispatch({
                 type: Constants.ACTION_FETCH_PRODUCT_DETAIL,
-                payload: res.rs
+                payload: res && res.rs
             })
         })
 
