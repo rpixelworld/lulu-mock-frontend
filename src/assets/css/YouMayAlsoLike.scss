@@ -72,51 +72,69 @@ div.recommendation-container {
               //border: 2px solid red;
               //z-index: 1;
             }
+          }
 
-            .palette-container {
-              width: 100%;
-              height: 70px;
+          .palette-container {
+            width: 100%;
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: left;
+            overflow: visible;
+            position: absolute;
+            background-color: white;
+            top: 304.094px;
+            left: 0;
+            //padding: 0 5px;
+
+            .carousel-button {
+              background: none;
+              border: none;
+              cursor: pointer;
+              padding: 0 2px;
+              width: 29px;
+              height: 38px;
+              font-size: 25px;
+
+              &:hover {
+                color: #000;
+              }
+            }
+
+            ul.palette {
+              margin: 0 2px;
+              transform: translateX(0px);
               display: flex;
               align-items: center;
-              position: absolute;
-              background-color: white;
-              top: 304.094px;
-              left: 0;
+              overflow: hidden;
+              list-style: none;
+              margin: 0;
+              padding: 2px;
 
-              ul.palette {
-
-                transform: translateX(0px);
-                display: flex;
-                align-items: center;
-                overflow: hidden;
+              li.color {
                 list-style: none;
-                margin: 0;
-                padding: 2px;
+                margin-right: 2px;
+                width: 34px;
+                border: 4px solid #fafafa;
+                border-radius: 50%;
+                font-size: 1px;
+                a {
+                  //padding: 4px;
+                  img {
+                    width: 30px;
+                    border: 4px solid #fafafa;
+                    border-radius: 50%;
+                  }
 
-                li.color {
-                  list-style: none;
-                  margin-right: 2px;
-                  width: 34px;
-                  border: 4px solid #fafafa;
-                  border-radius: 50%;
-                  font-size: 1px;
-                  a {
-                    //padding: 4px;
-                    img {
-                      width: 30px;
-                      border: 4px solid #fafafa;
-                      border-radius: 50%;
-                    }
-
-                    img.active-color, img:hover {
-                      outline: 1.5px solid black;
-                      outline-offset: 1px;
-                    }
+                  img.active-color, img:hover {
+                    outline: 1.5px solid black;
+                    outline-offset: 1px;
                   }
                 }
               }
             }
           }
+
 
           //.carousel {
           //  height: 374.094px;

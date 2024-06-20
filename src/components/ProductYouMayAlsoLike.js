@@ -1,10 +1,13 @@
 import Constants from "../Constants";
-import {useState} from "react";
+import React, {useState} from "react";
 import {Link} from "react-router-dom";
 
 export const ProductYouMayAlsoLike = ({product}) => {
 
     const [showCarousel, setShowCarousel] = useState(false)
+    const colorsPerPage = 7
+    const [currentPage, setCurrentPage] = useState(0)
+    // const [displayPalettes, setDisplayPalettes] = useState(product.swatches.slice(0 * colorsPerPage, (0 + 1) * colorsPerPage))
     const [currentColorIndex, setCurrentColorIndex] = useState(0)
     const [currentBg, setCurrentBg] = useState(product.images[currentColorIndex].mainCarousel.media.split(' | ')[0]);
     const [currentLink, setCurrentLink] = useState(`${Constants.LOCAL_BASE_URL}/product/${product.productId}?color=${product.images[currentColorIndex].colorId}`)
@@ -28,6 +31,19 @@ export const ProductYouMayAlsoLike = ({product}) => {
         setCurrentBg(product.images[cIndex].mainCarousel.media.split(' | ')[0])
         setCurrentLink(`${Constants.LOCAL_BASE_URL}/product/${product.productId}?color=${product.images[cIndex].colorId}`)
     }
+
+    const handleNextPage = () => {
+        setCurrentPage((prevPage) => Math.min(prevPage + 1, Math.ceil(product.swatches.length / colorsPerPage) - 1))
+        // setDisplayPalettes(product.swatches.slice(currentPage * colorsPerPage, (currentPage + 1) * colorsPerPage))
+    }
+
+    const handlePrevPage = () => {
+        setCurrentPage((page) => Math.max(page - 1, 0))
+        // setDisplayPalettes(product.swatches.slice(currentPage * colorsPerPage, (currentPage + 1) * colorsPerPage))
+    }
+
+    const displayPalettes = product.swatches.slice(currentPage * colorsPerPage, (currentPage + 1) * colorsPerPage)
+
     return (
         <li className="swiper-slide" onMouseEnter={toggleCarousel} onMouseLeave={toggleCarousel}>
             <div className="product-tile">
@@ -36,11 +52,19 @@ export const ProductYouMayAlsoLike = ({product}) => {
                     }} onMouseOut={() => { altImg(false)}}></div>
                     <div className="image-container"
                          style={{backgroundImage: `url(${currentBg})`}}></div>
-
+                </a>
                     {showCarousel &&
                         <div className="palette-container">
+                            {product.swatches.length >= 8 && (
+                                <button onClick={handlePrevPage}
+                                        className="carousel-button prev-button"
+                                        disabled={currentPage === 0}
+                                >
+                                    &lt;
+                                </button>
+                            )}
                             <ul className="palette">
-                                {product.swatches.map((swatch, cIndex) =>
+                                {displayPalettes.map((swatch, cIndex) =>
                                     <li key={swatch.colorId} className='color' onMouseEnter={()=>{switchColor(cIndex)}}>
                                         <a href={currentLink}>
                                             <img className={currentColorIndex==cIndex?'active-color':''}
@@ -50,9 +74,17 @@ export const ProductYouMayAlsoLike = ({product}) => {
                                     </li>
                                 )}
                             </ul>
+                            {product.swatches.length >= 8 && currentPage < Math.floor(product.swatches.length / colorsPerPage) && (
+                                <button onClick={handleNextPage}
+                                        className="carousel-button next-button"
+                                        disabled={(currentPage + 1) * colorsPerPage >= product.swatches.length}
+                                >
+                                    &gt;
+                                </button>
+                            )}
                         </div>
                     }
-                </a>
+                {/*</a>*/}
                 <div className="details">
                     <div className="product-name">
                     <a href=""><h3>{product.name}</h3></a>

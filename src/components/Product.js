@@ -99,7 +99,7 @@ const Product = ({ product }) => {
                                 className={`color-circle ${hoveredColorId === swa.colorId ? 'hovered' : ''}`}
                                 onMouseEnter={() => handleColorHover(swa.colorId)}
                             >
-                                <Link to={currentLink}><img src={swa.swatch} alt={swa.swatchAlt}/></Link>
+                                <a href={currentLink}><img src={swa.swatch} alt={swa.swatchAlt}/></a>
                                 <div className="tooltip">{swa.swatchAlt}</div>
                             </div>
                         ))}
