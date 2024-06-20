@@ -7,30 +7,33 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import StorefrontIcon from '@mui/icons-material/Storefront';
 import './Add-MinusMark'
 import AddedMinusMark from "./Add-MinusMark";
+import product from "./Product";
 
-export const ProductCarousel = () => {
+export const ProductCarousel = ({details,colorId}) => {
+
     const [bigImg, setBigImg] = useState('');
     const [colorSelected, setColorSelected] = useState('56496');
     const [selectedColor, setSelectedColor] = useState({});
     const [isHidden, setIsHidden] = useState(false);
+    const [index, setIndex] = useState(0)
     const dispatch = useDispatch();
-    const details = useSelector(state => state.productReducer.productDetail)
     const colors = details?.swatches || []
     const imgs = details?.images?.flatMap((image) =>
         image.colorId === colorSelected ? image.mainCarousel.media.split('|') : [])
     const size = details?.sizes?.flatMap((details) => details.details || [])
     const title = details?.sizes?.flatMap((title) => title.title || [])
     const featureTitles = details?.featureTitles || []
-    console.log(featureTitles)
-
-
-    console.log('size', size)
-
+    // console.log(featureTitles)
+    // console.log('details', details)
+    //
+    //
+    // console.log('size', size)
+    //
 // console.log('imgs',imgs)
-    useEffect(() => {
-        dispatch(fetchProductDetail())
-    }, [])
-    console.log('details,', details)
+//     useEffect(() => {
+//         dispatch(fetchProductDetail())
+//     }, [])
+//     console.log('details,', details)
 
     useEffect(() => {
         if (imgs.length > 0) {
@@ -46,9 +49,12 @@ export const ProductCarousel = () => {
         setSelectedColor((prevState) => ({
             ...prevState, [index]: !prevState[index],
         }))
+
     }
+
     const handleColorClick = (item) => {
         setColorSelected(item)
+        colorId(item)
         const selectedImages = details.images.find(
             (img) => img.colorId === item
         );
@@ -61,7 +67,7 @@ export const ProductCarousel = () => {
         setBigImg(item)
     }
 
-    const [index, setIndex] = useState(0)
+
     const handleNextPage = () => {
         if (index < imgs.length) {
             const newIndex = index + 1;

@@ -11,29 +11,160 @@ div.title {
   }
 }
 
-div.carousel-container {
+div.recommendation-container {
   padding-top: 1.875rem;
 
   .swiper-container {
-    cursor: grab;
+
     margin-left: auto;
     margin-right: auto;
     position: relative;
     overflow: hidden;
-    z-index: 1;
+    //z-index: 1;
 
     .swiper-wrapper {
       transform: translate3d(0px, 0px, 0px);
-      padding-bottom: 2.5rem;
+      padding: 0 0 2.5rem 0;
       transition-timing-function: ease-out;
       margin: 0 auto;
       position: relative;
       width: 100%;
       height: 100%;
-      z-index: 1;
+      //z-index: 1;
       display: flex;
       transition-property: transform;
       box-sizing: initial;
+
+      .swiper-slide {
+        //border: 1px solid black;
+        width: 311.75px;
+        margin-right: 25px;
+        list-style: none;
+        flex-shrink: 0;
+        //height: 100px;
+        position: relative;
+        flex: 0 0 auto;
+
+        .product-tile {
+          a {
+            text-decoration: none;
+
+            .image-container {
+              background-size: contain;
+              opacity: 1;
+              transition: opacity 3s ease;
+              //background-image: url('https://images.lululemon.com/is/image/lululemon/LW5FCHS_031382_2?$story_carousel$&wid=320&op_usm=0.8,1,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72');
+              background-color: rgba(0, 0, 0, .05);
+              background-position: top;
+              background-repeat: no-repeat;
+              height: 374.094px;
+              cursor: pointer;
+            }
+
+            .imageAlt-container {
+              opacity: 0;
+              background-color: #61dafb;
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 304.094px;
+              //border: 2px solid red;
+              //z-index: 1;
+            }
+
+            .palette-container {
+              width: 100%;
+              height: 70px;
+              display: flex;
+              align-items: center;
+              position: absolute;
+              background-color: white;
+              top: 304.094px;
+              left: 0;
+
+              ul.palette {
+
+                transform: translateX(0px);
+                display: flex;
+                align-items: center;
+                overflow: hidden;
+                list-style: none;
+                margin: 0;
+                padding: 2px;
+
+                li.color {
+                  list-style: none;
+                  margin-right: 2px;
+                  width: 34px;
+                  border: 4px solid #fafafa;
+                  border-radius: 50%;
+                  font-size: 1px;
+                  a {
+                    //padding: 4px;
+                    img {
+                      width: 30px;
+                      border: 4px solid #fafafa;
+                      border-radius: 50%;
+                    }
+
+                    img.active-color, img:hover {
+                      outline: 1.5px solid black;
+                      outline-offset: 1px;
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          //.carousel {
+          //  height: 374.094px;
+          //
+          //  .active-image {
+          //    height: 307.094px;
+          //    background-size: cover;
+          //    opacity: 1;
+          //    transition: opacity 3s ease;
+          //    background-image: url('https://images.lululemon.com/is/image/lululemon/LW8ALSS_064820_2?wid=1800&op_usm=0.8,1,10,0&fmt=webp&qlt=80,1&fit=constrain,0&op_sharpen=0&resMode=sharp2&iccEmbed=0&printRes=72');
+          //    background-color: rgba(0, 0, 0, .05);
+          //    background-position: top;
+          //    background-repeat: no-repeat;
+          //  }
+          //
+          //
+          //}
+
+          .details {
+            .product-name {
+              margin: .9375rem 0 .4375rem;
+
+              a {
+                color: black;
+                font-size: 14px;
+                font-weight: 400;
+                line-height: 1.4rem;
+                text-decoration: none;
+              }
+            }
+            .price {
+              margin: 0 0 .9375rem;
+
+              .number {
+                font-size: 1rem;
+                font-weight: 300;
+              }
+
+              .currency {
+                font-size: .75rem;
+                font-weight: 500;
+                letter-spacing: .08125rem;
+                line-height: 1.2;
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

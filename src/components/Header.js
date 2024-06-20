@@ -19,6 +19,9 @@ export const Header = () => {
     const timeoutRef = useRef(null);
 
     const navAnimation = (obj) => {
+        if(!obj || !obj.className) {
+            return
+        }
         // console.log(obj, obj.className)
         obj.className = obj.className.replace('fixed', '');
 

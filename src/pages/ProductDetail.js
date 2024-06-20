@@ -8,49 +8,31 @@ import {YouMayLike} from "../components/YouMayLike";
 import {fetchTemplateFilters} from "../redux/actions/filterAction";
 import {Breadsrumb_CatagoryIndex} from "../Constants";
 import {YouMayAlsoLike} from "../components/YouMayAlsoLike";
+import {FeaturePanel} from "../components/FeaturesPanel";
 import {ProductCarousel} from "../components/ProductCarousel";
+import {WhyWeMadeThis} from "../components/WhyWeMadeThis";
 
 export const ProductDetail = () => {
 
     let valuePassed = useParams();
     const dispatch = useDispatch()
     const productDetail = useSelector(state => state.productReducer.productDetail)
-    const productCatagories = useSelector(state => state.productReducer.productCatagories)
     const templateFilters = useSelector(state => state.productReducer.templateFilters)
-    const recommendProductList = useSelector(state => state.productReducer.productList)
+    const productCatagories = useSelector(state => state.productReducer.productCatagories)
+    const [colorSelected, setColorSelected] = useState('')
 
-    const [categoryArr, setCategoryArr] = useState([])
+
+    useEffect(() => {
+        dispatch(fetchTemplateFilters())
+    }, []);
 
     useEffect(() => {
         if(valuePassed && valuePassed.productId){
             dispatch(fetchProductDetail(valuePassed.productId))
-            dispatch(fetchProductCatagories(valuePassed.productId))
-            dispatch(fetchTemplateFilters())
+            // dispatch(fetchProductCatagories(valuePassed.productId))
+
         }
     }, [valuePassed]);
-
-    useEffect(() => {
-        if(productCatagories && productCatagories.length>0){
-            setCategoryArr(productCatagories.split('|'))
-        }
-    }, [productCatagories]);
-
-    useEffect(() => {
-        if(templateFilters && templateFilters['Gender']){
-            const recommendFilters = JSON.parse(JSON.stringify(templateFilters))
-            for(let i=0; i<categoryArr.length; i++) {
-                if(i==0 && (categoryArr[0].includes('Men') || categoryArr[0].includes('Women'))){
-                    let index = Breadsrumb_CatagoryIndex['Gender'][categoryArr[0]];
-                    recommendFilters['Gender'][index].isChecked=true
-                }
-                else {
-                    let index = Breadsrumb_CatagoryIndex['Catagory'][categoryArr[i]];
-                    recommendFilters['Category'][index].isChecked=true
-                }
-            }
-            dispatch(fetchProducts(1, recommendFilters))
-        }
-    }, [categoryArr, templateFilters]);
 
     if(productDetail && productDetail.productId) {
         return (
@@ -59,25 +41,25 @@ export const ProductDetail = () => {
 
                     <div className="productintro-container">
                         <div className="carousel-container">
-                            <ProductCarousel/>
+                            <ProductCarousel  details={productDetail} colorId={setColorSelected}/>
                         </div>
-                        {/*<div className="detailinfo-container">*/}
-                        {/*    <Breadcrumb catagories={categoryArr}/>*/}
-                        {/*    <h2>Product Introduction & detail</h2>*/}
-                        {/*    <h2>{productDetail.productId}</h2>*/}
-                        {/*    <h2>{productDetail.name}</h2>*/}
-                        {/*</div>*/}
+                        <div className="detailinfo-container">
+                            <Breadcrumb />
+                            <h2>Product Introduction & detail</h2>
+                            <h2>{productDetail.productId}</h2>
+                            <h2>{productDetail.name}</h2>
+                        </div>
                         <div className="verticalrecos-container">
-                            {recommendProductList && recommendProductList.length>3 && <YouMayLike recommendations={recommendProductList.slice(0,4)} />}
+                            <YouMayLike />
                         </div>
                     </div>
 
                     <div className="whywemadethis-container">
-                        <h2>Why we made this</h2>
+                        <WhyWeMadeThis details={productDetail} colorIds={colorSelected}/>
                     </div>
 
                     <div className="featurepanel-container">
-                        <h2>Features Panel</h2>
+                        <FeaturePanel product={productDetail} />
                     </div>
 
                     <div className="youmayalsolike-container">
@@ -96,7 +78,7 @@ export const ProductDetail = () => {
     else {
         return <div className='productdetail-container'>
             <div className="productdetail-container-wrapper">
-                <h2>not available</h2>
+                <h2 style={{textAlign: "center"}}>Not available</h2>
             </div>
         </div>
     }
