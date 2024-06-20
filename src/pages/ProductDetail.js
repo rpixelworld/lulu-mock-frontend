@@ -9,6 +9,9 @@ import {fetchTemplateFilters} from "../redux/actions/filterAction";
 import {Breadsrumb_CatagoryIndex} from "../Constants";
 import {YouMayAlsoLike} from "../components/YouMayAlsoLike";
 import {FeaturePanel} from "../components/FeaturesPanel";
+import {ProductCarousel} from "../components/ProductCarousel";
+import {WhyWeMadeThis} from "../components/WhyWeMadeThis";
+import ProductInfo from "../components/ProductInfo";
 
 export const ProductDetail = () => {
 
@@ -17,6 +20,8 @@ export const ProductDetail = () => {
     const productDetail = useSelector(state => state.productReducer.productDetail)
     const templateFilters = useSelector(state => state.productReducer.templateFilters)
     const productCatagories = useSelector(state => state.productReducer.productCatagories)
+    const [colorSelected, setColorSelected] = useState('')
+
 
     useEffect(() => {
         dispatch(fetchTemplateFilters())
@@ -36,15 +41,15 @@ export const ProductDetail = () => {
                 <div className="productdetail-container-wrapper">
 
                     <div className="productintro-container">
-                        <div className="recommendation-container">
-                            <h2>Carousel</h2>
+                        <div className="carousel-container">
+                            <ProductCarousel  details={productDetail} colorIds={colorSelected}/>
                         </div>
                         <div className="detailinfo-container">
-                            <Breadcrumb/>
+                            <Breadcrumb />
                             <h2>Product Introduction & detail</h2>
                             <h2>{productDetail.productId}</h2>
                             <h2>{productDetail.name}</h2>
-                            <img width='200px' src={productDetail.images[0].whyWeMadeThis[0]} alt=""/>
+                            <ProductInfo details={productDetail} colorId={setColorSelected}/>
                         </div>
                         <div className="verticalrecos-container">
                             <YouMayLike />
@@ -52,7 +57,7 @@ export const ProductDetail = () => {
                     </div>
 
                     <div className="whywemadethis-container">
-                        <h2>Why we made this</h2>
+                        <WhyWeMadeThis details={productDetail} colorIds={colorSelected}/>
                     </div>
 
                     <div className="featurepanel-container">
