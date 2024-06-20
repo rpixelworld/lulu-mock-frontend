@@ -61,12 +61,12 @@ export const ProductDetail = () => {
                         <div className="carousel-container">
                             <ProductCarousel/>
                         </div>
-                        <div className="detailinfo-container">
-                            <Breadcrumb catagories={categoryArr}/>
-                            <h2>Product Introduction & detail</h2>
-                            <h2>{productDetail.productId}</h2>
-                            <h2>{productDetail.name}</h2>
-                        </div>
+                        {/*<div className="detailinfo-container">*/}
+                        {/*    <Breadcrumb catagories={categoryArr}/>*/}
+                        {/*    <h2>Product Introduction & detail</h2>*/}
+                        {/*    <h2>{productDetail.productId}</h2>*/}
+                        {/*    <h2>{productDetail.name}</h2>*/}
+                        {/*</div>*/}
                         <div className="verticalrecos-container">
                             {recommendProductList && recommendProductList.length>3 && <YouMayLike recommendations={recommendProductList.slice(0,4)} />}
                         </div>
