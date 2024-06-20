@@ -11,6 +11,7 @@ import {YouMayAlsoLike} from "../components/YouMayAlsoLike";
 import {FeaturePanel} from "../components/FeaturesPanel";
 import {ProductCarousel} from "../components/ProductCarousel";
 import {WhyWeMadeThis} from "../components/WhyWeMadeThis";
+import ProductInfo from "../components/ProductInfo";
 
 export const ProductDetail = () => {
 
@@ -41,13 +42,14 @@ export const ProductDetail = () => {
 
                     <div className="productintro-container">
                         <div className="carousel-container">
-                            <ProductCarousel  details={productDetail} colorId={setColorSelected}/>
+                            <ProductCarousel  details={productDetail} colorIds={colorSelected}/>
                         </div>
                         <div className="detailinfo-container">
                             <Breadcrumb />
                             <h2>Product Introduction & detail</h2>
                             <h2>{productDetail.productId}</h2>
                             <h2>{productDetail.name}</h2>
+                            <ProductInfo details={productDetail} colorId={setColorSelected}/>
                         </div>
                         <div className="verticalrecos-container">
                             <YouMayLike />

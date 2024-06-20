@@ -4,6 +4,9 @@ import '../assets/css/WhyWeMadeThis.scss'
 export const WhyWeMadeThis = ({details, colorIds}) => {
     const [activeColorIds, setActiveColorIds] = useState(colorIds || []);
     const [WWMT, setWWMT] = useState([]);
+    const images = details.images.flatMap((image) =>
+        activeColorIds.includes(image.colorId) ? image.whyWeMadeThis : []
+    );
 
     // 当details变化时，如果没有传入colorIds，则设置默认colorId
     useEffect(() => {
@@ -18,11 +21,7 @@ export const WhyWeMadeThis = ({details, colorIds}) => {
     // 当details或activeColorIds变化时，更新WWMT
     useEffect(() => {
         if (details?.images && activeColorIds.length > 0) {
-            const images = details.images.flatMap((image) =>
-                activeColorIds.includes(image.colorId) ? image.whyWeMadeThis : []
-            );
             setWWMT(images);
-            console.log('Filtered images:', images);
         }
     }, [details, activeColorIds]);
 
