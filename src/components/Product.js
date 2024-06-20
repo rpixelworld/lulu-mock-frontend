@@ -7,7 +7,8 @@ import CheckBoxOutlineBlankOutlinedIcon from '@mui/icons-material/CheckBoxOutlin
 import CheckBoxOutlinedIcon from '@mui/icons-material/CheckBoxOutlined';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 
-import {findAllByDisplayValue} from "@testing-library/react";
+import Constants from "../Constants";
+import {Link} from "react-router-dom";
 
 
 
@@ -18,6 +19,7 @@ const Product = ({ product }) => {
     const [hoveredColorId, setHoveredColorId] = useState(null);
     const [isChecked, setIsChecked] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
+    const [currentLink, setCurrentLink] = useState(`${Constants.LOCAL_BASE_URL}/product/${product.productId}?color=${product.images[currentColorIndex].colorId}`)
     const colorsPerPage = 7
     const { likedProducts, toggleLike } = useLikedProducts();
 
@@ -42,7 +44,8 @@ const Product = ({ product }) => {
             setCurrentImage(colorImageObject.whyWeMadeThis[0])
         }
         setHoveredColorId(colorId);
-        }
+        setCurrentLink(`${Constants.LOCAL_BASE_URL}/product/${product.productId}?color=${colorId}`)
+    }
 
     const handleNextPage = () => {
             setCurrentPage((prevPage) => Math.min(prevPage + 1, Math.ceil(product.swatches.length / colorsPerPage) - 1))
@@ -67,11 +70,11 @@ const Product = ({ product }) => {
                          onMouseEnter={() => handleImageHover(true)}
                          onMouseLeave={() => handleImageHover(false)}
                     >
-                        <img
+                        <a href={currentLink}><img
                             className="product-image"
                             src={currentImage}
                             alt={product.name}
-                        />
+                        /></a>
                     </div>
                     <LikedProducts
                         productId={product.productId}
@@ -96,7 +99,7 @@ const Product = ({ product }) => {
                                 className={`color-circle ${hoveredColorId === swa.colorId ? 'hovered' : ''}`}
                                 onMouseEnter={() => handleColorHover(swa.colorId)}
                             >
-                                <img src={swa.swatch} alt={swa.swatchAlt}/>
+                                <a href={currentLink}><img src={swa.swatch} alt={swa.swatchAlt}/></a>
                                 <div className="tooltip">{swa.swatchAlt}</div>
                             </div>
                         ))}

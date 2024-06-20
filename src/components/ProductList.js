@@ -17,20 +17,20 @@ export const ProductList = ()=> {
 
 
     //for infinite scrolling
-    const handleScroll = ()=> {
-        // console.log("scrolling")
-        let scrollY = window.scrollY;
-        let windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight;
-        // console.log('scrollY===>', scrollY, 'windowHeight===>', windowHeight, 'documentHeight===>', documentHeight)
-        if (scrollY + windowHeight >= documentHeight - 1000) {
-            console.log("last line, scroll listener removed")
-            window.removeEventListener('scroll', handleScroll);
-            if(pagination && pagination.curPage<pagination.totalPage){
-                dispatch(fetchProducts(pagination.curPage+1, selectedFilters))
-            }
-        }
-    }
+    // const handleScroll = ()=> {
+    //     // console.log("scrolling")
+    //     let scrollY = window.scrollY;
+    //     let windowHeight = window.innerHeight;
+    //     const documentHeight = document.documentElement.scrollHeight;
+    //     // console.log('scrollY===>', scrollY, 'windowHeight===>', windowHeight, 'documentHeight===>', documentHeight)
+    //     if (scrollY + windowHeight >= documentHeight - 1000) {
+    //         console.log("last line, scroll listener removed")
+    //         window.removeEventListener('scroll', handleScroll);
+    //         if(pagination && pagination.curPage<pagination.totalPage){
+    //             dispatch(fetchProducts(pagination.curPage+1, selectedFilters))
+    //         }
+    //     }
+    // }
 
     const handleViewMore = ()=> {
         dispatch(fetchProducts(pagination.curPage+1, selectedFilters))
@@ -40,11 +40,11 @@ export const ProductList = ()=> {
             dispatch(fetchProducts())
     }, []);
 
-    useEffect(() => {
-        if(pagination.curPage==1 && pagination.totalPage>1) {
-            window.addEventListener('scroll', handleScroll)
-        }
-    }, [productList])
+    // useEffect(() => {
+    //     if(pagination.curPage==1 && pagination.totalPage>1) {
+    //         window.addEventListener('scroll', handleScroll)
+    //     }
+    // }, [productList])
 
     useEffect(() => {
         if(valuePassed && valuePassed.key && valuePassed.index){
