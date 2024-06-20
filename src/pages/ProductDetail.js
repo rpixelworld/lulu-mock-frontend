@@ -46,9 +46,6 @@ export const ProductDetail = () => {
                         </div>
                         <div className="detailinfo-container">
                             <Breadcrumb />
-                            <h2>Product Introduction & detail</h2>
-                            <h2>{productDetail.productId}</h2>
-                            <h2>{productDetail.name}</h2>
                             <ProductInfo details={productDetail} colorId={setColorSelected}/>
                         </div>
                         <div className="verticalrecos-container">
