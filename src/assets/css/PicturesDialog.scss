@@ -1,0 +1,79 @@
+.picdialog-container {
+  margin: 0;
+
+  .picdialog-wrapper {
+    //border: 1px solid black;
+    width: 85.75rem;
+    margin: 0 auto;
+
+    .row {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      button.back-button {
+        background-color: white;
+        border: none;
+        text-decoration: none;
+        width: 150px;
+
+        span.arrow {
+          font-size: 16px;
+          position: relative;
+          top: 1px;
+          left: 4px;
+        }
+        span.text {
+          &:hover {
+            text-decoration: none;
+            //text-decoration-color: red;
+          }
+
+          &::after {
+            content: "";
+            display: block;
+            height: .125rem;
+            position: relative;
+            top: 0.25rem;
+            left: 15px;
+            width: calc(100% - 15px);
+            transition: background .3s ease-in-out;
+          }
+
+          &:hover::after {
+            background: #c8102e;;
+          }
+        }
+
+      }
+      h2 {
+        font-size: 18px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .close-icon {
+        width: 150px;
+      }
+    }
+
+    .pics-container {
+      width: 98%;
+      //border: 1px solid red;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      row-gap: 20px;
+
+      img {
+        //margin-bottom: 20px;
+        width: 100%;
+      }
+    }
+
+  }
+}
