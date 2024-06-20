@@ -8,6 +8,7 @@ import {YouMayLike} from "../components/YouMayLike";
 import {fetchTemplateFilters} from "../redux/actions/filterAction";
 import {Breadsrumb_CatagoryIndex} from "../Constants";
 import {YouMayAlsoLike} from "../components/YouMayAlsoLike";
+import {FeaturePanel, FeaturePanels} from "../components/FeaturesPanel";
 
 export const ProductDetail = () => {
 
@@ -55,7 +56,7 @@ export const ProductDetail = () => {
                     </div>
 
                     <div className="featurepanel-container">
-                        <h2>Features Panel</h2>
+                        <FeaturePanel product={productDetail} />
                     </div>
 
                     <div className="youmayalsolike-container">
