@@ -1,7 +1,7 @@
 const Constants = {
     LOCAL_BASE_URL: 'http://' + window.location.host,
     BASE_URL: 'http://api-lulu.hibitbyte.com',
-    MY_KEY: 'rtIpbFi4fzjisRJNgqEtyR4Ags/Yz15jsqAGhE6uXIFkTG7vUSJ/yRYXiqrnlKjfTA2kAUtChiIflImPe/T3uA==',
+    MY_KEY: 'Z963qOWDTnsjHlc/aem%2B%2BUMyw9xCARP5SDnmB3wul0FTLIfL1l74/jXTZYjqKPakNAnGWpPbUtMg4yTuykx5vw==',
     ACTION_FETCH_PRODUCTLIST: 'ACTION_FETCH_PRODUCTLIST',
     ACTION_FETCH_PRODUCTLIST_MORE:'ACTION_FETCH_PRODUCTLIST_MORE',
     ACTION_SORT_PRODUCTLIST: 'ACTION_SORT_PRODUCTLIST',
