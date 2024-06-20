@@ -1,5 +1,6 @@
 .productdetail-container {
   max-width: 85.75rem;
+  height: auto;
   margin: auto;
   background-color: #fafafa;
   //margin: 0 calc((100% - 85.75rem)/2 + 1.5625rem);
@@ -52,7 +53,6 @@
     }
 
     .reviews-container {
-      height: 800px; /*to be deleted*/
       border: 1px dashed brown;
       margin-top: 64px;
     }

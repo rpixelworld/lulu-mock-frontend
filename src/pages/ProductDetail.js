@@ -4,6 +4,7 @@ import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchProductCatagories, fetchProductDetail} from "../redux/actions/productAction";
 import {Breadcrumb} from "../components/Breadcrumb";
+import {Reviews} from "../components/Reviews";
 
 export const ProductDetail = () => {
 
@@ -56,7 +57,7 @@ export const ProductDetail = () => {
                     </div>
 
                     <div className="reviews-container">
-                        <h2>Reviews</h2>
+                        <Reviews/>
                     </div>
 
                 </div>

@@ -1,0 +1,447 @@
+.reviews{
+  font-family: Calibre, "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+  .reviews-header {
+
+    &_container {
+      width: 1314px;
+      height: 109.195px;
+      padding-top: 40px;
+      margin-bottom: 40px;
+      display: grid;
+      grid-template-columns: 20rem 20.5rem 14rem auto;
+      grid-gap: 1rem;
+
+      .reviews-header_title {
+        font-size: 50px;
+        line-height: 56px;
+        font-weight: bold;
+      }
+
+      .reviews-header_average-rating-container {
+        display: flex;
+        flex-direction: column;
+
+        .rating-labels-container {
+          display: flex;
+          flex-direction: row;
+
+          span {
+            font-size: 30px;
+            font-weight: bold;
+          }
+
+          .rating-labels {
+            display: flex;
+            flex-direction: row;
+            position: relative;
+            top: 75%;
+            transform: translateY(-75%);
+
+            svg {
+              width: 12px;
+              height: 12px;
+              margin: 0 2px;
+            }
+        }
+
+        }
+        .reviews-header-total-reviews {
+          color: rgb(83, 86, 90);
+          font-size: 14px;
+          margin: 8px 0;
+
+
+        }
+      }
+
+      .reviews-header_fit-range-wrapper {
+        font-size: 10px;
+
+        .fits-true-to-size {
+          font-size: 30px;
+        }
+        .reviews-header-fitRange {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          width: 210px;
+          height: 20px;
+          margin: 8px 0;
+          color: rgb(83, 86, 90);
+
+          .reviews-header-box-container {
+            display: grid;
+            grid-template-columns: 20px 20px 20px 20px 20px;
+            column-gap: 2px;
+            position: relative;
+            top: 90%;
+
+            .reviews-header-tooltip {
+              display: inline-block;
+
+              .box {
+                border: #d3d5d7 solid 1px;
+                background-color: #d3d5d7;
+                width: 20px;
+                height: 6px;
+                display: inline-block;
+              }
+
+              .box-colored {
+                border: black solid 1px;
+                background-color: black;
+                width: 20px;
+                height: 6px;
+                display: inline-block;
+              }
+
+              .review-header-tooltipText {
+                visibility: hidden;
+                width: 120px;
+                text-align: center;
+                padding: 5px;
+                position: relative;
+                overflow: visible;
+                z-index: 1;
+                opacity: 0;
+                transition: opacity 0.3s;
+              }
+
+
+              .reviews-header-tooltip:hover .review-header-tooltipText {
+                visibility: visible;
+                opacity: 1;
+              }
+
+            }
+          }
+        }
+      }
+
+      .reviews-header_review-button {
+        display: flex;
+        justify-content: right;
+
+        button {
+          width: 312px;
+          height: 53.2px;
+          background-color: black;
+          color: white;
+          border-radius: 5px;
+          cursor: pointer;
+          border: none;
+          text-transform: uppercase;
+          font-size: 14px;
+          font-weight: bold;
+          font-stretch: 100%;
+          box-sizing: border-box;
+          overflow: hidden;
+          letter-spacing: 2px;
+        }
+
+      }
+    }
+  }
+
+  .reviews-containerRoot {
+    display: flex;
+    flex-direction: row;
+    width: 1314px;
+
+    .reviews-filter {
+      width: 312px;
+      height: 450px;
+      margin-right: 22px;
+
+      .reviews-filter-subheader {
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 16px;
+      }
+
+      .reviews-filter-searchInput {
+
+        box-sizing: content-box;
+        height: 22px;
+        padding: 14px 12px 14px 16px;
+        margin-bottom: 18px;
+
+        div {
+          width: 100%;
+
+          div {
+            input {
+              position: relative;
+              left: -100px;
+              font-size: 12px;
+              color: black;
+            }
+          }
+        }
+
+
+      }
+
+      .reviews-filter-filterContainer {
+        box-sizing: border-box;
+        width: 100%;
+        height: 340.594px;
+        padding: 19px 16px;
+        background-color: white;
+        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+
+        .reviews-filter-section-rating {
+          margin-bottom: 16px;
+          font-size: 16px;
+        }
+
+        .rating-review {
+          width: 280px;
+          height: 200px;
+          padding-bottom: 16px;
+          margin-bottom: 16px;
+          border-bottom: #d3d5d7 1px solid;
+
+          .rating-checkbox-container {
+            display: flex;
+            flex-direction: row;
+            width: 280px;
+            height: 24px;
+            margin-bottom: 8px;
+
+            .rating-checkbox {
+              div {
+                display: flex;
+                flex-direction: column;
+                cursor: pointer;
+                margin-right: 8px;
+
+                svg {
+                  width: 18px;
+                  height: 18px;
+                  margin-bottom: 10px;
+                }
+              }
+            }
+
+            .labelWrapper {
+              position: relative;
+
+              .label {
+                display: flex;
+                flex-direction: column;
+
+                span {
+                  margin-bottom: 13px;
+                }
+              }
+            }
+          }
+        }
+
+        .reviews-filter-section-photos {
+          .section-heading {
+            margin-bottom: 16px;
+            font-size: 16px;
+          }
+
+          .checkbox-container {
+            display: flex;
+            flex-direction: row;
+            width: 280px;
+            height: 24px;
+            margin-bottom: 8px;
+
+            .filterCheckbox {
+              cursor: pointer;
+              margin-right: 8px;
+
+              svg {
+                width: 18px;
+                height: 18px;
+              }
+            }
+            .labelWrapper {
+              position: relative;
+            }
+          }
+        }
+      }
+    }
+
+    .reviews-containerReviews {
+      width: 930px;
+      .reviews-section-subheader {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .review-container-subHeader {
+          font-size: 16px;
+          font-weight: bold;
+        }
+
+        .review-container-sort {
+          .dropdown-menu {
+            .menu {
+            }
+          }
+        }
+      }
+
+      .reviews-section-main {
+        .main-container {
+          width: 930px;
+          height: auto;
+          padding: 16px 24px;
+          margin-top: 16px;
+          margin-bottom: 8px;
+          background-color: white;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+          .main-user {
+            display: flex;
+            flex-direction: row;
+            font-size: 14px;
+            align-items: center;
+
+            .user-image {
+              background-color: rgb(141, 145, 150);
+              width: 24px;
+              height: 24px;
+              color: white;
+              border-radius: 50%;
+              position: relative;
+              cursor: grab;
+              .name {
+                position: relative;
+                left: 30%;
+                top:15%;
+              }
+            }
+            .user {
+              margin-left: 8px;
+
+            }
+
+            .time {
+              margin-left: 8px;
+              color: rgb(83, 86, 90);
+            }
+          }
+
+          .main-rating {
+            margin-top: 16px;
+            margin-bottom: 8px;
+
+            .stars {
+              display: flex;
+              flex-direction: row;
+              position: relative;
+              top: -4px;
+              svg{
+                width: 13px;
+                height: 13px;
+                margin: 0 2px;
+              }
+            }
+          }
+
+          .main-content {
+            margin-top: 10px;
+
+            .content-header {
+              font-size: 19px;
+              font-weight: bold;
+            }
+            .content-content {
+              font-size: 14px;
+              margin-top: 14px;
+            }
+          }
+
+          .main-size {
+            font-size: 12px;
+            display: flex;
+            flex-direction: row;
+            margin-top: 20px;
+
+            .size-purchased, .fitness {
+              font-weight: bold;
+            }
+            .size-purchase, .size-fitness {
+              margin-left: 2px;
+              margin-right: 17px;
+              cursor: pointer;
+            }
+
+          }
+
+          .main-card-component {
+            display: flex;
+            flex-direction: row;
+            margin-top: 12px;
+
+            .liked-button {
+              cursor: pointer;
+              padding-right: 6px;
+              margin-right: 10px;
+              svg {
+                width: 17px;
+                height: 17px;
+              }
+            }
+
+            .leave-a-comment {
+              display: flex;
+              flex-direction: row;
+              cursor: pointer;
+
+              .comment-image {
+                width: 17px;
+                height: 17px;
+                margin-right: 5px;
+              }
+
+              .comment-word {
+                text-align: center;
+                font-size: 12px;
+                color: #6e6e6e;
+                position: relative;
+                top: 1px;
+              }
+            }
+
+          }
+        }
+      }
+
+      .load-more-reviews {
+        button {
+          width: 164px;
+          height: 19.195px;
+          padding: 16px;
+          box-sizing: content-box;
+          border: 1px solid black;
+          border-radius: 4px;
+          background-color: white;
+          text-transform: uppercase;
+          text-align: center;
+          font-size: 14px;
+          font-weight: bold;
+          cursor: pointer;
+        }
+
+        button:hover {
+          background-color: black;
+          color: white;
+        }
+      }
+    }
+  }
+
+
+}
+
+
