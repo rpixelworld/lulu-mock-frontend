@@ -8,7 +8,7 @@ import {YouMayLike} from "../components/YouMayLike";
 import {fetchTemplateFilters} from "../redux/actions/filterAction";
 import {Breadsrumb_CatagoryIndex} from "../Constants";
 import {YouMayAlsoLike} from "../components/YouMayAlsoLike";
-import {FeaturePanel, FeaturePanels} from "../components/FeaturesPanel";
+import {FeaturePanel} from "../components/FeaturesPanel";
 
 export const ProductDetail = () => {
 
