@@ -14,6 +14,8 @@ const ProductInfo = ({details,colorId}) => {
     const size = details?.sizes?.flatMap((details) => details.details || [])
     const title = details?.sizes?.flatMap((title) => title.title || [])
     const featureTitles = details?.featureTitles || []
+    const test=details
+    console.log('details:',details)
 
     const hiddenList = () => {
         setIsHidden(!isHidden)
@@ -42,14 +44,7 @@ const ProductInfo = ({details,colorId}) => {
     }
 
     const handleColorClick = (item) => {
-
         colorId(item)
-        // const selectedImages = details.images.find(
-        //     (img) => img.colorId === item
-        // );
-        // if (selectedImages) {
-        //     setBigImg(selectedImages.mainCarousel.media.split('|')[0])
-        // }
     }
 
     useEffect(() => {
@@ -60,7 +55,7 @@ const ProductInfo = ({details,colorId}) => {
     }, []);
 
     return <div className='productInfo'>
-        <div>Love Long Sleeve Shirt</div>
+        <div className='productName'>{details.name}</div>
         <h1>{details.price}</h1>
 
         <div className='productColorList'>
@@ -114,9 +109,9 @@ const ProductInfo = ({details,colorId}) => {
                 <div className='pick-up' onClick={hiddenList}>
                     <StorefrontIcon className='icon'/>
                     <h2>Pick up in store</h2>
-                    <AddedMinusMark className='info-icon' status={isHidden} posistion={{left: '380px'}}/>
+                    <AddedMinusMark className='info-icon' status={isHidden} posistion={{left: '170px'}}/>
                 </div>
-                {isHidden && (<div style={{
+                {!isHidden && (<div style={{
                     margin: '0 10px',
                     overflowWrap: 'break-word',
                     fontSize: '15px',
@@ -197,11 +192,7 @@ const ProductInfo = ({details,colorId}) => {
             </div>
         </div>
         <div className='wrapper'>
-            <div style={{
-                position: 'relative',
-                top: '-10px',
-                left: '-20px'
-            }}>
+            <div>
                 <svg width="36" height="48" viewBox="0 0 36 48" fill="none" xmlns="http://www.w3.org/2000/svg"
                      focusable="false" role="img" aria-hidden="true">
                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -212,10 +203,7 @@ const ProductInfo = ({details,colorId}) => {
                           fill="black"></path>
                 </svg>
             </div>
-            <div className='move-to-right' style={{
-
-
-            }}>
+            <div className='move-to-right' style={{}}>
                 <div className='text'>Outfit Inspiration</div>
                 <div className='arrow-to-right'>
                     <svg height="16" width="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"
@@ -228,25 +216,23 @@ const ProductInfo = ({details,colorId}) => {
             </div>
 
         </div>
+        <h3>Details</h3>
         <div className='detail'>
-            <h3>Details</h3>
-            {featureTitles.map((item, index) =>
-                <div key={index}
-                     className='details-line'
-                     style={{
-                         position: 'relative',
-                         display: 'flex',
-                         flexDirection: "row",
-                     }}>
-                    <img style={{width: '24px', height: '24px', margin: '0 5px'}} src={item.iconPath} alt=""/>
+
+            <div className='detail-icon-list'>
+                {featureTitles.map((item, index) =>
                     <div key={index}
-                         className='hover-underline'
-                    >{item.title}</div>
-                </div>)}
-        </div>
-        <div className='question'>
+                         className='details-icon'>
+                        <img style={{width: '24px', height: '24px', margin: '0 5px'}} src={item.iconPath} alt=""/>
+                    </div>)}
+            </div>
+            <div className='detail-text-list'>
+                {featureTitles.map((item, index) =>
+                    <div key={index} className='hover-text'>{item.title}</div>)}
+            </div>
 
         </div>
+
     </div>
 }
 export default ProductInfo
