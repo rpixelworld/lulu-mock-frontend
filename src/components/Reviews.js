@@ -131,7 +131,7 @@ export const Reviews = () => {
     const [isLiked, setIsLiked] = useState(false)
     const [filteredReviews, setFilteredReviews] = useState([]);
     const [displayedReviews, setDisplayedReviews] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(0);
     const reviewsPerPage = 16;
 
 
@@ -141,11 +141,12 @@ export const Reviews = () => {
             .then(data => {
                 setReviewData(data.reviews)
                 setFilteredReviews(data.reviews)
-                setDisplayedReviews(data.review.slice(0, reviewsPerPage))
+                setDisplayedReviews(data.reviews.slice(0, reviewsPerPage))
                 console.log("print data,", reviewsData)
             })
             .catch(error => console.error('Fetch error:', error))
     }, [])
+
 
     const handleLoadMore = () => {
         const nextPage = currentPage + 1;
@@ -169,11 +170,11 @@ export const Reviews = () => {
     const handleRatingChange = useCallback((selectedRatings = []) => {
         if (selectedRatings.length === 0) {
             setFilteredReviews(reviewsData); // Show all reviews if no ratings are selected
-            setDisplayedReviews(reviewsData.slice(0, currentPage * reviewsPerPage))
+            setDisplayedReviews(reviewsData.slice(0, (currentPage + 1) * reviewsPerPage))
         } else {
             const filtered = reviewsData.filter((review) => selectedRatings.includes(review.rating));
             setFilteredReviews(filtered);
-            setDisplayedReviews(filtered.slice(0, currentPage * reviewsPerPage));
+            setDisplayedReviews(filtered.slice(0, (currentPage + 1) * reviewsPerPage));
         }
     },[reviewsData, currentPage, reviewsPerPage]);
     const calculateDaysAgo = (dateString) => {

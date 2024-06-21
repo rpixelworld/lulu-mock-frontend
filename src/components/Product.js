@@ -14,6 +14,7 @@ import {findAllByDisplayValue} from "@testing-library/react";
 const Product = ({ product }) => {
     const [currentImage, setCurrentImage] = useState(product.images[0].whyWeMadeThis[0])
     const [currentColorIndex, setCurrentColorIndex] = useState(0);
+    const [currentBg, setCurrentBg] = useState(product.images[currentColorIndex].mainCarousel.media.split(' | ')[0]);
     const [currentPage, setCurrentPage] = useState(0)
     const [hoveredColorId, setHoveredColorId] = useState(null);
     const [isChecked, setIsChecked] = useState(false);
@@ -26,14 +27,28 @@ const Product = ({ product }) => {
         return null;
     }
 
-    const handleImageHover = (isHovering) => {
-        const imageToShow = isHovering ? product.images[currentColorIndex].whyWeMadeThis[1] : product.images[currentColorIndex].whyWeMadeThis[0];
-        setCurrentImage(imageToShow);
+    const altImg = (whyWeMadeThis)=> {
+        console.log("altimg")
+        if(whyWeMadeThis){
+            setCurrentBg(product.images[currentColorIndex].whyWeMadeThis[0]);
+        }
+        else {
+            setCurrentBg(product.images[currentColorIndex].mainCarousel.media.split(' | ')[0])
+        }
     }
+
+    // const handleImageHover = (isHovering) => {
+    //     if(whyWeMadeThis){
+    //         const imageToShow = isHovering ? product.images[currentColorIndex].whyWeMadeThis[1] : product.images[currentColorIndex].whyWeMadeThis[0];
+    //     }
+    //
+    //     setCurrentImage(imageToShow);
+    // }
     const handleColorHover = (colorId, isHovering) => {
         const colorImageObject = product.images.find((img, index) => {
             if (img.colorId === colorId) {
                 setCurrentColorIndex(index)
+                setCurrentBg(product.images[index].mainCarousel.media.split(' | ')[0])
                 return true
             }
             return false
@@ -46,7 +61,6 @@ const Product = ({ product }) => {
 
     const handleNextPage = () => {
             setCurrentPage((prevPage) => Math.min(prevPage + 1, Math.ceil(product.swatches.length / colorsPerPage) - 1))
-
     }
 
     const handlePrevPage = () => {
@@ -63,16 +77,25 @@ const Product = ({ product }) => {
         <div className="product">
             <div className="products-grid">
                 <div className="product-grid">
-                    <div className="image-wrapper"
-                         onMouseEnter={() => handleImageHover(true)}
-                         onMouseLeave={() => handleImageHover(false)}
-                    >
-                        <img
-                            className="product-image"
-                            src={currentImage}
-                            alt={product.name}
-                        />
+                    <div className="imageAlt-container" onMouseEnter={() => {
+                        altImg(true)
+                    }} onMouseOut={() => {
+                        altImg(false)
+                    }}>
+                        <div className="image-container"
+                             style={{backgroundImage: `url(${currentBg})`}}></div>
                     </div>
+
+                    {/*<div className="image-wrapper"*/}
+                    {/*     onMouseEnter={() => handleImageHover(true)}*/}
+                    {/*     onMouseLeave={() => handleImageHover(false)}*/}
+                    {/*>*/}
+                    {/*    <img*/}
+                    {/*        className="product-image"*/}
+                    {/*        src={currentImage}*/}
+                    {/*        alt={product.name}*/}
+                    {/*    />*/}
+                    {/*</div>*/}
                     <LikedProducts
                         productId={product.productId}
                         isLiked={likedProducts.includes(product.productId)}
