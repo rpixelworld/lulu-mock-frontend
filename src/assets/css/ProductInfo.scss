@@ -10,6 +10,18 @@
     justify-content: center;
     .productName {
         font-size: 2.5rem;
+        font-weight: 600;
+    }
+    .price {
+        font-size: 1.3rem;
+        font-weight: 300;
+
+        .currency {
+            font-size: .75rem;
+            font-weight: 500;
+            letter-spacing: .08125rem;
+            line-height: 1.2;
+        }
     }
     .productColorList {
         width: 100%;
@@ -32,6 +44,7 @@
             border-radius: 50%;
             box-sizing: border-box;
             box-shadow: 0 0 2px 1px #c3c3c3;
+            cursor: pointer;
             &:hover::after {
                 content: '';
                 width: 34px;
@@ -106,9 +119,12 @@
         background-color: white;
         cursor: pointer;
     }
-    .sizeButton.outOfStock {
+    .outOfStock {
         background: linear-gradient(to top left, #fafafa calc(50% - .0625rem), #d3d5d7, #fafafa calc(50% + .09375rem));
         color: #53565a;
+    }
+    .selectedButton {
+        border: 1px solid #000;
     }
     .redT {
         margin: 0 3px;

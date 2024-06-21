@@ -80,30 +80,32 @@ const Product = ({ product }) => {
         <div className="product">
             <div className="products-grid">
                 <div className="product-grid">
-                    <div className="imageAlt-container" onMouseEnter={() => {
-                        altImg(true)
-                    }} onMouseOut={() => {
-                        altImg(false)
-                    }}>
-                        <div className="image-container"
-                             style={{backgroundImage: `url(${currentBg})`}}></div>
-                    </div>
+                    <a href={currentLink}>
+                        <div className="imageAlt-container" onMouseEnter={() => {
+                            altImg(true)
+                        }} onMouseOut={() => {
+                            altImg(false)
+                        }}>
+                            <div className="image-container"
+                                 style={{backgroundImage: `url(${currentBg})`}}></div>
+                        </div>
+                    </a>
 
-                    {/*<div className="image-wrapper"*/}
-                    {/*     onMouseEnter={() => handleImageHover(true)}*/}
-                    {/*     onMouseLeave={() => handleImageHover(false)}*/}
-                    {/*>*/}
-                    {/*    <img*/}
-                    {/*        className="product-image"*/}
-                    {/*        src={currentImage}*/}
-                    {/*        alt={product.name}*/}
-                    {/*    />*/}
-                    {/*</div>*/}
-                    <LikedProducts
-                        productId={product.productId}
-                        isLiked={likedProducts.includes(product.productId)}
-                        toggleLike={toggleLike}
-                    />
+                        {/*<div className="image-wrapper"*/}
+                        {/*     onMouseEnter={() => handleImageHover(true)}*/}
+                        {/*     onMouseLeave={() => handleImageHover(false)}*/}
+                        {/*>*/}
+                        {/*    <img*/}
+                        {/*        className="product-image"*/}
+                        {/*        src={currentImage}*/}
+                        {/*        alt={product.name}*/}
+                        {/*    />*/}
+                        {/*</div>*/}
+                        <LikedProducts
+                            productId={product.productId}
+                            isLiked={likedProducts.includes(product.productId)}
+                            toggleLike={toggleLike}
+                        />
                 </div>
             </div>
             <div className="product-details">

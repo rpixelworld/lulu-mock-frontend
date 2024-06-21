@@ -3,32 +3,27 @@ import AddedMinusMark from "./Add-MinusMark";
 import {useEffect, useState} from "react";
 import '../assets/css/ProductInfo.scss'
 import {getRandomInt} from "../Helper";
+import {useSearchParams} from "react-router-dom";
 
-const ProductInfo = ({details,colorId}) => {
-    const colors = details?.swatches || []
-    const [selectedColor, setSelectedColor] = useState({});
+const ProductInfo = ({product, colorIndex, handleColorChange}) => {
+    const [queryParams] = useSearchParams()
+    const [selectedColorIndex, setSelectedColorIndex] = useState(colorIndex)
+    const [selectedSizeIndex, setSelectedSizeIndex] = useState()
+    const [selectedSize, setSelectedSize] = useState('')
+
     const [isHidden, setIsHidden] = useState(false);
     const [outOfStock, setOutOfStock] = useState(false)
     const [only1Left, setOnly1Left] = useState(false)
     const [storages, setStorages] = useState([])
-    const size = details?.sizes?.flatMap((details) => details.details || [])
-    const title = details?.sizes?.flatMap((title) => title.title || [])
-    const featureTitles = details?.featureTitles || []
-    const test=details
-    console.log('details:',details)
 
     const hiddenList = () => {
         setIsHidden(!isHidden)
     }
-    const toggleSelected = (index) => {
-        setSelectedColor({})
-        setSelectedColor((prevState) => ({
-            ...prevState, [index]: !prevState[index],
-        }))
 
-    }
 
-    const checkStorage = (storage)=> {
+    const handleSizeClick = (storage, size, index)=> {
+        setSelectedSizeIndex(index)
+        setSelectedSize(size)
         if(storage===0){
             setOutOfStock(true)
             setOnly1Left(false)
@@ -43,30 +38,36 @@ const ProductInfo = ({details,colorId}) => {
         }
     }
 
-    const handleColorClick = (item) => {
-        colorId(item)
+    const toggleSelected = (index) => {
+        setSelectedColorIndex(index)
+        handleColorChange(index)
     }
 
     useEffect(() => {
-        // setStorages(Arrays.fi)
-        size.forEach(size => {
+        let activeColor = queryParams.get('color')
+        for(let i=0; i<product.swatches.length; i++) {
+            if(activeColor===product.swatches[i].colorId){
+                setSelectedColorIndex(i);
+                break;
+            }
+        }
+        product.sizes[0].details.forEach(size => {
             setStorages(prev => [...prev, getRandomInt(3)])
         })
     }, []);
 
     return <div className='productInfo'>
-        <div className='productName'>{details.name}</div>
-        <h1>{details.price}</h1>
+        <div className='productName'>{product.name}</div>
+        <h2 className='price'>{product.price.replace('CAD', '')} <span className='currency'>CAD</span> </h2>
 
         <div className='productColorList'>
-            {colors.map((item, index) =>
+            {product.swatches.map((item, index) =>
                 <div className='colorBox'>
                     <img onClick={() => {
-                        handleColorClick(item.colorId)
                         toggleSelected(index)
                     }}
-                         onMouseEnter={() => handleColorClick(item.colorId)}
-                         className={`selectColor ${selectedColor[index] ? 'selected' : ''}`}
+                         onMouseEnter={() => toggleSelected(index)}
+                         className={selectedColorIndex===index? 'selectColor selected':'selectColor'}
                          key={item.colorId}
                          src={item.swatch} alt=""/>
                 </div>)}
@@ -79,15 +80,13 @@ const ProductInfo = ({details,colorId}) => {
 
 
         <div className='sizeList'>
-            <p style={{fontWeight: 'bold'}}>{title} </p>
-            {size.map((item, index) => {
+            {product.sizes && <p style={{fontWeight: 'bold'}}>{product.sizes[0].title} {selectedSize}</p>}
+            {product.sizes && product.sizes[0].details.length>0 && product.sizes[0].details.map((item, index) => {
                 console.log(storages)
                 let storage = storages[index]
-                // if(index===0){
-                //     setOutOfStock(storage===0)
-                //     setOnly1Left(storage===1)
-                // }
-                return <button onClick={()=>{checkStorage(storage)}} className={storage===0?'sizeButton outOfStock':'sizeButton'} key={index}>{item}</button>})
+                return <button onClick={()=>{handleSizeClick(storage, item, index)}}
+                               className= {`sizeButton ${selectedSizeIndex===index && ' selectedButton'} ${storage===0 && ' outOfStock'}`}
+                               key={index}>{item}</button>})
             }
         </div>
 
@@ -220,14 +219,14 @@ const ProductInfo = ({details,colorId}) => {
         <div className='detail'>
 
             <div className='detail-icon-list'>
-                {featureTitles.map((item, index) =>
+                {product.featureTitles.map((item, index) =>
                     <div key={index}
                          className='details-icon'>
                         <img style={{width: '24px', height: '24px', margin: '0 5px'}} src={item.iconPath} alt=""/>
                     </div>)}
             </div>
             <div className='detail-text-list'>
-                {featureTitles.map((item, index) =>
+                {product.featureTitles.map((item, index) =>
                     <div key={index} className='hover-text'>{item.title}</div>)}
             </div>
 
