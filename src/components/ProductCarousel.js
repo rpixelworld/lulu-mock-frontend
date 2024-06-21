@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import '../assets/css/ProductCarousel.scss'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -11,14 +11,20 @@ export const ProductCarousel = ({product, colorIndex}) => {
     const [queryParams] = useSearchParams()
     const [selectedColorIndex, setSelectedColorIndex] = useState(colorIndex)
     const [index, setIndex] = useState(0)
+    const imgRef = useRef(null);
 
     const [openDialog, setOpenDialog] = useState(false)
-    const handleDialogOpen = ()=> {
+    const handleDialogOpen = (e)=> {
         setOpenDialog(true);
+        console.log(e.target)
     }
     const handleDialogClose = ()=> {
         setOpenDialog(false)
     }
+    // const handleNavMouseEnter = () => {
+        // console.log('mouse enter', imgRef.current)
+        // imgRef.current.removeEventListener('click', {handleDialogOpen})
+    // }
 
     useEffect(() => {
         console.log("color index change to ===>", colorIndex)
@@ -42,7 +48,7 @@ export const ProductCarousel = ({product, colorIndex}) => {
         setBigImg(item)
     }
 
-    const handleNextPage = () => {
+    const handleNextPage = (e) => {
         let imgs = product.images[selectedColorIndex].mainCarousel.media.split(' | ')
         if (index < imgs.length) {
             const newIndex = index + 1;
@@ -55,8 +61,9 @@ export const ProductCarousel = ({product, colorIndex}) => {
             setIndex(newIndex)
             setBigImg(imgs[newIndex])
         }
+        e.stopPropagation();
     }
-    const handlePrevPage = () => {
+    const handlePrevPage = (e) => {
         let imgs = product.images[selectedColorIndex].mainCarousel.media.split(' | ')
         if (index === 0) {
             const newIndex = imgs.length - 1;
@@ -68,6 +75,7 @@ export const ProductCarousel = ({product, colorIndex}) => {
             setIndex(newIndex)
             setBigImg(imgs[newIndex])
         }
+        e.stopPropagation();
     }
 
 
@@ -75,7 +83,7 @@ export const ProductCarousel = ({product, colorIndex}) => {
         {/*partOfLeft*/}
         <div className='productCarousel'>
             {/*bigBackground*/}
-            <div className='bigImg' onClick={handleDialogOpen}
+            <div className='bigImg' ref={imgRef} onClick={handleDialogOpen}
                  style={{background: bigImg ? `url('${bigImg}') no-repeat center center / cover` : "none"}}>
                 {/*SIDEARROW*/}
                 <div className=' navBar'>
@@ -94,6 +102,7 @@ export const ProductCarousel = ({product, colorIndex}) => {
                         borderRadius: '5px'
                     }}><ChevronRightIcon className='nav-icon' onClick={handleNextPage}/></div>
                 </div>
+                <div onClick={handleDialogOpen} className="magnifiers"></div>
             </div>
             <PicturesDialog
                 isOpen={openDialog} dialogIsClosed={handleDialogClose}
