@@ -1,12 +1,16 @@
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import AddedMinusMark from "./Add-MinusMark";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import '../assets/css/ProductInfo.scss'
+import {getRandomInt} from "../Helper";
 
 const ProductInfo = ({details,colorId}) => {
     const colors = details?.swatches || []
     const [selectedColor, setSelectedColor] = useState({});
     const [isHidden, setIsHidden] = useState(false);
+    const [outOfStock, setOutOfStock] = useState(false)
+    const [only1Left, setOnly1Left] = useState(false)
+    const [storages, setStorages] = useState([])
     const size = details?.sizes?.flatMap((details) => details.details || [])
     const title = details?.sizes?.flatMap((title) => title.title || [])
     const featureTitles = details?.featureTitles || []
@@ -22,6 +26,21 @@ const ProductInfo = ({details,colorId}) => {
 
     }
 
+    const checkStorage = (storage)=> {
+        if(storage===0){
+            setOutOfStock(true)
+            setOnly1Left(false)
+        }
+        else if(storage===1){
+            setOutOfStock(false)
+            setOnly1Left(true)
+        }
+        else{
+            setOutOfStock(false)
+            setOnly1Left(false)
+        }
+    }
+
     const handleColorClick = (item) => {
 
         colorId(item)
@@ -33,11 +52,18 @@ const ProductInfo = ({details,colorId}) => {
         // }
     }
 
+    useEffect(() => {
+        // setStorages(Arrays.fi)
+        size.forEach(size => {
+            setStorages(prev => [...prev, getRandomInt(3)])
+        })
+    }, []);
+
     return <div className='productInfo'>
         <div>Love Long Sleeve Shirt</div>
         <h1>{details.price}</h1>
-        <div className='productColorList'>
 
+        <div className='productColorList'>
             {colors.map((item, index) =>
                 <div className='colorBox'>
                     <img onClick={() => {
@@ -49,11 +75,25 @@ const ProductInfo = ({details,colorId}) => {
                          key={item.colorId}
                          src={item.swatch} alt=""/>
                 </div>)}
-
         </div>
+
+        <div className="alert">
+            {outOfStock && <div className="out-of-stock">Sold out online.</div>}
+            {only1Left && <div className="only-1-left">Hurry, only a few left!</div>}
+        </div>
+
+
         <div className='sizeList'>
             <p style={{fontWeight: 'bold'}}>{title} </p>
-            {size.map((item, index) => <button className='sizeButton' key={index}>{item}</button>)}
+            {size.map((item, index) => {
+                console.log(storages)
+                let storage = storages[index]
+                // if(index===0){
+                //     setOutOfStock(storage===0)
+                //     setOnly1Left(storage===1)
+                // }
+                return <button onClick={()=>{checkStorage(storage)}} className={storage===0?'sizeButton outOfStock':'sizeButton'} key={index}>{item}</button>})
+            }
         </div>
 
         <div style={{

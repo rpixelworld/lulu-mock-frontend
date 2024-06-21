@@ -25,6 +25,7 @@ export const ProductDetail = () => {
 
 
     useEffect(() => {
+
         dispatch(fetchTemplateFilters())
     }, []);
 
@@ -32,11 +33,11 @@ export const ProductDetail = () => {
         if(valuePassed && valuePassed.productId){
             dispatch(fetchProductDetail(valuePassed.productId))
             // dispatch(fetchProductCatagories(valuePassed.productId))
-
         }
     }, [valuePassed]);
 
     if(productDetail && productDetail.productId) {
+        document.title = productDetail.name
         return (
             <div className='productdetail-container'>
                 <div className="productdetail-container-wrapper">
