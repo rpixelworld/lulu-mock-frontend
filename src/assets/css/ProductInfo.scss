@@ -57,15 +57,58 @@
             z-index: 1 !important;
         }
     }
+
+    .alert{
+        //margin-top: 20px;
+        width: 100%;
+
+        .out-of-stock {
+            margin-top: 20px;
+            background-color: #ffe1e4;
+            background-image: url("../images/outofstock.png ");
+            background-repeat: no-repeat;
+            background-position-y: center;
+            background-position-x: 1rem;
+            border: .0625rem solid #d20014;
+            font-size: 1.1875rem;
+            font-weight: 400;
+            line-height: 1.2631578947;
+            display: flex;
+            padding: 1.25rem 5rem;
+        }
+
+        .only-1-left {
+            margin-top: 20px;
+            background-color: #fff7da;
+            background-image: url("../images/only1left.png");
+            background-repeat: no-repeat;
+            background-position-y: center;
+            background-position-x: 1rem;
+            border: .0625rem solid #d20014;
+            font-size: 1.1875rem;
+            font-weight: 400;
+            line-height: 1.2631578947;
+            display: flex;
+            padding: 1.25rem 5rem;
+        }
+
+    }
+
+
     .sizeButton {
         font-weight: bold;
         font-size: 16px;
-        width: 36px;
-        height: 36px;
+        width: 40px;
+        height: 40px;
         margin: 4px;
         border: 1px solid #c3c3c3;
         border-radius: 5px;
         background-color: white;
+        cursor: pointer;
+    }
+    .sizeButton.outOfStock {
+        background: linear-gradient(to top left, #fafafa calc(50% - .0625rem), #d3d5d7, #fafafa calc(50% + .09375rem));
+        color: #53565a;
     }
     .redT {
         margin: 0 3px;
