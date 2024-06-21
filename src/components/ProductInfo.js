@@ -152,7 +152,7 @@ const ProductInfo = ({details,colorId}) => {
             </div>
         </div>
         <div className='wrapper'>
-            <div>
+            <div style={{position:'relative',left:'-30px',top:'-10px'}}>
                 <svg width="36" height="48" viewBox="0 0 36 48" fill="none" xmlns="http://www.w3.org/2000/svg"
                      focusable="false" role="img" aria-hidden="true">
                     <path fill-rule="evenodd" clip-rule="evenodd"

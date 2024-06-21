@@ -213,10 +213,10 @@
         box-shadow: 0 2px 0 0 #c3c3c3;
         position: relative;
         top: -10px;
-        left: -20px;
+        //left: -20px;
         .move-to-right {
             display: flex;
-            flexDirection: row;
+            flex-direction: row;
             position: relative;
             width: 200px;
             left: -20px;
@@ -255,6 +255,7 @@
         }
         .hover-text {
             line-height: 28px;
+            position: relative;
         }
         .hover-text {
             font-weight: bold;
