@@ -8,20 +8,27 @@ const initState = {
         curPage:0,
         totalPage:0,
     },
+    templateFilters:{},
     selectedFilters:{},
     productDetail: {},
-    productCatagories: ''
+    productCatagories: '',
+    youMayLike:[],
+    youMayAlsoLike:[]
 
 }
 
 export const productReducer = (state=initState, action)=>{
     switch (action.type){
         case Constants.ACTION_FETCH_FILTERS:
-            console.log('FETCH_FILTERS', action.payload);
+            // console.log('FETCH_FILTERS', action.payload);
             return {...state, selectedFilters: action.payload}
 
+        case Constants.ACTION_FETCH_TEMPLATE_FILTERS:
+            // console.log('FETCH_FILTERS', action.payload);
+            return {...state, templateFilters: action.payload}
+
         case Constants.ACTION_FETCH_PRODUCTLIST:
-            console.log(action.payload['products'])
+            // console.log(action.payload['products'])
             return {...state,
                 productList: action.payload['products'],
                 pagination: action.payload['pageParams'],
@@ -33,12 +40,13 @@ export const productReducer = (state=initState, action)=>{
         case Constants.ACTION_FETCH_PRODUCTLIST_MORE:
             const temp = [...state.productList, ...action.payload['products']]
             // temp.push(action.payload['products'])
-            console.log('productList.length===>', state.productList.length, 'temp.length===>', temp.length)
+            // console.log('productList.length===>', state.productList.length, 'temp.length===>', temp.length)
             return {...state,
                 productList: temp,
                 pagination: action.payload['pageParams'],
                 selectedFilters: action.payload['filters']
             }
+
         case Constants.ACTION_SORT_PRODUCTLIST:
             const tobeSorted = [...state.productList];
             tobeSorted.sort((proda, prodb) => {
@@ -55,13 +63,45 @@ export const productReducer = (state=initState, action)=>{
                     return Number(priceB) - Number(priceA)
                 }
             })
-            console.log("tobeSorted ===> ", tobeSorted)
+            // console.log("tobeSorted ===> ", tobeSorted)
             return {...state, productList: tobeSorted}
+
         case Constants.ACTION_FETCH_PRODUCT_DETAIL:
-            return {...state, productDetail: action.payload}
+            return {...state, productDetail: action.payload, youMayLike: [], youMayAlsoLike: []}
+
         case Constants.ACTION_FETCH_PRODUCT_CATAGORY:
-            console.log(action.payload)
+            console.log('ACTION_FETCH_PRODUCT_CATAGORY====>', action.payload)
             return {...state, productCatagories: action.payload}
+
+        case Constants.ACTION_FETCH_RECOMMENDATIONS:
+            const productId = action.payload.productId
+            const recommendProductList = action.payload.recommends.products
+            // console.log("recommendProductList====>", recommendProductList)
+            let count = 0;
+            let recommendeds = [];
+            let recommendations1 = []
+            let recommendations2 = []
+            for(let i=0; i<recommendProductList.length; i++){
+                // console.log('productId===', productId, 'recommendProductList[i].productId=====', recommendProductList[i].productId)
+                if(productId == recommendProductList[i].productId || recommendeds.includes(recommendProductList[i].productId)){
+                    continue;
+                }
+                if(count<4){
+                    recommendeds.push(recommendProductList[i].productId)
+                    recommendations1.push(recommendProductList[i])
+                    count ++
+                }
+                else if(count>3 && count<8){
+                    recommendeds.push(recommendProductList[i].productId)
+                    recommendations2.push(recommendProductList[i])
+                    count ++
+                }
+            }
+            console.log('recommendProductList===>', recommendProductList)
+            console.log('recommendations1===>', recommendations1)
+            console.log('recommendations2===>', recommendations2)
+            return {...state, youMayLike: recommendations1, youMayAlsoLike: recommendations2}
+
         default:
             return state
     }

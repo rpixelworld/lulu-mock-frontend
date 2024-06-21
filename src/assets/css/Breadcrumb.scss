@@ -1,4 +1,6 @@
 nav {
+  width: 80%;
+  margin: 0 auto 20px auto;
   font-weight: 400;
   line-height: 1.2;
   display: block;
@@ -9,7 +11,7 @@ nav {
     flex-wrap: wrap;
     list-style: none;
     padding: 0;
-    font-size: 12px;
+    font-size: 11px;
 
     li::after {
       color: #8d9196;

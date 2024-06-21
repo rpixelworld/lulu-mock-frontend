@@ -1,59 +1,70 @@
 import '../assets/css/ProductDetail.scss'
-import {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchProductCatagories, fetchProductDetail} from "../redux/actions/productAction";
+import {fetchProductCatagories, fetchProductDetail, fetchProducts} from "../redux/actions/productAction";
 import {Breadcrumb} from "../components/Breadcrumb";
 import {Reviews} from "../components/Reviews";
+import {YouMayLike} from "../components/YouMayLike";
+import {fetchTemplateFilters} from "../redux/actions/filterAction";
+import {Breadsrumb_CatagoryIndex} from "../Constants";
+import {YouMayAlsoLike} from "../components/YouMayAlsoLike";
+import {FeaturePanel} from "../components/FeaturesPanel";
+import {ProductCarousel} from "../components/ProductCarousel";
+import {WhyWeMadeThis} from "../components/WhyWeMadeThis";
+import ProductInfo from "../components/ProductInfo";
 
 export const ProductDetail = () => {
 
     let valuePassed = useParams();
     const dispatch = useDispatch()
     const productDetail = useSelector(state => state.productReducer.productDetail)
+    const templateFilters = useSelector(state => state.productReducer.templateFilters)
     const productCatagories = useSelector(state => state.productReducer.productCatagories)
+    const [colorSelected, setColorSelected] = useState('')
+
+
+    useEffect(() => {
+
+        dispatch(fetchTemplateFilters())
+    }, []);
 
     useEffect(() => {
         if(valuePassed && valuePassed.productId){
             dispatch(fetchProductDetail(valuePassed.productId))
-            dispatch(fetchProductCatagories(valuePassed.productId))
+            // dispatch(fetchProductCatagories(valuePassed.productId))
         }
     }, [valuePassed]);
 
-    // useEffect(() => {
-    //     productDetail && dispatch(fetchProductCatagories(productDetail.productId))
-    // }, [productDetail]);
-
     if(productDetail && productDetail.productId) {
+        document.title = productDetail.name
         return (
             <div className='productdetail-container'>
                 <div className="productdetail-container-wrapper">
 
                     <div className="productintro-container">
                         <div className="carousel-container">
-                            <h2>Carousel</h2>
+                            <ProductCarousel  details={productDetail} colorIds={colorSelected}/>
                         </div>
                         <div className="detailinfo-container">
-                            <Breadcrumb catagories={productCatagories}/>
-                            <h2>Product Introduction & detail</h2>
-                            <h2>{productDetail.productId}</h2>
-                            <h2>{productDetail.name}</h2>
+                            <Breadcrumb />
+                            <ProductInfo details={productDetail} colorId={setColorSelected}/>
                         </div>
                         <div className="verticalrecos-container">
-                            <h2>You may like</h2>
+                            <YouMayLike />
                         </div>
                     </div>
 
                     <div className="whywemadethis-container">
-                        <h2>Why we made this</h2>
+                        <WhyWeMadeThis details={productDetail} colorIds={colorSelected}/>
                     </div>
 
                     <div className="featurepanel-container">
-                        <h2>Features Panel</h2>
+                        <FeaturePanel product={productDetail} />
                     </div>
 
                     <div className="youmayalsolike-container">
-                        <h2>You may also like</h2>
+                        <YouMayAlsoLike />
                     </div>
 
                     <div className="reviews-container">
@@ -68,7 +79,7 @@ export const ProductDetail = () => {
     else {
         return <div className='productdetail-container'>
             <div className="productdetail-container-wrapper">
-                <h2>not available</h2>
+                <h2 style={{textAlign: "center"}}>Not available</h2>
             </div>
         </div>
     }

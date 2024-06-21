@@ -1,0 +1,56 @@
+.add-minus {
+    width: 16px;
+    height: 16px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    .need-fix {
+        width: 16px;
+        height: 2px;
+        background-color: black;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+
+    }
+
+    .move-to-horizontal {
+        position: absolute;
+        left: 48%;
+        transform: translateX(-48%);
+        text-align: center;
+        width: 2px;
+        height: 16px;
+        background-color: black;
+        animation: move-to-horizontal 0.4s forwards;
+    }
+
+    @keyframes move-to-horizontal {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(-90deg);
+        }
+    }
+
+    .move-to-vertical {
+        position: absolute;
+        transform: translateX(-48%);
+        left: 48%;
+        width: 2px;
+        height: 16px;
+        background-color: black;
+        animation: move-to-vertical 0.4s forwards;
+    }
+
+    @keyframes move-to-vertical {
+        0% {
+            transform: rotate(-90deg);
+        }
+        100% {
+            transform: rotate(0deg);
+        }
+    }
+}

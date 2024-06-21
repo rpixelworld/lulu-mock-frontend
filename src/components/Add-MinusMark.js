@@ -1,3 +1,4 @@
+import '../assets/css/Add-MinusMark.scss'
 const AddedMinusMark = ({status,style,posistion}) => {
     return <div className='add-minus' style={posistion} >
         {status
