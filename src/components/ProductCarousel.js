@@ -36,7 +36,7 @@ export const ProductCarousel = ({details,colorIds}) => {
             setImgs(images);
             setBigImg(images[0]);
             setIndex(0);
-            console.log('Filtered images:', images);
+            // console.log('Filtered images:', images);
         }
     }, [details, activeColorIds]);
 
@@ -49,7 +49,7 @@ export const ProductCarousel = ({details,colorIds}) => {
     const handleNextPage = () => {
         if (index < imgs.length) {
             const newIndex = index + 1;
-            console.log(newIndex)
+            // console.log(newIndex)
             setIndex(newIndex)
             setBigImg(imgs[newIndex])
         }
@@ -104,8 +104,8 @@ export const ProductCarousel = ({details,colorIds}) => {
                         <img className='img-list-item' onClick={() => handleImageClick(item)} src={item} alt=""/>
                     </div>
                 ))}
-                <div className='img-list-item' style={{margin: '0 4px'}}>
-                    <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                <div className='smallImgList'>
+                    <svg height="36" width="36" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
                          className="product-media-carousel_thumbnailImage__XG3rS product-media-carousel_tagIcon__RDuKa"
                          focusable="false" role="img" aria-hidden="true">
                         <g fill="currentColor" fill-rule="evenodd">
