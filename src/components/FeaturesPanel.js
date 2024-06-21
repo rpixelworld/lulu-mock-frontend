@@ -58,24 +58,31 @@ export const FeaturePanel= ({product}) => {
                                 overflow: 'hidden',
                                 transition: 'max-height 0.3s ease-in-out'
                             }}>
-                                {panel.content.includes("Body fabric back: 94% Pima cotton, 6% Lycra® elastane") ? (
-                                    <>
-                                        <p><strong>Materials</strong></p>
-                                        <p className={'list-style-two'}>{panel.content.find(item => item.includes("Body fabric back: 94% Pima cotton, 6% Lycra® elastane"))}</p>
-                                        <p><strong>Care</strong></p>
-                                        <ul>
-                                            {panel.content.filter(item => !item.includes("Body fabric back: 94% Pima cotton, 6% Lycra® elastane")).map((careItem, idx) => (
-                                                <li className={'list-style'} key={idx}>{careItem}</li>
-                                            ))}
-                                        </ul>
-                                    </>
-                                ) : (
-                                    <ul>
-                                        {panel.content.map((item, idx) => (
-                                            <li className={'list-style'} key={idx}>{item}</li>
-                                        ))}
-                                    </ul>
-                                )}
+                            <ul>
+                                {panel.content.map((item, idx) => {
+                                    if (typeof item === 'string' || item instanceof String) {
+                                        return <li className={'list-style'} key={idx}>{item}</li>
+                                    }
+                                })}
+                            </ul>
+                                {/*{panel.content.includes("Body fabric back: 94% Pima cotton, 6% Lycra® elastane") ? (*/}
+                                {/*    <>*/}
+                                {/*        <p><strong>Materials</strong></p>*/}
+                                {/*        <p className={'list-style-two'}>{panel.content.find(item => item.includes("Body fabric back: 94% Pima cotton, 6% Lycra® elastane"))}</p>*/}
+                                {/*        <p><strong>Care</strong></p>*/}
+                                {/*        <ul>*/}
+                                {/*            {panel.content.filter(item => !item.includes("Body fabric back: 94% Pima cotton, 6% Lycra® elastane")).map((careItem, idx) => (*/}
+                                {/*                <li className={'list-style'} key={idx}>{careItem}</li>*/}
+                                {/*            ))}*/}
+                                {/*        </ul>*/}
+                                {/*    </>*/}
+                                {/*) : (*/}
+                                {/*    <ul>*/}
+                                {/*        {panel.content.map((item, idx) => (*/}
+                                {/*            <li className={'list-style'} key={idx}>{item}</li>*/}
+                                {/*        ))}*/}
+                                {/*    </ul>*/}
+                                {/*)}*/}
                             </div>
                         )}
                         <hr/>
