@@ -121,10 +121,11 @@
     }
     .outOfStock {
         background: linear-gradient(to top left, #fafafa calc(50% - .0625rem), #d3d5d7, #fafafa calc(50% + .09375rem));
-        color: #53565a;
+        color: #53565a !important;
     }
     .selectedButton {
-        border: 1px solid #000;
+        background-color: black;
+        color: white;
     }
     .redT {
         margin: 0 3px;

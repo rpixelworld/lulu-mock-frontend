@@ -8,6 +8,7 @@ import {useSearchParams} from "react-router-dom";
 const ProductInfo = ({product, colorIndex, handleColorChange}) => {
     const [queryParams] = useSearchParams()
     const [selectedColorIndex, setSelectedColorIndex] = useState(colorIndex)
+    const [selectedColor, setSelectedColor] = useState()
     const [selectedSizeIndex, setSelectedSizeIndex] = useState()
     const [selectedSize, setSelectedSize] = useState('')
 
@@ -43,6 +44,13 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
         handleColorChange(index)
     }
 
+    const handleColorClick = (colorId, colorAlt, index)=> {
+        setSelectedColorIndex(index)
+        handleColorChange(index)
+        setSelectedColor(colorAlt)
+        window.history.replaceState(null, '', '/product/'+product.productId+'?color='+colorId)
+    }
+
     useEffect(() => {
         let activeColor = queryParams.get('color')
         for(let i=0; i<product.swatches.length; i++) {
@@ -58,16 +66,17 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
 
     return <div className='productInfo'>
         <div className='productName'>{product.name}</div>
-        <h2 className='price'>{product.price.replace('CAD', '')} <span className='currency'>CAD</span> </h2>
+        <h2 className='price'>{product.price.replace('CAD', '')} <span className='currency'>CAD</span></h2>
 
+        <p><strong>Select Color</strong>  {selectedColor}</p>
         <div className='productColorList'>
             {product.swatches.map((item, index) =>
                 <div className='colorBox'>
                     <img onClick={() => {
-                        toggleSelected(index)
+                        handleColorClick(item.colorId, item.swatchAlt, index)
                     }}
                          onMouseEnter={() => toggleSelected(index)}
-                         className={selectedColorIndex===index? 'selectColor selected':'selectColor'}
+                         className={selectedColorIndex === index ? 'selectColor selected' : 'selectColor'}
                          key={item.colorId}
                          src={item.swatch} alt=""/>
                 </div>)}
@@ -80,13 +89,16 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
 
 
         <div className='sizeList'>
-            {product.sizes && <p style={{fontWeight: 'bold'}}>{product.sizes[0].title} {selectedSize}</p>}
-            {product.sizes && product.sizes[0].details.length>0 && product.sizes[0].details.map((item, index) => {
+            {product.sizes && <p><strong>{product.sizes[0].title}</strong> {selectedSize}</p>}
+            {product.sizes && product.sizes[0].details.length > 0 && product.sizes[0].details.map((item, index) => {
                 console.log(storages)
                 let storage = storages[index]
-                return <button onClick={()=>{handleSizeClick(storage, item, index)}}
-                               className= {`sizeButton ${selectedSizeIndex===index && ' selectedButton'} ${storage===0 && ' outOfStock'}`}
-                               key={index}>{item}</button>})
+                return <button onClick={() => {
+                    handleSizeClick(storage, item, index)
+                }}
+                               className={`sizeButton ${selectedSizeIndex === index && ' selectedButton'} ${storage === 0 && ' outOfStock'}`}
+                               key={index}>{item}</button>
+            })
             }
         </div>
 
