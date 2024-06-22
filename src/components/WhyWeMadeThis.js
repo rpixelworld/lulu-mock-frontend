@@ -1,36 +1,27 @@
 import {useEffect, useState} from "react";
 import '../assets/css/WhyWeMadeThis.scss'
+import {useSearchParams} from "react-router-dom";
+import {getRandomInt} from "../Helper";
 
-export const WhyWeMadeThis = ({details, colorIds}) => {
-    const [activeColorIds, setActiveColorIds] = useState(colorIds || []);
-    const [WWMT, setWWMT] = useState([]);
-    const images = details.images.flatMap((image) =>
-        activeColorIds.includes(image.colorId) ? image.whyWeMadeThis : []
-    );
+export const WhyWeMadeThis = ({product, colorIndex}) => {
 
-    // 当details变化时，如果没有传入colorIds，则设置默认colorId
+    const [queryParams] = useSearchParams()
+    const [selectedColorIndex, setSelectedColorIndex] = useState(colorIndex)
+
     useEffect(() => {
-        if (details?.images && activeColorIds.length === 0) {
-            const defaultColorId = details.images[0]?.colorId;
-            if (defaultColorId) {
-                setActiveColorIds([defaultColorId]);
+        console.log("color index change to ===>", colorIndex)
+        setSelectedColorIndex(colorIndex)
+    }, [colorIndex]);
+
+    useEffect(() => {
+        let activeColor = queryParams.get('color')
+        for(let i=0; i<product.swatches.length; i++) {
+            if(activeColor===product.swatches[i].colorId){
+                setSelectedColorIndex(i);
+                break;
             }
         }
-    }, [details]);
-
-    // 当details或activeColorIds变化时，更新WWMT
-    useEffect(() => {
-        if (details?.images && activeColorIds.length > 0) {
-            setWWMT(images);
-        }
-    }, [details, activeColorIds]);
-
-    // 当传入的colorIds变化时，更新activeColorIds
-    useEffect(() => {
-        if (colorIds && colorIds.length > 0) {
-            setActiveColorIds(colorIds);
-        }
-    }, [colorIds]);
+    }, []);
 
     return (<div className='WWMT-container'>
         <div className='title'>
@@ -38,7 +29,7 @@ export const WhyWeMadeThis = ({details, colorIds}) => {
             <p>Go ahead, get sweaty. The Swiftly Tech collection, powered by seamless construction, is the ultimate gear for running and training.</p>
         </div>
         <div className='img-content'>
-            {WWMT.map((item, index) => (
+            {product.images[selectedColorIndex].whyWeMadeThis.map((item, index) => (
                 <img className='WWMT-img' key={index} src={item} alt=""/>
             ))}
         </div>

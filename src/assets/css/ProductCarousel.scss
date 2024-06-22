@@ -32,7 +32,20 @@
             .nav-icon {
                 width: 48px;
                 height: 48px;
+                cursor: pointer;
             }
+        }
+
+        .magnifiers {
+            width: 80px;
+            height: 80px;
+            border: 1px solid #f0f0f0;
+            border-radius: 4px;
+            position: absolute;
+            top:710px;
+            left: calc(100% - 100px);
+            background-color: #f0f0f0;
+            background-image: url('../images/magnifiers.png');
         }
     }
 

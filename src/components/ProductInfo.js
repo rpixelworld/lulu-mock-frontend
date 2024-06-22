@@ -1,54 +1,105 @@
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import AddedMinusMark from "./Add-MinusMark";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import '../assets/css/ProductInfo.scss'
+import {getRandomInt} from "../Helper";
+import {useSearchParams} from "react-router-dom";
 
-const ProductInfo = ({details,colorId}) => {
-    const colors = details?.swatches || []
-    const [selectedColor, setSelectedColor] = useState({});
-    const [isHidden, setIsHidden] = useState(true);
-    const size = details?.sizes?.flatMap((details) => details.details || [])
-    const title = details?.sizes?.flatMap((title) => title.title || [])
-    const featureTitles = details?.featureTitles || []
-    const test=details
-    console.log('details:',details)
+const ProductInfo = ({product, colorIndex, handleColorChange}) => {
+    const [queryParams] = useSearchParams()
+    const [selectedColorIndex, setSelectedColorIndex] = useState(colorIndex)
+    const [selectedColor, setSelectedColor] = useState()
+    const [selectedSizeIndex, setSelectedSizeIndex] = useState()
+    const [selectedSize, setSelectedSize] = useState('')
+
+    const [isHidden, setIsHidden] = useState(false);
+    const [outOfStock, setOutOfStock] = useState(false)
+    const [only1Left, setOnly1Left] = useState(false)
+    const [storages, setStorages] = useState([])
 
     const hiddenList = () => {
         setIsHidden(!isHidden)
     }
+
+
+    const handleSizeClick = (storage, size, index)=> {
+        setSelectedSizeIndex(index)
+        setSelectedSize(size)
+        if(storage===0){
+            setOutOfStock(true)
+            setOnly1Left(false)
+        }
+        else if(storage===1){
+            setOutOfStock(false)
+            setOnly1Left(true)
+        }
+        else{
+            setOutOfStock(false)
+            setOnly1Left(false)
+        }
+    }
+
     const toggleSelected = (index) => {
-        setSelectedColor({})
-        setSelectedColor((prevState) => ({
-            ...prevState, [index]: !prevState[index],
-        }))
-
+        setSelectedColorIndex(index)
+        handleColorChange(index)
     }
 
-    const handleColorClick = (item) => {
-        colorId(item)
+    const handleColorClick = (colorId, colorAlt, index)=> {
+        setSelectedColorIndex(index)
+        handleColorChange(index)
+        setSelectedColor(colorAlt)
+        window.history.replaceState(null, '', '/product/'+product.productId+'?color='+colorId)
     }
+
+    useEffect(() => {
+        let activeColor = queryParams.get('color')
+        for(let i=0; i<product.swatches.length; i++) {
+            if(activeColor===product.swatches[i].colorId){
+                setSelectedColorIndex(i);
+                break;
+            }
+        }
+        product.sizes[0].details.forEach(size => {
+            setStorages(prev => [...prev, getRandomInt(3)])
+        })
+    }, []);
 
     return <div className='productInfo'>
-        <div className='productName'>{details.name}</div>
-        <h1>{details.price}</h1>
-        <div className='productColorList'>
+        <div className='productName'>{product.name}</div>
+        <h2 className='price'>{product.price.replace('CAD', '')} <span className='currency'>CAD</span></h2>
 
-            {colors.map((item, index) =>
+        <p><strong>Select Color</strong>  {selectedColor}</p>
+        <div className='productColorList'>
+            {product.swatches.map((item, index) =>
                 <div className='colorBox'>
                     <img onClick={() => {
-                        handleColorClick(item.colorId)
-                        toggleSelected(index)
+                        handleColorClick(item.colorId, item.swatchAlt, index)
                     }}
-                         onMouseEnter={() => handleColorClick(item.colorId)}
-                         className={`selectColor ${selectedColor[index] ? 'selected' : ''}`}
+                         onMouseEnter={() => toggleSelected(index)}
+                         className={selectedColorIndex === index ? 'selectColor selected' : 'selectColor'}
                          key={item.colorId}
                          src={item.swatch} alt=""/>
                 </div>)}
-
         </div>
+
+        <div className="alert">
+            {outOfStock && <div className="out-of-stock">Sold out online.</div>}
+            {only1Left && <div className="only-1-left">Hurry, only a few left!</div>}
+        </div>
+
+
         <div className='sizeList'>
-            {size?.length > 0 ? <p style={{fontWeight: 'bold'}}>{title} </p> : []}
-            {size.map((item, index) => <button className='sizeButton' key={index}>{item}</button>)}
+            {product.sizes && <p><strong>{product.sizes[0].title}</strong> {selectedSize}</p>}
+            {product.sizes && product.sizes[0].details.length > 0 && product.sizes[0].details.map((item, index) => {
+                console.log(storages)
+                let storage = storages[index]
+                return <button onClick={() => {
+                    handleSizeClick(storage, item, index)
+                }}
+                               className={`sizeButton ${selectedSizeIndex === index && ' selectedButton'} ${storage === 0 && ' outOfStock'}`}
+                               key={index}>{item}</button>
+            })
+            }
         </div>
 
         <div style={{
@@ -180,14 +231,14 @@ const ProductInfo = ({details,colorId}) => {
         <div className='detail'>
 
             <div className='detail-icon-list'>
-                {featureTitles.map((item, index) =>
+                {product.featureTitles.map((item, index) =>
                     <div key={index}
                          className='details-icon'>
                         <img style={{width: '24px', height: '24px', margin: '0 5px'}} src={item.iconPath} alt=""/>
                     </div>)}
             </div>
             <div className='detail-text-list'>
-                {featureTitles.map((item, index) =>
+                {product.featureTitles.map((item, index) =>
                     <div key={index} className='hover-text'>{item.title}</div>)}
             </div>
 

@@ -12,7 +12,7 @@ export const PicturesDialog = ({isOpen, dialogIsClosed, title, pictures}) => {
         dialogIsClosed()
     }
 
-    return <Dialog fullScreen open={open} onClose={handleClose}>
+    return <Dialog fullScreen open={isOpen} onClose={handleClose}>
         <DialogContent className='picdialog-container'>
             <div className="picdialog-wrapper">
                 <div className="row">

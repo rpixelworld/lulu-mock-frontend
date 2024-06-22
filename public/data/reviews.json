@@ -210,6 +210,116 @@
       "content": "Great product and fits perfectly.",
       "sizePurchased": 14,
       "fitsScale": "True to size"
+    },
+    {
+      "id": 1021,
+      "username": "JaneDoe",
+      "rating": 4,
+      "date": "2024-06-17",
+      "title": "Good Quality",
+      "content": "This product is of good quality and fits well.",
+      "sizePurchased": "6",
+      "fitsScale": "True to size"
+    },
+    {
+      "id": 1022,
+      "username": "MarkSmith",
+      "rating": 3,
+      "date": "2024-06-16",
+      "title": "Average Product",
+      "content": "The product is okay but could be better.",
+      "sizePurchased": "10",
+      "fitsScale": "Runs a bit small"
+    },
+    {
+      "id": 1023,
+      "username": "LucyBrown",
+      "rating": 5,
+      "date": "2024-06-15",
+      "title": "Excellent!",
+      "content": "Absolutely love it. Highly recommend!",
+      "sizePurchased": "8",
+      "fitsScale": "True to size"
+    },
+    {
+      "id": 1024,
+      "username": "TomWilson",
+      "rating": 2,
+      "date": "2024-06-14",
+      "title": "Not great",
+      "content": "The product didn't meet my expectations.",
+      "sizePurchased": "9",
+      "fitsScale": "Runs large"
+    },
+    {
+      "id": 1025,
+      "username": "EmmaJohnson",
+      "rating": 4,
+      "date": "2024-06-13",
+      "title": "Pretty good",
+      "content": "I liked it, but it could use some improvements.",
+      "sizePurchased": "7",
+      "fitsScale": "Runs a bit large"
+    },
+    {
+      "id": 1026,
+      "username": "JamesLee",
+      "rating": 5,
+      "date": "2024-06-12",
+      "title": "Fantastic",
+      "content": "Great product, exactly what I needed.",
+      "sizePurchased": "11",
+      "fitsScale": "True to size"
+    },
+    {
+      "id": 1027,
+      "username": "EllaTaylor",
+      "rating": 3,
+      "date": "2024-06-11",
+      "title": "Okay",
+      "content": "It's okay, but I've seen better.",
+      "sizePurchased": "5",
+      "fitsScale": "Runs small"
+    },
+    {
+      "id": 1028,
+      "username": "MichaelClark",
+      "rating": 4,
+      "date": "2024-06-10",
+      "title": "Very good",
+      "content": "I am satisfied with this product.",
+      "sizePurchased": "12",
+      "fitsScale": "True to size"
+    },
+    {
+      "id": 1029,
+      "username": "SophiaHarris",
+      "rating": 5,
+      "date": "2024-06-09",
+      "title": "Perfect!",
+      "content": "Couldn't ask for more. Just perfect.",
+      "sizePurchased": "8",
+      "fitsScale": "True to size"
+    },
+    {
+      "id": 1030,
+      "username": "DavidMartinez",
+      "rating": 2,
+      "date": "2024-06-08",
+      "title": "Not satisfied",
+      "content": "Not what I expected. Disappointed.",
+      "sizePurchased": "10",
+      "fitsScale": "Runs a bit small"
+    },
+    {
+      "id": 1031,
+      "username": "IsabellaWhite",
+      "rating": 4,
+      "date": "2024-06-07",
+      "title": "Good purchase",
+      "content": "Happy with the purchase overall.",
+      "sizePurchased": "9",
+      "fitsScale": "Runs a bit large"
     }
   ]
 }
