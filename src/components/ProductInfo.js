@@ -1,11 +1,12 @@
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import AddedMinusMark from "./Add-MinusMark";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import '../assets/css/ProductInfo.scss'
 import {getRandomInt} from "../Helper";
 import {useSearchParams} from "react-router-dom";
 
 const ProductInfo = ({product, colorIndex, handleColorChange}) => {
+
     const [queryParams] = useSearchParams()
     const [selectedColorIndex, setSelectedColorIndex] = useState(colorIndex)
     const [selectedColor, setSelectedColor] = useState()
@@ -16,6 +17,9 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
     const [outOfStock, setOutOfStock] = useState(false)
     const [only1Left, setOnly1Left] = useState(false)
     const [storages, setStorages] = useState([])
+    const [visible, setVisible] = useState(false)
+    const tooltipRef = useRef(null);
+    console.log('tooltipRef',tooltipRef)
 
     const hiddenList = () => {
         setIsHidden(!isHidden)
@@ -50,6 +54,14 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
         setSelectedColor(colorAlt)
         window.history.replaceState(null, '', '/product/'+product.productId+'?color='+colorId)
     }
+    const showTooltip=() => {
+        setVisible(!visible)
+    }
+    const handleClickOutside = (event) => {
+        if (tooltipRef.current && !tooltipRef.current.contains(event.target)) {
+            setVisible(false);
+        }
+    }
 
     useEffect(() => {
         let activeColor = queryParams.get('color')
@@ -63,6 +75,16 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
             setStorages(prev => [...prev, getRandomInt(3)])
         })
     }, []);
+    useEffect(() => {
+        if (visible) {
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [visible]);
 
     return <div className='productInfo'>
         <div className='productName'>{product.name}</div>
@@ -141,7 +163,7 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
         <div className='more-infro'>
             <div className='four-ways-payment'>
                 <p>4 payments of $17.00 available with
-                    {/*LOGO*/}
+                    {/*LOGO of afterpay*/}
                     <div className="svg-container">
                         <svg viewBox="360.6 308.93 1148.88 220.83"
                              className="installment-payments_afterpayIcon__1gJx0" focusable="false" role="img"
@@ -152,7 +174,7 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
                         </svg>
                     </div>
                     or
-                    {/*LOGO*/}
+                    {/*LOGO of klarna*/}
                     <div className="svg-container2">
                         <svg viewBox="0 0 452.9 101.1" xmlns="http://www.w3.org/2000/svg"
                              className="installment-payments_klarnaIcon__nzEEz" focusable="false" role="img"
@@ -164,8 +186,29 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
                                 d="M431.9 28.8c-2.7 0-4.9 2.2-4.9 4.9.1 2.7 2.2 4.9 4.9 4.9s4.9-2.2 4.9-4.9-2.2-4.9-4.9-4.9zm0 8.9c-2.2 0-3.9-1.8-3.9-4s1.8-4 3.9-4c2.2 0 3.9 1.8 3.9 4s-1.8 4-3.9 4zm8.1 37.2c-7.1 0-12.9 5.8-12.9 12.9 0 7.1 5.8 12.9 12.9 12.9 7.1 0 12.9-5.8 12.9-12.9 0-7.2-5.8-12.9-12.9-12.9z"></path>
                         </svg>
                     </div>
+                    {/*LOGO of i*/}
+                    <div className='productInfo-tooltip' onClick={showTooltip} ref={tooltipRef}>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                             className="installment-payments_tooltipIcon__5K1qQ" focusable="false" role="img"
+                             aria-hidden="true">
+                            <g fill="none" fill-rule="evenodd" stroke="currentColor">
+                                <circle cx="12" cy="12" r="11" stroke-width="2"></circle>
+                                <path
+                                    d="M13.55 7.15a1.15 1.15 0 1 1-2.3 0 1.15 1.15 0 0 1 2.3 0zm-1.232 8.735h1.163v.538c0 .595-.482 1.077-1.077 1.077h-1.077a.818.818 0 0 1-.625-.29.862.862 0 0 1-.172-.68l.883-4.415H10.25v-.538c0-.595.482-1.077 1.077-1.077h1.077c.24 0 .47.107.624.29a.865.865 0 0 1 .173.68z"
+                                    fill="currentColor"></path>
+                            </g>
+                        </svg>
+                    </div>
+                    {visible &&
+                        <div className='productInfo-tooltip-detail'>
+                            Buy items now and pay later - in 4 payments, with no additional fees when you pay on
+                                time. <a href="#">Learn more</a>
+                        </div>
+                    }
+
                 </p>
             </div>
+
             <div className='heart-review'>
                 {/*heart*/}
                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
@@ -203,7 +246,7 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
             </div>
         </div>
         <div className='wrapper'>
-            <div>
+            <div style={{position:'relative',left:'-30px',top:'-10px'}}>
                 <svg width="36" height="48" viewBox="0 0 36 48" fill="none" xmlns="http://www.w3.org/2000/svg"
                      focusable="false" role="img" aria-hidden="true">
                     <path fill-rule="evenodd" clip-rule="evenodd"
