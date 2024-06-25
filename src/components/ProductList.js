@@ -8,7 +8,7 @@ import {useParams} from "react-router-dom";
 export const ProductList = ()=> {
 
     let valuePassed = useParams();
-    console.log(valuePassed.key, valuePassed.index)
+    // console.log(valuePassed.key, valuePassed.index)
 
     const dispatch = useDispatch()
     const productList = useSelector(state => state.productReducer.productList)

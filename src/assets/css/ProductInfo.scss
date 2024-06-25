@@ -98,7 +98,7 @@
             background-repeat: no-repeat;
             background-position-y: center;
             background-position-x: 1rem;
-            border: .0625rem solid #d20014;
+            border: .0625rem solid #866D20;
             font-size: 1.1875rem;
             font-weight: 400;
             line-height: 1.2631578947;
@@ -119,6 +119,15 @@
         border-radius: 5px;
         background-color: white;
         cursor: pointer;
+    }
+    .onesizeButton {
+        font-weight: bold;
+        font-size: 16px;
+        border: 1px solid #c3c3c3;
+        border-radius: 5px;
+        background-color: white;
+        cursor: pointer;
+        padding: 6px;
     }
     .outOfStock {
         background: linear-gradient(to top left, #fafafa calc(50% - .0625rem), #d3d5d7, #fafafa calc(50% + .09375rem));
@@ -200,6 +209,10 @@
     }
     .add-to-bag {
         position: absolute;
+        //height: 33%;
+        //box-shadow: 0 1px 0 0 #c3c3c3;
+        display: flex;
+        justify-content: center;
         .add-button {
             background-color: #c8102e;
             border: unset;
@@ -209,16 +222,47 @@
             width: 403px;
             height: 53px;
             margin: 10px 0;
-
+            cursor: pointer;
+        }
+        .soldout-button {
+            background-color: black;
+            border: unset;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            width: 403px;
+            height: 53px;
+            margin: 10px 0;
+            cursor: not-allowed;
         }
     }
     .check-all {
-        display: flex;
+         display: flex;
         justify-content: center;
         margin: 15px;
         font-weight: bold;
-        text-decoration: underline 2px;
+        text-decoration: none;
+        //text-decoration-thickness: 1px;
+        //text-decoration-offset: px;
+        font-size: 14px;
+
+        span {
+            position: relative;
+        }
+
+        span::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right:0;
+            bottom: -5px; /* Adjust the offset value */
+            width: auto;
+            height: 1px; /* Adjust the thickness */
+            background-color: black; /* Adjust the color */
+        }
     }
+
+
     .more-infro {
         display: flex;
         flex-direction: column;
@@ -271,14 +315,37 @@
 
         }
         .heart-review {
+            margin-top: 15px;
             width: 423px;
             display: flex;
             justify-content: space-between;
-            a {
-                color: black;
-                font-weight: bold;
-                text-decoration: none;
+
+            span {
+                position: relative;
+                font-size: 14px;
+                margin-left: 6px;
+
+                a {
+                    color: black;
+                    font-weight: 600;
+                    text-decoration: none;
+                }
             }
+
+            span::after {
+                content: '';
+                position: absolute;
+                left: 0;
+                right: 0; /* Ensure it spans the full width of the text */
+                bottom: -4px; /* Adjust the offset value */
+                height: 1px; /* Adjust the thickness */
+                background-color: black; /* Adjust the color */
+            }
+
+            span:hover::after {
+                background-color: #d21919;
+            }
+
         }
     }
 
@@ -287,14 +354,14 @@
         flex-direction: row;
         align-content: center;
         justify-content: space-around;
-        margin: 10px 0 0;
+        margin: 40px 0 0;
         width: 423px;
-        height: 72px;
-        padding: 24px;
+        height: 90px;
+        padding: 36px;
         background-color: white;
-        box-shadow: 0 2px 0 0 #c3c3c3;
+        box-shadow: 0 1px 0 0 #c3c3c3;
         position: relative;
-        top: -10px;
+        //top: -10px;
         //left: -20px;
         .move-to-right {
             display: flex;
@@ -319,61 +386,59 @@
             cursor: pointer;
             left: 5px;
         }
-
-
-
-
     }
+
+    h3 {
+        margin-top: 25px;
+        font-size: 15px;
+    }
+
     .detail {
         display: flex;
         flex-direction: row;
-        .detail-icon-list {
-            display: flex;
-            flex-direction: column;
-            .detail-icon {
-                display: flex;
-                flex-direction: column;
+
+        ul {
+            margin: 0;
+            padding: 0;
+            li {
+                margin: 10px 0;
+                padding: 0;
+                list-style: none;
+
+                img {
+                    display: inline-block;
+                }
+
+                span {
+                    margin-left: 6px;
+                    position: relative;
+                    top: -4px;
+                    font-size: 14px;
+                    font-weight: 600;
+
+                    a {
+                        text-decoration: none;
+                        color: black;
+                        cursor: pointer;
+                    }
+                }
+
+                span::after {
+                    content: '';
+                    position: absolute;
+                    left: 0;
+                    right: 0; /* Ensure it spans the full width of the text */
+                    bottom: -4px; /* Adjust the offset value */
+                    height: 1px; /* Adjust the thickness */
+                    background-color: #bbbbbb; /* Adjust the color */
+                }
+
+                span:hover::after {
+                    background-color: #d21919;
+                }
             }
         }
-        .hover-text {
-            line-height: 28px;
-            position: relative;
-        }
-        .hover-text {
-            font-weight: bold;
-        }
-        .hover-text::after{
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -0.125rem;
-            width: 100%;
-            height: 1px;
-            background-color: black;
-            transition: all 0.1s;
-        }
-        .hover-text:hover::after {
-            background-color: #c8102e;
-        }
 
-    }
-
-    //hover underline
-    .hover-underline {
-        font-weight: bold;
-    }
-    .hover-underline::after{
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: -0.125rem;
-        width: 100%;
-        height: 1px;
-        background-color: black;
-        transition: all 0.1s;
-    }
-    .hover-underline:hover::after {
-        background-color: #c8102e;
     }
 
 

@@ -4,7 +4,9 @@ import {useEffect, useRef, useState} from "react";
 import '../assets/css/ProductInfo.scss'
 import {getRandomInt} from "../Helper";
 import {useSearchParams} from "react-router-dom";
-import {AddToBag} from "./AddToBag";
+import * as CartIndexedDBHelper from "../CartIndexedDBHelper";
+import {useDispatch} from "react-redux";
+import {dispatchShoppingCart} from "../redux/actions/shoppingAction";
 
 const ProductInfo = ({product, colorIndex, handleColorChange}) => {
     // update add to bag
@@ -20,6 +22,8 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
     };
 
 
+    const dispatch = useDispatch();
+
     const [queryParams] = useSearchParams()
     const [selectedColorIndex, setSelectedColorIndex] = useState(colorIndex)
     const [selectedColor, setSelectedColor] = useState()
@@ -29,6 +33,7 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
     const [isHidden, setIsHidden] = useState(false);
     const [outOfStock, setOutOfStock] = useState(false)
     const [only1Left, setOnly1Left] = useState(false)
+    const [sizeNotSelected, setSizeNotSelected] = useState(false)
     const [storages, setStorages] = useState([])
     const [visible, setVisible] = useState(false)
     const tooltipRef = useRef(null);
@@ -42,6 +47,7 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
     const handleSizeClick = (storage, size, index)=> {
         setSelectedSizeIndex(index)
         setSelectedSize(size)
+        setSizeNotSelected(false)
         if(storage===0){
             setOutOfStock(true)
             setOnly1Left(false)
@@ -76,17 +82,46 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
         }
     }
 
+    const addToBag = ()=> {
+        if(selectedSize===''){
+            setSizeNotSelected(true)
+            return
+        }
+
+        let item = {
+            itemKey:`${product.productId}_${product.swatches[selectedColorIndex].colorId}_${selectedSize}`,
+            productId: product.productId,
+            productName: product.name,
+            colorAlt: product.swatches[selectedColorIndex].swatchAlt,
+            size: selectedSize,
+            imageUrl: product.images[selectedColorIndex].mainCarousel.media.split(' | ')[0],
+            price: Number(product.price.substring(1, product.price.indexOf('CAD')-1)),
+            amount: 1,
+            createdAt: Date.now(),
+            updatedAt: Date.now()
+        }
+        CartIndexedDBHelper.insertOrUpdateItem(item.itemKey, item)
+        CartIndexedDBHelper.getAllItems((shoppingCart) => {dispatch(dispatchShoppingCart(shoppingCart))})
+    }
+
     useEffect(() => {
         let activeColor = queryParams.get('color')
         for(let i=0; i<product.swatches.length; i++) {
             if(activeColor===product.swatches[i].colorId){
                 setSelectedColorIndex(i);
+                setSelectedColor(product.swatches[i].swatchAlt)
                 break;
             }
         }
-        product.sizes[0].details.forEach(size => {
-            setStorages(prev => [...prev, getRandomInt(3)])
-        })
+        if(product.sizes[0].details.length==0){
+            setSelectedSize('ONE SIZE')
+        }
+        else {
+            product.sizes[0].details.forEach(size => {
+                setStorages(prev => [...prev, getRandomInt(3)])
+            })
+        }
+
     }, []);
     useEffect(() => {
         if (visible) {
@@ -107,9 +142,7 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
         <div className='productColorList'>
             {product.swatches.map((item, index) =>
                 <div className='colorBox'>
-                    <img onClick={() => {
-                        handleColorClick(item.colorId, item.swatchAlt, index)
-                    }}
+                    <img onClick={() => { handleColorClick(item.colorId, item.swatchAlt, index) }}
                          onMouseEnter={() => toggleSelected(index)}
                          className={selectedColorIndex === index ? 'selectColor selected' : 'selectColor'}
                          key={item.colorId}
@@ -120,21 +153,19 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
         <div className="alert">
             {outOfStock && <div className="out-of-stock">Sold out online.</div>}
             {only1Left && <div className="only-1-left">Hurry, only a few left!</div>}
+            {sizeNotSelected && <div className="out-of-stock">Please select a size.</div>}
         </div>
 
 
         <div className='sizeList'>
             {product.sizes && <p><strong>{product.sizes[0].title}</strong> {selectedSize}</p>}
             {product.sizes && product.sizes[0].details.length > 0 && product.sizes[0].details.map((item, index) => {
-                console.log(storages)
                 let storage = storages[index]
-                return <button onClick={() => {
-                    handleSizeClick(storage, item, index)
-                }}
+                return <button onClick={() => { handleSizeClick(storage, item, index) }}
                                className={`sizeButton ${selectedSizeIndex === index && ' selectedButton'} ${storage === 0 && ' outOfStock'}`}
                                key={index}>{item}</button>
-            })
-            }
+            })}
+            {product.sizes && product.sizes[0].details.length == 0 && <button className='onesizeButton selectedButton'>ONE SIZE</button>}
         </div>
 
         <div style={{
@@ -168,12 +199,11 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
             </div>
 
             <div className='add-to-bag'>
-                <button className='add-button'
-                        onClick={handleButtonClick}>ADD TO BAG</button>
-                {/*//update add to bag*/}
+                {!outOfStock && <button className='add-button' onClick={handleButtonClick}>ADD TO BAG</button>}
+                {outOfStock && <button className='soldout-button'>SOLD OUT - NOTIFY ME</button>}
                 {showComponent && <AddToBag onClose={handleCloseAddToBag}/>}
             </div>
-            <div className='check-all'>Check All Store Inventory</div>
+            <div className='check-all'><span>Check All Store Inventory</span></div>
         </div>
 
         <div className='more-infro'>
@@ -229,7 +259,7 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
                 {/*heart*/}
                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                     <div style={{position: 'relative', top: '3px', margin: '0 3px 0 0'}}>
-                        <svg height="21" width="24" viewBox="0 0 24 21" xmlns="http://www.w3.org/2000/svg"
+                        <svg height="20" width="20" viewBox="0 0 24 21" xmlns="http://www.w3.org/2000/svg"
                              className="icon wishlist-icon" focusable="false" role="img" aria-labelledby="icon_:rq:"
                              aria-hidden="false"><title id="icon_:rq:">Add to Wish List</title>
                             <path
@@ -237,16 +267,16 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
                                 fill="currentColor" fill-rule="evenodd"></path>
                         </svg>
                     </div>
-                    <div style={{position: 'relative'}}>
-                        <a className='hover-underline' href="#">Add to Wish List</a>
-                    </div>
+                    <span style={{position: 'relative'}}>
+                        <a href="#">Add to Wish List</a>
+                    </span>
 
 
                 </div>
                 {/*review*/}
                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                     <div style={{position: 'relative', top: '2px', margin: '0 3px 0 0'}}>
-                        <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                        <svg height="20" width="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
                              className="icon reviews-icon" focusable="false" role="img" aria-labelledby="icon_:rkd:"
                              aria-hidden="false"><title id="icon_:rkd:">Reviews</title>
                             <path
@@ -254,9 +284,9 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
                                 fill="currentColor"></path>
                         </svg>
                     </div>
-                    <div style={{position: 'relative'}}>
-                        <a className='hover-underline' href="#">Reviews</a>
-                    </div>
+                    <span>
+                        <a href="#">Reviews (1874)</a>
+                    </span>
 
                 </div>
             </div>
@@ -288,19 +318,14 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
         </div>
         <h3>Details</h3>
         <div className='detail'>
-
-            <div className='detail-icon-list'>
+            <ul>
                 {product.featureTitles.map((item, index) =>
-                    <div key={index}
-                         className='details-icon'>
-                        <img style={{width: '24px', height: '24px', margin: '0 5px'}} src={item.iconPath} alt=""/>
-                    </div>)}
-            </div>
-            <div className='detail-text-list'>
-                {product.featureTitles.map((item, index) =>
-                    <div key={index} className='hover-text'>{item.title}</div>)}
-            </div>
-
+                    <li>
+                        <img style={{width: '20px', height: '20px', margin: '0 5px'}} src={item.iconPath} alt=""/>
+                        <span key={index} className='hover-text'><a href="">{item.title}</a></span>
+                    </li>
+                )}
+            </ul>
         </div>
 
     </div>
