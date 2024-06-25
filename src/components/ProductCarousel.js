@@ -1,55 +1,58 @@
-import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import '../assets/css/ProductCarousel.scss'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import './Add-MinusMark'
+import {PicturesDialog} from "./PicturesDialog";
+import {useSearchParams} from "react-router-dom";
 
-export const ProductCarousel = ({details,colorIds}) => {
-    const [bigImg, setBigImg] = useState('');
-    const [activeColorIds, setActiveColorIds] = useState(colorIds || []);// const [selectedColor, setSelectedColor] = useState({});
-    const [imgs, setImgs] = useState([]);
+export const ProductCarousel = ({product, colorIndex}) => {
+    const [bigImg, setBigImg] = useState(product.images[colorIndex].mainCarousel.media.split(' | ')[0]);
+    const [queryParams] = useSearchParams()
+    const [selectedColorIndex, setSelectedColorIndex] = useState(colorIndex)
     const [index, setIndex] = useState(0)
-    const images = details.images.flatMap((image) =>
-        activeColorIds.includes(image.colorId) ? image.mainCarousel.media.split('|') : []
-    );
+    const imgRef = useRef(null);
+
+    const [openDialog, setOpenDialog] = useState(false)
+    const handleDialogOpen = (e)=> {
+        setOpenDialog(true);
+        console.log(e.target)
+    }
+    const handleDialogClose = ()=> {
+        setOpenDialog(false)
+    }
+    // const handleNavMouseEnter = () => {
+        // console.log('mouse enter', imgRef.current)
+        // imgRef.current.removeEventListener('click', {handleDialogOpen})
+    // }
 
     useEffect(() => {
-        if (details?.images && activeColorIds.length === 0) {
-            const defaultColorId = details.images[0]?.colorId;
-            if (defaultColorId) {
-                setActiveColorIds([defaultColorId]);
+        console.log("color index change to ===>", colorIndex)
+        setSelectedColorIndex(colorIndex)
+        setBigImg(product.images[colorIndex].mainCarousel.media.split(' | ')[0])
+    }, [colorIndex]);
+
+    useEffect(() => {
+        let activeColor = queryParams.get('color')
+        for(let i=0; i<product.swatches.length; i++) {
+            if(activeColor===product.swatches[i].colorId){
+                setSelectedColorIndex(i);
+                setBigImg(product.images[i].mainCarousel.media.split(' | ')[0]);
+                break;
             }
         }
-    }, [details]);
-
-
-    useEffect(() => {
-        if (colorIds && colorIds.length > 0) {
-            setActiveColorIds(colorIds);
-        }
-    }, [colorIds]);
-
-    useEffect(() => {
-        if (details?.images && activeColorIds.length > 0) {
-
-            setImgs(images);
-            setBigImg(images[0]);
-            setIndex(0);
-            console.log('Filtered images:', images);
-        }
-    }, [details, activeColorIds]);
+    }, []);
 
 
     const handleImageClick = (item) => {
         setBigImg(item)
     }
 
-
-    const handleNextPage = () => {
+    const handleNextPage = (e) => {
+        let imgs = product.images[selectedColorIndex].mainCarousel.media.split(' | ')
         if (index < imgs.length) {
             const newIndex = index + 1;
-            console.log(newIndex)
+            // console.log(newIndex)
             setIndex(newIndex)
             setBigImg(imgs[newIndex])
         }
@@ -58,8 +61,10 @@ export const ProductCarousel = ({details,colorIds}) => {
             setIndex(newIndex)
             setBigImg(imgs[newIndex])
         }
+        e.stopPropagation();
     }
-    const handlePrevPage = () => {
+    const handlePrevPage = (e) => {
+        let imgs = product.images[selectedColorIndex].mainCarousel.media.split(' | ')
         if (index === 0) {
             const newIndex = imgs.length - 1;
             setIndex(newIndex)
@@ -70,6 +75,7 @@ export const ProductCarousel = ({details,colorIds}) => {
             setIndex(newIndex)
             setBigImg(imgs[newIndex])
         }
+        e.stopPropagation();
     }
 
 
@@ -77,7 +83,7 @@ export const ProductCarousel = ({details,colorIds}) => {
         {/*partOfLeft*/}
         <div className='productCarousel'>
             {/*bigBackground*/}
-            <div className='bigImg'
+            <div className='bigImg' ref={imgRef} onClick={handleDialogOpen}
                  style={{background: bigImg ? `url('${bigImg}') no-repeat center center / cover` : "none"}}>
                 {/*SIDEARROW*/}
                 <div className=' navBar'>
@@ -96,16 +102,21 @@ export const ProductCarousel = ({details,colorIds}) => {
                         borderRadius: '5px'
                     }}><ChevronRightIcon className='nav-icon' onClick={handleNextPage}/></div>
                 </div>
+                <div onClick={handleDialogOpen} className="magnifiers"></div>
             </div>
+            <PicturesDialog
+                isOpen={openDialog} dialogIsClosed={handleDialogClose}
+                title={product.name}
+                pictures={product.images[selectedColorIndex].mainCarousel.media.split(' | ')}/>
             {/*CAROUSEL*/}
             <div className='productList'>
-                {imgs.map((item, index) => (
+                {product && product.images[selectedColorIndex].mainCarousel.media.split(' | ').map((item, index) => (
                     <div key={index} className='smallImgList'>
                         <img className='img-list-item' onClick={() => handleImageClick(item)} src={item} alt=""/>
                     </div>
                 ))}
-                <div className='img-list-item' style={{margin: '0 4px'}}>
-                    <svg height="24" width="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                <div className='smallImgList'>
+                    <svg height="36" width="36" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
                          className="product-media-carousel_thumbnailImage__XG3rS product-media-carousel_tagIcon__RDuKa"
                          focusable="false" role="img" aria-hidden="true">
                         <g fill="currentColor" fill-rule="evenodd">

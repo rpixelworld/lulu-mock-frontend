@@ -1,9 +1,10 @@
 import '../assets/css/ProductDetail.scss'
 import React, {useEffect, useState} from "react";
-import {useParams} from "react-router-dom";
+import {useParams, useSearchParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchProductCatagories, fetchProductDetail, fetchProducts} from "../redux/actions/productAction";
 import {Breadcrumb} from "../components/Breadcrumb";
+import {Reviews} from "../components/Reviews";
 import {YouMayLike} from "../components/YouMayLike";
 import {fetchTemplateFilters} from "../redux/actions/filterAction";
 import {Breadsrumb_CatagoryIndex} from "../Constants";
@@ -16,12 +17,16 @@ import ProductInfo from "../components/ProductInfo";
 export const ProductDetail = () => {
 
     let valuePassed = useParams();
+    const [queryParams] = useSearchParams()
     const dispatch = useDispatch()
     const productDetail = useSelector(state => state.productReducer.productDetail)
     const templateFilters = useSelector(state => state.productReducer.templateFilters)
     const productCatagories = useSelector(state => state.productReducer.productCatagories)
-    const [colorSelected, setColorSelected] = useState('')
+    const [selectedColorIndex, setSelectedColorIndex] = useState(0)
 
+    const handleColorChange = (index)=> {
+        setSelectedColorIndex(index)
+    }
 
     useEffect(() => {
         dispatch(fetchTemplateFilters())
@@ -31,25 +36,41 @@ export const ProductDetail = () => {
         if(valuePassed && valuePassed.productId){
             dispatch(fetchProductDetail(valuePassed.productId))
             // dispatch(fetchProductCatagories(valuePassed.productId))
-
         }
     }, [valuePassed]);
 
+    // useEffect(() => {
+    //     let activeColor = queryParams.get('color')
+    //     for(let i=0; i<productDetail.swatches.length; i++) {
+    //         if(activeColor===productDetail.swatches[i].colorId){
+    //             setSelectedColorIndex(i);
+    //             // setBigImg(product.images[i].mainCarousel.media.split(' | ')[0]);
+    //             break;
+    //         }
+    //     }
+    // }, []);
+
     if(productDetail && productDetail.productId) {
+        // let activeColor = queryParams.get('color')
+        // for(let i=0; i<productDetail.images.length; i++) {
+        //     if(activeColor===productDetail.images[i].colorId){
+        //         setSelectedColorIndex(i);
+        //         // setBigImg(product.images[i].mainCarousel.media.split(' | ')[0]);
+        //         break;
+        //     }
+        // }
+        document.title = productDetail.name
         return (
             <div className='productdetail-container'>
                 <div className="productdetail-container-wrapper">
 
                     <div className="productintro-container">
                         <div className="carousel-container">
-                            <ProductCarousel  details={productDetail} colorIds={colorSelected}/>
+                            <ProductCarousel product={productDetail} colorIndex={selectedColorIndex}/>
                         </div>
                         <div className="detailinfo-container">
                             <Breadcrumb />
-                            <h2>Product Introduction & detail</h2>
-                            <h2>{productDetail.productId}</h2>
-                            <h2>{productDetail.name}</h2>
-                            <ProductInfo details={productDetail} colorId={setColorSelected}/>
+                            <ProductInfo product={productDetail} colorIndex={selectedColorIndex} handleColorChange={handleColorChange} />
                         </div>
                         <div className="verticalrecos-container">
                             <YouMayLike />
@@ -57,7 +78,7 @@ export const ProductDetail = () => {
                     </div>
 
                     <div className="whywemadethis-container">
-                        <WhyWeMadeThis details={productDetail} colorIds={colorSelected}/>
+                        <WhyWeMadeThis product={productDetail} colorIndex={selectedColorIndex}/>
                     </div>
 
                     <div className="featurepanel-container">
@@ -69,7 +90,7 @@ export const ProductDetail = () => {
                     </div>
 
                     <div className="reviews-container">
-                        <h2>Reviews</h2>
+                        <Reviews/>
                     </div>
 
                 </div>

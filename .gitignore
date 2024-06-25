@@ -3,3 +3,4 @@
 /.DS_Store
 /src/assets/css/*.css
 /src/assets/css/*.css.map
+/public/.DS_Store

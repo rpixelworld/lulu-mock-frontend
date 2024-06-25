@@ -1,0 +1,325 @@
+{
+  "reviews": [
+    {
+      "id": 1000,
+      "username": "JohnDoe",
+      "rating": 5,
+      "date": "2024-06-18",
+      "title": "Great Product!",
+      "content": "I absolutely love this product. It fits perfectly and is very comfortable.",
+      "sizePurchased": "8",
+      "fitsScale": "True to size"
+    },
+    {
+      "id": 1001,
+
+      "username": "HannahSmith",
+      "rating": 5,
+      "date": "2024-06-18",
+      "title": "Excellent product!",
+      "content": "I love this product. It fits perfectly and is very comfortable.",
+      "sizePurchased": 10,
+      "fitsScale": "True to size"
+    },
+    {
+      "id": 1002,
+      "username": "AvaR",
+      "rating": 4,
+      "date": "2024-06-17",
+      "title": "Good quality",
+      "content": "The product is of good quality, but the size runs a bit small.",
+      "sizePurchased": 8,
+      "fitsScale": "Runs a bit small"
+    },
+    {
+      "id": 1003,
+      "username": "MichaelB",
+      "rating": 3,
+      "date": "2024-06-16",
+      "title": "Average",
+      "content": "It's an average product. Fits okay.",
+      "sizePurchased": 12,
+      "fitsScale": "True to size"
+    },
+    {
+      "id": 1004,
+      "username": "SarahJ",
+      "rating": 5,
+      "date": "2024-06-15",
+      "title": "Perfect fit",
+      "content": "Super cute style and the green is gorgeous! The undershorts are great if you have thicker or more muscular legs, since they don’t squeeze your thighs like the silicon grippers in the pace rival skirts do.",
+      "sizePurchased": 6,
+      "fitsScale": "True to size"
+    },
+    {
+      "id": 1005,
+      "username": "JohnDoe",
+      "rating": 4,
+      "date": "2024-06-14",
+      "title": "Very nice",
+      "content": "Good product, but the size runs a bit large.",
+      "sizePurchased": 9,
+      "fitsScale": "Runs a bit large"
+    },
+    {
+      "id": 1006,
+      "username": "EmilyK",
+      "rating": 5,
+      "date": "2024-06-13",
+      "title": "Highly recommend",
+      "content": "I highly recommend this product. Fits perfectly.",
+      "sizePurchased": 11,
+      "fitsScale": "True to size"
+    },
+    {
+      "id": 1007,
+      "username": "DavidL",
+      "rating": 2,
+      "date": "2024-06-12",
+      "title": "Not satisfied",
+      "content": "Why can’t lulu put elastic like the pace rival skirt in ALL their skirts? I’m 5’11” and they ride up almost immediately. Maybe good for running errands but for pickleball or something very active it did not stay in place. Please Lulu put better silicon grippers in ALL your skirts!!!!",
+      "sizePurchased": 7,
+      "fitsScale": "Runs small"
+    },
+    {
+      "id": 1008,
+      "username": "OliviaM",
+      "rating": 4,
+      "date": "2024-06-11",
+      "title": "Good purchase",
+      "content": "Happy with the purchase. Size is a bit large.",
+      "sizePurchased": 5,
+      "fitsScale": "Runs a bit large"
+    },
+    {
+      "id": 1009,
+      "username": "JamesW",
+      "rating": 5,
+      "date": "2024-06-10",
+      "title": "Excellent",
+      "content": "Super cute style and the green is gorgeous! The undershorts are great if you have thicker or more muscular legs, since they don’t squeeze your thighs like the silicon grippers in the pace rival skirts do.",
+      "sizePurchased": 4,
+      "fitsScale": "True to size"
+    },
+    {
+      "id": 1010,
+      "username": "SophiaP",
+      "rating": 3,
+      "date": "2024-06-09",
+      "title": "Okay product",
+      "content": "The product is okay, but runs a bit small.",
+      "sizePurchased": 3,
+      "fitsScale": "Runs a bit small"
+    },
+    {
+      "id": 1011,
+      "username": "LiamN",
+      "rating": 4,
+      "date": "2024-06-08",
+      "title": "Nice quality",
+      "content": "The quality is nice, but the size is a bit off.",
+      "sizePurchased": 13,
+      "fitsScale": "Runs a bit large"
+    },
+    {
+      "id": 1012,
+      "username": "IsabellaC",
+      "rating": 5,
+      "date": "2024-06-07",
+      "title": "Perfect",
+      "content": "Perfect fit and great quality.",
+      "sizePurchased": 14,
+      "fitsScale": "True to size"
+    },
+    {
+      "id": 1013,
+      "username": "NoahT",
+      "rating": 4,
+      "date": "2024-06-06",
+      "title": "Good product",
+      "content": "Good product, fits well.",
+      "sizePurchased": 2,
+      "fitsScale": "True to size"
+    },
+    {
+      "id": 1014,
+      "username": "MiaB",
+      "rating": 3,
+      "date": "2024-06-05",
+      "title": "Average quality",
+      "content": "The quality is average. Runs a bit small.",
+      "sizePurchased": 1,
+      "fitsScale": "Runs a bit small"
+    },
+    {
+      "id": 1015,
+      "username": "WilliamH",
+      "rating": 5,
+      "date": "2024-06-04",
+      "title": "Great fit",
+      "content": "The skort is perfect. The built in shorts are the perfect length and super comfortable. The skirt itself is very cute and fits very well. It’s perfect for biking or just walking around. 100% recommended.",
+      "sizePurchased": 0,
+      "fitsScale": "True to size"
+    },
+    {
+      "id": 1016,
+      "username": "EvelynD",
+      "rating": 4,
+      "date": "2024-06-03",
+      "title": "Good but large",
+      "content": "The product is good, but runs large.",
+      "sizePurchased": 6,
+      "fitsScale": "Runs large"
+    },
+    {
+      "id": 1017,
+      "username": "HenryM",
+      "rating": 2,
+      "date": "2024-06-02",
+      "title": "Not happy",
+      "content": "Not happy with the fit. Runs small.",
+      "sizePurchased": 12,
+      "fitsScale": "Runs small"
+    },
+    {
+      "id": 1018,
+      "username": "AriaV",
+      "rating": 5,
+      "date": "2024-06-01",
+      "title": "Perfectly satisfied",
+      "content": "Love this skirt because it looks great with the pleats. The fabric is lightweight and perfect for warmer weather. I love the way it fits! It’s the perfect length- I’m 5’11” and it’s not too short!",
+      "sizePurchased": 8,
+      "fitsScale": "True to size"
+    },
+    {
+      "id": 1019,
+      "username": "LucasS",
+      "rating": 4,
+      "date": "2024-05-31",
+      "title": "Good value",
+      "content": "Good value for the money. Fits well.",
+      "sizePurchased": 10,
+      "fitsScale": "True to size"
+    },
+    {
+      "id": 1020,
+      "username": "CharlotteB",
+      "rating": 5,
+      "date": "2024-05-30",
+      "title": "Great product",
+      "content": "Great product and fits perfectly.",
+      "sizePurchased": 14,
+      "fitsScale": "True to size"
+    },
+    {
+      "id": 1021,
+      "username": "JaneDoe",
+      "rating": 4,
+      "date": "2024-06-17",
+      "title": "Good Quality",
+      "content": "This product is of good quality and fits well.",
+      "sizePurchased": "6",
+      "fitsScale": "True to size"
+    },
+    {
+      "id": 1022,
+      "username": "MarkSmith",
+      "rating": 3,
+      "date": "2024-06-16",
+      "title": "Average Product",
+      "content": "The product is okay but could be better.",
+      "sizePurchased": "10",
+      "fitsScale": "Runs a bit small"
+    },
+    {
+      "id": 1023,
+      "username": "LucyBrown",
+      "rating": 5,
+      "date": "2024-06-15",
+      "title": "Excellent!",
+      "content": "Absolutely love it. Highly recommend!",
+      "sizePurchased": "8",
+      "fitsScale": "True to size"
+    },
+    {
+      "id": 1024,
+      "username": "TomWilson",
+      "rating": 2,
+      "date": "2024-06-14",
+      "title": "Not great",
+      "content": "The product didn't meet my expectations.",
+      "sizePurchased": "9",
+      "fitsScale": "Runs large"
+    },
+    {
+      "id": 1025,
+      "username": "EmmaJohnson",
+      "rating": 4,
+      "date": "2024-06-13",
+      "title": "Pretty good",
+      "content": "I liked it, but it could use some improvements.",
+      "sizePurchased": "7",
+      "fitsScale": "Runs a bit large"
+    },
+    {
+      "id": 1026,
+      "username": "JamesLee",
+      "rating": 5,
+      "date": "2024-06-12",
+      "title": "Fantastic",
+      "content": "Great product, exactly what I needed.",
+      "sizePurchased": "11",
+      "fitsScale": "True to size"
+    },
+    {
+      "id": 1027,
+      "username": "EllaTaylor",
+      "rating": 3,
+      "date": "2024-06-11",
+      "title": "Okay",
+      "content": "It's okay, but I've seen better.",
+      "sizePurchased": "5",
+      "fitsScale": "Runs small"
+    },
+    {
+      "id": 1028,
+      "username": "MichaelClark",
+      "rating": 4,
+      "date": "2024-06-10",
+      "title": "Very good",
+      "content": "I am satisfied with this product.",
+      "sizePurchased": "12",
+      "fitsScale": "True to size"
+    },
+    {
+      "id": 1029,
+      "username": "SophiaHarris",
+      "rating": 5,
+      "date": "2024-06-09",
+      "title": "Perfect!",
+      "content": "Couldn't ask for more. Just perfect.",
+      "sizePurchased": "8",
+      "fitsScale": "True to size"
+    },
+    {
+      "id": 1030,
+      "username": "DavidMartinez",
+      "rating": 2,
+      "date": "2024-06-08",
+      "title": "Not satisfied",
+      "content": "Not what I expected. Disappointed.",
+      "sizePurchased": "10",
+      "fitsScale": "Runs a bit small"
+    },
+    {
+      "id": 1031,
+      "username": "IsabellaWhite",
+      "rating": 4,
+      "date": "2024-06-07",
+      "title": "Good purchase",
+      "content": "Happy with the purchase overall.",
+      "sizePurchased": "9",
+      "fitsScale": "Runs a bit large"
+    }
+  ]
+}

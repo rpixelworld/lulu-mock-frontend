@@ -10,9 +10,11 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import {ChildMenus} from "./ChildMenus";
 import Constants from "../Constants";
+import {useLocation} from "react-router-dom";
 
 export const Header = () => {
 
+    const location = useLocation()
     const menubarWapper = useRef();
     const [hoverMenu, setHoverMenu] = useState(0)
     const [menuList, setMenuList] = useState([])
@@ -70,24 +72,26 @@ export const Header = () => {
 
     return (
         <header>
-            <div className='header-menu'>
-                <div className='menu-item'>
-                    <PinDropOutlinedIcon sx={{paddingTop: '4px'}}/>
-                    <a href="#">Store Locator</a>
+            {!location.pathname.includes('cart') &&
+                <div className='header-menu'>
+                    <div className='menu-item'>
+                        <PinDropOutlinedIcon sx={{paddingTop: '4px'}}/>
+                        <a href="#">Store Locator</a>
+                    </div>
+                    <div className='menu-item'>
+                        <CardGiftcardOutlinedIcon sx={{paddingTop: '4px'}}/>
+                        <a href="#">Gift Cards</a>
+                    </div>
+                    <div className='menu-item'>
+                        <HelpOutlineOutlinedIcon sx={{paddingTop: '4px'}}/>
+                        <a href="#">Get Help</a>
+                    </div>
+                    <div className='menu-item'>
+                        <LanguageOutlinedIcon sx={{paddingTop: '4px'}}/>
+                        <a href="#">USA</a>
+                    </div>
                 </div>
-                <div className='menu-item'>
-                    <CardGiftcardOutlinedIcon sx={{paddingTop: '4px'}}/>
-                    <a href="#">Gift Cards</a>
-                </div>
-                <div className='menu-item'>
-                    <HelpOutlineOutlinedIcon sx={{paddingTop: '4px'}}/>
-                    <a href="#">Get Help</a>
-                </div>
-                <div className='menu-item'>
-                    <LanguageOutlinedIcon sx={{paddingTop: '4px'}}/>
-                    <a href="#">USA</a>
-                </div>
-            </div>
+            }
             <div className="header-menubar-holder">
                 <div ref={menubarWapper} className="header-menubar-wrapper">
                     <div className="header-menubar">
@@ -97,35 +101,42 @@ export const Header = () => {
                                  alt="logo"/>
                         </div>
 
-                        <ul>
-                            {menuList.filter(menu => menu.parent == 0).map(rootMenu => {
-                                return <r key={rootMenu.id}>
-                                    <li onMouseEnter={() => {
-                                        handleHoverMenu(rootMenu.id)
-                                    }}
-                                        onMouseLeave={handleUnhoverMenu} className={rootMenu.isSpecial?'special':''}> {rootMenu.name}
-                                    </li>
-                                    <ChildMenus handleMouseEnter={() => {
-                                        handleHoverMenu(rootMenu.id)
-                                    }}
-                                                handleMouseLeave={handleUnhoverMenu}
-                                                parent={rootMenu.id}
-                                                display={hoverMenu === rootMenu.id}
-                                                title={rootMenu.name}
-                                                submenus={menuList.filter(menu => menu.rootMenu == rootMenu.id)}
-                                                advertisement={rootMenu.adv}
-                                                activities={rootMenu.activity}/>
-                                </r>
-                            })}
-                        </ul>
+                        {!location.pathname.includes('cart') &&
+                            <ul>
+                                {menuList.filter(menu => menu.parent == 0).map(rootMenu => {
+                                    return <r key={rootMenu.id}>
+                                        <li onMouseEnter={() => {
+                                            handleHoverMenu(rootMenu.id)
+                                        }}
+                                            onMouseLeave={handleUnhoverMenu} className={rootMenu.isSpecial?'special':''}> {rootMenu.name}
+                                        </li>
+                                        <ChildMenus handleMouseEnter={() => {
+                                            handleHoverMenu(rootMenu.id)
+                                        }}
+                                                    handleMouseLeave={handleUnhoverMenu}
+                                                    parent={rootMenu.id}
+                                                    display={hoverMenu === rootMenu.id}
+                                                    title={rootMenu.name}
+                                                    submenus={menuList.filter(menu => menu.rootMenu == rootMenu.id)}
+                                                    advertisement={rootMenu.adv}
+                                                    activities={rootMenu.activity}/>
+                                    </r>
+                                })}
+                            </ul>
+                        }
                     </div>
                     <div className="header-input">
-                        <div className="header-input-icon1"><SearchOutlinedIcon/></div>
-                        <input type="text" placeholder={'Search'}/>
+                        {!location.pathname.includes('cart') &&
+                            <><div className="header-input-icon1"><SearchOutlinedIcon/></div>
+                            <input type="text" placeholder={'Search'}/></>
+                        }
+
                         <div className="header-input-icon2"><AccountCircleOutlinedIcon/>
                             <a href="#">Sign In</a></div>
-                        <div className="header-input-icon3"><FavoriteBorderOutlinedIcon/></div>
-                        <div className="header-input-icon4"><ShoppingBagOutlinedIcon/></div>
+                        {!location.pathname.includes('cart') &&
+                            <><div className="header-input-icon3"><FavoriteBorderOutlinedIcon/></div>
+                            <div className="header-input-icon4"><ShoppingBagOutlinedIcon/></div></>
+                        }
                     </div>
                 </div>
             </div>

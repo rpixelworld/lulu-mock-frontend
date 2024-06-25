@@ -1,59 +1,127 @@
 import StorefrontIcon from "@mui/icons-material/Storefront";
 import AddedMinusMark from "./Add-MinusMark";
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import '../assets/css/ProductInfo.scss'
+import {getRandomInt} from "../Helper";
+import {useSearchParams} from "react-router-dom";
 
-const ProductInfo = ({details,colorId}) => {
-    const colors = details?.swatches || []
-    const [selectedColor, setSelectedColor] = useState({});
+const ProductInfo = ({product, colorIndex, handleColorChange}) => {
+
+    const [queryParams] = useSearchParams()
+    const [selectedColorIndex, setSelectedColorIndex] = useState(colorIndex)
+    const [selectedColor, setSelectedColor] = useState()
+    const [selectedSizeIndex, setSelectedSizeIndex] = useState()
+    const [selectedSize, setSelectedSize] = useState('')
+
     const [isHidden, setIsHidden] = useState(false);
-    const size = details?.sizes?.flatMap((details) => details.details || [])
-    const title = details?.sizes?.flatMap((title) => title.title || [])
-    const featureTitles = details?.featureTitles || []
+    const [outOfStock, setOutOfStock] = useState(false)
+    const [only1Left, setOnly1Left] = useState(false)
+    const [storages, setStorages] = useState([])
+    const [visible, setVisible] = useState(false)
+    const tooltipRef = useRef(null);
+    console.log('tooltipRef',tooltipRef)
 
     const hiddenList = () => {
         setIsHidden(!isHidden)
     }
+
+
+    const handleSizeClick = (storage, size, index)=> {
+        setSelectedSizeIndex(index)
+        setSelectedSize(size)
+        if(storage===0){
+            setOutOfStock(true)
+            setOnly1Left(false)
+        }
+        else if(storage===1){
+            setOutOfStock(false)
+            setOnly1Left(true)
+        }
+        else{
+            setOutOfStock(false)
+            setOnly1Left(false)
+        }
+    }
+
     const toggleSelected = (index) => {
-        setSelectedColor({})
-        setSelectedColor((prevState) => ({
-            ...prevState, [index]: !prevState[index],
-        }))
-
+        setSelectedColorIndex(index)
+        handleColorChange(index)
     }
 
-    const handleColorClick = (item) => {
-
-        colorId(item)
-        // const selectedImages = details.images.find(
-        //     (img) => img.colorId === item
-        // );
-        // if (selectedImages) {
-        //     setBigImg(selectedImages.mainCarousel.media.split('|')[0])
-        // }
+    const handleColorClick = (colorId, colorAlt, index)=> {
+        setSelectedColorIndex(index)
+        handleColorChange(index)
+        setSelectedColor(colorAlt)
+        window.history.replaceState(null, '', '/product/'+product.productId+'?color='+colorId)
     }
+    const showTooltip=() => {
+        setVisible(!visible)
+    }
+    const handleClickOutside = (event) => {
+        if (tooltipRef.current && !tooltipRef.current.contains(event.target)) {
+            setVisible(false);
+        }
+    }
+
+    useEffect(() => {
+        let activeColor = queryParams.get('color')
+        for(let i=0; i<product.swatches.length; i++) {
+            if(activeColor===product.swatches[i].colorId){
+                setSelectedColorIndex(i);
+                break;
+            }
+        }
+        product.sizes[0].details.forEach(size => {
+            setStorages(prev => [...prev, getRandomInt(3)])
+        })
+    }, []);
+    useEffect(() => {
+        if (visible) {
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [visible]);
 
     return <div className='productInfo'>
-        <div>Love Long Sleeve Shirt</div>
-        <h1>{details.price}</h1>
-        <div className='productColorList'>
+        <div className='productName'>{product.name}</div>
+        <h2 className='price'>{product.price.replace('CAD', '')} <span className='currency'>CAD</span></h2>
 
-            {colors.map((item, index) =>
+        <p><strong>Select Color</strong>  {selectedColor}</p>
+        <div className='productColorList'>
+            {product.swatches.map((item, index) =>
                 <div className='colorBox'>
                     <img onClick={() => {
-                        handleColorClick(item.colorId)
-                        toggleSelected(index)
+                        handleColorClick(item.colorId, item.swatchAlt, index)
                     }}
-                         onMouseEnter={() => handleColorClick(item.colorId)}
-                         className={`selectColor ${selectedColor[index] ? 'selected' : ''}`}
+                         onMouseEnter={() => toggleSelected(index)}
+                         className={selectedColorIndex === index ? 'selectColor selected' : 'selectColor'}
                          key={item.colorId}
                          src={item.swatch} alt=""/>
                 </div>)}
-
         </div>
+
+        <div className="alert">
+            {outOfStock && <div className="out-of-stock">Sold out online.</div>}
+            {only1Left && <div className="only-1-left">Hurry, only a few left!</div>}
+        </div>
+
+
         <div className='sizeList'>
-            <p style={{fontWeight: 'bold'}}>{title} </p>
-            {size.map((item, index) => <button className='sizeButton' key={index}>{item}</button>)}
+            {product.sizes && <p><strong>{product.sizes[0].title}</strong> {selectedSize}</p>}
+            {product.sizes && product.sizes[0].details.length > 0 && product.sizes[0].details.map((item, index) => {
+                console.log(storages)
+                let storage = storages[index]
+                return <button onClick={() => {
+                    handleSizeClick(storage, item, index)
+                }}
+                               className={`sizeButton ${selectedSizeIndex === index && ' selectedButton'} ${storage === 0 && ' outOfStock'}`}
+                               key={index}>{item}</button>
+            })
+            }
         </div>
 
         <div style={{
@@ -74,9 +142,9 @@ const ProductInfo = ({details,colorId}) => {
                 <div className='pick-up' onClick={hiddenList}>
                     <StorefrontIcon className='icon'/>
                     <h2>Pick up in store</h2>
-                    <AddedMinusMark className='info-icon' status={isHidden} posistion={{left: '380px'}}/>
+                    <AddedMinusMark className='info-icon' status={isHidden} posistion={{left: '170px'}}/>
                 </div>
-                {isHidden && (<div style={{
+                {!isHidden && (<div style={{
                     margin: '0 10px',
                     overflowWrap: 'break-word',
                     fontSize: '15px',
@@ -95,7 +163,7 @@ const ProductInfo = ({details,colorId}) => {
         <div className='more-infro'>
             <div className='four-ways-payment'>
                 <p>4 payments of $17.00 available with
-                    {/*LOGO*/}
+                    {/*LOGO of afterpay*/}
                     <div className="svg-container">
                         <svg viewBox="360.6 308.93 1148.88 220.83"
                              className="installment-payments_afterpayIcon__1gJx0" focusable="false" role="img"
@@ -106,7 +174,7 @@ const ProductInfo = ({details,colorId}) => {
                         </svg>
                     </div>
                     or
-                    {/*LOGO*/}
+                    {/*LOGO of klarna*/}
                     <div className="svg-container2">
                         <svg viewBox="0 0 452.9 101.1" xmlns="http://www.w3.org/2000/svg"
                              className="installment-payments_klarnaIcon__nzEEz" focusable="false" role="img"
@@ -118,8 +186,29 @@ const ProductInfo = ({details,colorId}) => {
                                 d="M431.9 28.8c-2.7 0-4.9 2.2-4.9 4.9.1 2.7 2.2 4.9 4.9 4.9s4.9-2.2 4.9-4.9-2.2-4.9-4.9-4.9zm0 8.9c-2.2 0-3.9-1.8-3.9-4s1.8-4 3.9-4c2.2 0 3.9 1.8 3.9 4s-1.8 4-3.9 4zm8.1 37.2c-7.1 0-12.9 5.8-12.9 12.9 0 7.1 5.8 12.9 12.9 12.9 7.1 0 12.9-5.8 12.9-12.9 0-7.2-5.8-12.9-12.9-12.9z"></path>
                         </svg>
                     </div>
+                    {/*LOGO of i*/}
+                    <div className='productInfo-tooltip' onClick={showTooltip} ref={tooltipRef}>
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"
+                             className="installment-payments_tooltipIcon__5K1qQ" focusable="false" role="img"
+                             aria-hidden="true">
+                            <g fill="none" fill-rule="evenodd" stroke="currentColor">
+                                <circle cx="12" cy="12" r="11" stroke-width="2"></circle>
+                                <path
+                                    d="M13.55 7.15a1.15 1.15 0 1 1-2.3 0 1.15 1.15 0 0 1 2.3 0zm-1.232 8.735h1.163v.538c0 .595-.482 1.077-1.077 1.077h-1.077a.818.818 0 0 1-.625-.29.862.862 0 0 1-.172-.68l.883-4.415H10.25v-.538c0-.595.482-1.077 1.077-1.077h1.077c.24 0 .47.107.624.29a.865.865 0 0 1 .173.68z"
+                                    fill="currentColor"></path>
+                            </g>
+                        </svg>
+                    </div>
+                    {visible &&
+                        <div className='productInfo-tooltip-detail'>
+                            Buy items now and pay later - in 4 payments, with no additional fees when you pay on
+                                time. <a href="#">Learn more</a>
+                        </div>
+                    }
+
                 </p>
             </div>
+
             <div className='heart-review'>
                 {/*heart*/}
                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
@@ -157,11 +246,7 @@ const ProductInfo = ({details,colorId}) => {
             </div>
         </div>
         <div className='wrapper'>
-            <div style={{
-                position: 'relative',
-                top: '-10px',
-                left: '-20px'
-            }}>
+            <div style={{position:'relative',left:'-30px',top:'-10px'}}>
                 <svg width="36" height="48" viewBox="0 0 36 48" fill="none" xmlns="http://www.w3.org/2000/svg"
                      focusable="false" role="img" aria-hidden="true">
                     <path fill-rule="evenodd" clip-rule="evenodd"
@@ -172,10 +257,7 @@ const ProductInfo = ({details,colorId}) => {
                           fill="black"></path>
                 </svg>
             </div>
-            <div className='move-to-right' style={{
-
-
-            }}>
+            <div className='move-to-right' style={{}}>
                 <div className='text'>Outfit Inspiration</div>
                 <div className='arrow-to-right'>
                     <svg height="16" width="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg"
@@ -188,25 +270,23 @@ const ProductInfo = ({details,colorId}) => {
             </div>
 
         </div>
+        <h3>Details</h3>
         <div className='detail'>
-            <h3>Details</h3>
-            {featureTitles.map((item, index) =>
-                <div key={index}
-                     className='details-line'
-                     style={{
-                         position: 'relative',
-                         display: 'flex',
-                         flexDirection: "row",
-                     }}>
-                    <img style={{width: '24px', height: '24px', margin: '0 5px'}} src={item.iconPath} alt=""/>
+
+            <div className='detail-icon-list'>
+                {product.featureTitles.map((item, index) =>
                     <div key={index}
-                         className='hover-underline'
-                    >{item.title}</div>
-                </div>)}
-        </div>
-        <div className='question'>
+                         className='details-icon'>
+                        <img style={{width: '24px', height: '24px', margin: '0 5px'}} src={item.iconPath} alt=""/>
+                    </div>)}
+            </div>
+            <div className='detail-text-list'>
+                {product.featureTitles.map((item, index) =>
+                    <div key={index} className='hover-text'>{item.title}</div>)}
+            </div>
 
         </div>
+
     </div>
 }
 export default ProductInfo
