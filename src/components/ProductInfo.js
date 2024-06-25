@@ -4,8 +4,21 @@ import {useEffect, useRef, useState} from "react";
 import '../assets/css/ProductInfo.scss'
 import {getRandomInt} from "../Helper";
 import {useSearchParams} from "react-router-dom";
+import {AddToBag} from "./AddToBag";
 
 const ProductInfo = ({product, colorIndex, handleColorChange}) => {
+    // update add to bag
+    const [showComponent, setShowComponent] = useState(false);
+    const handleButtonClick = () => {
+        setShowComponent(true);
+        document.body.style.overflow = 'hidden'; // Disable scrolling on the main page
+    };
+
+    const handleCloseAddToBag = () => {
+        setShowComponent(false);
+        document.body.style.overflow = 'auto'; // Enable scrolling on the main page
+    };
+
 
     const [queryParams] = useSearchParams()
     const [selectedColorIndex, setSelectedColorIndex] = useState(colorIndex)
@@ -155,7 +168,10 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
             </div>
 
             <div className='add-to-bag'>
-                <button className='add-button'>ADD TO BAG</button>
+                <button className='add-button'
+                        onClick={handleButtonClick}>ADD TO BAG</button>
+                {/*//update add to bag*/}
+                {showComponent && <AddToBag onClose={handleCloseAddToBag}/>}
             </div>
             <div className='check-all'>Check All Store Inventory</div>
         </div>

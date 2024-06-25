@@ -4,6 +4,7 @@ import {WhatsNew} from "./pages/WhatsNew";
 import {Layout} from "./components/Layout";
 import {ProductDetail} from "./pages/ProductDetail";
 import {ShoppingCart} from "./pages/ShoppingCart";
+import {AddToBag} from "./components/AddToBag";
 
 function App() {
   return (

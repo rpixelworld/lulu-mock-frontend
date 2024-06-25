@@ -1,3 +1,4 @@
 export const ShoppingCart = ()=> {
-    return <></>
+    return <>
+    </>
 }
