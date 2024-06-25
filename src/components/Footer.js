@@ -5,6 +5,7 @@ import {useLocation} from "react-router-dom";
 
 export const Footer = () => {
     const [menuItems, setMenuItems] = useState([]);
+    const location = useLocation();
 
     useEffect(() => {
         fetch('/data/footer-menu.json')
@@ -19,8 +20,9 @@ export const Footer = () => {
 
     return (
         <div className='footer-mainContainer'>
-            <div className='footer-mainPageContainer'>
-                <div className="footer-container">
+                <div className='footer-mainPageContainer'>
+                    {!location.pathname.includes('cart') &&
+                <><div className="footer-container">
                     {topMenuItems.map((item, index) => (
                         <div key={index} className="footer-column">
                             <a style={{fontWeight: item.isBold ? 'bold' : 'normal'}} href="#">{item.text}</a>
@@ -136,12 +138,13 @@ export const Footer = () => {
                         <hr className='footer-bottom-hr'/>
                         <a href="https://info.lululemon.com/legal/privacy-policy">Privacy Policy </a>
                     </div>
-                </div>
+                </div></>}
             </div>
 
 
             <div className='footer-paging'>
-                <div className='contactMenu'>
+                {!location.pathname.includes('cart') &&
+                    <><div className='contactMenu'>
                     <a href="#">Contact Us</a>
                     <a href="#">Live Chat</a>
                     <a href="#">1.877.263.9300</a>
@@ -162,8 +165,9 @@ export const Footer = () => {
                     </div>
 
                 </div>
-
+                </>}
             </div>
+
         </div>
 
 
