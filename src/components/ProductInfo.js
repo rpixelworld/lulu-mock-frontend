@@ -7,6 +7,7 @@ import {useSearchParams} from "react-router-dom";
 import * as CartIndexedDBHelper from "../CartIndexedDBHelper";
 import {useDispatch} from "react-redux";
 import {dispatchShoppingCart} from "../redux/actions/shoppingAction";
+import {AddToBag} from "./AddToBag";
 
 const ProductInfo = ({product, colorIndex, handleColorChange}) => {
     // update add to bag
