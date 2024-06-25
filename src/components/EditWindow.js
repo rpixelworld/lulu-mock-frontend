@@ -1,58 +1,56 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import '../assets/css/EditWindow.scss'
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import {Link} from "react-router-dom";
 import CloseIcon from '@mui/icons-material/Close';
+import Constants from "../Constants";
+import {Dialog, DialogContent} from "@mui/material";
 
-const EditWindow = ({state,closeEdit}) => {
-    const [clickedColor, setClickedColor] = useState({});
-    const [clickedSize, setClickedSize] = useState({});
-    const [colorTitle, setColorTitle] = useState(null);
-    const [sizeTitle, setSizeTitle] = useState(null);
+const EditWindow = ({state, closeEdit, item, handleUpdate}) => {
+
+    const [product, setProduct] = useState(null)
+    const [selectedColorIndex, setSelectedColorIndex] = useState(0)
+    const [selectedSizeIndex, setSelectedSizeIndex] = useState(0)
+    const [selectedColor, setSelectedColor] = useState('')
+    const [selectedSize, setSelectedSize] = useState('')
+
     const [bgIndex, setBgIndex] = useState('0');
     const [bgImg, setBgImg] = useState(null);
     const [pageIndex, setPageIndex] = useState(0);
-    // const [isWindow, setIsWindow] = useState(state);
 
-    const [newData, setNewData] = useState(null)
+    const confirmUpdate = ()=> {
+        let newItem = {
+            ...item,
+            itemKey: `${product.productId}_${product.swatches[selectedColorIndex].colorId}_${selectedSize}`,
+            colorAt: selectedColor,
+            size: selectedSize,
+            imageUrl: product.images[selectedColorIndex].mainCarousel.media.split(' | ')[0],
+            createdAt: Date.now(),
+            updatedAt: Date.now()
+        }
 
-    const imgs = newData?.images[bgIndex]?.mainCarousel?.media?.split('|') || []
-    useEffect(() => {
-        fetch('http://api-lulu.hibitbyte.com/product/prod10550089?mykey=Dqhr38t/EStgqM/rjjutXO1B3CgwtquL0Jk8XVP7G4vInpTIMZwF01zwJ906Y27ijkbmQT3sCz3bJ/63p3otAA==')
-            .then(res => res.json())
-            .then(res => {
-                setNewData(res.rs)
-            })
-
-            .catch(error => console.error('Fetch error:', error));
-    }, []);
-    console.log(newData)
+        handleUpdate(item.itemKey, newItem)
+    }
 
     const sizeButtonClick = (index, item) => {
-        setClickedSize('')
-        setClickedSize((prevState) => ({
-            ...prevState, [index]: !prevState[index],
-        }));
-        setSizeTitle(item)
+        setSelectedSizeIndex(index)
+        setSelectedSize(item)
     }
 
     const colorButtonClick = (index, swatchAlt) => {
-        setClickedColor('')
-        setClickedColor((prevState) => ({
-            ...prevState, [index]: !prevState[index],
-        }));
-        setColorTitle(swatchAlt)
+        setSelectedColorIndex(index)
+        setSelectedColor(swatchAlt)
+        setBgImg(product.images[index].mainCarousel.media.split(' | ')[0])
         setBgIndex(index)
         setPageIndex(0)
     }
 
     const handleNextPage = () => {
-        if (pageIndex < imgs.length-1) {
+        if (pageIndex < product.images[selectedColorIndex].mainCarousel.media.split(' | ').length-1) {
             const newIndex = pageIndex + 1;
             // console.log(newIndex)
             setPageIndex(newIndex)
-            setBgImg(imgs[newIndex])
+            setBgImg(product.images[selectedColorIndex].mainCarousel.media.split(' | ')[newIndex])
         }
 
     }
@@ -60,17 +58,51 @@ const EditWindow = ({state,closeEdit}) => {
         if (pageIndex > 0) {
             const newIndex = pageIndex - 1;
             setPageIndex(newIndex)
-            setBgImg(imgs[newIndex])
+            setBgImg(product.images[selectedColorIndex].mainCarousel.media.split(' | ')[newIndex])
         }
     }
 
-
-
     useEffect(() => {
-        setBgImg(newData?.images[bgIndex]?.mainCarousel?.media?.split('|')[0] || null)
-    }, [bgIndex, newData])
+        console.log('useeffect, state=', state)
+        let arr = item.itemKey.split('_')
+        let productId = arr[0]
+        setSelectedColor(item.colorAlt)
+        setSelectedSize(arr[2])
 
-    return <>{state &&
+        fetch(`${Constants.BASE_URL}/product/${productId}?mykey=${Constants.MY_KEY}`)
+            .then(resp => {
+                // console.log(resp)
+                if (resp.ok && resp.status==200) {
+                    return resp.json()
+                }
+            })
+            .then(res => {
+                setProduct(res.rs)
+                let productDetail = res.rs
+
+                for(let i=0; i<productDetail.swatches.length; i++) {
+                    if(arr[1] === productDetail.swatches[i].colorId) {
+                        setSelectedColorIndex(i)
+                        setBgImg(productDetail.images[i].mainCarousel.media.split('|')[0])
+                        break;
+                    }
+                }
+                if(arr[2] === 'ONE SIZE' || arr[2] === '') {
+                    setSelectedSizeIndex(0)
+                    setSelectedSize(arr[2])
+                }
+                else {
+                    for(let i=0; i<productDetail.sizes[0].details.length; i++) {
+                        if(arr[2] === productDetail.sizes[0].details[i]) {
+                            setSelectedSizeIndex(i)
+                        }
+                    }
+                }
+            })
+    }, []);
+
+    return product && <Dialog fullScreen={false} open={state}>
+        <DialogContent className=''>
         <div className='edit-window' >
             <div className='edit-container'>
                 <div className='bgI'
@@ -82,8 +114,8 @@ const EditWindow = ({state,closeEdit}) => {
                         <ChevronLeftIcon/> </button>
                     <button className='next-button'
                             onClick={handleNextPage}
-                            disabled={pageIndex === imgs.length - 1}
-                            style={{ display: pageIndex === imgs.length-1 ? 'none' : 'block' }}>
+                            disabled={pageIndex === product.images[selectedColorIndex].mainCarousel.media.split(' | ').length - 1}
+                            style={{ display: pageIndex === product.images[selectedColorIndex].mainCarousel.media.split(' | ').length-1 ? 'none' : 'block' }}>
                         <ChevronRightIcon/> </button>
                 </div>
 
@@ -91,38 +123,41 @@ const EditWindow = ({state,closeEdit}) => {
                 <div className='edit-colorAndSize'>
                     <CloseIcon onClick={closeEdit} style={{position:"relative",left:'104%',cursor:'pointer'}} />
                     {/*name*/}
-                    <h2>{newData?.name || null}</h2>
+                    <h2>{item.productName}</h2>
                     {/*price*/}
-                    <p>{newData?.price?.replace('CAD', '') || null}</p>
+                    <p>${item.price}.00</p>
                     {/*color*/}
-                    <p>Color:{' '}{colorTitle}</p>
+                    <p>{selectedColor}</p>
                     <div className='edit-colorList'>
-                        {newData?.swatches?.map((item, index) =>
-                            <div className={clickedColor[index] ? 'edit-colorBoxClicked' : 'edit-colorBox'}
+                        {product.swatches.map((swa, index) =>
+                            <div className={selectedColorIndex===index? 'edit-colorBoxClicked' : 'edit-colorBox'}
                                  key={index}
-                                 onClick={() => colorButtonClick(index, item.swatchAlt)}>
+                                 onClick={() => colorButtonClick(index, swa.swatchAlt)}>
                                 <img className='edit-color-button'
-                                     src={item.swatch} alt={item.swatchAlt}/>
-                            </div>) || []}
+                                     src={swa.swatch} alt={swa.swatchAlt}/>
+                            </div>)
+                        }
                     </div>
                     {/*size*/}
-                    <p>Size:{' '}{sizeTitle}</p>
+                    <p>Size:{selectedSize}</p>
                     <div className='edit-sizeList'>
-                        {newData?.sizes[0]?.details?.map((item, index) =>
+                        {product.sizes[0].details.length>0 && product.sizes[0].details.map((size, index) =>
                             <div className='edit-sizeBox' key={index}>
-                                <button className={clickedSize[index] ? 'edit-size-buttonClicked' : 'edit-size-button'}
-                                        onClick={() => sizeButtonClick(index, item)}
-                                >{item}</button>
-                            </div>) || []}
+                                <button className={selectedSizeIndex===index ? 'edit-size-buttonClicked' : 'edit-size-button'}
+                                        onClick={() => sizeButtonClick(index, size)}
+                                >{size}</button>
+                            </div>)
+                        }
+                        {product.sizes[0].details.length==0 && <button className='onesize-buttonClicked'>ONE SIZE</button>}
                     </div>
-                    <button className='update-edit'>UPDATE ITEM</button>
-                    <Link className='link' to={'/product/:productId'}>View product details</Link>
+                    <button className='update-edit'
+                            onClick={confirmUpdate}>UPDATE ITEM</button>
+                    <div className='view-detail-link'><span><a href={`/product/${product.productId}?color=${product.swatches[selectedColorIndex].colorId}`}>View product details</a></span></div>
                 </div>
             </div>
         </div>
-    }
-
-    </>
+        </DialogContent>
+    </Dialog>
 }
 
 export default EditWindow

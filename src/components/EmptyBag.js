@@ -5,7 +5,7 @@ export const EmptyBag = () => {
         <div className="emptyBag">
             <div className='bag'>
                 <h1>Give your bag some love!</h1>
-                <button>SHOP WHAT'S NEW</button>
+                <a href="/"><button className='shop'>SHOP WHAT'S NEW</button></a>
             </div>
 
         </div>

@@ -143,7 +143,7 @@ export const Footer = () => {
 
 
             <div className='footer-paging'>
-                {!location.pathname.includes('cart') &&
+                {location.pathname.includes('cart') &&
                     <><div className='contactMenu'>
                     <a href="#">Contact Us</a>
                     <a href="#">Live Chat</a>

@@ -7,10 +7,12 @@ import LanguageOutlinedIcon from '@mui/icons-material/LanguageOutlined';
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import {ChildMenus} from "./ChildMenus";
 import Constants from "../Constants";
-import {useLocation} from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {dispatchShoppingCart} from "../redux/actions/shoppingAction";
+import * as CartIndexedDBHelper from "../CartIndexedDBHelper";
 
 export const Header = () => {
 
@@ -19,6 +21,8 @@ export const Header = () => {
     const [hoverMenu, setHoverMenu] = useState(0)
     const [menuList, setMenuList] = useState([])
     const timeoutRef = useRef(null);
+    const dispatch = useDispatch();
+    const shoppingCart = useSelector(state => state.shoppingReducer.shoppingCart)
 
     const navAnimation = (obj) => {
         if(!obj || !obj.className) {
@@ -60,6 +64,7 @@ export const Header = () => {
     const handleUnhoverMenu = () => {timeoutRef.current = setTimeout(()=>{
         setHoverMenu(0)} ,300)}
 
+
     useEffect(() => {
         // fetch('http://'+ location.host + `/data/menu.json`)
         fetch(Constants.LOCAL_BASE_URL+ `/data/menu.json`)
@@ -67,6 +72,9 @@ export const Header = () => {
             .then(res => {
                 setMenuList(res.menus)
             })
+
+        CartIndexedDBHelper.getAllItems((shoppingCart) => {dispatch(dispatchShoppingCart(shoppingCart))})
+        //console.log('total amount===>', CartIndexedDBHelper.getTotalAmount(setNoOfBagItems))
     }, []);
 
 
@@ -134,9 +142,9 @@ export const Header = () => {
                         <div className="header-input-icon2"><AccountCircleOutlinedIcon/>
                             <a href="#">Sign In</a></div>
                         {!location.pathname.includes('cart') &&
-                            <><div className="header-input-icon3"><FavoriteBorderOutlinedIcon/></div>
-                            <div className="header-input-icon4"><ShoppingBagOutlinedIcon/></div></>
+                            <div className="header-input-icon3"><FavoriteBorderOutlinedIcon/></div>
                         }
+                       <div className="header-shopping-bag"><Link to='/shop/cart'>{shoppingCart.total}</Link></div>
                     </div>
                 </div>
             </div>
