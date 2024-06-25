@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import '../assets/css/Footer.scss';  //
+import {useLocation} from "react-router-dom";
 
 export const Footer = () => {
     const [menuItems, setMenuItems] = useState([]);
