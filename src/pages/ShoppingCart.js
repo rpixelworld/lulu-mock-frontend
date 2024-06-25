@@ -7,10 +7,6 @@ import {dispatchShoppingCart} from "../redux/actions/shoppingAction";
 import {EmptyBag} from "../components/EmptyBag";
 
 export const ShoppingCart = ()=> {
-<<<<<<< HEAD
-    return <>
-    </>
-=======
 
     const dispatch = useDispatch();
     const shoppingCart = useSelector(state => state.shoppingReducer.shoppingCart)
@@ -86,5 +82,4 @@ export const ShoppingCart = ()=> {
             {(!shoppingCart || !shoppingCart.items || shoppingCart.items.length === 0) && <EmptyBag/>}
         </div>
     )
->>>>>>> main
 }
