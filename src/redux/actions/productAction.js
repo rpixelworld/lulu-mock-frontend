@@ -34,7 +34,6 @@ export const fetchProducts = (pageNo=1, filters={})=> dispatch => {
                     payload: result.rs
                 })
             }
-
         })
 }
 

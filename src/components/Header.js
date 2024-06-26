@@ -9,7 +9,7 @@ import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import {ChildMenus} from "./ChildMenus";
 import Constants from "../Constants";
-import {Link, useLocation} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {dispatchShoppingCart} from "../redux/actions/shoppingAction";
 import * as CartIndexedDBHelper from "../CartIndexedDBHelper";
@@ -23,6 +23,7 @@ export const Header = () => {
     const timeoutRef = useRef(null);
     const dispatch = useDispatch();
     const shoppingCart = useSelector(state => state.shoppingReducer.shoppingCart)
+    const navigate = useNavigate()
 
     const navAnimation = (obj) => {
         if(!obj || !obj.className) {
@@ -104,7 +105,7 @@ export const Header = () => {
                 <div ref={menubarWapper} className="header-menubar-wrapper">
                     <div className="header-menubar">
                         <div>
-                            <img className='logo'
+                            <img className='logo' onClick={()=>{navigate('/')}}
                                  src="https://upload.wikimedia.org/wikipedia/commons/2/22/Lululemon_Athletica_logo.svg"
                                  alt="logo"/>
                         </div>

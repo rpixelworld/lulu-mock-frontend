@@ -1,5 +1,5 @@
 import '../assets/css/HtmlToolTip.scss'
-import {ClickAwayListener, Tooltip, Typography} from "@mui/material";
+import {ClickAwayListener, Tooltip} from "@mui/material";
 import tooltip from "../assets/images/tooltip.png";
 import {useState} from "react";
 

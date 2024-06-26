@@ -5,24 +5,14 @@ import '../assets/css/ProductInfo.scss'
 import {getRandomInt} from "../Helper";
 import {useSearchParams} from "react-router-dom";
 import * as CartIndexedDBHelper from "../CartIndexedDBHelper";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {dispatchShoppingCart} from "../redux/actions/shoppingAction";
+import {AddToBag} from "./AddToBag";
 
 const ProductInfo = ({product, colorIndex, handleColorChange}) => {
-    // update add to bag
-    const [showComponent, setShowComponent] = useState(false);
-    const handleButtonClick = () => {
-        setShowComponent(true);
-        document.body.style.overflow = 'hidden'; // Disable scrolling on the main page
-    };
-
-    const handleCloseAddToBag = () => {
-        setShowComponent(false);
-        document.body.style.overflow = 'auto'; // Enable scrolling on the main page
-    };
-
 
     const dispatch = useDispatch();
+    const youMayLike = useSelector(state => state.productReducer.youMayLike)
 
     const [queryParams] = useSearchParams()
     const [selectedColorIndex, setSelectedColorIndex] = useState(colorIndex)
@@ -37,7 +27,16 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
     const [storages, setStorages] = useState([])
     const [visible, setVisible] = useState(false)
     const tooltipRef = useRef(null);
-    console.log('tooltipRef',tooltipRef)
+
+    const [toOpenAddToBagDialog, setToOpenAddToBagDialog] = useState(false)
+    const [newAddedItem, setNewAddedItem] = useState({})
+
+    const openAddToBagDialog = () =>{
+        setToOpenAddToBagDialog(true)
+    }
+    const closeAddToBagDialog = ()=> {
+        setToOpenAddToBagDialog(false)
+    }
 
     const hiddenList = () => {
         setIsHidden(!isHidden)
@@ -88,6 +87,9 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
             return
         }
 
+        console.log('price ===> ', !product.price.includes('-')
+            ? Number(product.price.substring(1, product.price.indexOf('CAD')-1))
+            : Number(product.price.substring(1, product.price.indexOf('-')-2)))
         let item = {
             itemKey:`${product.productId}_${product.swatches[selectedColorIndex].colorId}_${selectedSize}`,
             productId: product.productId,
@@ -95,13 +97,19 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
             colorAlt: product.swatches[selectedColorIndex].swatchAlt,
             size: selectedSize,
             imageUrl: product.images[selectedColorIndex].mainCarousel.media.split(' | ')[0],
-            price: Number(product.price.substring(1, product.price.indexOf('CAD')-1)),
+            price: !product.price.includes('-')
+                ? Number(product.price.substring(1, product.price.indexOf('CAD')-1))
+                : Number(product.price.substring(1, product.price.indexOf('-')-1)),
             amount: 1,
             createdAt: Date.now(),
             updatedAt: Date.now()
         }
-        CartIndexedDBHelper.insertOrUpdateItem(item.itemKey, item)
-        CartIndexedDBHelper.getAllItems((shoppingCart) => {dispatch(dispatchShoppingCart(shoppingCart))})
+        CartIndexedDBHelper.insertOrUpdateItem(item.itemKey, item, ()=>{
+            setNewAddedItem(item)
+            CartIndexedDBHelper.getAllItems((shoppingCart) => {dispatch(dispatchShoppingCart(shoppingCart))})
+            openAddToBagDialog()
+        })
+
     }
 
     useEffect(() => {
@@ -201,8 +209,9 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
             <div className='add-to-bag'>
                 {!outOfStock && <button className='add-button' onClick={addToBag}>ADD TO BAG</button>}
                 {outOfStock && <button className='soldout-button'>SOLD OUT - NOTIFY ME</button>}
-
             </div>
+
+
             <div className='check-all'><span>Check All Store Inventory</span></div>
         </div>
 
@@ -270,9 +279,8 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
                     <span style={{position: 'relative'}}>
                         <a href="#">Add to Wish List</a>
                     </span>
-
-
                 </div>
+
                 {/*review*/}
                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                     <div style={{position: 'relative', top: '2px', margin: '0 3px 0 0'}}>
@@ -327,7 +335,9 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
                 )}
             </ul>
         </div>
-
+        <AddToBag product={product} item={newAddedItem}
+                  isOpen={toOpenAddToBagDialog} handleClose={closeAddToBagDialog}/>
     </div>
+
 }
 export default ProductInfo
