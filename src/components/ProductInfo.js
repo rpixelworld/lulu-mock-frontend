@@ -23,6 +23,7 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
     const [isHidden, setIsHidden] = useState(false);
     const [outOfStock, setOutOfStock] = useState(false)
     const [only1Left, setOnly1Left] = useState(false)
+    const [exceedLimit, setExceedLimit] = useState(false)
     const [sizeNotSelected, setSizeNotSelected] = useState(false)
     const [storages, setStorages] = useState([])
     const [visible, setVisible] = useState(false)
@@ -47,6 +48,7 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
         setSelectedSizeIndex(index)
         setSelectedSize(size)
         setSizeNotSelected(false)
+        setExceedLimit(false)
         if(storage===0){
             setOutOfStock(true)
             setOnly1Left(false)
@@ -61,8 +63,8 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
         }
     }
 
-    const toggleSelected = (index) => {
-        setSelectedColorIndex(index)
+    const hoverColorChange = (index) => {
+        // setSelectedColorIndex(index)
         handleColorChange(index)
     }
 
@@ -70,6 +72,7 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
         setSelectedColorIndex(index)
         handleColorChange(index)
         setSelectedColor(colorAlt)
+        setExceedLimit(false)
         window.history.replaceState(null, '', '/product/'+product.productId+'?color='+colorId)
     }
     const showTooltip=() => {
@@ -108,7 +111,11 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
             setNewAddedItem(item)
             CartIndexedDBHelper.getAllItems((shoppingCart) => {dispatch(dispatchShoppingCart(shoppingCart))})
             openAddToBagDialog()
-        })
+        }, (evt) => {
+            if(evt.type=='error' && evt.name==='ExceedAmountLimit'){
+                setExceedLimit(true)
+            }
+        } )
 
     }
 
@@ -131,6 +138,7 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
         }
 
     }, []);
+
     useEffect(() => {
         if (visible) {
             document.addEventListener('mousedown', handleClickOutside);
@@ -151,7 +159,7 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
             {product.swatches.map((item, index) =>
                 <div className='colorBox'>
                     <img onClick={() => { handleColorClick(item.colorId, item.swatchAlt, index) }}
-                         onMouseEnter={() => toggleSelected(index)}
+                         onMouseEnter={() => hoverColorChange(index)}
                          className={selectedColorIndex === index ? 'selectColor selected' : 'selectColor'}
                          key={item.colorId}
                          src={item.swatch} alt=""/>
@@ -206,6 +214,9 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
                     selecting another size, colour or check all store inventory.</div>)}
             </div>
 
+            <div className="alert">
+                {exceedLimit && <div className="exceed-limit">Exceeded maximum allowed quantity per line item.</div>}
+            </div>
             <div className='add-to-bag'>
                 {!outOfStock && <button className='add-button' onClick={addToBag}>ADD TO BAG</button>}
                 {outOfStock && <button className='soldout-button'>SOLD OUT - NOTIFY ME</button>}
