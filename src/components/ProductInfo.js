@@ -9,6 +9,18 @@ import {useDispatch} from "react-redux";
 import {dispatchShoppingCart} from "../redux/actions/shoppingAction";
 
 const ProductInfo = ({product, colorIndex, handleColorChange}) => {
+    // update add to bag
+    const [showComponent, setShowComponent] = useState(false);
+    const handleButtonClick = () => {
+        setShowComponent(true);
+        document.body.style.overflow = 'hidden'; // Disable scrolling on the main page
+    };
+
+    const handleCloseAddToBag = () => {
+        setShowComponent(false);
+        document.body.style.overflow = 'auto'; // Enable scrolling on the main page
+    };
+
 
     const dispatch = useDispatch();
 

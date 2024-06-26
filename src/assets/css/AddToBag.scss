@@ -1,0 +1,169 @@
+.addtobag-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  background: #63636399;
+  color: black;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+}
+.addtobag-container {
+  margin-left: 200px;
+  margin-top: 100px;
+  padding: 20px;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 60rem;
+
+
+  .first-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    .add-to-your-bag {
+      font-size: 30px;
+      font-weight: 700;
+      margin-right: 20px;
+    }
+    .bag-icon {
+      //font-weight: -700;
+      font-size: 40px;
+    }
+    .bag-item {
+      font-size: 16px;
+      font-weight: 500;
+      margin-top: 15px;
+    }
+    .close-icon {
+      position: absolute;
+      right: 10px;
+    }
+  }
+  .line {
+    border-top: 1px solid #63636399;;
+    margin-top: 20px;
+  }
+  .second-row {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    img {
+      width: 140px;
+      height: 170px;
+    }
+    .second-col {
+      margin-left: 20px;
+      .name {
+        font-size: 20px;
+        font-weight: 500;
+      }
+      .size {
+        margin-top: 10px;
+      }
+      .money {
+        margin-top: 10px;
+      }
+    }
+    .vertical-line {
+      border-right: 1px solid #63636399;
+      margin-left: 100px;
+
+    }
+
+
+    .third-col {
+      margin-top: -10px;
+      position: absolute;
+      right: 20px;
+      .money {
+        display: flex;
+        flex-direction: row;
+        h3{
+          font-size: 16px;
+          font-weight: normal;
+        }
+        p{
+          margin-left: 150px;
+          font-size: 16px;
+          font-weight: normal;
+        }
+      }
+      button {
+        width: 300px;
+        height: 55px;
+        background-color: #c8102e;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        font-size: 14px;
+        font-weight: 700;
+      }
+      .continue {
+        margin-top: 15px;
+        margin-left: 50px;
+        display: flex;
+        flex-direction: row;
+        .continue-shopping {
+          font-size: 13px;
+          font-weight: 500;
+        }
+        .continue-icon {
+          color: red;
+          margin-top: -5px;
+          margin-left: 5px;
+          transition: transform 0.3s ease;
+        }
+        .continue-icon:hover {
+          transform: translateX(5px);
+        }
+      }
+    }
+  }
+  .third-row {
+    display:flex;
+    flex-direction: column;
+    margin-top: 20px;
+    .name {
+      font-size: 30px;
+      font-weight: 700;
+    }
+    .carousel {
+      position: relative;
+      margin-top: 20px;
+      margin-bottom: 40px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      img {
+        width: 200px;
+        height: 250px;
+      }
+      .color-palette {
+       background: white;
+       width: 22%;
+       height: 60px;
+       display: flex;
+       position: absolute;
+       bottom: 85px;
+        button {
+          border: 1px grey solid;
+          margin-top: 20px;
+          border-radius: 50%;
+          height: 30px;
+          width: 30px;
+        }
+     }
+      .title {
+        font-size: 16px;
+        font-weight: 500;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
