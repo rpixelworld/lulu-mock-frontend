@@ -39,26 +39,8 @@ export const ProductDetail = () => {
         }
     }, [valuePassed]);
 
-    // useEffect(() => {
-    //     let activeColor = queryParams.get('color')
-    //     for(let i=0; i<productDetail.swatches.length; i++) {
-    //         if(activeColor===productDetail.swatches[i].colorId){
-    //             setSelectedColorIndex(i);
-    //             // setBigImg(product.images[i].mainCarousel.media.split(' | ')[0]);
-    //             break;
-    //         }
-    //     }
-    // }, []);
 
     if(productDetail && productDetail.productId) {
-        // let activeColor = queryParams.get('color')
-        // for(let i=0; i<productDetail.images.length; i++) {
-        //     if(activeColor===productDetail.images[i].colorId){
-        //         setSelectedColorIndex(i);
-        //         // setBigImg(product.images[i].mainCarousel.media.split(' | ')[0]);
-        //         break;
-        //     }
-        // }
         document.title = productDetail.name
         return (
             <div className='productdetail-container'>

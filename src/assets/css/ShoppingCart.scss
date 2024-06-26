@@ -1,0 +1,223 @@
+.fluid-container {
+  //border: 1px solid black;
+  //height: 1000px;
+  max-width: 85.75rem;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .cart-container {
+    //border: 1px palevioletred dashed;
+    //height: 800px;
+    width: 66%;
+
+    h2 {
+      margin-top: 32px;
+      span {
+        font-weight: 400;
+      }
+    }
+
+    .checkout-message {
+      margin-top: 24px;
+      padding: 12px 48px;
+      line-height: 1.5rem;
+      font-size: 16px;
+      font-weight: 400;
+      background-color: #E5E6E7;
+      background-image: url("../images/clock.png");
+      background-size: 24px 24px;
+      background-position-y: center;
+      background-position-x: 8px;
+      background-repeat: no-repeat;
+      border: 1px solid black;
+    }
+
+
+  }
+
+  .summary-container {
+    //border: 1px palevioletred dashed;
+    height: 800px;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+
+    h2 {
+      margin: 32px 0 .75rem;
+      font-size: 1.875rem;
+      line-height: 1.0666666667;
+      font-weight: 600;
+    }
+
+    .row {
+      display: flex;
+      font-size: 1.0625rem;
+      line-height: 1.23;
+      justify-content: space-between;
+      padding: .75rem 0;
+
+      .label {
+        align-self: flex-start;
+      }
+
+      .value {
+        align-self: flex-end;
+      }
+
+      .bold {
+        font-weight: 500;
+      }
+    }
+
+    hr {
+      height: .03125rem;
+      background: #e5e6e7;
+      border: none;
+      margin: 0;
+    }
+
+    .payment {
+      margin: -.4rem 0 1.5rem;
+      color: #53565a;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 1.4285714286;
+
+      svg.afterpay {
+        display: inline-block;
+        width: 4rem;
+        height: .9375rem;
+        border: none;
+        padding: 0;
+        outline: inherit;
+        position: relative;
+        top: .3125rem;
+        left: .0625rem;
+      }
+      svg.klarna {
+        display: inline-block;
+        width: 2.8125rem;
+        height: .646421371rem;
+        align-self: center;
+        color: inherit;
+        border: none;
+        padding: 0;
+        outline: inherit;
+        position: relative;
+        top: .0625rem;
+        left: 0;
+      }
+    }
+
+    .checkout {
+      margin-top: -.5rem;
+
+      button {
+        line-height: 1.25rem;
+        margin: .5rem 0;
+        display: flex;
+        width: 100%;
+        background-color: #c8102e;
+        color: #fff;
+        border: .0625rem solid #c8102e;
+        border-radius: .25rem;
+        cursor: pointer;
+        justify-content: center;
+        padding: 1rem 0 1rem 24px;
+        text-decoration: none;
+        letter-spacing: .075rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        background-image: url("../images/logo-white-circle.png");
+        background-size: 30px;
+        background-repeat: no-repeat;
+        background-position-y: center;
+        background-position-x: 100px;
+        position: relative;
+
+        &::after {
+          content: '';
+          position: absolute;
+          width: 340.5px;
+          height: 54px;
+          //border-radius: 4px;
+          //border:none;
+          background-color: rgba(0,0,0,0.2);
+          top:0;
+          left: 0;
+          //right: 5.5%;
+          //transform: translateX(-5.5%);
+          //bottom: 27%;
+          opacity: 0;
+        }
+
+        &:hover::after {
+          opacity: 1;
+          //background-color: rgba(0,0,0,0.2)
+        }
+      }
+    }
+
+    .or-checkout {
+      margin: 8px 0 12px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .paypal {
+      margin-top: -.5rem;
+
+      button {
+        line-height: 1.25rem;
+        margin: .5rem 0;
+        display: flex;
+        width: 100%;
+        height: 54px;
+        background-color: #2D70B5;
+        color: #fff;
+        border: .0625rem solid #2D70B5;
+        border-radius: .25rem;
+        cursor: pointer;
+        justify-content: center;
+        padding: 1rem 0 1rem 24px;
+        text-decoration: none;
+        letter-spacing: .075rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        background-image: url("../images/paypal.png");
+        background-size: 80px;
+        background-repeat: no-repeat;
+        background-position-y: center;
+        background-position-x: center;
+        position: relative;
+
+        &::after {
+          content: '';
+          position: absolute;
+          width: 340.5px;
+          height: 54px;
+          //border-radius: 4px;
+          //border:none;
+          background-color: rgba(0,0,0,0.2);
+          top:0;
+          left: 0;
+          //right: 5.5%;
+          //transform: translateX(-5.5%);
+          //bottom: 27%;
+          opacity: 0;
+        }
+
+        &:hover::after {
+          opacity: 1;
+          //background-color: rgba(0,0,0,0.2)
+        }
+      }
+    }
+
+
+  }
+
+}

@@ -1,0 +1,65 @@
+.remove-confirm-dialog-container {
+  background-color: white;
+  max-width: 26.5rem;
+  width: 424px;
+  height: 234px;
+  padding: 2.25rem 1.25rem 1.25rem;
+  //padding-bottom: 2rem;
+  text-align: left;
+  border-radius: .25rem;
+  box-shadow: 0 .5rem .75rem 0 rgba(0, 0, 0, .2);
+
+  h1 {
+    margin: 20px 0 0 10px;
+    padding: 0;
+    font-size: 1.4rem;
+    line-height: 1.24;
+    font-weight: 600;
+  }
+
+  button.confirm {
+    margin-top:10px;
+    display: flex;
+    width: 100%;
+    background-color: #c8102e;
+    color: #fff;
+    border: .0625rem solid #c8102e;
+    border-radius: .25rem;
+    cursor: pointer;
+    display: inline-flex;
+    justify-content: center;
+    padding: 1rem;
+    text-align: center;
+    text-decoration: none;
+    letter-spacing: .075rem;
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .no {
+    margin-top: 20px;
+    text-align: center;
+
+    span {
+      position: relative;
+      font-size: 14px;
+      margin-left: 6px;
+      cursor: pointer;
+    }
+
+    span::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0; /* Ensure it spans the full width of the text */
+      bottom: -4px; /* Adjust the offset value */
+      height: 1px; /* Adjust the thickness */
+      background-color: black; /* Adjust the color */
+    }
+
+    span:hover::after {
+      background-color: #d21919;
+    }
+  }
+}

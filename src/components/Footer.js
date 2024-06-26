@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import {Link, useLocation} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import '../assets/css/Footer.scss';  //
+import {useLocation} from "react-router-dom";
 
 export const Footer = () => {
-    const location = useLocation()
     const [menuItems, setMenuItems] = useState([]);
+    const location = useLocation();
 
     useEffect(() => {
         fetch('/data/footer-menu.json')
@@ -19,8 +20,9 @@ export const Footer = () => {
 
     return (
         <div className='footer-mainContainer'>
-            {!location.pathname.includes('cart') &&
-                <div className="footer-container">
+                <div className='footer-mainPageContainer'>
+                    {!location.pathname.includes('cart') &&
+                <><div className="footer-container">
                     {topMenuItems.map((item, index) => (
                         <div key={index} className="footer-column">
                             <a style={{fontWeight: item.isBold ? 'bold' : 'normal'}} href="#">{item.text}</a>
@@ -42,7 +44,8 @@ export const Footer = () => {
                                 <ul>
                                     {item.subs && item.subs.map((subItem, index) => (
                                         <li key={index}>
-                                            <Link to={subItem.url} style={{fontWeight: subItem.isBold ? 'bold' : 'normal'}}>
+                                            <Link to={subItem.url}
+                                                  style={{fontWeight: subItem.isBold ? 'bold' : 'normal'}}>
                                                 {subItem.text}
                                             </Link>
                                         </li>
@@ -58,7 +61,8 @@ export const Footer = () => {
                                 <ul>
                                     {item.subs && item.subs.map((subItem, index) => (
                                         <li key={index}>
-                                            <Link to={subItem.url} style={{fontWeight: subItem.isBold ? 'bold' : 'normal'}}>
+                                            <Link to={subItem.url}
+                                                  style={{fontWeight: subItem.isBold ? 'bold' : 'normal'}}>
                                                 {subItem.text}
                                             </Link>
                                         </li>
@@ -123,19 +127,50 @@ export const Footer = () => {
                         </div>
 
                     </div>
-                </div>
-            }
 
-            <hr className='line-before-bttom'/>
-            <div className='footer-bottom'>
-                <div>© lululemon athletica 1818 Cornwall Ave, Vancouver BC V6J 1C7</div>
-                <div className='footer-terms'>
-                    <a href="https://info.lululemon.com/legal/terms-of-use">Terms of Use</a>
-                    <hr className='footer-bottom-hr'/>
-                    <a href="https://info.lululemon.com/legal/privacy-policy">Privacy Policy </a>
                 </div>
+
+                <hr className='line-before-bttom'/>
+                <div className='footer-bottom'>
+                    <div>© lululemon athletica 1818 Cornwall Ave, Vancouver BC V6J 1C7</div>
+                    <div className='footer-terms'>
+                        <a href="https://info.lululemon.com/legal/terms-of-use">Terms of Use</a>
+                        <hr className='footer-bottom-hr'/>
+                        <a href="https://info.lululemon.com/legal/privacy-policy">Privacy Policy </a>
+                    </div>
+                </div></>}
             </div>
+
+
+            <div className='footer-paging'>
+                {location.pathname.includes('cart') &&
+                    <><div className='contactMenu'>
+                    <a href="#">Contact Us</a>
+                    <a href="#">Live Chat</a>
+                    <a href="#">1.877.263.9300</a>
+                </div>
+                <hr color={'#d3d5d7'}/>
+                <div className='legelMenu'>
+                    <div className='legalLinks'>
+                        <a href="#">Shipping Policy</a>
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Use</a>
+                        <a href="#">California Privacy Rights</a>
+                        <a href="#">California Transparency Act</a>
+                        <a href="#">Your Privacy Choices
+                            <img src="https://images.lululemon.com/is/content/lululemon/ccpa-icon" alt=""/>
+                        </a>
+                        <a href="#">Accessibility Statement</a>
+                        <div>© lululemon athletica 1818 Cornwall Ave, Vancouver BC V6J 1C7</div>
+                    </div>
+
+                </div>
+                </>}
+            </div>
+
         </div>
+
+
     );
 
 };

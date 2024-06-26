@@ -1,6 +1,6 @@
-import axios from "axios";
 import Constants from "../../Constants";
-import product from "../../components/Product";
+import {getTotalAmount} from "../../CartIndexedDBHelper";
+import * as CartIndexedDBHelper from "../../CartIndexedDBHelper";
 
 export const fetchProducts = (pageNo=1, filters={})=> dispatch => {
     let url = `${Constants.BASE_URL}/product/allProducts?page=${pageNo}&mykey=${Constants.MY_KEY}`

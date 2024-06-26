@@ -13,7 +13,7 @@ const initState = {
     productDetail: {},
     productCatagories: '',
     youMayLike:[],
-    youMayAlsoLike:[]
+    youMayAlsoLike:[],
 
 }
 
