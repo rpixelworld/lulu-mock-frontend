@@ -234,9 +234,11 @@ export const getAllItems = (onSuccess, onError) => {
         getReq.onsuccess = ()=> {
             const allItems = getReq.result
             const totalAmount = allItems.reduce((sum, item)=>sum+item.amount, 0)
+            const totalCost = allItems.reduce((sum, item)=>sum+item.amount*item.price, 0)
             // console.log(allItems)
             onSuccess && onSuccess({
                 total: totalAmount,
+                totalCost: totalCost,
                 items: allItems
             })
         }

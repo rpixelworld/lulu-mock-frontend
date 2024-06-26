@@ -3,6 +3,7 @@ import Constants from "../../Constants";
 const initState = {
     shoppingCart: {
         total: 0,
+        totalCost: 0,
         items: []
     }
 }

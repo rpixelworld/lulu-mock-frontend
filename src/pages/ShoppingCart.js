@@ -5,6 +5,7 @@ import {ShoppingCartItem} from "../components/ShoppingCartItem";
 import {useDispatch, useSelector} from "react-redux";
 import {dispatchShoppingCart} from "../redux/actions/shoppingAction";
 import {EmptyBag} from "../components/EmptyBag";
+import {HtmlTooltip} from "../components/HtmlToolTip";
 
 export const ShoppingCart = ()=> {
 
@@ -30,25 +31,31 @@ export const ShoppingCart = ()=> {
                     <h2>Order Summary</h2>
                     <div className="row">
                         <div className="label">Subtotal</div>
-                        <div className="value">$58.00</div>
+                        <div className="value">${shoppingCart.totalCost}.00</div>
                     </div>
                     <hr/>
 
                     <div className="row">
-                        <div className="label">Shipping</div>
+                        <div className="label">
+                            Shipping&nbsp;
+                            <HtmlTooltip positon='top' content='We offer Free Standard Shipping on all orders within Canada. Shipping can be expedited in checkout.'/>
+                        </div>
                         <div className="value">FREE</div>
                     </div>
                     <hr/>
 
                     <div className="row">
-                        <div className="label">Tax</div>
+                        <div className="label">
+                            Tax&nbsp;
+                            <HtmlTooltip positon='top' content='Taxes are based on your shipping location’s provincial and local sales tax.'/>
+                        </div>
                         <div className="value">Calculated at checkout</div>
                     </div>
                     <hr/>
 
                     <div className="row">
                         <div className="label bold">Estimated Total</div>
-                        <div className="value bold">CAD $58.00</div>
+                        <div className="value bold">CAD ${shoppingCart.totalCost}.00</div>
                     </div>
 
                     <div className="payment">
@@ -65,7 +72,8 @@ export const ShoppingCart = ()=> {
                                 d="M79.7 0H57.4c0 18.3-8.4 35-23 46l-8.8 6.6 34.2 46.6h28.1L56.4 56.3C71.3 41.5 79.7 21.5 79.7 0zM0 0h22.8v99.2H0zm94.5 0H116v99.2H94.5zm210.1 28.7c-8.2 0-16 2.5-21.2 9.6v-7.7H263v68.6h20.7v-36c0-10.4 7-15.5 15.4-15.5 9 0 14.2 5.4 14.2 15.4v36.2h20.5V55.6c0-16-12.7-26.9-29.2-26.9zM181 30.6V35c-5.8-4-12.8-6.3-20.4-6.3-20 0-36.2 16.2-36.2 36.2s16.2 36.2 36.2 36.2c7.6 0 14.6-2.3 20.4-6.3v4.4h20.5V30.6H181zm-18.7 51.9c-10.3 0-18.6-7.9-18.6-17.6s8.3-17.6 18.6-17.6 18.6 7.9 18.6 17.6-8.3 17.6-18.6 17.6zm71-43v-8.9h-21v68.6h21.1v-32c0-10.8 11.7-16.6 19.8-16.6h.2v-20c-8.3 0-16 3.6-20.1 8.9zm164.3-8.9V35c-5.8-4-12.8-6.3-20.4-6.3-20 0-36.2 16.2-36.2 36.2s16.2 36.2 36.2 36.2c7.6 0 14.6-2.3 20.4-6.3v4.4h20.5V30.6h-20.5zm-18.7 51.9c-10.3 0-18.6-7.9-18.6-17.6s8.3-17.6 18.6-17.6 18.6 7.9 18.6 17.6c.1 9.7-8.3 17.6-18.6 17.6zM434 32.6c0-1-.7-1.6-1.8-1.6h-1.9v5.2h.9v-1.9h1l.8 1.9h1l-.9-2.1c.6-.3.9-.8.9-1.5zm-1.8.8h-1v-1.6h1c.6 0 .9.3.9.8s-.2.8-.9.8z"></path>
                             <path
                                 d="M431.9 28.8c-2.7 0-4.9 2.2-4.9 4.9.1 2.7 2.2 4.9 4.9 4.9s4.9-2.2 4.9-4.9-2.2-4.9-4.9-4.9zm0 8.9c-2.2 0-3.9-1.8-3.9-4s1.8-4 3.9-4c2.2 0 3.9 1.8 3.9 4s-1.8 4-3.9 4zm8.1 37.2c-7.1 0-12.9 5.8-12.9 12.9 0 7.1 5.8 12.9 12.9 12.9 7.1 0 12.9-5.8 12.9-12.9 0-7.2-5.8-12.9-12.9-12.9z"></path>
-                        </svg>
+                        </svg>&nbsp;
+                        <HtmlTooltip positon='top' content={<>Buy items now and pay later - in 4 payments. <a href='#'>Learn more</a></>} />
                     </div>
 
                     <div className="checkout">
