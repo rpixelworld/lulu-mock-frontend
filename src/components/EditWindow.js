@@ -152,7 +152,7 @@ const EditWindow = ({state, closeEdit, item, handleUpdate}) => {
                     </div>
                     <button className='update-edit'
                             onClick={confirmUpdate}>UPDATE ITEM</button>
-                    <div className='view-detail-link'><span><a href={`/product/${product.productId}?color=${product.swatches[selectedColorIndex].colorId}`}>View product details</a></span></div>
+                    <div className='view-detail-link'><span><a href={`/product/${product.productId}?color=${product.swatches[selectedColorIndex].colorId}&sz=${selectedSize.replace(' ','')}`}>View product details</a></span></div>
                 </div>
             </div>
         </div>

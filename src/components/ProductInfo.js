@@ -61,11 +61,14 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
             setOutOfStock(false)
             setOnly1Left(false)
         }
+        window.history.replaceState(null, '', '/product/'+product.productId+'?color='+product.swatches[selectedColorIndex].colorId+'&sz='+size.replace(' ' ,''))
     }
 
     const hoverColorChange = (index) => {
-        // setSelectedColorIndex(index)
         handleColorChange(index)
+    }
+    const unhoverColorChange = ()=> {
+        handleColorChange(selectedColorIndex)
     }
 
     const handleColorClick = (colorId, colorAlt, index)=> {
@@ -73,7 +76,7 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
         handleColorChange(index)
         setSelectedColor(colorAlt)
         setExceedLimit(false)
-        window.history.replaceState(null, '', '/product/'+product.productId+'?color='+colorId)
+        window.history.replaceState(null, '', '/product/'+product.productId+'?color='+colorId+'&sz='+selectedSize.replace(' ' ,''))
     }
     const showTooltip=() => {
         setVisible(!visible)
@@ -128,14 +131,35 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
                 break;
             }
         }
+
+        let randomStorages = [];
         if(product.sizes[0].details.length==0){
-            setSelectedSize('ONE SIZE')
+            setSelectedSize('One Size')
         }
         else {
             product.sizes[0].details.forEach(size => {
-                setStorages(prev => [...prev, getRandomInt(3)])
+                randomStorages.push(getRandomInt(3))
+                setStorages(randomStorages)
             })
         }
+
+        let activeSize = queryParams.get('sz')
+        if(activeSize && activeSize!='ONESIZE') {
+           for (let i=0; i<product.sizes[0].details.length; i++) {
+               if(activeSize===product.sizes[0].details[i]) {
+                   setSelectedSize(product.sizes[0].details[i])
+                   setSelectedSizeIndex(i)
+                   if(randomStorages[i]==0){
+                       setOutOfStock(true)
+                   }
+                   else if(randomStorages[i]==1) {
+                       setOnly1Left(true)
+                   }
+                   break
+               }
+           }
+        }
+
 
     }, []);
 
@@ -160,6 +184,7 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
                 <div className='colorBox'>
                     <img onClick={() => { handleColorClick(item.colorId, item.swatchAlt, index) }}
                          onMouseEnter={() => hoverColorChange(index)}
+                         onMouseLeave={unhoverColorChange}
                          className={selectedColorIndex === index ? 'selectColor selected' : 'selectColor'}
                          key={item.colorId}
                          src={item.swatch} alt=""/>

@@ -59,7 +59,7 @@ const Product = ({ product }) => {
             setCurrentImage(colorImageObject.whyWeMadeThis[0])
         }
         setHoveredColorId(colorId);
-        setCurrentLink(`${Constants.LOCAL_BASE_URL}/product/${product.productId}?color=${colorId}`)
+        setCurrentLink(`${Constants.LOCAL_BASE_URL}/product/${product.productId}?color=${colorId}${product.sizes[0].details.length===0?'&sz=ONESIZE':''}`)
     }
 
     const handleNextPage = () => {
