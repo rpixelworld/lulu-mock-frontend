@@ -198,7 +198,7 @@ export const updateItem = (key, item, onSuccess, onError) => {
     console.log('update item by ', key, item)
     let openReq = window.indexedDB.open(Constants.INDEXED_DB_NAME, Constants.INDEXED_DB_VERSION);
     openReq.onsuccess = ()=> {
-        let tx = db.transaction(Constants.INDEXED_DB_STORE_NAME, Constants.INDEXED_DB_READONLY_MODE);
+        let tx = db.transaction(Constants.INDEXED_DB_STORE_NAME, Constants.INDEXED_DB_READWRITE_MODE);
         let store = tx.objectStore(Constants.INDEXED_DB_STORE_NAME);
 
         let getReq = store.get(key)
@@ -211,7 +211,7 @@ export const updateItem = (key, item, onSuccess, onError) => {
                 return;
             }
 
-            let updateReq = store.put(key, item);
+            let updateReq = store.put(item);
             updateReq.onsuccess = (event) => {
                 // console.log("evt:", event);
                 // console.log("evt.target:", event.target);

@@ -5,6 +5,7 @@ import * as CartIndexedDBHelper from "../CartIndexedDBHelper";
 import {useDispatch} from "react-redux";
 import {dispatchShoppingCart} from "../redux/actions/shoppingAction";
 import EditWindow from "./EditWindow";
+import {updateItem} from "../CartIndexedDBHelper";
 
 export const ShoppingCartItem = ({item})=> {
 
@@ -54,6 +55,10 @@ export const ShoppingCartItem = ({item})=> {
         setQuantity(value)
         setIsOpen(false)
         console.log(`Selected value: ${value}`)
+
+        let itemToUpdate = {...item, amount: value, updatedAt: Date.now()}
+        CartIndexedDBHelper.updateItem(item.itemKey, itemToUpdate, refreshShoppingCart)
+
     }
 
     const handleArrowRotate = () => {
@@ -91,7 +96,7 @@ export const ShoppingCartItem = ({item})=> {
                     <div className='four-cols'>
                         <div className="col-1">
                             <p>Size {item.size}</p>
-                            <a href="">Edit</a>
+                            <a onClick={openUpdateItemDialog}>Edit</a>
                         </div>
                         <div className="col-2">
                             <div className="item-price">
