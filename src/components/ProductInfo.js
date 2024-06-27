@@ -5,12 +5,14 @@ import '../assets/css/ProductInfo.scss'
 import {getRandomInt} from "../Helper";
 import {useSearchParams} from "react-router-dom";
 import * as CartIndexedDBHelper from "../CartIndexedDBHelper";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {dispatchShoppingCart} from "../redux/actions/shoppingAction";
+import {AddToBag} from "./AddToBag";
 
 const ProductInfo = ({product, colorIndex, handleColorChange}) => {
 
     const dispatch = useDispatch();
+    const youMayLike = useSelector(state => state.productReducer.youMayLike)
 
     const [queryParams] = useSearchParams()
     const [selectedColorIndex, setSelectedColorIndex] = useState(colorIndex)
@@ -21,11 +23,21 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
     const [isHidden, setIsHidden] = useState(false);
     const [outOfStock, setOutOfStock] = useState(false)
     const [only1Left, setOnly1Left] = useState(false)
+    const [exceedLimit, setExceedLimit] = useState(false)
     const [sizeNotSelected, setSizeNotSelected] = useState(false)
     const [storages, setStorages] = useState([])
     const [visible, setVisible] = useState(false)
     const tooltipRef = useRef(null);
-    console.log('tooltipRef',tooltipRef)
+
+    const [toOpenAddToBagDialog, setToOpenAddToBagDialog] = useState(false)
+    const [newAddedItem, setNewAddedItem] = useState({})
+
+    const openAddToBagDialog = () =>{
+        setToOpenAddToBagDialog(true)
+    }
+    const closeAddToBagDialog = ()=> {
+        setToOpenAddToBagDialog(false)
+    }
 
     const hiddenList = () => {
         setIsHidden(!isHidden)
@@ -36,6 +48,7 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
         setSelectedSizeIndex(index)
         setSelectedSize(size)
         setSizeNotSelected(false)
+        setExceedLimit(false)
         if(storage===0){
             setOutOfStock(true)
             setOnly1Left(false)
@@ -48,18 +61,22 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
             setOutOfStock(false)
             setOnly1Left(false)
         }
+        window.history.replaceState(null, '', '/product/'+product.productId+'?color='+product.swatches[selectedColorIndex].colorId+'&sz='+size.replace(' ' ,''))
     }
 
-    const toggleSelected = (index) => {
-        setSelectedColorIndex(index)
+    const hoverColorChange = (index) => {
         handleColorChange(index)
+    }
+    const unhoverColorChange = ()=> {
+        handleColorChange(selectedColorIndex)
     }
 
     const handleColorClick = (colorId, colorAlt, index)=> {
         setSelectedColorIndex(index)
         handleColorChange(index)
         setSelectedColor(colorAlt)
-        window.history.replaceState(null, '', '/product/'+product.productId+'?color='+colorId)
+        setExceedLimit(false)
+        window.history.replaceState(null, '', '/product/'+product.productId+'?color='+colorId+'&sz='+selectedSize.replace(' ' ,''))
     }
     const showTooltip=() => {
         setVisible(!visible)
@@ -76,6 +93,9 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
             return
         }
 
+        console.log('price ===> ', !product.price.includes('-')
+            ? Number(product.price.substring(1, product.price.indexOf('CAD')-1))
+            : Number(product.price.substring(1, product.price.indexOf('-')-2)))
         let item = {
             itemKey:`${product.productId}_${product.swatches[selectedColorIndex].colorId}_${selectedSize}`,
             productId: product.productId,
@@ -83,13 +103,23 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
             colorAlt: product.swatches[selectedColorIndex].swatchAlt,
             size: selectedSize,
             imageUrl: product.images[selectedColorIndex].mainCarousel.media.split(' | ')[0],
-            price: Number(product.price.substring(1, product.price.indexOf('CAD')-1)),
+            price: !product.price.includes('-')
+                ? Number(product.price.substring(1, product.price.indexOf('CAD')-1))
+                : Number(product.price.substring(1, product.price.indexOf('-')-1)),
             amount: 1,
             createdAt: Date.now(),
             updatedAt: Date.now()
         }
-        CartIndexedDBHelper.insertOrUpdateItem(item.itemKey, item)
-        CartIndexedDBHelper.getAllItems((shoppingCart) => {dispatch(dispatchShoppingCart(shoppingCart))})
+        CartIndexedDBHelper.insertOrUpdateItem(item.itemKey, item, ()=>{
+            setNewAddedItem(item)
+            CartIndexedDBHelper.getAllItems((shoppingCart) => {dispatch(dispatchShoppingCart(shoppingCart))})
+            openAddToBagDialog()
+        }, (evt) => {
+            if(evt.type=='error' && evt.name==='ExceedAmountLimit'){
+                setExceedLimit(true)
+            }
+        } )
+
     }
 
     useEffect(() => {
@@ -101,16 +131,38 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
                 break;
             }
         }
+
+        let randomStorages = [];
         if(product.sizes[0].details.length==0){
-            setSelectedSize('ONE SIZE')
+            setSelectedSize('One Size')
         }
         else {
             product.sizes[0].details.forEach(size => {
-                setStorages(prev => [...prev, getRandomInt(3)])
+                randomStorages.push(getRandomInt(3))
+                setStorages(randomStorages)
             })
         }
 
+        let activeSize = queryParams.get('sz')
+        if(activeSize && activeSize!='ONESIZE') {
+           for (let i=0; i<product.sizes[0].details.length; i++) {
+               if(activeSize===product.sizes[0].details[i]) {
+                   setSelectedSize(product.sizes[0].details[i])
+                   setSelectedSizeIndex(i)
+                   if(randomStorages[i]==0){
+                       setOutOfStock(true)
+                   }
+                   else if(randomStorages[i]==1) {
+                       setOnly1Left(true)
+                   }
+                   break
+               }
+           }
+        }
+
+
     }, []);
+
     useEffect(() => {
         if (visible) {
             document.addEventListener('mousedown', handleClickOutside);
@@ -131,7 +183,8 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
             {product.swatches.map((item, index) =>
                 <div className='colorBox'>
                     <img onClick={() => { handleColorClick(item.colorId, item.swatchAlt, index) }}
-                         onMouseEnter={() => toggleSelected(index)}
+                         onMouseEnter={() => hoverColorChange(index)}
+                         onMouseLeave={unhoverColorChange}
                          className={selectedColorIndex === index ? 'selectColor selected' : 'selectColor'}
                          key={item.colorId}
                          src={item.swatch} alt=""/>
@@ -186,11 +239,15 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
                     selecting another size, colour or check all store inventory.</div>)}
             </div>
 
+            <div className="alert">
+                {exceedLimit && <div className="exceed-limit">Exceeded maximum allowed quantity per line item.</div>}
+            </div>
             <div className='add-to-bag'>
                 {!outOfStock && <button className='add-button' onClick={addToBag}>ADD TO BAG</button>}
                 {outOfStock && <button className='soldout-button'>SOLD OUT - NOTIFY ME</button>}
-
             </div>
+
+
             <div className='check-all'><span>Check All Store Inventory</span></div>
         </div>
 
@@ -258,9 +315,8 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
                     <span style={{position: 'relative'}}>
                         <a href="#">Add to Wish List</a>
                     </span>
-
-
                 </div>
+
                 {/*review*/}
                 <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
                     <div style={{position: 'relative', top: '2px', margin: '0 3px 0 0'}}>
@@ -315,7 +371,9 @@ const ProductInfo = ({product, colorIndex, handleColorChange}) => {
                 )}
             </ul>
         </div>
-
+        <AddToBag product={product} item={newAddedItem}
+                  isOpen={toOpenAddToBagDialog} handleClose={closeAddToBagDialog}/>
     </div>
+
 }
 export default ProductInfo
