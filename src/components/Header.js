@@ -143,9 +143,10 @@ export const Header = () => {
                         <div className="header-input-icon2"><AccountCircleOutlinedIcon/>
                             <a href="#">Sign In</a></div>
                         {!location.pathname.includes('cart') &&
-                            <div className="header-input-icon3"><FavoriteBorderOutlinedIcon/></div>
+                            <><div className="header-input-icon3"><FavoriteBorderOutlinedIcon/></div>
+                            <div className="header-shopping-bag"><Link to='/shop/cart'>{shoppingCart.total}</Link></div></>
                         }
-                       <div className="header-shopping-bag"><Link to='/shop/cart'>{shoppingCart.total}</Link></div>
+
                     </div>
                 </div>
             </div>
