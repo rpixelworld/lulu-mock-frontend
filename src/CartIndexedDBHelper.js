@@ -128,21 +128,33 @@ export const insertOrUpdateItem = (key, item, onSuccess, onError) => {
             else{
                 // let newItem = JSON.parse(JSON.stringify(record))
                 item.amount = record.amount + item.amount;
-                let updateReq = store.put(item);
-                updateReq.onsuccess = (event) => {
-                    // console.log("evt:", event);
-                    // console.log("evt.target:", event.target);
-                    // console.log("evt.target.result:", event.target.result);
-                    console.log("item updated successful", item);
-                    onSuccess && onSuccess();
-                };
-                updateReq.onerror = function (event) {
-                    console.error("update item failed by ", updateReq);
-                    onError && onError()
-                };
+                if (item.amount>5) {
+                    console.log('amout>5, throw' )
+                    const errorEvent = new Event('error');
+                    errorEvent.message = 'Exceeded maximum allowed quantity per line item.';
+                    errorEvent.name = 'ExceedAmountLimit';
+                    getReq.dispatchEvent(errorEvent);
+                }
+                else {
+                    let updateReq = store.put(item);
+                    updateReq.onsuccess = (event) => {
+                        // console.log("evt:", event);
+                        // console.log("evt.target:", event.target);
+                        // console.log("evt.target.result:", event.target.result);
+                        console.log("item updated successful", item);
+                        onSuccess && onSuccess();
+                    };
+                    updateReq.onerror = function (event) {
+                        console.error("update item failed by ", updateReq);
+                        onError && onError()
+                    };
+                }
             }
         }
-
+        getReq.onerror = (event) => {
+            console.error('insertOrUpdateItem failed', event);
+            onError && onError(event)
+        }
     }
 }
 
@@ -234,9 +246,11 @@ export const getAllItems = (onSuccess, onError) => {
         getReq.onsuccess = ()=> {
             const allItems = getReq.result
             const totalAmount = allItems.reduce((sum, item)=>sum+item.amount, 0)
+            const totalCost = allItems.reduce((sum, item)=>sum+item.amount*item.price, 0)
             // console.log(allItems)
             onSuccess && onSuccess({
                 total: totalAmount,
+                totalCost: totalCost,
                 items: allItems
             })
         }
