@@ -69,7 +69,6 @@ const getObjectStore = (mode)=> {
     req.onerror = function (evt) {
         console.error("openDb:", evt.target);
     };
-
 }
 
 export const addItem = (item, onSuccess, onError)=> {
@@ -193,7 +192,6 @@ export const deleteItem = (key, onSuccess, onError) => {
             onError && onError()
         }
     }
-
 }
 
 export const updateItem = (key, item, onSuccess, onError) => {

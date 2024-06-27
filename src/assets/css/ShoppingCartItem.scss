@@ -1,86 +1,311 @@
 .cart-item {
-  //border: 1px dashed lightpink;
+  box-sizing: content-box;
+  width: 918.328px;
+  height: 238.992px;
   padding: 24px 0 32px 0;
-
   display: flex;
   flex-direction: row;
+  border-bottom: 0.7px solid rgb(211, 213, 215);
 
-  .item-detail {
-    width: calc(100% - 199px);
+  .product-primary {
+    width: 918.328px;
+    height: 238.992px;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    align-items: flex-start;
+    box-sizing: border-box;
+    position: relative;
+    unicode-bidi: isolate;
 
-    h3 {
-      margin: 0 20px;
-      width: 100%;
+    .item-image {
+      img {
+        width: 199px;
+        height: 238.992px;
+      }
     }
 
-    p {
-      margin: 10px 20px;
-      font-size: 16px ;
-    }
-
-    .four-cols {
-      margin: 5px 20px 10px 20px;
+    .item-detail {
+      margin-left: 24px;
+      width: 695.328px;
+      height: 100%;
       display: flex;
-      flex-direction: row;
-      justify-content: space-between;
+      flex-direction: column;
 
-      .col-1 {
-        width: 55%;
-        display: flex;
-        flex-direction: column;
+      h3 {
+        font-size: 20px;
+        font-weight: 500;
+        cursor: pointer;
+        width: 100%;
+        height: 28px;
+        padding-right: 44px;
+        margin: 0;
+        font-size: 20px;
+      }
 
-        p{
-          margin: 0 0 10px 0;
+      .item-color {
+        p {
+          margin-top: 6px;
+          margin-bottom: 6px;
+          padding-right: 44px;
+          font-size: 16px;
         }
       }
 
-      .col-2 {
-        width: 15%;
+      .four-cols {
+        height: 90px;
+        margin-top: 6px;
+        margin-bottom: 8px;
         display: flex;
-        flex-direction: column;
-        p{
-          margin: 0 0 10px 0;
-        }
-      }
-      .col-3 {
-        width: 15%;
-        display: flex;
-        flex-direction: column;
-        p{
-          margin: 0 0 10px 0;
-        }
-      }
-      .col-4 {
-        width: 15%;
-        display: flex;
-        flex-direction: column;
-        p{
-          margin: 0 0 10px 0;
-          text-align: right;
-        }
-      }
-    }
+        flex-direction: row;
+        justify-content: space-between;
 
-    .operation-line {
-      margin: 5px 20px 10px 20px;
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
+        .col-1 {
+          width: 422.367px;
+          display: flex;
+          flex-direction: column;
 
-      p{
-        width: 60%;
-        margin: 0 0 10px 0;
+          p {
+            margin-block-end: 0;
+            margin-block-start: 0;
+            margin-bottom: 19px;
+          }
+
+          a {
+            font-size: 14px;
+            color: black;
+            text-decoration: underline rgb(141, 145, 150) 1px;
+            text-underline-offset: 6px;
+          }
+
+          a:hover {
+            text-decoration: underline rgb(200, 16, 46);
+            text-underline-offset: 6px;
+          }
+        }
+
+        .col-2 {
+          display: flex;
+          flex-direction: column;
+
+          p {
+            margin-block-end: 0;
+            margin-block-start: 0;
+          }
+
+          .item-price {
+            margin-bottom: 19px;
+          }
+
+          .price {
+
+          }
+        }
+        .col-3 {
+          width: 120px;
+          height: 79px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          label {
+            position: relative;
+            left: -16px;
+            margin-bottom: 8px;
+            text-align: left;
+          }
+
+          .dropdown-container {
+
+            .box-content {
+              box-sizing: content-box;
+              background-color: white;
+              width: 19.2px;
+              height: 26px;
+              padding: 14px 42.8px 14px 16px;
+              border: 1px black solid;
+              border-radius: 5px;
+              cursor: pointer;
+              display: flex;
+              flex-direction: row;
+              position: relative;
+              top: 1.5px;
+              left: -7px;
+
+              .custom-dropdown {
+                border: none;
+                font-size: 15px;
+                margin-right: 20px;
+                position: relative;
+                background-color: white;
+
+              }
+
+              .dropdown-arrow {
+                width: 14px;
+                height: 8px;
+                position: relative;
+                top: 4px;
+                right: 3px;
+
+                .rotate-svg {
+                  display: inline-block;
+                  cursor: pointer;
+                  transition: transform 0.2s ease-in-out;
+                }
+
+                .rotate-svg.rotated {
+                  transform: rotate(180deg);
+                }
+              }
+            }
+
+            .dropdown-options {
+              box-sizing: border-box;
+              box-shadow: 0 1px 5px rgba(224, 102, 102, 0.5);
+              width: 81px;
+              height: 322.5px;
+              border: 1px black solid;
+              border-radius: 5px;
+              position: relative;
+              left: -7px;
+              top: 5px;
+              cursor: pointer;
+              display: flex;
+              flex-direction: column;
+              background-color: white;
+              overflow: hidden;
+              z-index: 1;
+
+              .option-container {
+                height: 63.5px;
+                width: 78px;
+
+                .dropdown-option {
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  height: 63.5px;
+                  width: 79px;
+                  position: relative;
+                  overflow: hidden;
+                  z-index: 99;
+                }
+
+                .dropdown-option::before {
+                  content: '';
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  width: 300%;
+                  height: 300%;
+                  border-radius: 50%;
+                  transform: translate(-50%, -50%) scale(0);
+                  transition: transform 0.4s ease-in;
+                  z-index: -1;
+                }
+
+                .dropdown-option:hover::before {
+                  transform: translate(-50%, -50%) scale(1.2);
+                  background: rgba(229, 230, 231, 1);
+                }
+
+                .dropdown-option:hover {
+                  background-color: transparent;
+                }
+              }
+
+              .dropdown-separator {
+                 z-index: 4;
+                 width: 46px;
+                 height: 1px;
+                 background-color: rgb(141, 145, 150);
+                 margin: 0;
+                 position: relative;
+                left: 16px;
+               }
+            }
+          }
+
+
+
+        }
+        .col-4 {
+          display: flex;
+          justify-content: right;
+          flex-direction: column;
+
+          p{
+            margin-block-end: 0;
+            margin-block-start: 0;
+          }
+
+          .total-price {
+            margin-bottom: 19px;
+          }
+
+        }
       }
-      a {
-        width: 20%;
-      }
-      a {
-        width: 20%;
-        text-align: right;
+
+      .operation-line {
+        height: 46px;
+        margin-top: 40px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: end;
+
+        .product-message {
+          p{
+            width: 500.68px;
+            height: 25px;
+            padding-bottom: 4px;
+            margin: 0;
+          }
+        }
+
+        .separator {
+          height: 25px;
+          width: 1px;
+          background-color: rgb(211, 213, 215);
+          margin: 0;
+          position: relative;
+          top: 4px;
+        }
+
+        .add-button {
+          a {
+            color: black;
+            text-decoration: underline rgb(141, 145, 150) 1px;
+            text-underline-offset: 6px;
+            height: 25px;
+            padding-bottom: 4px;
+            margin: 0;
+          }
+
+          a:hover {
+            text-decoration: underline rgb(200, 16, 46);
+            text-underline-offset: 6px;
+          }
+        }
+
+        .remove-button {
+          span {
+            color: black;
+            text-decoration: underline rgb(141, 145, 150) 1px;
+            text-underline-offset: 6px;
+            height: 25px;
+            padding-bottom: 4px;
+            margin: 0;
+            text-align: right;
+          }
+
+          span:hover {
+            text-decoration: underline rgb(200, 16, 46);
+            text-underline-offset: 6px;
+          }
+
+        }
       }
     }
   }
+
 }
