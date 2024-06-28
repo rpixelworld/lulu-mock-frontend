@@ -38,6 +38,7 @@ export const ShoppingCartItem = ({item})=> {
         CartIndexedDBHelper.getAllItems((shoppingCart)=>{dispatch(dispatchShoppingCart(shoppingCart))})
         closeUpdateItemDialog()
         closeRemoveConfirmDialog()
+        setQuantity(item.amount)
     }
     const removeItem = (itemKey)=> {
         CartIndexedDBHelper.deleteItem(itemKey, refreshShoppingCart)
@@ -120,7 +121,7 @@ export const ShoppingCartItem = ({item})=> {
                             <label htmlFor="quantity">Quantity</label>
                             <div className="dropdown-container" onClick={toggleDropdown}>
                                 <div className="box-content" onClick={handleArrowRotate}>
-                                    <button className="custom-dropdown" value={quantity}>{quantity}</button>
+                                    <button className="custom-dropdown" value={item.amount}>{item.amount}</button>
                                     <div className="dropdown-arrow">{dropdownArrow}</div>
                                 </div>
                                 {isOpen && (
