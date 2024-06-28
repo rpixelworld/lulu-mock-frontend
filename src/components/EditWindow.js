@@ -6,7 +6,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import Constants from "../Constants";
 import {Dialog, DialogContent} from "@mui/material";
 
-const EditWindow = ({state, closeEdit, item, handleUpdate}) => {
+const EditWindow = ({state, closeEdit, item, handleUpdate, handleExceedLimitReset, exceedLimit}) => {
 
     const [product, setProduct] = useState(null)
     const [selectedColorIndex, setSelectedColorIndex] = useState(0)
@@ -22,7 +22,7 @@ const EditWindow = ({state, closeEdit, item, handleUpdate}) => {
         let newItem = {
             ...item,
             itemKey: `${product.productId}_${product.swatches[selectedColorIndex].colorId}_${selectedSize}`,
-            colorAt: selectedColor,
+            colorAlt: selectedColor,
             size: selectedSize,
             imageUrl: product.images[selectedColorIndex].mainCarousel.media.split(' | ')[0],
             createdAt: Date.now(),
@@ -33,16 +33,23 @@ const EditWindow = ({state, closeEdit, item, handleUpdate}) => {
     }
 
     const sizeButtonClick = (index, item) => {
+        if(selectedSizeIndex!=index){
+            handleExceedLimitReset()
+        }
         setSelectedSizeIndex(index)
         setSelectedSize(item)
     }
 
     const colorButtonClick = (index, swatchAlt) => {
+        if(selectedColorIndex!=index){
+            handleExceedLimitReset()
+        }
         setSelectedColorIndex(index)
-        setSelectedColor(swatchAlt)
+        setSelectedColor(product.swatches[index].swatchAlt)
         setBgImg(product.images[index].mainCarousel.media.split(' | ')[0])
         setBgIndex(index)
         setPageIndex(0)
+
     }
 
     const handleNextPage = () => {
@@ -61,6 +68,7 @@ const EditWindow = ({state, closeEdit, item, handleUpdate}) => {
             setBgImg(product.images[selectedColorIndex].mainCarousel.media.split(' | ')[newIndex])
         }
     }
+
 
     useEffect(() => {
         console.log('useeffect, state=', state)
@@ -101,6 +109,34 @@ const EditWindow = ({state, closeEdit, item, handleUpdate}) => {
             })
     }, []);
 
+    useEffect(() => {
+        if(state && product.name) {
+            let arr = item.itemKey.split('_')
+            let productId = arr[0]
+            setSelectedColor(item.colorAlt)
+            setSelectedSize(arr[2])
+
+            for(let i=0; i<product.swatches.length; i++) {
+                if(arr[1] === product.swatches[i].colorId) {
+                    setSelectedColorIndex(i)
+                    setBgImg(product.images[i].mainCarousel.media.split('|')[0])
+                    break;
+                }
+            }
+            if(arr[2] === 'ONE SIZE' || arr[2] === '') {
+                setSelectedSizeIndex(0)
+                setSelectedSize(arr[2])
+            }
+            else {
+                for(let i=0; i<product.sizes[0].details.length; i++) {
+                    if(arr[2] === product.sizes[0].details[i]) {
+                        setSelectedSizeIndex(i)
+                    }
+                }
+            }
+        }
+    }, [state]);
+
     return product && <Dialog fullScreen={false} open={state}>
         <DialogContent className=''>
         <div className='edit-window' >
@@ -121,7 +157,7 @@ const EditWindow = ({state, closeEdit, item, handleUpdate}) => {
 
 
                 <div className='edit-colorAndSize'>
-                    <CloseIcon onClick={closeEdit} style={{position:"relative",left:'104%',cursor:'pointer'}} />
+                    <CloseIcon onClick={closeEdit} style={{position: "relative", left: '104%', cursor: 'pointer'}}/>
                     {/*name*/}
                     <h2>{item.productName}</h2>
                     {/*price*/}
@@ -130,7 +166,7 @@ const EditWindow = ({state, closeEdit, item, handleUpdate}) => {
                     <p>{selectedColor}</p>
                     <div className='edit-colorList'>
                         {product.swatches.map((swa, index) =>
-                            <div className={selectedColorIndex===index? 'edit-colorBoxClicked' : 'edit-colorBox'}
+                            <div className={selectedColorIndex === index ? 'edit-colorBoxClicked' : 'edit-colorBox'}
                                  key={index}
                                  onClick={() => colorButtonClick(index, swa.swatchAlt)}>
                                 <img className='edit-color-button'
@@ -141,18 +177,27 @@ const EditWindow = ({state, closeEdit, item, handleUpdate}) => {
                     {/*size*/}
                     <p>Size:{selectedSize}</p>
                     <div className='edit-sizeList'>
-                        {product.sizes[0].details.length>0 && product.sizes[0].details.map((size, index) =>
+                        {product.sizes[0].details.length > 0 && product.sizes[0].details.map((size, index) =>
                             <div className='edit-sizeBox' key={index}>
-                                <button className={selectedSizeIndex===index ? 'edit-size-buttonClicked' : 'edit-size-button'}
-                                        onClick={() => sizeButtonClick(index, size)}
+                                <button
+                                    className={selectedSizeIndex === index ? 'edit-size-buttonClicked' : 'edit-size-button'}
+                                    onClick={() => sizeButtonClick(index, size)}
                                 >{size}</button>
                             </div>)
                         }
-                        {product.sizes[0].details.length==0 && <button className='onesize-buttonClicked'>ONE SIZE</button>}
+                        {product.sizes[0].details.length == 0 &&
+                            <button className='onesize-buttonClicked'>ONE SIZE</button>}
+                    </div>
+                    <div className="alert"> {/*{console.log('exceedLimit==>', exceedLimit, 'closeExceedLimit==>', closeExceedLimit)}*/}
+                        { exceedLimit &&
+                            <div className="exceed-limit">Exceeded maximum allowed quantity per line item.</div>}
                     </div>
                     <button className='update-edit'
-                            onClick={confirmUpdate}>UPDATE ITEM</button>
-                    <div className='view-detail-link'><span><a href={`/product/${product.productId}?color=${product.swatches[selectedColorIndex].colorId}&sz=${selectedSize.replace(' ','')}`}>View product details</a></span></div>
+                            onClick={confirmUpdate}>UPDATE ITEM
+                    </button>
+                    <div className='view-detail-link'><span><a
+                        href={`/product/${product.productId}?color=${product.swatches[selectedColorIndex].colorId}&sz=${selectedSize.replace(' ', '')}`}>View product details</a></span>
+                    </div>
                 </div>
             </div>
         </div>

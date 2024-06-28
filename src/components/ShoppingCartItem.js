@@ -15,7 +15,7 @@ export const ShoppingCartItem = ({item})=> {
     const [isOpen, setIsOpen] = useState(false)
     const [quantity, setQuantity] = useState(item.amount)
     const [arrowUp, setArrowUp] = useState(false)
-
+    const [exceedLimit, setExceedLimit] = useState(false)
 
     const openRemoveConfirmDialog = ()=> {
         setOpenRemoveDialog(true)
@@ -30,6 +30,7 @@ export const ShoppingCartItem = ({item})=> {
     }
 
     const closeUpdateItemDialog = () => {
+        setExceedLimit(false)
         setOpenUpdateDialog(false)
     }
 
@@ -43,9 +44,18 @@ export const ShoppingCartItem = ({item})=> {
     }
 
     const updateItem = (itemKey, newItem) => {
-        CartIndexedDBHelper.deleteItem(itemKey, ()=>{
-            CartIndexedDBHelper.insertOrUpdateItem(newItem.itemKey, newItem, refreshShoppingCart)
-        })
+        CartIndexedDBHelper.insertOrUpdateItem(newItem.itemKey, newItem,
+            ()=>{
+                CartIndexedDBHelper.deleteItem(itemKey, refreshShoppingCart)
+            },
+            (evt) => {
+                if(evt.type=='error' && evt.name==='ExceedAmountLimit'){
+                    setExceedLimit(true)
+                }
+            })
+        // CartIndexedDBHelper.deleteItem(itemKey, ()=>{
+        //     CartIndexedDBHelper.insertOrUpdateItem(newItem.itemKey, newItem, refreshShoppingCart)
+        // })
     }
 
     const toggleDropdown = () => {
@@ -168,7 +178,9 @@ export const ShoppingCartItem = ({item})=> {
                         state={openUpdateDialog}
                         closeEdit={closeUpdateItemDialog}
                         item={item}
-                        handleUpdate={updateItem}/>
+                        handleUpdate={updateItem}
+                        handleExceedLimitReset={()=>setExceedLimit(false)}
+                        exceedLimit={exceedLimit}/>
                     <RemoveConfirmDialog
                         isOpen={openRemoveDialog}
                         itemKey={item.itemKey}
