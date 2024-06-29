@@ -8,7 +8,7 @@
 }
 
 .MuiTooltip-arrow {
-  color: white;
+  color: white !important;
 
   &::before {
     border: 1px solid black
