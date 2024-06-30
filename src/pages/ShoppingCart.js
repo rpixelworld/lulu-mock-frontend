@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {dispatchShoppingCart} from "../redux/actions/shoppingAction";
 import {EmptyBag} from "../components/EmptyBag";
 import {HtmlTooltip} from "../components/HtmlToolTip";
+import {Paypal} from "../components/Paypal";
 
 export const ShoppingCart = ()=> {
 
@@ -81,6 +82,7 @@ export const ShoppingCart = ()=> {
                     </div>
                     <div className='or-checkout'>or checkout quickly with</div>
                     <div className="paypal">
+                        {/*<Paypal />*/}
                         <button></button>
                     </div>
                 </div>

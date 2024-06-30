@@ -81,7 +81,7 @@ export const Header = () => {
 
     return (
         <header>
-            {!location.pathname.includes('cart') &&
+            {!location.pathname.includes('shop') &&
                 <div className='header-menu'>
                     <div className='menu-item'>
                         <PinDropOutlinedIcon sx={{paddingTop: '4px'}}/>
@@ -110,7 +110,7 @@ export const Header = () => {
                                  alt="logo"/>
                         </div>
 
-                        {!location.pathname.includes('cart') &&
+                        {!location.pathname.includes('shop') &&
                             <ul>
                                 {menuList.filter(menu => menu.parent == 0).map(rootMenu => {
                                     return <r key={rootMenu.id}>
@@ -135,14 +135,14 @@ export const Header = () => {
                         }
                     </div>
                     <div className="header-input">
-                        {!location.pathname.includes('cart') &&
+                        {!location.pathname.includes('shop') &&
                             <><div className="header-input-icon1"><SearchOutlinedIcon/></div>
                             <input type="text" placeholder={'Search'}/></>
                         }
 
                         <div className="header-input-icon2"><AccountCircleOutlinedIcon/>
                             <a href="#">Sign In</a></div>
-                        {!location.pathname.includes('cart') &&
+                        {!location.pathname.includes('shop') &&
                             <><div className="header-input-icon3"><FavoriteBorderOutlinedIcon/></div>
                             <div className="header-shopping-bag"><Link to='/shop/cart'>{shoppingCart.total}</Link></div></>
                         }
