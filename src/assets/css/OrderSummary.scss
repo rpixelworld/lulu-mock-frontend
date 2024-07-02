@@ -62,19 +62,19 @@
     margin: 15px 0 0 0;
   }
 }
-.summary-price::before {
-  content: '$';
-  font-family: "Trebuchet MS";
-}
+//.summary-price::before {
+//  content: '$';
+//  font-family: "Trebuchet MS";
+//}
 .totalPrice {
   font-weight: bold;
   font-size: 18px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  span {
-    font-family:'Trebuchet MS'; ;
-  }
+  //span {
+  //  font-family:'Trebuchet MS'; ;
+  //}
 }
 hr {
   border: none;

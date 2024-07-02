@@ -20,7 +20,7 @@ const OrderSummary=()=> {
                 {isOPen
                     ?<ExpandLessIcon onClick={()=>setOpen(false)}/>
                     : <ExpandMoreIcon onClick={()=>setOpen(true)}/>}
-                <span className='summary-price title-price'>{summary.totalCost}.00</span>
+                <span className='summary-price title-price'>${summary.totalCost}.00</span>
             </div>
         </div>
         <hr/>
@@ -35,7 +35,7 @@ const OrderSummary=()=> {
                         <span>Size{' '}{item.size}</span>
                         <span>Quantity{' '}{item.amount}</span>
                     </div>
-                    <div className='summary-item-total-price'><span className='summary-price'>{item.price}.00</span>
+                    <div className='summary-item-total-price'><span className='summary-price'>${item.price}.00</span>
                     </div>
                 </div>
             ) || []}
@@ -61,7 +61,7 @@ const OrderSummary=()=> {
         <hr/>
         <div className='totalPrice'>
             <div>Order total</div>
-            <div>USD{' '}<span>$</span>{summary.totalCost}.00</div>
+            <div>CAD{' '}<span>$</span>{summary.totalCost}.00</div>
         </div>
 
 

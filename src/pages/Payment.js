@@ -4,7 +4,7 @@ import orderReview from '../assets/images/screenshots/order-review.png'
 
 export const Payment = ()=> {
     return (
-        <div className="checkout-fluid-container">
+        <div className="payment-fluid-container">
             <div className="header">
                 <h1>Checkout</h1>
             </div>

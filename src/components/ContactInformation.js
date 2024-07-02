@@ -40,7 +40,7 @@ export const ContactInformation = () => {
 
     return (
         <div className="contact-information">
-            <h2>Contact information</h2>
+            <h2> Contact information</h2>
             <form onSubmit={handleSubmit}>
                 <div className='contact'>
                     <label htmlFor="email">Email address (for order notification)</label>
@@ -53,11 +53,11 @@ export const ContactInformation = () => {
                         onChange={handleEmailChange}
                         onBlur={handleBlur}
                     />
-                    {changed && error && <span className="error-icon">X</span>}
+                    {changed && error && <div className="error-icon"></div>}
                     {changed && error && <p className='error-message'>{error}</p>}
                 </div>
                 <p>
-                    <input type="checkbox" id="signup" name="signup"className='signup' />
+                    <input type="checkbox" id="signup" name="signup" className='signup' />
                     <label htmlFor="signup">Sign me up for lululemon emails (you can unsubscribe at any time). See our <a href="#">privacy policy</a> for details.</label>
                 </p>
             </form>
