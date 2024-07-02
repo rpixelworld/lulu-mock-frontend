@@ -3,6 +3,7 @@ import contact from '../assets/images/screenshots/contact-information.png'
 import notLogin from '../assets/images/screenshots/login.png'
 import shippingNotLogin from '../assets/images/screenshots/shipping-address.png'
 import shippingAfterLogin from '../assets/images/screenshots/shipping-address-after-login.png'
+import OrderSummary from "../components/OrderSummary";
 import {ContactInformation} from "../components/ContactInformation";
 
 export const Checkout = ()=> {
@@ -32,7 +33,7 @@ export const Checkout = ()=> {
 
                 <div className='col-2'>
                     <div className="order-summary">
-                        &lt;OrderSummaryComponent/&gt;
+                        <OrderSummary />
                     </div>
                 </div>
             </div>
