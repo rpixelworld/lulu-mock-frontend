@@ -2,8 +2,10 @@ import '../assets/css/Checkout.scss'
 import contact from '../assets/images/screenshots/contact-information.png'
 import notLogin from '../assets/images/screenshots/login.png'
 import shippingNotLogin from '../assets/images/screenshots/shipping-address.png'
-import shippingAfterLogin from '../assets/images/screenshots/shipping-address-after-login.png'
+import shippingAfterLogin from '../assets/images/screenshots/shipping-address-after-login.png';
 import {CheckoutThree} from "../components/CheckoutThree";
+import OrderSummary from "../components/OrderSummary";
+import {ContactInformation} from "../components/ContactInformation";
 
 export const Checkout = ()=> {
     return (
@@ -13,27 +15,27 @@ export const Checkout = ()=> {
             </div>
             <div className="main">
                 <div className="col-1">
+                    <ContactInformation/>
                     <CheckoutThree/>
-                    {/*<div className="contact-block"><img src={contact} width='500px'/></div>*/}
-                    {/*<div className="no-login-block">*/}
-                    {/*    <font color='red'> Only display when user not logged in</font>*/}
-                    {/*    <img src={notLogin} width='500px' alt=""/>*/}
-                    {/*</div>*/}
-                    {/*<div className="shipping-block">*/}
-                    {/*    <div className="shipping-no-login">*/}
-                    {/*        <font color='red'>Display when user not logged in</font>*/}
-                    {/*        <img src={shippingNotLogin} width='500px' alt=""/>*/}
-                    {/*    </div>*/}
-                    {/*    <div className="shipping-login">*/}
-                    {/*        <font color='red'>Display when user logged in</font>*/}
-                    {/*        <img src={shippingAfterLogin} width='500px' alt=""/>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
+                    <div className="no-login-block">
+                        <font color='red'> Only display when user not logged in</font>
+                        <img src={notLogin} width='500px' alt=""/>
+                    </div>
+                    <div className="shipping-block">
+                        <div className="shipping-no-login">
+                            <font color='red'>Display when user not logged in</font>
+                            <img src={shippingNotLogin} width='500px' alt=""/>
+                        </div>
+                        <div className="shipping-login">
+                            <font color='red'>Display when user logged in</font>
+                            <img src={shippingAfterLogin} width='500px' alt=""/>
+                        </div>
+                    </div>
                 </div>
 
                 <div className='col-2'>
                     <div className="order-summary">
-                        &lt;OrderSummaryComponent/&gt;
+                        <OrderSummary />
                     </div>
                 </div>
             </div>

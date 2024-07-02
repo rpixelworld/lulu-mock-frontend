@@ -13,6 +13,9 @@ import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {dispatchShoppingCart} from "../redux/actions/shoppingAction";
 import * as CartIndexedDBHelper from "../CartIndexedDBHelper";
+import {LoginDialog} from "./LoginDialog";
+import * as UserHelper from "../UserHelper";
+import {dispatchClearCookieAuth, dispatchCookieAuth} from "../redux/actions/userAction";
 
 export const Header = () => {
 
@@ -23,7 +26,12 @@ export const Header = () => {
     const timeoutRef = useRef(null);
     const dispatch = useDispatch();
     const shoppingCart = useSelector(state => state.shoppingReducer.shoppingCart)
+    const cookieAuth = useSelector(state => state.userReducer.cookieAuth)
+    const isLoggedIn = useSelector(state => state.userReducer.isLoggedIn)
     const navigate = useNavigate()
+    const [openLogin, setOpenLogin] = useState(false)
+    const [showLogout, setShowLogout] = useState(false)
+
 
     const navAnimation = (obj) => {
         if(!obj || !obj.className) {
@@ -65,6 +73,22 @@ export const Header = () => {
     const handleUnhoverMenu = () => {timeoutRef.current = setTimeout(()=>{
         setHoverMenu(0)} ,300)}
 
+    const openLoginDialog = (evt)=> {
+        // console.log('open login')
+        // evt.preventDefault()
+        setOpenLogin(true)
+    }
+    const closeLoginDialog = ()=>{
+        setOpenLogin(false)
+    }
+
+    const logout = ()=> {
+        UserHelper.logoutUser({}, ()=>{
+            setShowLogout(false)
+            UserHelper.clearCookies(cookieAuth)
+            dispatch(dispatchClearCookieAuth())
+        })
+    }
 
     useEffect(() => {
         // fetch('http://'+ location.host + `/data/menu.json`)
@@ -76,6 +100,16 @@ export const Header = () => {
 
         CartIndexedDBHelper.getAllItems((shoppingCart) => {dispatch(dispatchShoppingCart(shoppingCart))})
         //console.log('total amount===>', CartIndexedDBHelper.getTotalAmount(setNoOfBagItems))
+        if(!cookieAuth || !cookieAuth._firstname || !cookieAuth._token) {
+            let firstName = UserHelper.getCookie('_firstname')
+            let token = UserHelper.getCookie('_token')
+            if(firstName && token) {
+                dispatch(dispatchCookieAuth({
+                    _firstname: firstName,
+                    _token: token
+                }))
+            }
+        }
     }, []);
 
 
@@ -141,12 +175,15 @@ export const Header = () => {
                         }
 
                         <div className="header-input-icon2"><AccountCircleOutlinedIcon/>
-                            <a href="#">Sign In</a></div>
+                            {!isLoggedIn && <a href='#' onClick={openLoginDialog}>Sign In</a>}
+                            {isLoggedIn && !showLogout && <a onMouseEnter={()=>{setShowLogout(true)}} href='#'>{cookieAuth._firstname}</a>}
+                            {isLoggedIn && showLogout && <a onMouseLeave={()=>{setShowLogout(false)}} onClick={logout} href='#'>Logout</a>}
+                        </div>
                         {!location.pathname.includes('shop') &&
                             <><div className="header-input-icon3"><FavoriteBorderOutlinedIcon/></div>
                             <div className="header-shopping-bag"><Link to='/shop/cart'>{shoppingCart.total}</Link></div></>
                         }
-
+                        <LoginDialog isOpen={openLogin} handleClose={closeLoginDialog}/>
                     </div>
                 </div>
             </div>

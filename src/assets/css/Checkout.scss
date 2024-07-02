@@ -67,9 +67,11 @@
       border: 1px dashed blue;
 
       .order-summary {
-        height: 800px; //to be deleted
-        border: 1px dashed palevioletred;
+        //height: 800px; //to be deleted
+        //border: 1px dashed palevioletred;
         margin-top: 0;
+        position:sticky;
+        top: 5%;
       }
     }
   }
