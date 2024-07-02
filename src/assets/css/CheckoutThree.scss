@@ -1,0 +1,178 @@
+.shopping-address {
+  background: #ffffff;
+  width: 100%;
+  padding: 20px;
+
+  .location {
+    display: flex;
+    flex-direction: column;
+
+    select {
+      width: 620px;
+      height: 50px;
+      font-size: 18px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .name {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+
+    .first-name {
+      display: flex;
+      flex-direction: column;
+
+      input {
+        width: 300px;
+        height: 50px;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    .last-name {
+      display: flex;
+      flex-direction: column;
+
+      input {
+        width: 300px;
+        height: 50px;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+
+  .phone {
+    display: flex;
+    flex-direction: column;
+
+    input {
+      width: 620px;
+      height: 50px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    input[type=number]::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+    }
+
+    p {
+      font-size: 14px;
+      color: #6b6f74;
+    }
+  }
+
+  .address {
+    display: flex;
+    flex-direction: column;
+
+    input {
+      width: 620px;
+      height: 50px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .note {
+    display: flex;
+    flex-direction: row;
+
+    .icon {
+      margin-top: 13px;
+      margin-left: -3px;
+
+    }
+
+    p {
+      position: relative;
+      font-size: 16px;
+      margin-left: 5px;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+        width: 100%;
+        height: 1px;
+        background: black;
+      }
+    }
+  }
+  .delivery-note {
+    display: flex;
+    flex-direction: column;
+
+    input {
+      width: 620px;
+      height: 50px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  .city-detail {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    .city {
+      display: flex;
+      flex-direction: column;
+
+      input {
+        width: 195px;
+        height: 50px;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+    .state {
+      display: flex;
+      flex-direction: column;
+
+      select {
+        width: 195px;
+        height: 50px;
+        font-size: 16px;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+    .zip-code {
+      display: flex;
+      flex-direction: column;
+      input {
+        width: 195px;
+        height: 50px;
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+  }
+}
+.gift-options{
+  background: #ffffff;
+  padding: 20px;
+}
