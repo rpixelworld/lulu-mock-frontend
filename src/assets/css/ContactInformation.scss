@@ -3,11 +3,14 @@
 }
 
 .contact-information {
-  margin: 0 -25px 8px;
+  margin: 0 0 8px;
   padding: 16px 25px 40px;
   background-color: white;
-  .contact {
-    margin-bottom: 1rem;
+  div {
+    display: flex;
+  }
+  svg {
+    margin: 5px 8px 0 0 ;
   }
   h2 {
     margin: 0 0 8px;
@@ -24,6 +27,7 @@
   .contact input[type="text"] {
     height: 52px;
     padding: 14px 48px 14px 16px;
+    margin-bottom: 10px;
     width: 100%;
     border-radius: 4px;
     outline: none;
@@ -36,8 +40,8 @@
 
   .error-message {
     color: #ff0000;
-    margin-top: 0.25rem;
-    font-size: 0.875rem;
+    margin-top: 20px;
+    font-size: 15px;
   }
 }
 
@@ -88,8 +92,8 @@ a {
 
 .error-icon {
   position: absolute;
-  top: 32.5%;
-  right: 43%;
+  top: 33%;
+  right: 44%;
   transform: translateY(-50%);
   color: #ff0000;
   font-size: 1.25rem;

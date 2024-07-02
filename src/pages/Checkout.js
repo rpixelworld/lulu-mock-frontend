@@ -4,6 +4,7 @@ import notLogin from '../assets/images/screenshots/login.png'
 import shippingNotLogin from '../assets/images/screenshots/shipping-address.png'
 import shippingAfterLogin from '../assets/images/screenshots/shipping-address-after-login.png'
 import {ContactInformation} from "../components/ContactInformation";
+import {ShippingAddress} from "../components/ShippingAddress";
 
 export const Checkout = ()=> {
     return (
@@ -14,10 +15,7 @@ export const Checkout = ()=> {
             <div className="main">
                 <div className="col-1">
                     <ContactInformation/>
-                    <div className="no-login-block">
-                        <font color='red'> Only display when user not logged in</font>
-                        <img src={notLogin} width='500px' alt=""/>
-                    </div>
+                    <ShippingAddress/>
                     <div className="shipping-block">
                         <div className="shipping-no-login">
                             <font color='red'>Display when user not logged in</font>

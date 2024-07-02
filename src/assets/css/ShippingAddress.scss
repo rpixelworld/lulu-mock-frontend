@@ -1,0 +1,72 @@
+.shipping-address {
+  margin: 0 0 8px;
+  padding: 16px 25px 40px;
+background-color: white;
+  font-family:Calibre, Verlag, Helvetica, sans-serif;
+
+}
+
+.select-shipping-address {
+  display: flex;
+  flex-direction: row;
+  svg {
+    margin: 5px 8px 0 0 ;
+  }
+}
+h2 {
+  margin: 0 0 16px;
+  font-size: 30px;
+}
+
+.customer-information {
+  display: flex;
+  justify-content: space-between;
+}
+button {
+  align-items: flex-start;
+  border: none;
+  background-color: white;
+  position: relative;
+  bottom: 45px;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-color: #a8a8a8;
+  font-size: 15px;
+  &:hover {
+    cursor: pointer;
+    text-decoration-color: #c8102e;
+  }
+}
+
+.customer-info {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+}
+.select-user {
+  top:18px;
+  left: -5px;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #000;
+  border-radius: 50%;
+  outline: none;
+  position: relative;
+}
+.select-user:checked {
+  border-color: #c8102e; /* 选中后边框颜色变为红色 */
+}
+.select-user:checked::before {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  background-color: #c8102e;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
