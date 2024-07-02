@@ -37,9 +37,10 @@ export const getCookie = (name) => {
     if (parts.length === 2) return parts.pop().split(';').shift();
 };
 
+//token will be expired in 2 hours, so set the cookie for 1 hour
 export const setCookies = (pairs) => {
     for (const key in pairs){
-        document.cookie = `${key}=${pairs[key]}; path=/; max-age=${8*60*60}`
+        document.cookie = `${key}=${pairs[key]}; path=/; max-age=${1*60*60}`
     }
 }
 
