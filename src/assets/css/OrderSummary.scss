@@ -1,0 +1,83 @@
+.summary-accordion {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  img {
+    width: 20px;
+    position: relative;
+    top: -8px;
+    margin: 0 5px;
+  }
+  .title-price {
+    position: absolute;
+    right: 0;
+    font-weight: bold;
+    font-size: 18px;
+  }
+}
+.summary-container {
+  padding: 0;
+  border: none;
+  overflow: scroll;
+  max-height: 31.25rem;
+  .summary-item {
+    margin:0 0 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    position: relative;
+    img {
+      height: 85px;
+      margin-right: 5px;
+    }
+    .summary-infor {
+      display: flex;
+      flex-direction: column;
+      line-height: 22px;
+      strong {
+        font-size: 15px;
+      }
+      //border: #c8102e 1px solid;
+    }
+    .summary-item-total-price {
+      position: absolute;
+      //bottom: -90px;
+      bottom: 0;
+      right: 0;
+
+
+    }
+    span {
+      font-size: 15px;
+    }
+
+  }
+
+}
+.summary-final {
+  .final-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 15px 0 0 0;
+  }
+}
+//.summary-price::before {
+//  content: '$';
+//  font-family: "Trebuchet MS";
+//}
+.totalPrice {
+  font-weight: bold;
+  font-size: 18px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  //span {
+  //  font-family:'Trebuchet MS'; ;
+  //}
+}
+hr {
+  border: none;
+  height: 1px;
+  background-color: #ccccd8;
+}
