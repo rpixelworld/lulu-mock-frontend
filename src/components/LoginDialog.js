@@ -64,12 +64,13 @@ export const LoginDialog = ({isOpen, handleClose})=>{
             _firstname: authData.user.firstName + ' ' + authData.user.lastName,
             _token: authData.token
         }
-        dispatch(dispatchCookieAuth(cookies))
-        UserHelper.setCookies(cookies)
         setSuccess(true)
         setFailed(false)
         setAlertMsg('Login Successfully.')
+
         timeoutRef.current = setTimeout(()=>{
+            dispatch(dispatchCookieAuth(cookies))
+            UserHelper.setCookies(cookies)
             handleClose()
         }, 1500)
     }
