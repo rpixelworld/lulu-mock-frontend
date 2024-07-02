@@ -3,6 +3,7 @@ import contact from '../assets/images/screenshots/contact-information.png'
 import notLogin from '../assets/images/screenshots/login.png'
 import shippingNotLogin from '../assets/images/screenshots/shipping-address.png'
 import shippingAfterLogin from '../assets/images/screenshots/shipping-address-after-login.png'
+import {ContactInformation} from "../components/ContactInformation";
 
 export const Checkout = ()=> {
     return (
@@ -12,7 +13,7 @@ export const Checkout = ()=> {
             </div>
             <div className="main">
                 <div className="col-1">
-                    <div className="contact-block"><img src={contact} width='500px'/></div>
+                    <ContactInformation/>
                     <div className="no-login-block">
                         <font color='red'> Only display when user not logged in</font>
                         <img src={notLogin} width='500px' alt=""/>
