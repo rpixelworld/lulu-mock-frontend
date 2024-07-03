@@ -1,6 +1,7 @@
 import '../assets/css/Checkout.scss'
 import shippingNotLogin from '../assets/images/screenshots/shipping-address.png'
-import shippingAfterLogin from '../assets/images/screenshots/shipping-address-after-login.png'
+import shippingAfterLogin from '../assets/images/screenshots/shipping-address-after-login.png';
+import {CheckoutThree} from "../components/CheckoutThree";
 import OrderSummary from "../components/OrderSummary";
 import {ContactInformation} from "../components/ContactInformation";
 import {AskForLogin} from "../components/AskForLogin";
