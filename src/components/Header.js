@@ -101,8 +101,8 @@ export const Header = () => {
 
         CartIndexedDBHelper.getAllItems((shoppingCart) => {dispatch(dispatchShoppingCart(shoppingCart))})
         //console.log('total amount===>', CartIndexedDBHelper.getTotalAmount(setNoOfBagItems))
-        if(!cookieAuth || !cookieAuth._firstname ||!cookieAuth._token || !cookieAuth._email) {
-            console.log('user logged in, fetch info')
+
+        if(isLoggedIn) {
             let firstName = UserHelper.getCookie('_firstname')
             let token = UserHelper.getCookie('_token')
             let email = UserHelper.getCookie('_email')
@@ -112,9 +112,23 @@ export const Header = () => {
                     _token: token,
                     _email: email
                 }))
+                IndexedDBHelper.getUser(email, (userInfo)=>{ dispatch(dispatchUserInfo(userInfo)) })
             }
-            IndexedDBHelper.getUser(email, (userInfo)=>{ dispatch(dispatchUserInfo(userInfo)) })
         }
+        // if(!cookieAuth || !cookieAuth._firstname ||!cookieAuth._token || !cookieAuth._email) {
+        //     console.log('user logged in, fetch info')
+        //     let firstName = UserHelper.getCookie('_firstname')
+        //     let token = UserHelper.getCookie('_token')
+        //     let email = UserHelper.getCookie('_email')
+        //     if(firstName && token && email) {
+        //         dispatch(dispatchCookieAuth({
+        //             _firstname: firstName,
+        //             _token: token,
+        //             _email: email
+        //         }))
+        //     }
+        //     IndexedDBHelper.getUser(email, (userInfo)=>{ dispatch(dispatchUserInfo(userInfo)) })
+        // }
     }, []);
 
 

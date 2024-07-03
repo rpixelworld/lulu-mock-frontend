@@ -1,7 +1,7 @@
 import '../assets/css/Checkout.scss'
 import shippingNotLogin from '../assets/images/screenshots/shipping-address.png'
 import shippingAfterLogin from '../assets/images/screenshots/shipping-address-after-login.png';
-import {CheckoutThree} from "../components/CheckoutThree";
+import {NewShippingAddress} from "../components/NewShippingAddress";
 import OrderSummary from "../components/OrderSummary";
 import {ContactInformation} from "../components/ContactInformation";
 import {AskForLogin} from "../components/AskForLogin";
@@ -22,7 +22,7 @@ export const Checkout = ()=> {
                     <ContactInformation/>
                     {!isLoggedIn && <AskForLogin />}
 
-                    <ShippingAddress />
+                    {isLoggedIn && <ShippingAddress />}
                     {/*<div className="shipping-block">*/}
                     {/*    <div className="shipping-no-login">*/}
                     {/*        <font color='red'>Display when user not logged in</font>*/}

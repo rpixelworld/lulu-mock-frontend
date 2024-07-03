@@ -1,9 +1,9 @@
-import '../assets/css/CheckoutThree.scss'
+import '../assets/css/NewShippingAddress.scss'
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import {useState} from "react";
 
-export const CheckoutThree = () => {
+export const NewShippingAddress = () => {
 
 
     const [firstName, setFirstName] = useState('');
