@@ -33,9 +33,9 @@ let user1 = {
     addresses: [
         {
             recipient: 'Mark Xu',
-            line1: '50 Acadia Ave, Markham, ON L3R 0B3',
+            line1: '50 Acadia Ave',
             line2: 'Unit #200',
-            city: 'Toronto',
+            city: 'Markham',
             country_code: 'CA',
             postal_code: 'L3R 0B3',
             phone: '6474017219',
