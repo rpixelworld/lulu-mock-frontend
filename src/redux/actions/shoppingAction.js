@@ -1,4 +1,4 @@
-import * as CartIndexedDBHelper from "../../CartIndexedDBHelper";
+import * as CartIndexedDBHelper from "../../IndexedDBHelper";
 import Constants from "../../Constants";
 
 export const dispatchShoppingCart = (shoppingCart) => {

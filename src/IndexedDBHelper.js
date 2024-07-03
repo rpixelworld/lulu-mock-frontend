@@ -26,6 +26,34 @@ let sampleItem2 = {
     updatedAt: Date.now()
 }
 
+let user1 = {
+    email: 'markxu@itlab.com',
+    firstName: 'Mark',
+    lastName: 'Xu',
+    addresses: [
+        {
+            recipient: 'Mark Xu',
+            line1: '50 Acadia Ave, Markham, ON L3R 0B3',
+            line2: 'Unit #200',
+            city: 'Toronto',
+            country_code: 'CA',
+            postal_code: 'L3R 0B3',
+            phone: '6474017219',
+            state: 'Ontario'
+        },
+        {
+            recipient: 'Mark Xu',
+            line1: '33-1489 Heritage Way',
+            line2: '',
+            city: 'Oakville',
+            country_code: 'CA',
+            postal_code: 'L6M 4M6',
+            phone: '2321323123',
+            state: 'Ontario'
+        }
+    ]
+}
+
 export const openIndexedDb = ()=> {
     console.log("openIndexedDb ...", Constants.INDEXED_DB_NAME);
     let req = window.indexedDB.open(Constants.INDEXED_DB_NAME, Constants.INDEXED_DB_VERSION);
@@ -40,17 +68,38 @@ export const openIndexedDb = ()=> {
 
     req.onupgradeneeded = function (evt) {
         console.log("openDb.onupgradeneeded");
-        let store = evt.currentTarget.result.createObjectStore(Constants.INDEXED_DB_STORE_NAME, {keyPath: "itemKey"});
+        try{
+            let store = evt.currentTarget.result.createObjectStore(Constants.INDEXED_DB_STORE_NAME, {keyPath: "itemKey"});
 
-        store.createIndex('productId', 'productId', {unique: false})
-        store.createIndex('productName', 'productName', {unique: false})
-        store.createIndex('colorAlt', 'colorAlt', {unique: false})
-        store.createIndex('size', 'size', {unique: false})
-        store.createIndex('imageUrl', 'imageUrl', {unique: false})
-        store.createIndex('price', 'price', {unique: false})
-        store.createIndex('amount', 'amount', {unique: false})
-        store.createIndex('createdAt', 'createdAt', {unique: false})
-        store.createIndex('updatedAt', 'updatedAt', {unique: false})
+            store.createIndex('productId', 'productId', {unique: false})
+            store.createIndex('productName', 'productName', {unique: false})
+            store.createIndex('colorAlt', 'colorAlt', {unique: false})
+            store.createIndex('size', 'size', {unique: false})
+            store.createIndex('imageUrl', 'imageUrl', {unique: false})
+            store.createIndex('price', 'price', {unique: false})
+            store.createIndex('amount', 'amount', {unique: false})
+            store.createIndex('createdAt', 'createdAt', {unique: false})
+            store.createIndex('updatedAt', 'updatedAt', {unique: false})
+        }
+        catch (e) {
+
+        }
+
+        try{
+            let store = evt.currentTarget.result.createObjectStore(Constants.INDEXED_DB_USER_STORE_NAME, {keyPath: "email"});
+
+            store.createIndex('firstName', 'firstName', {unique: false})
+            store.createIndex('lastName', 'lastName', {unique: false})
+            store.createIndex('addresses', 'addresses', {unique: false})
+
+            let addReq = store.add(user1)
+            addReq.onsuccess = ()=> {
+                console.log('User with email = ', user1.email, 'added successfully')
+            }
+        }
+        catch (e){
+
+        }
     };
 }
 
@@ -256,9 +305,81 @@ export const getAllItems = (onSuccess, onError) => {
     }
     openReq.onerror = ()=> []
 }
+
+export const insertOrUpdateUser = (email, user, onSuccess, onError) => {
+    console.log('insertOrUpdate user', email)
+    let openReq = window.indexedDB.open(Constants.INDEXED_DB_NAME, Constants.INDEXED_DB_VERSION);
+    openReq.onsuccess = ()=> {
+        let tx = db.transaction(Constants.INDEXED_DB_USER_STORE_NAME, Constants.INDEXED_DB_READWRITE_MODE);
+        let store = tx.objectStore(Constants.INDEXED_DB_USER_STORE_NAME);
+
+        let getReq = store.get(email)
+        getReq.onsuccess = (event) => {
+            let record = event.target.result;
+
+            //no found, insert
+            if (typeof record == 'undefined') {
+                let addReq= store.add(user);
+                addReq.onsuccess = () => {
+                    console.log('user inserted successfully', user)
+                    onSuccess && onSuccess();
+                }
+                addReq.onerror = () => {
+                    console.error('user inserted failed', addReq)
+                    onError && onError();
+                }
+            }
+            //found, update
+            else{
+                // let newItem = JSON.parse(JSON.stringify(record))
+                let updateReq = store.put(user);
+                updateReq.onsuccess = (event) => {
+                    console.log("user updated successful", user);
+                    onSuccess && onSuccess();
+                };
+                updateReq.onerror = function (event) {
+                    console.error("update user failed by ", updateReq);
+                    onError && onError()
+                };
+
+            }
+        }
+        getReq.onerror = (event) => {
+            console.error('insertOrUpdateUser failed', event);
+            onError && onError(event)
+        }
+    }
+}
+
+
+export const getUser = (email, onSuccess, onError) => {
+    console.log('get user by email ', email)
+    let openReq = window.indexedDB.open(Constants.INDEXED_DB_NAME, Constants.INDEXED_DB_VERSION);
+    openReq.onsuccess = ()=> {
+        let tx = db.transaction(Constants.INDEXED_DB_USER_STORE_NAME, Constants.INDEXED_DB_READONLY_MODE);
+        let store = tx.objectStore(Constants.INDEXED_DB_USER_STORE_NAME);
+
+        let getReq = store.get(email)
+        getReq.onsuccess = (event) => {
+            let record = event.target.result;
+
+            //no found
+            if (typeof record == 'undefined') {
+
+            }
+            //found
+            else{
+                onSuccess(record)
+            }
+        }
+        getReq.onerror = ()=> []
+    }
+    openReq.onerror = ()=> []
+}
+
 openIndexedDb()
-// addItem(sampleItem1)
-// addItem(sampleItem2)
+//addItem(sampleItem1)
+//addItem(sampleItem2)
 
 
 

@@ -5,6 +5,7 @@ import OrderSummary from "../components/OrderSummary";
 import {ContactInformation} from "../components/ContactInformation";
 import {AskForLogin} from "../components/AskForLogin";
 import {useSelector} from "react-redux";
+import {ShippingAddress} from "../components/ShippingAddress";
 
 export const Checkout = ()=> {
 
@@ -20,16 +21,17 @@ export const Checkout = ()=> {
                     <ContactInformation/>
                     {!isLoggedIn && <AskForLogin />}
 
-                    <div className="shipping-block">
-                        <div className="shipping-no-login">
-                            <font color='red'>Display when user not logged in</font>
-                            <img src={shippingNotLogin} width='500px' alt=""/>
-                        </div>
-                        <div className="shipping-login">
-                            <font color='red'>Display when user logged in</font>
-                            <img src={shippingAfterLogin} width='500px' alt=""/>
-                        </div>
-                    </div>
+                    <ShippingAddress />
+                    {/*<div className="shipping-block">*/}
+                    {/*    <div className="shipping-no-login">*/}
+                    {/*        <font color='red'>Display when user not logged in</font>*/}
+                    {/*        <img src={shippingNotLogin} width='500px' alt=""/>*/}
+                    {/*    </div>*/}
+                    {/*    <div className="shipping-login">*/}
+                    {/*        <font color='red'>Display when user logged in</font>*/}
+                    {/*        <img src={shippingAfterLogin} width='500px' alt=""/>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
                 </div>
 
                 <div className='col-2'>

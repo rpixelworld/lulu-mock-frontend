@@ -1,6 +1,6 @@
 import '../assets/css/ShoppingCart.scss'
 import {useEffect, useState} from "react";
-import * as CartIndexedDBHelper from "../CartIndexedDBHelper";
+import * as CartIndexedDBHelper from "../IndexedDBHelper";
 import {ShoppingCartItem} from "../components/ShoppingCartItem";
 import {useDispatch, useSelector} from "react-redux";
 import {dispatchShoppingCart} from "../redux/actions/shoppingAction";

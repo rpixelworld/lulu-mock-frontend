@@ -1,6 +1,6 @@
 import Constants from "../../Constants";
-import {getTotalAmount} from "../../CartIndexedDBHelper";
-import * as CartIndexedDBHelper from "../../CartIndexedDBHelper";
+import {getTotalAmount} from "../../IndexedDBHelper";
+import * as CartIndexedDBHelper from "../../IndexedDBHelper";
 
 export const fetchProducts = (pageNo=1, filters={})=> dispatch => {
     let url = `${Constants.BASE_URL}/product/allProducts?page=${pageNo}&mykey=${Constants.MY_KEY}`

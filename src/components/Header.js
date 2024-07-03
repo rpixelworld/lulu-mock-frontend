@@ -12,10 +12,11 @@ import Constants from "../Constants";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {dispatchShoppingCart} from "../redux/actions/shoppingAction";
-import * as CartIndexedDBHelper from "../CartIndexedDBHelper";
+import * as CartIndexedDBHelper from "../IndexedDBHelper";
 import {LoginDialog} from "./LoginDialog";
 import * as UserHelper from "../UserHelper";
-import {dispatchClearCookieAuth, dispatchCookieAuth} from "../redux/actions/userAction";
+import {dispatchClearCookieAuth, dispatchCookieAuth, dispatchUserInfo} from "../redux/actions/userAction";
+import * as IndexedDBHelper from "../IndexedDBHelper";
 
 export const Header = () => {
 
@@ -100,15 +101,19 @@ export const Header = () => {
 
         CartIndexedDBHelper.getAllItems((shoppingCart) => {dispatch(dispatchShoppingCart(shoppingCart))})
         //console.log('total amount===>', CartIndexedDBHelper.getTotalAmount(setNoOfBagItems))
-        if(!cookieAuth || !cookieAuth._firstname || !cookieAuth._token) {
+        if(!cookieAuth || !cookieAuth._firstname ||!cookieAuth._token || !cookieAuth._email) {
+            console.log('user logged in, fetch info')
             let firstName = UserHelper.getCookie('_firstname')
             let token = UserHelper.getCookie('_token')
-            if(firstName && token) {
+            let email = UserHelper.getCookie('_email')
+            if(firstName && token && email) {
                 dispatch(dispatchCookieAuth({
                     _firstname: firstName,
-                    _token: token
+                    _token: token,
+                    _email: email
                 }))
             }
+            IndexedDBHelper.getUser(email, (userInfo)=>{ dispatch(dispatchUserInfo(userInfo)) })
         }
     }, []);
 
@@ -176,7 +181,7 @@ export const Header = () => {
 
                         <div className="header-input-icon2"><AccountCircleOutlinedIcon/>
                             {!isLoggedIn && <a href='#' onClick={openLoginDialog}>Sign In</a>}
-                            {isLoggedIn && !showLogout && <a onMouseEnter={()=>{setShowLogout(true)}} href='#'>{cookieAuth._firstname}</a>}
+                            {isLoggedIn && !showLogout && <a onMouseEnter={()=>{setShowLogout(true)}} href='#'>Hi! {cookieAuth._firstname}</a>}
                             {isLoggedIn && showLogout && <a onMouseLeave={()=>{setShowLogout(false)}} onClick={logout} href='#'>Logout</a>}
                         </div>
                         {!location.pathname.includes('shop') &&
