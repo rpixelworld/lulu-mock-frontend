@@ -2,7 +2,7 @@
   width: 1100px;
   margin: auto;
   //height: 1000px;
-  border: 1px solid black;
+  //border: 1px solid black;
 
   .header {
     margin: 1.5rem 0;
@@ -23,33 +23,13 @@
 
     .col-1 {
       width: 65%;
-      border: 1px dashed blue;
+      //border: 1px dashed blue;
+      //
 
-      .contact-block {
-        height: 200px; //to be deleted
-        border: 1px dashed palevioletred;
-        margin-top: 0;
-        padding: 1rem 1.5625rem 2.5rem;
-        background-color: #fff;
-        font-size: 1.125rem;
-        margin-bottom: .5rem;
-
-      }
-
-      .no-login-block {
-        height: 200px; //to be deleted
-        border: 1px dashed palevioletred;
-        margin-top: 0;
-        padding: 1rem 1.5625rem 2.5rem;
-        background-color: #fff;
-        font-size: 1.125rem;
-        margin-bottom: .5rem;
-
-      }
 
       .shipping-block {
         //height: 800px; //to be deleted
-        border: 1px dashed palevioletred;
+        //border: 1px dashed palevioletred;
         margin-top: 0;
         padding: 1rem 1.5625rem 2.5rem;
         background-color: #fff;
@@ -64,12 +44,13 @@
 
     .col-2 {
       width: 30%;
-      border: 1px dashed blue;
+      //border: 1px dashed blue;
 
       .order-summary {
         //height: 800px; //to be deleted
         //border: 1px dashed palevioletred;
         margin-top: 0;
+        margin-bottom: 24px;
         position:sticky;
         top: 5%;
       }

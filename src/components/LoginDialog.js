@@ -61,15 +61,17 @@ export const LoginDialog = ({isOpen, handleClose})=>{
 
     const loginSuccess = (authData)=> {
         let cookies = {
-            _firstname: authData.user.firstName + ' ' + authData.user.lastName,
+            _email: authData.user.email,
+            _firstname: authData.user.firstName,
             _token: authData.token
         }
-        dispatch(dispatchCookieAuth(cookies))
-        UserHelper.setCookies(cookies)
         setSuccess(true)
         setFailed(false)
         setAlertMsg('Login Successfully.')
+
         timeoutRef.current = setTimeout(()=>{
+            UserHelper.setCookies(cookies)
+            dispatch(dispatchCookieAuth(cookies))
             handleClose()
         }, 1500)
     }
@@ -138,7 +140,7 @@ export const LoginDialog = ({isOpen, handleClose})=>{
                             </section>
                         </div>
                     </form>
-                    <div className="forgot-password"><a href="">Forgot your password?</a></div>
+                    <div className="forgot-password"><a href="">Forgot your password</a></div>
                     {validForm && <button className='sign-in' onClick={login}>sign in</button>}
                     {!validForm && <button className='sign-in disabled'>sign in</button>}
                     <p className='term'>By signing in, you agree to the <a href="">Terms of Use</a> and acknowledge the <a

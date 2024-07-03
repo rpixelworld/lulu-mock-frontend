@@ -13,3 +13,10 @@ export const dispatchClearCookieAuth = () => {
         payload: {}
     }
 }
+
+export const dispatchUserInfo = (userInfo) => {
+    return {
+        type: Constants.ACTION_DISPATCH_USERINFO,
+        payload: userInfo
+    }
+}

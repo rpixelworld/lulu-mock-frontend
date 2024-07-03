@@ -1,18 +1,20 @@
 import '../assets/css/ShoppingCart.scss'
 import {useEffect, useState} from "react";
-import * as CartIndexedDBHelper from "../CartIndexedDBHelper";
+import * as CartIndexedDBHelper from "../IndexedDBHelper";
 import {ShoppingCartItem} from "../components/ShoppingCartItem";
 import {useDispatch, useSelector} from "react-redux";
 import {dispatchShoppingCart} from "../redux/actions/shoppingAction";
 import {EmptyBag} from "../components/EmptyBag";
 import {HtmlTooltip} from "../components/HtmlToolTip";
 import {Paypal} from "../components/Paypal";
+import {useNavigate} from "react-router-dom";
 
 export const ShoppingCart = ()=> {
 
     const dispatch = useDispatch();
     const shoppingCart = useSelector(state => state.shoppingReducer.shoppingCart)
 
+    const navigate = useNavigate()
 
     useEffect(()=>{
         CartIndexedDBHelper.getAllItems((shoppingCart)=>dispatch(dispatchShoppingCart(shoppingCart)))
@@ -78,7 +80,7 @@ export const ShoppingCart = ()=> {
                     </div>
 
                     <div className="checkout">
-                        <button>check out</button>
+                        <button onClick={()=>{navigate('/shop/checkout')}}>check out</button>
                     </div>
                     <div className='or-checkout'>or checkout quickly with</div>
                     <div className="paypal">

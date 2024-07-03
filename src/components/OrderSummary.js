@@ -20,11 +20,11 @@ const OrderSummary=()=> {
                 {isOPen
                     ?<ExpandLessIcon onClick={()=>setOpen(false)}/>
                     : <ExpandMoreIcon onClick={()=>setOpen(true)}/>}
-                <span className='summary-price title-price'>{summary.totalCost}.00</span>
+                <span className='summary-price title-price'>${summary.totalCost}.00</span>
             </div>
         </div>
         <hr/>
-        {isOPen && <><div className='summary-container'>
+        {isOPen && <><div className='order-summary-container'>
             {summary?.items?.map((item, index) =>
                 <div key={index}
                      className='summary-item'>
@@ -35,7 +35,7 @@ const OrderSummary=()=> {
                         <span>Size{' '}{item.size}</span>
                         <span>Quantity{' '}{item.amount}</span>
                     </div>
-                    <div className='summary-item-total-price'><span className='summary-price'>{item.price}.00</span>
+                    <div className='summary-item-total-price'><span className='summary-price'>${item.price}.00</span>
                     </div>
                 </div>
             ) || []}
@@ -46,7 +46,7 @@ const OrderSummary=()=> {
         <div className='summary-final'>
             <div className='final-list'>
                 <span>Subtotal</span>
-                <span className='summary-price'>{summary.totalCost}.00</span>
+                <span className='summary-price'>${summary.totalCost}.00</span>
             </div>
             <div className='final-list'>
                 <span>Shipping</span>
@@ -61,7 +61,7 @@ const OrderSummary=()=> {
         <hr/>
         <div className='totalPrice'>
             <div>Order total</div>
-            <div>USD{' '}<span>$</span>{summary.totalCost}.00</div>
+            <div>CAD{' '}<span>$</span>{summary.totalCost}.00</div>
         </div>
 
 
