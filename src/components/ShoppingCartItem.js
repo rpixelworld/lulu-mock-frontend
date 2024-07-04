@@ -1,11 +1,11 @@
 import '../assets/css/ShoppingCartItem.scss'
 import {RemoveConfirmDialog} from "./RemoveConfirmDialog";
 import {useState} from "react";
-import * as CartIndexedDBHelper from "../CartIndexedDBHelper";
+import * as CartIndexedDBHelper from "../IndexedDBHelper";
 import {useDispatch} from "react-redux";
 import {dispatchShoppingCart} from "../redux/actions/shoppingAction";
 import EditWindow from "./EditWindow";
-import {updateItem} from "../CartIndexedDBHelper";
+import {updateItem} from "../IndexedDBHelper";
 
 export const ShoppingCartItem = ({item})=> {
 

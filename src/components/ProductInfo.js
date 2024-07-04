@@ -4,7 +4,7 @@ import {useEffect, useRef, useState} from "react";
 import '../assets/css/ProductInfo.scss'
 import {getRandomInt} from "../Helper";
 import {useSearchParams} from "react-router-dom";
-import * as CartIndexedDBHelper from "../CartIndexedDBHelper";
+import * as CartIndexedDBHelper from "../IndexedDBHelper";
 import {useDispatch, useSelector} from "react-redux";
 import {dispatchShoppingCart} from "../redux/actions/shoppingAction";
 import {AddToBag} from "./AddToBag";

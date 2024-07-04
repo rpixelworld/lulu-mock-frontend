@@ -24,7 +24,7 @@ const OrderSummary=()=> {
             </div>
         </div>
         <hr/>
-        {isOPen && <><div className='summary-container'>
+        {isOPen && <><div className='order-summary-container'>
             {summary?.items?.map((item, index) =>
                 <div key={index}
                      className='summary-item'>
@@ -46,7 +46,7 @@ const OrderSummary=()=> {
         <div className='summary-final'>
             <div className='final-list'>
                 <span>Subtotal</span>
-                <span className='summary-price'>{summary.totalCost}.00</span>
+                <span className='summary-price'>${summary.totalCost}.00</span>
             </div>
             <div className='final-list'>
                 <span>Shipping</span>

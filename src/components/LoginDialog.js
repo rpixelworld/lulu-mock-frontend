@@ -4,8 +4,9 @@ import CloseIcon from "@mui/icons-material/Close";
 import {useEffect, useRef, useState} from "react";
 import {loginUser} from "../UserHelper";
 import {useDispatch} from "react-redux";
-import {dispatchCookieAuth} from "../redux/actions/userAction";
+import {dispatchCookieAuth, dispatchUserInfo} from "../redux/actions/userAction";
 import * as UserHelper from "../UserHelper";
+import * as IndexedDBHelper from "../IndexedDBHelper";
 
 export const LoginDialog = ({isOpen, handleClose})=>{
 
@@ -15,19 +16,31 @@ export const LoginDialog = ({isOpen, handleClose})=>{
         email:'',
         password:''
     })
+    const inputRefs = useRef([])
     const [success, setSuccess] = useState(false)
     const [failed, setFailed] = useState(false)
     const [alertMsg, setAlertMsg] = useState('')
     const timeoutRef = useRef(null)
     const [showPassword, setShowPassword] = useState(false)
     const [errors, setErrors] = useState({})
+    const [touched, setTouched] = useState({
+        email: false,
+        password: false
+    })
     const [validForm, setValidForm] = useState(false)
 
-    const setValue = (e)=> {
+    const handleFieldChange = (e)=> {
         const {name, value} = e.target;
+        // setTouched(prev => {return {...prev, [name]: true}})
         setUser(prev => {return {...prev, [name]:value}})
+        validate()
         setSuccess(false)
         setFailed(false)
+    }
+
+    const touchField = (e)=> {
+        const {name, value} = e.target;
+        setTouched(prev => {return {...prev, [name]: true}})
     }
 
     const toggleShowPassword = ()=> {
@@ -37,21 +50,28 @@ export const LoginDialog = ({isOpen, handleClose})=>{
     const validate = ()=> {
         let valid = true;
         setErrors({})
-        if(user.email.trim() === '') {
-            valid = false
-            setErrors(prev => {return {...prev, email: 'Please enter an email address'}})
-        }
-        else {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if(!re.test(String(user.email).toLowerCase())){
+        if(touched.email) {
+            const email = inputRefs.current[0].value
+            if(email === '') {
                 valid = false
-                setErrors(prev => {return {...prev, email: 'Email address is not in the correct format (xxx@yyy.zzz). Please correct the email address'}})
+                setErrors(prev => {return {...prev, email: 'Please enter an email address'}})
+            }
+            else {
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if(!re.test(String(email).toLowerCase())){
+                    valid = false
+                    setErrors(prev => {return {...prev, email: 'Email address is not in the correct format (xxx@yyy.zzz). Please correct the email address'}})
+                }
             }
         }
-        if(user.password.trim() === '') {
-            valid = false
-            setErrors(prev => {return {...prev, password: 'Please enter your password'}})
+        if(touched.password) {
+            const password = inputRefs.current[1].value
+            if(password.trim() === '') {
+                valid = false
+                setErrors(prev => {return {...prev, password: 'Please enter your password'}})
+            }
         }
+
         setValidForm(valid)
     }
 
@@ -61,7 +81,8 @@ export const LoginDialog = ({isOpen, handleClose})=>{
 
     const loginSuccess = (authData)=> {
         let cookies = {
-            _firstname: authData.user.firstName + ' ' + authData.user.lastName,
+            _email: authData.user.email,
+            _firstname: authData.user.firstName,
             _token: authData.token
         }
         setSuccess(true)
@@ -69,8 +90,9 @@ export const LoginDialog = ({isOpen, handleClose})=>{
         setAlertMsg('Login Successfully.')
 
         timeoutRef.current = setTimeout(()=>{
-            dispatch(dispatchCookieAuth(cookies))
             UserHelper.setCookies(cookies)
+            dispatch(dispatchCookieAuth(cookies))
+            IndexedDBHelper.getUser(authData.user.email, (userInfo)=>{dispatch(dispatchUserInfo(userInfo))})
             handleClose()
         }, 1500)
     }
@@ -92,6 +114,10 @@ export const LoginDialog = ({isOpen, handleClose})=>{
         setAlertMsg('')
         clearTimeout(timeoutRef.current)
         setShowPassword(false)
+        setTouched({
+            email: false,
+            password: false
+        })
         setErrors({})
         setValidForm(false)
 
@@ -117,7 +143,10 @@ export const LoginDialog = ({isOpen, handleClose})=>{
                                     <label htmlFor="email">Email address</label>
                                     <input type="email" name='email'
                                            value={user.email}
-                                           onChange={setValue} onBlur={validate} className={errors.email && 'invalid'}/>
+                                           ref={(ele)=>{inputRefs.current.push(ele)}}
+                                           onChange={handleFieldChange}
+                                           onFocus={touchField}
+                                           onBlur={validate} className={errors.email && 'invalid'}/>
                                     <div className="email-icons">
                                         {errors.email && <div className='error-icon'></div>}
                                     </div>
@@ -129,7 +158,11 @@ export const LoginDialog = ({isOpen, handleClose})=>{
                                     <label htmlFor="password">Password</label>
                                     <input type={showPassword?'text':'password'} name='password'
                                            value={user.password}
-                                           onChange={setValue}  onBlur={validate} className={errors.password && 'invalid'}/>
+                                           ref={(ele)=>{inputRefs.current.push(ele)}}
+                                           onChange={handleFieldChange}
+                                           onFocus={touchField}
+                                           onBlur={validate}
+                                           className={errors.password && 'invalid'}/>
                                     <div className="password-icons">
                                         <div className={showPassword?'hide-password':'show-password'} onClick={toggleShowPassword}></div>
                                         {errors.password && <div className='error-icon'></div>}
@@ -139,9 +172,9 @@ export const LoginDialog = ({isOpen, handleClose})=>{
                             </section>
                         </div>
                     </form>
-                    <div className="forgot-password"><a href="">Forgot your password?</a></div>
-                    {validForm && <button className='sign-in' onClick={login}>sign in</button>}
-                    {!validForm && <button className='sign-in disabled'>sign in</button>}
+                    <div className="forgot-password"><a href="">Forgot your password</a></div>
+                    {validForm && touched.email && touched.password && <button className='sign-in' onClick={login}>sign in</button>}
+                    {(!validForm || !touched.email || !touched.password) && <button className='sign-in disabled'>sign in</button>}
                     <p className='term'>By signing in, you agree to the <a href="">Terms of Use</a> and acknowledge the <a
                         href="">Privacy Policy</a>. California consumers, see our <a href="">Notice of Financial</a> <a
                         href="">Incentives</a>.</p>

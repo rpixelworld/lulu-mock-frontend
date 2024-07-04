@@ -15,10 +15,11 @@
     font-size: 18px;
   }
 }
-.summary-container {
+.order-summary-container {
   padding: 0;
   border: none;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   max-height: 31.25rem;
   .summary-item {
     margin:0 0 5px;
