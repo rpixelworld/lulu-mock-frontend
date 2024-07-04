@@ -15,11 +15,13 @@
     background-repeat: no-repeat;
   }
 
-  .saved-shipping {
+
+  .saved-shipping, .new-shipping {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: start;
+    width: 100%;
 
     .address-detail-wrapper {
       font-size: 1.1875rem;
@@ -110,6 +112,18 @@
             font-weight: 500;
           }
         }
+
+        .new-address {
+          font-size: 16px;
+          line-height: 1.4;
+          letter-spacing: 0.5px;
+          width: 100%;
+
+          p.title {
+            margin: 0;
+            font-weight: 500;
+          }
+        }
       }
     }
 
@@ -140,6 +154,10 @@
 
 
     }
+  }
+
+  .new-shipping {
+    display: block;
   }
 }
 

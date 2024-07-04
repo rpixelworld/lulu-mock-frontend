@@ -7,3 +7,10 @@ export const dispatchShoppingCart = (shoppingCart) => {
         payload: shoppingCart
     }
 }
+
+export const dispatchShippingFee = (fee) => {
+    return {
+        type: Constants.ACTION_DISPATCH_SHIPPING_FEE,
+        payload: fee
+    }
+}

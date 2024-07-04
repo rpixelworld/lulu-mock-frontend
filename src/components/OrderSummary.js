@@ -6,6 +6,8 @@ import {useState} from "react";
 
 const OrderSummary=()=> {
     const summary=useSelector(state=>state.shoppingReducer.shoppingCart);
+    const shippingFee=useSelector(state=>state.shoppingReducer.shippingFee);
+
     console.log('this is summary',summary);
     const [isOPen,setOpen]=useState(true);
     return <div className='order-summary'>
@@ -50,18 +52,18 @@ const OrderSummary=()=> {
             </div>
             <div className='final-list'>
                 <span>Shipping</span>
-                <span>Free</span>
+                <span>{shippingFee==0?'FREE':`$${shippingFee}.00`}</span>
             </div>
             <div className='final-list'>
-                <span>Tax</span>
-                <span>Calculated at next step</span>
+                <span>GST/HST</span>
+                <span>${summary.totalCost*0.12}</span>
             </div>
 
         </div>
         <hr/>
         <div className='totalPrice'>
             <div>Order total</div>
-            <div>CAD{' '}<span>$</span>{summary.totalCost}.00</div>
+            <div>CAD{' '}<span>$</span>{summary.totalCost + shippingFee + summary.totalCost*0.12}</div>
         </div>
 
 

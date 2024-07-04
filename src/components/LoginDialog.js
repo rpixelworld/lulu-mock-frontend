@@ -136,7 +136,7 @@ export const LoginDialog = ({isOpen, handleClose})=>{
                     {failed && <Alert className='alert' severity="error">{alertMsg}</Alert>}
 
                     <h2>Sign in to your member account</h2>
-                    <form action="">
+                    <form action="" onSubmit={(e)=>{e.preventDefault()}}>
                         <div className="field-container">
                             <section className="email">
                                 <div>
@@ -171,10 +171,11 @@ export const LoginDialog = ({isOpen, handleClose})=>{
                                 {errors.password && <div className="errr-hint">{errors.password}</div>}
                             </section>
                         </div>
+                        <div className="forgot-password"><a href="">Forgot your password</a></div>
+                        {validForm && touched.email && touched.password && <button className='sign-in' onClick={login}>sign in</button>}
+                        {(!validForm || !touched.email || !touched.password) && <button disabled className='sign-in disabled'>sign in</button>}
                     </form>
-                    <div className="forgot-password"><a href="">Forgot your password</a></div>
-                    {validForm && touched.email && touched.password && <button className='sign-in' onClick={login}>sign in</button>}
-                    {(!validForm || !touched.email || !touched.password) && <button className='sign-in disabled'>sign in</button>}
+
                     <p className='term'>By signing in, you agree to the <a href="">Terms of Use</a> and acknowledge the <a
                         href="">Privacy Policy</a>. California consumers, see our <a href="">Notice of Financial</a> <a
                         href="">Incentives</a>.</p>

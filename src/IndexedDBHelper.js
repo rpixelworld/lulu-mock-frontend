@@ -32,24 +32,26 @@ let user1 = {
     lastName: 'Xu',
     addresses: [
         {
-            recipient: 'Mark Xu',
-            line1: '50 Acadia Ave',
-            line2: 'Unit #200',
+            firstName: 'Mark',
+            lastName: 'Xu',
+            line1: 'Unit #200, 50 Acadia Ave',
+            // line2: '',
             city: 'Markham',
-            country_code: 'CA',
-            postal_code: 'L3R 0B3',
+            countryCode: 'CA',
+            postalCode: 'L3R 0B3',
             phone: '6474017219',
-            state: 'Ontario'
+            state: 'ON'
         },
         {
-            recipient: 'Mark Xu',
+            firstName: 'Mark',
+            lastName: 'Xu',
             line1: '33-1489 Heritage Way',
-            line2: '',
+            // line2: '',
             city: 'Oakville',
-            country_code: 'CA',
-            postal_code: 'L6M 4M6',
+            countryCode: 'CA',
+            postalCode: 'L6M 4M6',
             phone: '2321323123',
-            state: 'Ontario'
+            state: 'ON'
         }
     ]
 }

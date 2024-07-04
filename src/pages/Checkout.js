@@ -7,10 +7,32 @@ import {ContactInformation} from "../components/ContactInformation";
 import {AskForLogin} from "../components/AskForLogin";
 import {useSelector} from "react-redux";
 import {ShippingAddress} from "../components/ShippingAddress";
+import {GiftOptions} from "../components/GiftOptions";
+import {useEffect, useRef, useState} from "react";
+import {Alert} from "@mui/material";
 
 export const Checkout = ()=> {
 
     const isLoggedIn = useSelector(state => state.userReducer.isLoggedIn)
+    const contactRef = useRef();
+    const shippingRef = useRef();
+    const giftOptionRef = useRef();
+    const [validCheckout, setValidCheckout] = useState(true)
+
+    const handlePlaceOrder = () => {
+        console.log('contact information got from contactInformation: ', contactRef.current.getContact())
+        console.log('shipping: ', shippingRef.current.getShippingAddress())
+        console.log('delivery==>', giftOptionRef.current.getDeliveryOption())
+        console.log('gift==>', giftOptionRef.current.getGiftOption())
+        console.log('contact infomation valid=', contactRef.current.isValid(), 'shipping valid=', shippingRef.current.isValid(), 'gift valid=', giftOptionRef.current.isValid())
+
+        if(!contactRef.current.isValid() || !shippingRef.current.isValid() || !giftOptionRef.current.isValid()){
+            setValidCheckout(false)
+        }
+        else {
+            setValidCheckout(true)
+        }
+    }
 
     return (
         <div className="checkout-fluid-container">
@@ -19,24 +41,21 @@ export const Checkout = ()=> {
             </div>
             <div className="main">
                 <div className="col-1">
-                    <ContactInformation/>
-                    {!isLoggedIn && <AskForLogin />}
 
-                    {isLoggedIn && <ShippingAddress />}
-                    {/*<div className="shipping-block">*/}
-                    {/*    <div className="shipping-no-login">*/}
-                    {/*        <font color='red'>Display when user not logged in</font>*/}
-                    {/*        <img src={shippingNotLogin} width='500px' alt=""/>*/}
-                    {/*    </div>*/}
-                    {/*    <div className="shipping-login">*/}
-                    {/*        <font color='red'>Display when user logged in</font>*/}
-                    {/*        <img src={shippingAfterLogin} width='500px' alt=""/>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
+                    <ContactInformation ref={contactRef}/>
+                    {!isLoggedIn && <AskForLogin />}
+                    {isLoggedIn && <ShippingAddress ref={shippingRef}/>}
+                    {isLoggedIn && <GiftOptions ref={giftOptionRef}/>}
+                    {!validCheckout && <Alert className='alert' severity="error">Please correct the information you provided.</Alert>}
+                    <div className="next-step">
+                        <button className='next-step-button'
+                                onClick={handlePlaceOrder} disabled={!isLoggedIn}
+                                >go to next step</button>
+                    </div>
                 </div>
 
                 <div className='col-2'>
-                    <div className="order-summary">
+                <div className="order-summary">
                         <OrderSummary />
                     </div>
                 </div>

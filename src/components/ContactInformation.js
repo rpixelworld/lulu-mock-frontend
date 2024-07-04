@@ -1,10 +1,28 @@
-import React, { useState } from 'react';
+import React, {forwardRef, useEffect, useImperativeHandle, useState} from 'react';
 import '../assets/css/ContactInformation.scss';
+import {useSelector} from "react-redux";
 
-export const ContactInformation = () => {
+export const ContactInformation = forwardRef((props, ref) => {
     const [email, setEmail] = useState('');
     const [error, setError] = useState('');
     const [changed, setChanged] = useState(false);
+
+    const userInfo = useSelector(state => state.userReducer.userInfo)
+
+    useImperativeHandle(ref, () => ({
+        getContact: ()=>{
+            return email;
+        },
+        isValid: ()=>{
+            validateEmail(email)
+            if(error.trim()!=''){
+                return false
+            }
+            else{
+                return true
+            }
+        }
+    }))
 
     const handleEmailChange = (e) => {
         const emailValue = e.target.value;
@@ -38,6 +56,12 @@ export const ContactInformation = () => {
         }
     };
 
+    useEffect(()=>{
+        if(userInfo && userInfo.email) {
+            setEmail(userInfo.email)
+        }
+
+    }, [userInfo])
     return (
         <div className="contact-information">
             <h2> Contact information</h2>
@@ -63,4 +87,4 @@ export const ContactInformation = () => {
             </form>
         </div>
     );
-};
+});
