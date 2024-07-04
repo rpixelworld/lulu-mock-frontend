@@ -34,6 +34,8 @@ export const Checkout = ()=> {
         }
     }
 
+    const navigate = useNavigate()
+
     return (
         <div className="checkout-fluid-container">
             <div className="header">
