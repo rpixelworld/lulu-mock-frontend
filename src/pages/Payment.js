@@ -1,5 +1,7 @@
 import '../assets/css/Payment.scss'
 import orderReview from '../assets/images/screenshots/order-review.png'
+import OrderSummary from "../components/OrderSummary";
+import {OrderReview} from "../components/OrderReview";
 
 
 export const Payment = ()=> {
@@ -10,13 +12,15 @@ export const Payment = ()=> {
             </div>
             <div className="main">
                 <div className="col-1">
-                    <div className="order-review"><img src={orderReview} width='500px'/></div>
+                    <div className="order-review">
+                        <OrderReview/>
 
+                    </div>
                 </div>
-
                 <div className='col-2'>
                     <div className="order-summary">
-                        &lt;OrderSummaryComponent/&gt;
+                        <OrderSummary/>
+
                     </div>
                 </div>
             </div>

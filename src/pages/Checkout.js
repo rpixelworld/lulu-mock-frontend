@@ -5,10 +5,14 @@ import OrderSummary from "../components/OrderSummary";
 import {ContactInformation} from "../components/ContactInformation";
 import {AskForLogin} from "../components/AskForLogin";
 import {useSelector} from "react-redux";
+import {Payment} from "./Payment";
+import {useNavigate} from "react-router-dom";
 
 export const Checkout = ()=> {
 
     const isLoggedIn = useSelector(state => state.userReducer.isLoggedIn)
+
+    const navigate = useNavigate()
 
     return (
         <div className="checkout-fluid-container">
@@ -29,6 +33,10 @@ export const Checkout = ()=> {
                             <font color='red'>Display when user logged in</font>
                             <img src={shippingAfterLogin} width='500px' alt=""/>
                         </div>
+                    </div>
+                    <div className="next-step">
+                        <button onClick={() => {navigate('./Payment')}}>Go to next step</button>
+                        <div className="proceed">Proceed to step 2 of 3</div>
                     </div>
                 </div>
 
