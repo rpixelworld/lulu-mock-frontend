@@ -105,51 +105,6 @@ export const openIndexedDb = ()=> {
     };
 }
 
-const getObjectStore = (mode)=> {
-    console.log("openIndexedDb ...", Constants.INDEXED_DB_NAME);
-    let req = window.indexedDB.open(Constants.INDEXED_DB_NAME, Constants.INDEXED_DB_VERSION);
-    req.onsuccess = function (evt) {
-        // Equal to: db = req.result;
-        db = req.result;
-        console.log("openDb DONE", db);
-        let tx = db.transaction(Constants.INDEXED_DB_STORE_NAME, mode);
-        console.log("transaction", tx);
-        console.log('store', tx.objectStore(Constants.INDEXED_DB_STORE_NAME))
-        return tx.objectStore(Constants.INDEXED_DB_STORE_NAME);
-    };
-    req.onerror = function (evt) {
-        console.error("openDb:", evt.target);
-    };
-}
-
-export const addItem = (item, onSuccess, onError)=> {
-    console.log("adding item to the cart", item)
-    let openReq = window.indexedDB.open(Constants.INDEXED_DB_NAME, Constants.INDEXED_DB_VERSION);
-    openReq.onsuccess = function (evt) {
-        // Equal to: db = req.result;
-        db = openReq.result;
-        console.log("openDb DONE", db);
-        let tx = db.transaction(Constants.INDEXED_DB_STORE_NAME, Constants.INDEXED_DB_READWRITE_MODE);
-        // console.log("transaction", tx);
-        let store = tx.objectStore(Constants.INDEXED_DB_STORE_NAME);
-        // console.log('store', store)
-
-        let addReq= store.add(item);
-        addReq.onsuccess = () => {
-            console.log('item inserted successfully', item)
-            onSuccess && onSuccess();
-        }
-        addReq.onerror = () => {
-            console.error('item inserted failed', addReq)
-            onError && onError();
-        }
-    };
-    openReq.onerror = function (evt) {
-        console.error("openDb:", evt.target);
-    };
-    // let store = getObjectStore(Constants.INDEXED_DB_READWRITE_MODE)
-    // console.log(store)
-}
 
 export const insertOrUpdateItem = (key, item, onSuccess, onError) => {
     console.log('insertOrUpdate item from cart', key)
@@ -306,6 +261,22 @@ export const getAllItems = (onSuccess, onError) => {
         getReq.onerror = ()=> []
     }
     openReq.onerror = ()=> []
+}
+
+export const clearShoppingCart = (onSuccess, onError) => {
+    console.log('clear shopping cart')
+    let openReq = window.indexedDB.open(Constants.INDEXED_DB_NAME, Constants.INDEXED_DB_VERSION);
+    openReq.onsuccess = ()=> {
+        let tx = db.transaction(Constants.INDEXED_DB_STORE_NAME, Constants.INDEXED_DB_READWRITE_MODE);
+        let store = tx.objectStore(Constants.INDEXED_DB_STORE_NAME);
+        let clearReq = store.clear()
+        clearReq.onsuccess = ()=>{
+            onSuccess && onSuccess()
+        }
+        clearReq.onerror = () => {
+            onError && onError()
+        }
+    }
 }
 
 export const insertOrUpdateUser = (email, user, onSuccess, onError) => {

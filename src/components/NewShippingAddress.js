@@ -5,7 +5,7 @@ import React, {forwardRef, useImperativeHandle, useRef, useState} from "react";
 
 export const NewShippingAddress = forwardRef((props, ref) => {
 
-    const fieldRefs = useRef([])
+    const fieldRefs = useRef(new Array(7))
     const [address, setAddress] = useState({
         firstName: '',
         lastName: '',
@@ -27,12 +27,13 @@ export const NewShippingAddress = forwardRef((props, ref) => {
                 city: address.city,
                 countryCode: 'CA',
                 postalCode: address.postalCode,
-                phone: address.phone.replace(/\D/g, '')
+                phone: address.phone.replace(/\D/g, ''),
+                state: address.state
             }
         },
         isValid: ()=>{
-            validate()
-            if(errors.firstName || errors.lastName || errors.line1 || errors.city || errors.countryCode || errors.postalCode || errors.phone) {
+            const errorMsgs = validate()
+            if(errorMsgs.firstName || errorMsgs.lastName || errorMsgs.line1 || errorMsgs.city || errorMsgs.countryCode || errorMsgs.postalCode || errorMsgs.phone) {
                 return false
             }
             else {
@@ -57,8 +58,9 @@ export const NewShippingAddress = forwardRef((props, ref) => {
 
     const handleSelectChange = (e) => {
         const {name, value} = e.target
-        setTouched(prev => {return {...prev, [name]: true}})
+        // setTouched(prev => {return {...prev, [name]: true}})
         setAddress(prev => {return {...prev, [name]: value}})
+        validateState(value)
         // setErrors(prev => {return {...prev,
         //     state:''
         // }})
@@ -66,9 +68,16 @@ export const NewShippingAddress = forwardRef((props, ref) => {
         //     setErrors(prev => {return {...prev, state: 'Please select your province.'}})
         // }
     }
+    const validateState = (state)=> {
+        if(state.trim()===''){
+            setErrors(prev => ({...prev, state: 'Please select your province.'}))
+        }
+        else {
+            setErrors(prev => ({...prev, state: null}))
+        }
+    }
     const validate = ()=> {
-
-        // console.log('validating new shipping')
+        console.log('validating new shipping ', fieldRefs.current)
         const firstName = fieldRefs.current[0].value
         const lastName = fieldRefs.current[1].value
         const phone = fieldRefs.current[2].value
@@ -78,46 +87,50 @@ export const NewShippingAddress = forwardRef((props, ref) => {
         const state = fieldRefs.current[5].value
         const postalCode = fieldRefs.current[6].value
 
+        console.log('state===', fieldRefs.current[5].value)
+
+        let errorMsgs = {state: errors.state}
         setErrors({})
 
-
         if(firstName.trim()==='') {
-            setErrors(prev => {return {...prev, firstName: 'Please enter your first name.'}})
+            errorMsgs.firstName='Please enter your first name.'
         }
 
         if(lastName.trim()==='') {
-            setErrors(prev => {return {...prev, lastName: 'Please enter your last name.'}})
+            errorMsgs.lastName='Please enter your last name.'
         }
         if(true) {
             if(phone.trim() === ''){
-                setErrors(prev => {return {...prev, phone: 'Please enter your phone.'}})
+                errorMsgs.phone='Please enter your phone.'
             }
             else if(!isValidPhoneNumber(phone) && !isValidPhoneNumber(phoneRemoveDigit)) {
-                setErrors(prev => {return {...prev, phone: 'Please enter a valid 10-digit phone number.'}})
+                errorMsgs.phone='Please enter a valid 10-digit phone number.'
             }
             else {
                 setAddress(prev => {return {...prev, phone: formatPhoneNumber(phone)}})
             }
         }
         if(line1.trim()==='') {
-            setErrors(prev => {return {...prev, line1: 'Please enter your street address.'}})
+            errorMsgs.line1='Please enter your street address.'
         }
         if(city.trim()==='') {
-            setErrors(prev => {return {...prev, city: 'Please enter your city.'}})
+            errorMsgs.city='Please enter your city.'
         }
-        // if(touched.state && state.trim()==='') {
-        //     console.log('state===>', state)
-        //     setErrors(prev => {return {...prev, state: 'Please select your province.'}})
-        // }
+
+        if(state.trim()===''){
+            errorMsgs.state='Please select your province.'
+        }
+
         if(postalCode.trim()==='') {
-            setErrors(prev => {return {...prev, postalCode: 'Please enter a valid postal code.'}})
+            errorMsgs.postalCode='Please enter a valid postal code.'
         }
 
-        if(!state || state.trim()===''){
-            setErrors(prev => {return {...prev, state: 'Please select your province.'}})
-        }
+        console.log(errorMsgs)
 
-        console.log('new shipping', errors)
+
+        setErrors(errorMsgs)
+        return errorMsgs;
+        // console.log('new shipping', errorMsgs)
 
     }
 
@@ -150,7 +163,7 @@ export const NewShippingAddress = forwardRef((props, ref) => {
                         <label className='label' htmlFor="">First name</label>
                         <input type="text" className={errors.firstName ? 'invalid' : ''}
                                name='firstName' value={address.firstName} ref={(ele) => {
-                            fieldRefs.current.push(ele)
+                            fieldRefs.current[0]=ele
                         }}
                                onChange={handleFieldChange} onFocus={handleFieldFocus} onBlur={validate}/>
                         {errors.firstName && <div className="icons">
@@ -162,7 +175,7 @@ export const NewShippingAddress = forwardRef((props, ref) => {
                         <label className='label' htmlFor="">Last name</label>
                         <input type="text" className={errors.lastName ? 'invalid' : ''}
                                name='lastName' value={address.lastName} ref={(ele) => {
-                            fieldRefs.current.push(ele)
+                            fieldRefs.current[1]=ele
                         }}
                                onChange={handleFieldChange} onFocus={handleFieldFocus} onBlur={validate}/>
                         {errors.lastName && <div className="icons">
@@ -175,7 +188,7 @@ export const NewShippingAddress = forwardRef((props, ref) => {
                     <label className='label' htmlFor="">Phone number</label>
                     <input type="text" className={errors.phone ? 'invalid' : ''}
                            name='phone' value={address.phone} ref={(ele) => {
-                        fieldRefs.current.push(ele)
+                        fieldRefs.current[2]=ele
                     }}
                            onChange={handleFieldChange} onFocus={handleFieldFocus} onBlur={validate}/>
                     {errors.phone && <div className="icons">
@@ -188,7 +201,7 @@ export const NewShippingAddress = forwardRef((props, ref) => {
                     <label className='label' htmlFor="">Address</label>
                     <input type="text" className={errors.line1 ? 'invalid' : ''}
                            name='line1' value={address.line1} ref={(ele) => {
-                        fieldRefs.current.push(ele)
+                        fieldRefs.current[3]=ele
                     }}
                            onChange={handleFieldChange} onFocus={handleFieldFocus} onBlur={validate}/>
                     {errors.line1 && <div className="icons">
@@ -201,7 +214,7 @@ export const NewShippingAddress = forwardRef((props, ref) => {
                         <label className='label' htmlFor="">City</label>
                         <input type="text" className={errors.city ? 'invalid' : ''}
                                name='city' value={address.city} ref={(ele) => {
-                            fieldRefs.current.push(ele)
+                            fieldRefs.current[4]=ele
                         }}
                                onChange={handleFieldChange} onFocus={handleFieldFocus} onBlur={validate}/>
                         {errors.city && <div className="icons">
@@ -218,10 +231,10 @@ export const NewShippingAddress = forwardRef((props, ref) => {
                                 id='state'
                                 // label=" "
                                 className={`select ${errors.state ? 'invalid' : ''}`}
-                                name='state' value={address.state} ref={(ele) => {
-                                fieldRefs.current.push(ele)
+                                name='state' value={address.state} inputRef={(ele) => {
+                                fieldRefs.current[5]=ele
                             }}
-                                onChange={handleFieldChange}
+                                onChange={handleSelectChange}
                             >
                                 <MenuItem value=' '>Select...</MenuItem>
                                 <MenuItem value='AB'>Alberta</MenuItem>
@@ -245,7 +258,7 @@ export const NewShippingAddress = forwardRef((props, ref) => {
                         <label className='label' htmlFor="">Postal code</label>
                         <input type="text" className={errors.postalCode ? 'invalid' : ''}
                                name='postalCode' value={address.postalCode} ref={(ele) => {
-                            fieldRefs.current.push(ele)
+                            fieldRefs.current[6]=ele
                         }}
                                onChange={handleFieldChange} onFocus={handleFieldFocus} onBlur={validate}/>
                         {errors.postalCode && <div className="icons">

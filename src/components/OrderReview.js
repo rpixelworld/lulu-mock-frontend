@@ -1,12 +1,16 @@
 import '../assets/css/OrderReview.scss';
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
+import {useSelector} from "react-redux";
+import {Alert, Snackbar} from "@mui/material";
 
 export const OrderReview = () => {
     const [openedIcon1, setOpenIcon1] = useState(false)
     const [openedIcon2, setOpenIcon2] = useState(false)
     const [openedIcon3, setOpenIcon3] = useState(false)
     const [openedIcon4, setOpenIcon4] = useState(true)
+
+    const orderInfo = useSelector(state=>state.shoppingReducer.orderInfo);
 
     const navigate = useNavigate()
 
@@ -39,10 +43,28 @@ export const OrderReview = () => {
         </svg>
     )
 
+    const formatPhoneNumber = (phoneNumber)=> {
+        // Remove all non-digit characters from the input
+        let cleaned = ('' + phoneNumber).replace(/\D/g, '');
+        // Check if the input is of correct length
+        if (cleaned.length !== 10) {
+            throw new Error("Invalid phone number length");
+        }
+        // Capture the parts of the phone number
+        let match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/);
+        // Format and return the phone number
+        if (match) {
+            return `(${match[1]}) ${match[2]}-${match[3]}`;
+        }
+        return null;
+    }
+
     return (
         <div className="order-review-container">
             <div className="order-summary">
+
                 <div className="detailed-information">
+                    {/*notification*/}
                     <div className="row-1">
                         <div className="title-container">
                             <div className="icon">{titleIcon}</div>
@@ -51,12 +73,16 @@ export const OrderReview = () => {
                         <div className="content-container">
                             <span className="content-title">Email</span>
                             <div className="content">
-                                <span>isafesoft-buyer@hotmail.com</span>
+                                <span>{orderInfo && orderInfo.notification}</span>
                             </div>
                         </div>
-                        <div className="ending" onClick={() => {navigate('./Checkout')}}>Edit</div>
+                        <div className="ending" onClick={() => {
+                            navigate('./Checkout')
+                        }}>Edit
+                        </div>
                     </div>
 
+                    {/*shipping*/}
                     <div className="row-2">
                         <div className="title-container">
                             <div className="icon">{titleIcon}</div>
@@ -65,15 +91,21 @@ export const OrderReview = () => {
                         <div className="content-container">
                             <span className="content-title">Address</span>
                             <div className="content">
-                                <span>Mark Xu</span>
-                                <span>50 Acadia Ave, Unit #200</span>
-                                <span>Markham, ON L3R 0B3</span>
-                                <span>Toronto</span>
+                                <span>{orderInfo.shipping.firstName} {orderInfo.shipping.lastName}</span>
+                                <span>{orderInfo.shipping.line1}</span>
+                                <span>{`${orderInfo.shipping.city}, ${orderInfo.shipping.state} ${orderInfo.shipping.postalCode}, ${orderInfo.shipping.countryCode}`}</span>
+                                <span>{formatPhoneNumber(orderInfo.shipping.phone)}</span>
                             </div>
                         </div>
-                        <div className="ending" onClick={() => {navigate('./Checkout')}}>Edit</div>
+                        <div className="ending" onClick={() => {
+                            navigate('./Checkout')
+                        }}>Edit
+                        </div>
                     </div>
+
+                    {/*delivery & gift*/}
                     <div className="row-3">
+                        {/*delivery*/}
                         <div className="title-container">
                             <div className="icon">{titleIcon}</div>
                             <h2>Estimated delivery</h2>
@@ -96,15 +128,54 @@ export const OrderReview = () => {
                                 </svg>
                             </div>
                             <div className="content">
-                                <span>2-7 business days(FREE)</span>
+                                <span>{orderInfo.deliveryOption}</span>
+                            </div>
+
+                        </div>
+                        <div className="ending" onClick={() => {
+                            navigate('./Checkout')
+                        }}>Edit
+                        </div>
+                    </div>
+
+                    {orderInfo.giftOption.isGift && orderInfo.giftOption.giftInfo &&
+                    <div className="row-4">
+                        <div className="title-container">
+                            <div className="icon">{titleIcon}</div>
+                            <h2>Gift message</h2>
+                        </div>
+                        <div className="content-container">
+                            <span className="content-title">To</span>
+                            <div className="content">
+                                <span>{orderInfo.giftOption.giftInfo.to}</span>
+                                {/*<span>Toronto</span>*/}
                             </div>
                         </div>
-                        <div className="ending" onClick={() => {navigate('./Checkout')}}>Edit</div>
-                    </div>
+                        <div className="ending" onClick={() => {
+                            navigate('./Checkout')
+                        }}>Edit
+                        </div>
+                        <div className="content-container">
+                            <span className="content-title">From</span>
+                            <div className="content">
+                                <span>{orderInfo.giftOption.giftInfo.from}</span>
+                                {/*<span>Toronto</span>*/}
+                            </div>
+                        </div>
+                        <div className="content-container">
+                            <span className="content-title">Message</span>
+                            <div className="content">
+                                <span>{orderInfo.giftOption.giftInfo.message}</span>
+                                {/*<span>Toronto</span>*/}
+                            </div>
+                        </div>
+                    </div>}
                 </div>
-                <div className="row-4">
+
+                {/*payment*/}
+                <div className="row-5">
                     <div className="title-container">
-                        <div className="icon">{titleIcon}</div>
+                    <div className="icon">{titleIcon}</div>
                         <h2>Payment method</h2>
                     </div>
                     <div className="add">
@@ -261,10 +332,14 @@ export const OrderReview = () => {
                     </div>
                 </div>
             </div>
-            <div className="review-order">
-                <button>Review your order</button>
-                <div className="proceed">Proceed to step 3 of 3</div>
-            </div>
+            {/*<div className="review-order">*/}
+            {/*    /!*<div className="paypal">*!/*/}
+            {/*    /!*    /!*<Paypal />*!/*!/*/}
+            {/*    /!*    <button></button>*!/*/}
+            {/*    /!*</div>*!/*/}
+            {/*    /!*<button>Review your order</button>*!/*/}
+            {/*    /!*<div className="proceed">Proceed to step 3 of 3</div>*!/*/}
+            {/*</div>*/}
         </div>
     )
 }

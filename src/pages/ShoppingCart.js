@@ -82,11 +82,11 @@ export const ShoppingCart = ()=> {
                     <div className="checkout">
                         <button onClick={()=>{navigate('/shop/checkout')}}>check out</button>
                     </div>
-                    <div className='or-checkout'>or checkout quickly with</div>
-                    <div className="paypal">
-                        {/*<Paypal />*/}
-                        <button></button>
-                    </div>
+                    {/*<div className='or-checkout'>or checkout quickly with</div>*/}
+                    {/*<div className="paypal">*/}
+                    {/*    /!*<Paypal />*!/*/}
+                    {/*    <button></button>*/}
+                    {/*</div>*/}
                 </div>
 
             </>

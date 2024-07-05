@@ -14,3 +14,17 @@ export const dispatchShippingFee = (fee) => {
         payload: fee
     }
 }
+
+export const dispatchOrderInfo = (orderInfo) => {
+    return {
+        type: Constants.ACTION_DISPATCH_ORDER_INFO,
+        payload: orderInfo
+    }
+}
+
+export const dispatchClearShoppingCart = ()=> {
+    return {
+        type: Constants.ACTION_CLEAR_SHOPPING_CART,
+        payload: null
+    }
+}

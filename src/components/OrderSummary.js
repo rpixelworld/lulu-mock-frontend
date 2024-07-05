@@ -8,7 +8,7 @@ const OrderSummary=()=> {
     const summary=useSelector(state=>state.shoppingReducer.shoppingCart);
     const shippingFee=useSelector(state=>state.shoppingReducer.shippingFee);
 
-    console.log('this is summary',summary);
+    // console.log('this is summary',summary);
     const [isOPen,setOpen]=useState(true);
     return <div className='order-summary'>
         <div className='summary-title'>

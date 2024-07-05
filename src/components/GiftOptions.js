@@ -37,8 +37,9 @@ export const GiftOptions = forwardRef((props, ref) => {
                 return true
             }
             else {
-                validate()
-                if(errors.to || errors.from || errors.message) {
+                const errorMsgs = validate()
+                // console.log(errors)
+                if(errorMsgs.to || errorMsgs.from || errorMsgs.message) {
                     return false
                 }
                 else {
@@ -89,23 +90,22 @@ export const GiftOptions = forwardRef((props, ref) => {
         const from = fieldRefs.current[1].value
         const message = fieldRefs.current[2].value
 
-        setErrors(prev => {return {...prev,
-            to: '',
-            from: '',
-            message: ''
-        }})
+        let errorMsgs = {}
+        setErrors({})
 
-        if(touched.to && to.trim()==='') {
-            setErrors(prev => {return {...prev, to: 'Please enter a recipient name.'}})
+        if(to.trim()==='') {
+            errorMsgs.to='Please enter a recipient name.'
         }
 
-        if(touched.from && from.trim()==='') {
-            setErrors(prev => {return {...prev, from: 'Please enter your name.'}})
+        if(from.trim()==='') {
+            errorMsgs.from='Please enter your name.'
         }
 
-        if(touched.message && message.trim()==='') {
-            setErrors(prev => {return {...prev, message: 'Please enter your name.'}})
+        if(message.trim()==='') {
+            errorMsgs.message='Please enter your name.'
         }
+        setErrors(errorMsgs)
+        return errorMsgs;
     }
 
     return (
