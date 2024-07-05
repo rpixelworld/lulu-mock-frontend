@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {useSelector} from "react-redux";
 import {Alert, Snackbar} from "@mui/material";
 
-export const OrderReview = () => {
+export const OrderReview = ({handlePayment})=> {
     const [openedIcon1, setOpenIcon1] = useState(false)
     const [openedIcon2, setOpenIcon2] = useState(false)
     const [openedIcon3, setOpenIcon3] = useState(false)
@@ -219,7 +219,7 @@ export const OrderReview = () => {
                             <div className="payment1-dropdown-container">
                                 <div className="payment-dropdown">
                                     <span>You will be redirected to PayPal to login to your account and return here to complete your order.</span>
-                                    <div className="payment-button"></div>
+                                    <div className="payment-button" onClick={handlePayment}></div>
                                 </div>
                             </div>
                         )}

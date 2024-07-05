@@ -56,14 +56,14 @@ const OrderSummary=()=> {
             </div>
             <div className='final-list'>
                 <span>GST/HST</span>
-                <span>${summary.totalCost*0.12}</span>
+                <span>${summary.totalCost*0.12.toFixed(2)}</span>
             </div>
 
         </div>
         <hr/>
         <div className='totalPrice'>
             <div>Order total</div>
-            <div>CAD{' '}<span>$</span>{summary.totalCost + shippingFee + summary.totalCost*0.12}</div>
+            <div>CAD{' '}<span>$</span>{summary.totalCost + shippingFee + summary.totalCost*0.12.toFixed(2)}</div>
         </div>
 
 

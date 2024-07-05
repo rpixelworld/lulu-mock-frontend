@@ -15,14 +15,20 @@ export const NewShippingAddress = forwardRef((props, ref) => {
         state: ' ',
         postalCode: ''
     })
+    const [saveAddress, setSaveAddress] = useState(false)
+
     const [touched, setTouched] = useState({})
     const [errors, setErrors] = useState({})
 
     useImperativeHandle(ref, ()=>({
+
+        toSaveAddress: ()=> {
+            return saveAddress
+        },
         getNewAddress: ()=>{
             return {
                 firstName: address.firstName,
-                lastaName: address.lastName,
+                lastName: address.lastName,
                 line1: address.line1,
                 city: address.city,
                 countryCode: 'CA',
@@ -269,7 +275,7 @@ export const NewShippingAddress = forwardRef((props, ref) => {
                 </div>
             </form>
             <div>
-                <FormControlLabel className='save-address'
+                <FormControlLabel className='save-address' value={saveAddress} onClick={()=>{setSaveAddress(prev => !prev)}}
                                   control={<Checkbox color="default"/>} label="Save address to my account"/>
             </div>
         </div>

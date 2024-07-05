@@ -18,6 +18,10 @@ export const ShippingAddress = forwardRef((props, ref) => {
     const newAddressRef = useRef()
 
     useImperativeHandle(ref, () => ({
+        toSaveShippingAddress: () => {
+            return selectedRadio == numOfSavedAddresses && newAddressRef.current.toSaveAddress()
+        },
+
         getShippingAddress: ()=>{
             if(selectedRadio < numOfSavedAddresses) {
                 return userInfo.addresses[selectedRadio]

@@ -41,7 +41,7 @@ export const Payment = ()=> {
     return (
         <div className="payment-fluid-container">
             <div className="header">
-                <h1>Checkout</h1>
+                <h1>Order Review & Payment</h1>
             </div>
             <Snackbar open={openAlert}
                       autoHideDuration={3000}
@@ -69,11 +69,11 @@ export const Payment = ()=> {
             <div className="main">
                 <div className="col-1">
                     <div className="order-review">
-                        <OrderReview/>
-                        <div className="paypal">
+                        <OrderReview handlePayment={handlePayment}/>
+                        {/*<div className="paypal">*/}
                             {/*<Paypal />*/}
-                            <button onClick={handlePayment}></button>
-                        </div>
+                            {/*<button onClick={handlePayment}></button>*/}
+                        {/*</div>*/}
                     </div>
                 </div>
                 <div className='col-2'>
