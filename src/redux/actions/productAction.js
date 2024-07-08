@@ -1,16 +1,12 @@
 import Constants from "../../Constants";
-import {getTotalAmount} from "../../CartIndexedDBHelper";
-import * as CartIndexedDBHelper from "../../CartIndexedDBHelper";
 
 export const fetchProducts = (pageNo=1, filters={})=> dispatch => {
     let url = `${Constants.BASE_URL}/product/allProducts?page=${pageNo}&mykey=${Constants.MY_KEY}`
-    // let url = Constants.LOCAL_BASE_URL + `/data/mock_allproducts_${pageNo}.json`
     let options = {
         method: "POST",
         mode: "cors",
         headers: {
             "Content-Type": "application/json",
-            // 'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: JSON.stringify(filters)
     }

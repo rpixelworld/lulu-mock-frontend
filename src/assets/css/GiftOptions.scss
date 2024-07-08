@@ -1,0 +1,215 @@
+.gift-options-container {
+  margin-top: 0;
+  padding: 1rem 1.5625rem 2.5rem;
+  background-color: #fff;
+  font-size: 1.125rem;
+  margin-bottom: .5rem;
+
+  h2 {
+    margin: 0 0 8px;
+    padding-left: 30px;
+    font-size: 26px;
+    background-image: url('../images/check.png');
+    background-size: 24px;
+    background-position-y: center;
+    background-repeat: no-repeat;
+  }
+
+  .gift-option-wrapper {
+    //display: flex;
+    //flex-direction: row;
+    //justify-content: space-between;
+    //align-items: start;
+    width: 100%;
+    margin-bottom: 10px;
+
+    .radio-button {
+      border: 0 !important;
+      clip: rect(1px, 1px, 1px, 1px) !important;
+      height: 1px !important;
+      overflow: hidden !important;
+      padding: 0 !important;
+      position: absolute !important;
+      width: 1px !important;
+      background-color: initial;
+      cursor: default;
+      appearance: auto;
+      margin: 3px 3px 0 5px;
+      padding-block: 1px;
+      padding-inline: 2px;
+    }
+
+    label {
+      font-size: 1.1875rem;
+      font-weight: 400;
+      line-height: 1.2631578947;
+      align-items: baseline;
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 0;
+      position: relative;
+      width: 100%;
+
+      .radio-icon {
+        background-color: #53565a;
+        //border-color: #c8102e;
+        border: 1px solid #53565a;
+        //53565a
+        border-radius: 50%;
+        display: block;
+        flex-shrink: 0;
+
+        margin-right: .5rem;
+        position: relative;
+        top: .125rem;
+        width: 1rem;
+        height: 1rem;
+
+        &.selected {
+          background-color: #c8102e;
+          //border-color: #c8102e;
+          border: 1px solid #c8102e;
+        }
+
+        &::after {
+          background-color: #fff;
+          border: .125rem solid #fff;
+          border-radius: 50%;
+          bottom: 0;
+          content: "";
+          //display: none;
+          height: 14px;
+          left: 0;
+          margin: auto;
+          position: absolute;
+          right: 0;
+          top: 0;
+          width: 14px;
+          box-sizing: border-box;
+        }
+
+        &.selected::after {
+          background-color: #c8102e;
+          border: .125rem solid #fff;
+        }
+      }
+
+      .gift-option {
+        font-size: 16px;
+        line-height: 1.4;
+        letter-spacing: 0.5px;
+
+        p {
+          margin: 0;
+        }
+
+        .name{
+          font-weight: 500;
+        }
+
+        .desc {
+          font-size: 14px;
+          color: #6e6e6e;
+          font-weight: 400;
+
+          .highlight {
+            color: black;
+            font-weight: 500;
+          }
+        }
+      }
+
+    }
+  }
+
+  .gift-to {
+    .gift-info {
+
+      .row-2 {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        justify-content: space-between;
+
+        .col {
+          width: 49%;
+          display: flex;
+          flex-direction: column;
+        }
+      }
+
+      label.label {
+        font-size: 15px;
+        margin-top: 6px;
+        margin-bottom: 0;
+        line-height: 1.5625;
+      }
+
+      input {
+        margin: 4px 0 16px 0;
+        color: #000;
+        caret-color: #000;
+        background-color: #FFF;
+        background-position: center right 1rem;
+        background-repeat: no-repeat;
+        border: .0625rem solid #000;
+        border-radius: .25rem;
+        display: block;
+        font-size: 1rem;
+        height: 3.25rem;
+        padding: .875rem 1rem;
+        width: 100%;
+
+        padding-block: 1px;
+        padding-inline: 16px;
+
+        &:focus {
+          outline: none;
+        }
+
+        &.invalid {
+          box-shadow: none;
+          border: .0625rem solid #d20014;
+        }
+      }
+
+      .errr-hint {
+        font-size: .8rem;
+        margin-top: .375rem;
+        color: #d20014;
+        line-height: 1.75;
+        position: relative;
+        top: -16px;
+      }
+
+      .icons {
+        width: 100%;
+        //height: 16px;
+        position: relative;
+        //right: 16px;
+        //bottom: 16px;
+        //border: 1px dashed green;
+
+        .error-icon {
+          width: 16px;
+          height: 16px;
+          background-image: url('../images/red-close.png');
+          background-repeat: no-repeat;
+          background-size: contain;
+          position: absolute;
+          right: 15px;
+          bottom: 35px;
+          //border: 1px dashed green;
+        }
+      }
+
+      p.notice {
+        margin: 0;
+        position: relative;
+        top: -8px;
+        font-size: 14px;
+        color: #6e6e6e;
+      }
+    }
+  }
+}

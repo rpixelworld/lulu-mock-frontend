@@ -24,19 +24,84 @@
     .col-1 {
       width: 65%;
       //border: 1px dashed blue;
-      //
 
+      .next-step {
+        display: flex;
+        flex-direction: row;
+        justify-content: right;
 
-      .shipping-block {
-        //height: 800px; //to be deleted
-        //border: 1px dashed palevioletred;
-        margin-top: 0;
-        padding: 1rem 1.5625rem 2.5rem;
-        background-color: #fff;
-        font-size: 1.125rem;
-        margin-bottom: .5rem;
+        .next-step-button {
+          margin-top: 10px;
+          margin-bottom: 20px;
+          //margin: 20px 0;
+          width: 300px;
+          height: 52px;
+          background-color: #c8102e;
+          color: white;
+          text-align: center;
+          font-size: 14px;
+          letter-spacing: 0.5px;
+          border-radius: 4px;
+          border: none;
+          font-weight:600 ;
+          cursor: pointer;
+          position: relative;
+          text-transform: uppercase;
 
-        .shipping-no-login {
+          &:disabled {
+            background-color: #8d9196;
+            cursor: not-allowed;
+          }
+
+          &::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 52px;
+            //border-radius: 4px;
+            //border:none;
+            background-color: rgba(0,0,0,0.2);
+            top:0;
+            left: 0;
+            //right: 5.5%;
+            //transform: translateX(-5.5%);
+            //bottom: 27%;
+            opacity: 0;
+          }
+
+          &:hover::after {
+            opacity: 1;
+            //background-color: rgba(0,0,0,0.2)
+          }
+        }
+      }
+
+      .next-step {
+        text-align: right;
+        button {
+          cursor: pointer;
+          width: 335px;
+          height: 52px;
+          border-radius: 5px;
+          border: 1px solid rgb(200, 16, 46);
+          padding: 16px;
+          background-color: rgb(200, 16, 46);
+          color: white;
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          font-size: 13px;
+          font-weight: bold;
+        }
+
+        button:hover {
+          background-color: rgb(137, 11, 32);
+          border: 1px solid rgb(137, 11, 32);
+        }
+
+        .proceed {
+          margin-top: 8px;
+          font-size: 12px;
+          color: rgb(107, 111, 116);
 
         }
       }
@@ -50,6 +115,7 @@
         //height: 800px; //to be deleted
         //border: 1px dashed palevioletred;
         margin-top: 0;
+        margin-bottom: 24px;
         position:sticky;
         top: 5%;
       }

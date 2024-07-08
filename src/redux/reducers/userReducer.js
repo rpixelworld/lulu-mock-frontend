@@ -2,7 +2,8 @@ import Constants from "../../Constants";
 
 const initState = {
     cookieAuth: {},
-    isLoggedIn: false
+    isLoggedIn: false,
+    userInfo: {}
 }
 
 export const userReducer = (state=initState, action)=>{
@@ -15,6 +16,8 @@ export const userReducer = (state=initState, action)=>{
                 cookieAuth: {},
                 isLoggedIn: false
             }
+        case Constants.ACTION_DISPATCH_USERINFO:
+            return {...state, userInfo: action.payload}
         default:
             return state
     }

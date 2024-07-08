@@ -1,6 +1,6 @@
 import '../assets/css/ShoppingCart.scss'
 import {useEffect, useState} from "react";
-import * as CartIndexedDBHelper from "../CartIndexedDBHelper";
+import * as CartIndexedDBHelper from "../IndexedDBHelper";
 import {ShoppingCartItem} from "../components/ShoppingCartItem";
 import {useDispatch, useSelector} from "react-redux";
 import {dispatchShoppingCart} from "../redux/actions/shoppingAction";
@@ -82,11 +82,11 @@ export const ShoppingCart = ()=> {
                     <div className="checkout">
                         <button onClick={()=>{navigate('/shop/checkout')}}>check out</button>
                     </div>
-                    <div className='or-checkout'>or checkout quickly with</div>
-                    <div className="paypal">
-                        {/*<Paypal />*/}
-                        <button></button>
-                    </div>
+                    {/*<div className='or-checkout'>or checkout quickly with</div>*/}
+                    {/*<div className="paypal">*/}
+                    {/*    /!*<Paypal />*!/*/}
+                    {/*    <button></button>*/}
+                    {/*</div>*/}
                 </div>
 
             </>

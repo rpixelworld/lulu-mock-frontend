@@ -6,7 +6,9 @@ import {useState} from "react";
 
 const OrderSummary=()=> {
     const summary=useSelector(state=>state.shoppingReducer.shoppingCart);
-    console.log('this is summary',summary);
+    const shippingFee=useSelector(state=>state.shoppingReducer.shippingFee);
+
+    // console.log('this is summary',summary);
     const [isOPen,setOpen]=useState(true);
     return <div className='order-summary'>
         <div className='summary-title'>
@@ -24,7 +26,7 @@ const OrderSummary=()=> {
             </div>
         </div>
         <hr/>
-        {isOPen && <><div className='summary-container'>
+        {isOPen && <><div className='order-summary-container'>
             {summary?.items?.map((item, index) =>
                 <div key={index}
                      className='summary-item'>
@@ -46,22 +48,22 @@ const OrderSummary=()=> {
         <div className='summary-final'>
             <div className='final-list'>
                 <span>Subtotal</span>
-                <span className='summary-price'>{summary.totalCost}.00</span>
+                <span className='summary-price'>${summary.totalCost}.00</span>
             </div>
             <div className='final-list'>
                 <span>Shipping</span>
-                <span>Free</span>
+                <span>{shippingFee==0?'FREE':`$${shippingFee}.00`}</span>
             </div>
             <div className='final-list'>
-                <span>Tax</span>
-                <span>Calculated at next step</span>
+                <span>GST/HST</span>
+                <span>${(summary.totalCost*0.12).toFixed(2)}</span>
             </div>
 
         </div>
         <hr/>
         <div className='totalPrice'>
             <div>Order total</div>
-            <div>CAD{' '}<span>$</span>{summary.totalCost}.00</div>
+            <div>CAD{' '}<span>$</span>{(summary.totalCost + shippingFee + summary.totalCost*0.12).toFixed(2)}</div>
         </div>
 
 

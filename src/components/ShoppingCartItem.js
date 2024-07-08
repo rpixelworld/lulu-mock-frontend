@@ -1,11 +1,11 @@
 import '../assets/css/ShoppingCartItem.scss'
 import {RemoveConfirmDialog} from "./RemoveConfirmDialog";
 import {useState} from "react";
-import * as CartIndexedDBHelper from "../CartIndexedDBHelper";
+import * as CartIndexedDBHelper from "../IndexedDBHelper";
 import {useDispatch} from "react-redux";
 import {dispatchShoppingCart} from "../redux/actions/shoppingAction";
 import EditWindow from "./EditWindow";
-import {updateItem} from "../CartIndexedDBHelper";
+import {updateItem} from "../IndexedDBHelper";
 
 export const ShoppingCartItem = ({item})=> {
 
@@ -14,6 +14,7 @@ export const ShoppingCartItem = ({item})=> {
     const [openUpdateDialog, setOpenUpdateDialog] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
     const [quantity, setQuantity] = useState(item.amount)
+    const [totalPrice, setTotalPrice] = useState(item.amount * item.price)
     const [arrowUp, setArrowUp] = useState(false)
     const [exceedLimit, setExceedLimit] = useState(false)
 
@@ -66,7 +67,7 @@ export const ShoppingCartItem = ({item})=> {
         setQuantity(value)
         setIsOpen(false)
         console.log(`Selected value: ${value}`)
-
+        setTotalPrice(item.price * value)
         let itemToUpdate = {...item, amount: value, updatedAt: Date.now()}
         CartIndexedDBHelper.updateItem(item.itemKey, itemToUpdate, refreshShoppingCart)
 
@@ -159,7 +160,7 @@ export const ShoppingCartItem = ({item})=> {
                                 <p>Total Price</p>
                             </div>
                             <div className="price">
-                                <p>${item.price * quantity}.00</p>
+                                <p>${totalPrice}.00</p>
                             </div>
                         </div>
                     </div>
