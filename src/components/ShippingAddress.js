@@ -1,8 +1,6 @@
 import '../assets/css/ShippingAddress.scss'
 import {forwardRef, useEffect, useImperativeHandle, useRef, useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {getUser} from "../IndexedDBHelper";
-import * as IndexedDBHelper from "../IndexedDBHelper";
 import {NewShippingAddress} from "./NewShippingAddress";
 
 export const ShippingAddress = forwardRef((props, ref) => {

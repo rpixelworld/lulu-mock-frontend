@@ -23,10 +23,7 @@ export const LoginDialog = ({isOpen, handleClose})=>{
     const timeoutRef = useRef(null)
     const [showPassword, setShowPassword] = useState(false)
     const [errors, setErrors] = useState({})
-    const [touched, setTouched] = useState({
-        email: false,
-        password: false
-    })
+    const [touched, setTouched] = useState({})
     const [validForm, setValidForm] = useState(false)
 
     const handleFieldChange = (e)=> {
@@ -114,13 +111,9 @@ export const LoginDialog = ({isOpen, handleClose})=>{
         setAlertMsg('')
         clearTimeout(timeoutRef.current)
         setShowPassword(false)
-        setTouched({
-            email: false,
-            password: false
-        })
+        setTouched({})
         setErrors({})
-        setValidForm(false)
-
+        setValidForm(true)
 
     },[isOpen])
 

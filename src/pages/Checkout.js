@@ -1,7 +1,4 @@
 import '../assets/css/Checkout.scss'
-import shippingNotLogin from '../assets/images/screenshots/shipping-address.png'
-import shippingAfterLogin from '../assets/images/screenshots/shipping-address-after-login.png';
-import {NewShippingAddress} from "../components/NewShippingAddress";
 import OrderSummary from "../components/OrderSummary";
 import {ContactInformation} from "../components/ContactInformation";
 import {AskForLogin} from "../components/AskForLogin";
@@ -15,7 +12,6 @@ import {dispatchOrderInfo} from "../redux/actions/shoppingAction";
 import Constants from "../Constants";
 import * as UserHelper from "../UserHelper";
 import {dispatchClearCookieAuth, dispatchUserInfo} from "../redux/actions/userAction";
-import {insertOrUpdateUser} from "../IndexedDBHelper";
 import * as IndexedDBHelper from "../IndexedDBHelper";
 
 export const Checkout = ()=> {
@@ -34,6 +30,7 @@ export const Checkout = ()=> {
     const [openAlert, setOpenAlert] = useState(false)
     const [openPlaceOrderSuccess, setOpenPlaceOrderSuccess] = useState(false)
     const [openPlaceOrderFailed, setOpenPlaceOrderFailed] = useState(false)
+    const [failureMsg, setFailureMsg] = useState('')
 
     const handleClosePladeOrderSuccess = ()=>{
         setOpenPlaceOrderSuccess(false)
@@ -77,12 +74,19 @@ export const Checkout = ()=> {
                     dispatch(dispatchOrderInfo(orderInfo))
                     setOpenPlaceOrderSuccess(true)
                 },
-                ()=>{
+                (message)=>{
+                    if(message.substring(0, message.indexOf('/'))=='Invalid token. ') {
+                        setFailureMsg('Login Expired. Please logn again.')
+                        UserHelper.logoutUser({}, ()=>{
+                            UserHelper.clearCookies({_email: '',_firstname: '',_token: ''})
+                            dispatch(dispatchClearCookieAuth())
+                        })
+                    }
+                    else {
+                        setFailureMsg((message.substring(0, message.indexOf('/'))))
+                    }
                     setOpenPlaceOrderFailed(true)
-                    UserHelper.logoutUser({}, ()=>{
-                        UserHelper.clearCookies({_email: '',_firstname: '',_token: ''})
-                        dispatch(dispatchClearCookieAuth())
-                    })
+
                 })
             // dispatch(dispatchOrderInfo(orderInfo))
             // console.log(orderInfo)
@@ -132,8 +136,8 @@ export const Checkout = ()=> {
                     onSuccess && onSuccess()
                 }
                 else {
-                    if(res.status=='Failed' && res.message.substring(0, res.message.indexOf('/'))=='Invalid token. ' ){
-                        onError && onError()
+                    if(res.status.toLowerCase()=='failed'){
+                        onError && onError(res.message)
                     }
                 }
             })
@@ -178,7 +182,7 @@ export const Checkout = ()=> {
                             severity='error'
                             variant="filled"
                             sx={{ width: '100%' }}
-                        >Login expired</Alert>
+                        >{failureMsg}</Alert>
                     </Snackbar>
                     {isLoggedIn && <ContactInformation ref={contactRef}/>}
                     {!isLoggedIn && <AskForLogin />}
