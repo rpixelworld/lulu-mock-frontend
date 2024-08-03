@@ -1,3 +1,7 @@
+/*
+add comment
+author: Rita Zhou
+ */
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { WhatsNew } from "./pages/WhatsNew";
