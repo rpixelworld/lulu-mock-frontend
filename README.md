@@ -9,3 +9,5 @@ I will do footer
 
 This is Phoebe,
 I will do the product part.
+
+Everytime before commit, a script `npm run format:write:react` will be run.
