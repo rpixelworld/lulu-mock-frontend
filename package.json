@@ -27,8 +27,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-      "format:check:react": "prettier --check \"src/**/*.{ts,tsx,js,jsx}\"",
-      "format:write:react": "prettier --write \"src/**/*.{ts,tsx,js,jsx}\"",
+    "format:check:react": "prettier --check \"src/**/*.{ts,tsx,js,jsx}\"",
+    "format:write:react": "prettier --write \"src/**/*.{ts,tsx,js,jsx}\"",
     "prepare": "husky"
   },
   "eslintConfig": {

@@ -69,6 +69,25 @@
       position: relative;
 
     }
+
+    .alert {
+      margin: 20px 0;
+
+      .exceed-limit {
+        //margin: 10px;
+        background-color: #ffe1e4;
+        background-image: url("../images/outofstock.png ");
+        background-repeat: no-repeat;
+        background-position-y: center;
+        background-position-x: 1rem;
+        border: .0625rem solid #d20014;
+        //font-size: 1.1875rem;
+        font-weight: 400;
+        //line-height: 1.2631578947;
+        display: flex;
+        padding: 1.25rem 5rem;
+      }
+    }
   }
 }
 
@@ -196,24 +215,7 @@
   }
 }
 
-.alert {
-  margin: 20px 0;
 
-  .exceed-limit {
-    //margin: 10px;
-    background-color: #ffe1e4;
-    background-image: url("../images/outofstock.png ");
-    background-repeat: no-repeat;
-    background-position-y: center;
-    background-position-x: 1rem;
-    border: .0625rem solid #d20014;
-    //font-size: 1.1875rem;
-    font-weight: 400;
-    //line-height: 1.2631578947;
-    display: flex;
-    padding: 1.25rem 5rem;
-  }
-}
 
 .update-edit{
   margin-bottom: 20px;

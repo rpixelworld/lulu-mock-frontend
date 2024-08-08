@@ -1,72 +1,75 @@
-import * as CartIndexedDBHelper from "../../IndexedDBHelper";
-import Constants from "../../Constants";
+import * as CartIndexedDBHelper from '../../IndexedDBHelper';
+import Constants from '../../Constants';
 
-export const dispatchShoppingCart = (shoppingCart) => {
-  return {
-    type: Constants.ACTION_DISPATCH_SHOPPING_CART,
-    payload: shoppingCart,
-  };
+export const dispatchShoppingCart = shoppingCart => dispatch => {
+	console.log(shoppingCart);
+	fetchStorage(shoppingCart).then(() => {
+		// shoppingCart.total = summary.totalItems;
+		// shoppingCart.totalCost = summary.totalCost;
+		console.log(shoppingCart);
+		dispatch({
+			type: Constants.ACTION_DISPATCH_SHOPPING_CART,
+			payload: shoppingCart,
+		});
+	});
 };
 
-export const dispatchShippingFee = (fee) => {
-  return {
-    type: Constants.ACTION_DISPATCH_SHIPPING_FEE,
-    payload: fee,
-  };
+export const dispatchShippingFee = fee => {
+	return {
+		type: Constants.ACTION_DISPATCH_SHIPPING_FEE,
+		payload: fee,
+	};
 };
 
-export const dispatchOrderInfo = (orderInfo) => {
-  return {
-    type: Constants.ACTION_DISPATCH_ORDER_INFO,
-    payload: orderInfo,
-  };
+export const dispatchOrderInfo = orderInfo => {
+	return {
+		type: Constants.ACTION_DISPATCH_ORDER_INFO,
+		payload: orderInfo,
+	};
 };
 
-// export const placeOrderAndDispatch = (orderInfo, shoppingCart) => dispatch => {
-//     let bodyItems = [];
-//     shoppingCart.items.forEach(item => {
-//         bodyItems.push({
-//             productId: item.itemKey.split('_')[0],
-//             colorId: item.itemKey.split('_')[1],
-//             size: item.itemKey.split('_')[2],
-//             quantity: item.amount
-//         })
-//     })
-//
-//     let url = `${Constants.BASE_URL}/order?mykey=${Constants.MY_KEY}`
-//     let options = {
-//         headers: {
-//             method: "POST",
-//             mode: "cors",
-//             "Content-Type": "application/json",
-//             authorization: 'bear ' + UserHelper.getSetCookie('_token')
-//         },
-//         body: JSON.stringify({
-//             taxRate: 1.2,
-//             isActive: true,
-//             isDelete: false,
-//             orderItems: bodyItems
-//         })
-//     }
-//     fetch(url, options)
-//         .then(resp => {
-//             return resp.json()
-//         })
-//         .then(res => {
-//             if(res.status == 'success'){
-//
-//             }
-//             else {
-//                 if(res.status=='Failed' && res.message.substring(0, res.message.indexOf('/'))=='Invalid token. ' ){
-//
-//                 }
-//             }
-//         })
-// }
+const fetchStorage = async shoppingCart => {
+	let allPromises = shoppingCart.items.map(async item => {
+		let productId = item.itemKey.split('_')[0];
+		let colorId = item.itemKey.split('_')[1];
+		let size = item.itemKey.split('_')[2];
+
+		let resp = await fetch(`${Constants.BACKEND_BASE_URL}/inventory/${productId}/${colorId}/${size}`);
+		let obj = await resp.json();
+		return {
+			item: item,
+			stock: obj && obj.data && obj.data[0] ? obj.data[0].stock : 0,
+		};
+	});
+	let stockPromises = await Promise.allSettled(allPromises);
+	let totalItems = 0;
+	let totalCost = 0;
+	for (let i = 0; i < stockPromises.length; i++) {
+		if (stockPromises[i].status === 'fulfilled') {
+			shoppingCart.items[i].stock = stockPromises[i].value.stock;
+			if (stockPromises[i].value.stock > 0) {
+				shoppingCart.items[i].available = true;
+				totalItems += stockPromises[i].value.item.amount;
+				totalCost += stockPromises[i].value.item.amount * stockPromises[i].value.item.price;
+			} else {
+				shoppingCart.items[i].available = false;
+			}
+		}
+	}
+	shoppingCart.total = totalItems;
+	shoppingCart.totalCost = totalCost;
+
+	// console.log(stockPromises)
+	//
+	// return {
+	//   totalItems: totalItems,
+	//   totalCost: totalCost
+	// }
+};
 
 export const dispatchClearShoppingCart = () => {
-  return {
-    type: Constants.ACTION_CLEAR_SHOPPING_CART,
-    payload: null,
-  };
+	return {
+		type: Constants.ACTION_CLEAR_SHOPPING_CART,
+		payload: null,
+	};
 };
