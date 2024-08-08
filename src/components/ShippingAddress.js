@@ -2,6 +2,7 @@ import '../assets/css/ShippingAddress.scss';
 import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NewShippingAddress } from './NewShippingAddress';
+import { dispatchZeroTaxRate, fetchTaxRate } from '../redux/actions/shoppingAction';
 
 export const ShippingAddress = forwardRef((props, ref) => {
 	const [selectedRadio, setSelectedRadio] = useState(0);
@@ -21,7 +22,7 @@ export const ShippingAddress = forwardRef((props, ref) => {
 
 		getShippingAddress: () => {
 			if (selectedRadio < numOfSavedAddresses) {
-				return userInfo.addresses[selectedRadio];
+				return userInfo.shippingAddresses[selectedRadio];
 			} else {
 				return newAddressRef.current.getNewAddress();
 			}
@@ -57,12 +58,26 @@ export const ShippingAddress = forwardRef((props, ref) => {
 	const toggleRadioSelection = i => {
 		console.log('toggleRadioSelection', i);
 		setSelectedRadio(i);
+		if( i < userInfo.shippingAddresses.length) {
+			dispatch(fetchTaxRate(userInfo.shippingAddresses[i].province));
+		}
+		else {
+			dispatch(dispatchZeroTaxRate())
+		}
+
 	};
 
 	useEffect(() => {
-		if (userInfo && userInfo.addresses && userInfo.addresses.length) {
+		if (userInfo && userInfo.shippingAddresses && userInfo.shippingAddresses.length) {
 			// console.log(userInfo.addresses.length)
-			setNumOfSavedAddresses(userInfo.addresses.length);
+			setNumOfSavedAddresses(userInfo.shippingAddresses.length);
+			if(selectedRadio<userInfo.shippingAddresses.length) {
+				dispatch(fetchTaxRate(userInfo.shippingAddresses[selectedRadio].province));
+			}
+			else {
+				dispatch(dispatchZeroTaxRate())
+			}
+
 		}
 	}, [userInfo]);
 
@@ -72,8 +87,8 @@ export const ShippingAddress = forwardRef((props, ref) => {
 
 			{isLoggedIn &&
 				userInfo &&
-				userInfo.addresses &&
-				userInfo.addresses.map((address, index) => (
+				userInfo.shippingAddresses &&
+				userInfo.shippingAddresses.map((address, index) => (
 					<>
 						{index > 0 && <hr />}
 						<div className="saved-shipping">
@@ -90,11 +105,11 @@ export const ShippingAddress = forwardRef((props, ref) => {
 										<p className="name">
 											{address.firstName} {address.lastName}
 										</p>
-										<p className="address-line">{address.line1}</p>
+										<p className="address-line">{address.addressLine}</p>
 										<p className="address-line">
-											{address.city}, {address.state} {address.postalCode}, {address.countryCode}
+											{address.city}, {address.province} {address.postalCode}, {address.countryCode}
 										</p>
-										<p className="tel">{formatPhoneNumber(address.phone)}</p>
+										<p className="tel">{formatPhoneNumber(address.phoneNumber)}</p>
 									</div>
 								</label>
 							</div>

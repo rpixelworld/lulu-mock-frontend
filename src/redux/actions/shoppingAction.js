@@ -21,6 +21,27 @@ export const dispatchShippingFee = fee => {
 	};
 };
 
+export const fetchTaxRate = (province) => dispatch => {
+	let url = `${Constants.BACKEND_BASE_URL}/master/tax-rates/${province}`
+	fetch(url)
+		.then(resp => resp.json())
+		.then(obj => {
+			let taxRate = ((obj.data.gst?obj.data.gst:0) + (obj.data.pst?obj.data.pst:0) + (obj.data.hst?obj.data.hst:0))/100
+			dispatch({
+				type: Constants.ACTION_DISPATCH_TAX_RATE,
+				payload: taxRate
+			})
+		})
+}
+
+export const dispatchZeroTaxRate = () => {
+	return {
+		type: Constants.ACTION_DISPATCH_ZERO_TAX_RATE,
+		payload: 0,
+	};
+};
+
+
 export const dispatchOrderInfo = orderInfo => {
 	return {
 		type: Constants.ACTION_DISPATCH_ORDER_INFO,

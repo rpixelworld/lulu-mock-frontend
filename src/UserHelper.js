@@ -1,7 +1,7 @@
 import Constants from './Constants';
 
 export const loginUser = (user, onSuccess, onFailure) => {
-	const url = Constants.BASE_URL + '/auth/login?mykey=' + Constants.MY_KEY;
+	const url = Constants.BACKEND_BASE_URL + '/auth/login';
 	const options = {
 		method: 'POST',
 		mode: 'cors',
@@ -17,7 +17,7 @@ export const loginUser = (user, onSuccess, onFailure) => {
 		})
 		.then(result => {
 			let status = result.status;
-			if (status === 'Success') {
+			if (status && status === 'success') {
 				onSuccess && onSuccess(result.data);
 			} else {
 				onFailure && onFailure(result);

@@ -4,7 +4,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useEffect, useRef, useState } from 'react';
 import { loginUser } from '../UserHelper';
 import { useDispatch } from 'react-redux';
-import { dispatchCookieAuth, dispatchUserInfo } from '../redux/actions/userAction';
+import { dispatchCookieAuth, dispatchUserInfo, fetchUserInfo } from '../redux/actions/userAction';
 import * as UserHelper from '../UserHelper';
 import * as IndexedDBHelper from '../IndexedDBHelper';
 
@@ -88,9 +88,11 @@ export const LoginDialog = ({ isOpen, handleClose }) => {
 	};
 
 	const loginSuccess = authData => {
+		console.log(authData)
 		let cookies = {
-			_email: authData.user.email,
-			_firstname: authData.user.firstName,
+			_userId: authData.userId,
+			_email: authData.email,
+			_firstname: authData.firstName,
 			_token: authData.token,
 		};
 		setSuccess(true);
@@ -100,9 +102,10 @@ export const LoginDialog = ({ isOpen, handleClose }) => {
 		timeoutRef.current = setTimeout(() => {
 			UserHelper.setCookies(cookies);
 			dispatch(dispatchCookieAuth(cookies));
-			IndexedDBHelper.getUser(authData.user.email, userInfo => {
-				dispatch(dispatchUserInfo(userInfo));
-			});
+			dispatch(fetchUserInfo(authData.userId))
+			// IndexedDBHelper.getUser(authData.user.email, userInfo => {
+			// 	dispatch(dispatchUserInfo(userInfo));
+			// });
 			handleClose();
 		}, 1500);
 	};
@@ -110,7 +113,7 @@ export const LoginDialog = ({ isOpen, handleClose }) => {
 	const loginFailed = result => {
 		setFailed(true);
 		setSuccess(false);
-		setAlertMsg(result.message.substring(0, result.message.indexOf('/')));
+		setAlertMsg(result.message);
 	};
 
 	useEffect(() => {

@@ -15,7 +15,12 @@ import { dispatchShoppingCart } from '../redux/actions/shoppingAction';
 import * as CartIndexedDBHelper from '../IndexedDBHelper';
 import { LoginDialog } from './LoginDialog';
 import * as UserHelper from '../UserHelper';
-import { dispatchClearCookieAuth, dispatchCookieAuth, dispatchUserInfo } from '../redux/actions/userAction';
+import {
+	dispatchClearCookieAuth,
+	dispatchCookieAuth,
+	dispatchUserInfo,
+	fetchUserInfo,
+} from '../redux/actions/userAction';
 import * as IndexedDBHelper from '../IndexedDBHelper';
 
 export const Header = () => {
@@ -107,20 +112,20 @@ export const Header = () => {
 		});
 		//console.log('total amount===>', CartIndexedDBHelper.getTotalAmount(setNoOfBagItems))
 
+		let userId = UserHelper.getCookie('_userId');
 		let firstName = UserHelper.getCookie('_firstname');
 		let token = UserHelper.getCookie('_token');
 		let email = UserHelper.getCookie('_email');
 		if (firstName && token && email) {
 			dispatch(
 				dispatchCookieAuth({
+					_userId: userId,
 					_firstname: firstName,
 					_token: token,
 					_email: email,
 				})
 			);
-			IndexedDBHelper.getUser(email, userInfo => {
-				dispatch(dispatchUserInfo(userInfo));
-			});
+			dispatch(fetchUserInfo(userId))
 		}
 		// if(isLoggedIn) {
 		//     let firstName = UserHelper.getCookie('_firstname')

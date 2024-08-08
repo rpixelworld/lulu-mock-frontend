@@ -7,6 +7,7 @@ import { useState } from 'react';
 const OrderSummary = ({ shoppingCart }) => {
 	// const shoppingCart = useSelector((state) => state.shoppingReducer.shoppingCart);
 	const shippingFee = useSelector(state => state.shoppingReducer.shippingFee);
+	const taxRate = useSelector(state => state.shoppingReducer.taxRate);
 
 	// console.log('this is summary',summary);
 	const [isOPen, setOpen] = useState(true);
@@ -65,7 +66,8 @@ const OrderSummary = ({ shoppingCart }) => {
 				</div>
 				<div className="final-list">
 					<span>GST/HST</span>
-					<span>${(shoppingCart.totalCost * 0.12).toFixed(2)}</span>
+					{taxRate > 0 && <span>${(shoppingCart.totalCost * taxRate).toFixed(2)}</span>}
+					{taxRate == 0 && <span>Calculated at payment</span>}
 				</div>
 			</div>
 			<hr />

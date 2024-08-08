@@ -60,12 +60,7 @@ const ProductInfo = ({ product, colorIndex, handleColorChange }) => {
 		window.history.replaceState(
 			null,
 			'',
-			'/product/' +
-				product.productId +
-				'?color=' +
-				product.swatches[selectedColorIndex].colorId +
-				'&sz=' +
-				size.replace(' ', '')
+			'/product/' + product.productId + '?color=' + product.swatches[selectedColorIndex].colorId + '&sz=' + size.replace(' ', '')
 		);
 	};
 

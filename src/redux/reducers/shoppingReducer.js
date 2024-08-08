@@ -7,6 +7,7 @@ const initState = {
 		items: [],
 	},
 	shippingFee: 0,
+	taxRate: 0,
 	orderInfo: {},
 };
 
@@ -21,6 +22,12 @@ export const shoppingReducer = (state = initState, action) => {
 
 		case Constants.ACTION_DISPATCH_SHIPPING_FEE:
 			return { ...state, shippingFee: action.payload };
+
+		case Constants.ACTION_DISPATCH_TAX_RATE:
+			return { ...state, taxRate: action.payload };
+
+		case Constants.ACTION_DISPATCH_ZERO_TAX_RATE:
+			return { ...state, taxRate: action.payload };
 
 		case Constants.ACTION_DISPATCH_ORDER_INFO:
 			return { ...state, orderInfo: action.payload };
