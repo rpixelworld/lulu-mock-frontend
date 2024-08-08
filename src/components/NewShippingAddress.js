@@ -12,7 +12,7 @@ export const NewShippingAddress = forwardRef((props, ref) => {
 		city: '',
 		province: ' ',
 		postalCode: '',
-		countryCode: 'CA'
+		countryCode: 'CA',
 	});
 	const [saveAddress, setSaveAddress] = useState(false);
 

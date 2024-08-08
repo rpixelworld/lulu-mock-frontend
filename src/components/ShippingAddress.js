@@ -58,26 +58,22 @@ export const ShippingAddress = forwardRef((props, ref) => {
 	const toggleRadioSelection = i => {
 		console.log('toggleRadioSelection', i);
 		setSelectedRadio(i);
-		if( i < userInfo.shippingAddresses.length) {
+		if (i < userInfo.shippingAddresses.length) {
 			dispatch(fetchTaxRate(userInfo.shippingAddresses[i].province));
+		} else {
+			dispatch(dispatchZeroTaxRate());
 		}
-		else {
-			dispatch(dispatchZeroTaxRate())
-		}
-
 	};
 
 	useEffect(() => {
 		if (userInfo && userInfo.shippingAddresses && userInfo.shippingAddresses.length) {
 			// console.log(userInfo.addresses.length)
 			setNumOfSavedAddresses(userInfo.shippingAddresses.length);
-			if(selectedRadio<userInfo.shippingAddresses.length) {
+			if (selectedRadio < userInfo.shippingAddresses.length) {
 				dispatch(fetchTaxRate(userInfo.shippingAddresses[selectedRadio].province));
+			} else {
+				dispatch(dispatchZeroTaxRate());
 			}
-			else {
-				dispatch(dispatchZeroTaxRate())
-			}
-
 		}
 	}, [userInfo]);
 
@@ -107,7 +103,8 @@ export const ShippingAddress = forwardRef((props, ref) => {
 										</p>
 										<p className="address-line">{address.addressLine}</p>
 										<p className="address-line">
-											{address.city}, {address.province} {address.postalCode}, {address.countryCode}
+											{address.city}, {address.province} {address.postalCode},{' '}
+											{address.countryCode}
 										</p>
 										<p className="tel">{formatPhoneNumber(address.phoneNumber)}</p>
 									</div>

@@ -125,7 +125,7 @@ export const Header = () => {
 					_email: email,
 				})
 			);
-			dispatch(fetchUserInfo(userId))
+			dispatch(fetchUserInfo(userId));
 		}
 		// if(isLoggedIn) {
 		//     let firstName = UserHelper.getCookie('_firstname')

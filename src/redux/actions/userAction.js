@@ -14,19 +14,17 @@ export const dispatchClearCookieAuth = () => {
 	};
 };
 
-
-export const fetchUserInfo = (userId) => dispatch => {
-	let url = `${Constants.BACKEND_BASE_URL}/users/${userId}`
+export const fetchUserInfo = userId => dispatch => {
+	let url = `${Constants.BACKEND_BASE_URL}/users/${userId}`;
 	fetch(url)
 		.then(resp => resp.json())
 		.then(obj => {
 			dispatch({
 				type: Constants.ACTION_DISPATCH_USERINFO,
 				payload: obj.data,
-			})
-
-		})
-}
+			});
+		});
+};
 export const dispatchUserInfo = userInfo => {
 	return {
 		type: Constants.ACTION_DISPATCH_USERINFO,
