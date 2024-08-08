@@ -1,9 +1,10 @@
 import '../assets/css/NewShippingAddress.scss';
 import { Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Select } from '@mui/material';
-import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react';
+import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 
 export const NewShippingAddress = forwardRef((props, ref) => {
 	const fieldRefs = useRef(new Array(7));
+	const addressLineRef = useRef(null)
 	const [address, setAddress] = useState({
 		firstName: '',
 		lastName: '',
@@ -72,17 +73,10 @@ export const NewShippingAddress = forwardRef((props, ref) => {
 
 	const handleSelectChange = e => {
 		const { name, value } = e.target;
-		// setTouched(prev => {return {...prev, [name]: true}})
 		setAddress(prev => {
 			return { ...prev, [name]: value };
 		});
 		validateProvince(value);
-		// setErrors(prev => {return {...prev,
-		//     state:''
-		// }})
-		// if(value && value.trim()===''){
-		//     setErrors(prev => {return {...prev, state: 'Please select your province.'}})
-		// }
 	};
 	const validateProvince = province => {
 		if (province.trim() === '') {
@@ -144,7 +138,6 @@ export const NewShippingAddress = forwardRef((props, ref) => {
 
 		setErrors(errorMsgs);
 		return errorMsgs;
-		// console.log('new shipping', errorMsgs)
 	};
 
 	const isValidPhoneNumber = phoneNumber => {
@@ -168,6 +161,56 @@ export const NewShippingAddress = forwardRef((props, ref) => {
 		}
 		return null;
 	};
+
+	useEffect(() => {
+		const script = document.createElement('script');
+		script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyAKxFKjjiSJ2J2EnViKkWHh3UlNp1XS70s&libraries=places`;
+		script.async = true;
+		script.defer = true;
+		script.onload = () => {
+			if (window.google) {
+				const autocomplete = new window.google.maps.places.Autocomplete(fieldRefs.current[3], {
+					types: ['geocode'], // You can restrict the types as per your needs
+				});
+				autocomplete.setFields(['address_component']);
+				autocomplete.addListener('place_changed', () => {
+					const place = autocomplete.getPlace();
+					const addressComponents = place.address_components;
+					const updatedAddress = {
+						addressLine: '',
+						city: '',
+						province: '',
+						postalCode: '',
+						countryCode: ''
+					};
+					addressComponents.forEach((component) => {
+						const types = component.types;
+						if (types.includes('street_number')) {
+							updatedAddress.addressLine = component.long_name + ' ' + updatedAddress.addressLine;
+						}
+						if (types.includes('route')) {
+							updatedAddress.addressLine += component.long_name;
+						}
+						if (types.includes('locality')) {
+							updatedAddress.city = component.long_name;
+						}
+						if (types.includes('administrative_area_level_1')) {
+							updatedAddress.province = component.short_name;
+						}
+						if (types.includes('postal_code')) {
+							updatedAddress.postalCode = component.long_name;
+						}
+						if (types.includes('country')) {
+							updatedAddress.countryCode = component.long_name;
+						}
+					});
+					setAddress(updatedAddress);
+				});
+			}
+		}
+		document.head.appendChild(script);
+	}, []);
+
 	return (
 		<div className="new-address-form-wrapper">
 			<form className="new-address-form" action="">
