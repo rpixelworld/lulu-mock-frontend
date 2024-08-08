@@ -4,7 +4,7 @@ import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } f
 
 export const NewShippingAddress = forwardRef((props, ref) => {
 	const fieldRefs = useRef(new Array(7));
-	const addressLineRef = useRef(null)
+	const addressLineRef = useRef(null);
 	const [address, setAddress] = useState({
 		firstName: '',
 		lastName: '',
@@ -181,9 +181,9 @@ export const NewShippingAddress = forwardRef((props, ref) => {
 						city: '',
 						province: '',
 						postalCode: '',
-						countryCode: ''
+						countryCode: '',
 					};
-					addressComponents.forEach((component) => {
+					addressComponents.forEach(component => {
 						const types = component.types;
 						if (types.includes('street_number')) {
 							updatedAddress.addressLine = component.long_name + ' ' + updatedAddress.addressLine;
@@ -207,7 +207,7 @@ export const NewShippingAddress = forwardRef((props, ref) => {
 					setAddress(updatedAddress);
 				});
 			}
-		}
+		};
 		document.head.appendChild(script);
 	}, []);
 
