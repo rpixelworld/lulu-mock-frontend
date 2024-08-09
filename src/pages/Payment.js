@@ -31,7 +31,6 @@ export const Payment = () => {
 	};
 
 	useEffect(() => {
-		
 		CartIndexedDBHelper.getAllItems(shoppingCart => dispatch(dispatchShoppingCart(shoppingCart)));
 		if (!orderInfo || !orderInfo.shipping || !orderInfo.deliveryOption || !orderInfo.giftOption) {
 			setOpenAlert(true);
