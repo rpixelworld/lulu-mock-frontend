@@ -316,7 +316,7 @@ export const OrderReview = ({ handlePayment }) => {
 										You will be redirected to PayPal to login to your account and return here to
 										complete your order.
 									</span>
-									<Paypal handlePayment={handlePayment}/>
+									<Paypal handlePayment={handlePayment} />
 									{/*<div className="payment-button" onClick={handlePayment}></div>*/}
 								</div>
 							</div>
