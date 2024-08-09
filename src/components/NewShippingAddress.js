@@ -170,6 +170,7 @@ export const NewShippingAddress = forwardRef((props, ref) => {
 		script.onload = () => {
 			if (window.google) {
 				const autocomplete = new window.google.maps.places.Autocomplete(fieldRefs.current[3], {
+					componentRestrictions: {country: 'ca'},
 					types: ['geocode'], // You can restrict the types as per your needs
 				});
 				autocomplete.setFields(['address_component']);
