@@ -1,113 +1,123 @@
-import React, { useEffect } from 'react';
-// import {PaymentSuccess} from "../../redux/action/paymentAction";
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { Message } from '@mui/icons-material';
+import Constants from '../Constants';
 
-export const Paypal = () => {
-	const dispatch = useDispatch();
-	useEffect(() => {
-		window.PAYPAL.Button.render(
-			paypalIntegrate(window.PAYPAL, () => {}),
-			'#paypal-button'
-		);
-	}, []);
-	const paypalIntegrate = (paypal, PaymentSuccess) => {
-		return {
-			// Configure environment
-			env: 'sandbox',
-			client: {
-				sandbox: 'AT00CBFees-dWFZkvRZIdRoC-HcSBflw-Bi2e7S1Y1mCGOlY46BUkBEOTElGDUFwfPEuyy9afsitY7xF',
-				production: 'AWy7L0BwPpJU1qoh9hNZiR9-sadMHUpnOhlRbTw9ha-4LOhB9y4biARxSpBnk1KjbaXEHCnv1pBhumgI',
-			},
-			// Customize button (optional)
-			locale: 'en_US',
-			style: {
-				size: 'medium',
-				color: 'white',
-				shape: 'pill',
-				// layout: 'vertical',
-				fundingicons: 'true',
-			},
-			funding: {
-				allowed: [paypal.FUNDING.CARD],
-				disallowed: [paypal.FUNDING.CREDIT],
-			},
+export const Paypal = ({handlePayment}) => {
 
-			// Enable Pay Now checkout flow (optional)
-			commit: true,
-
-			// Set up a payment
-			payment: (data, actions) => {
-				return actions.payment.create({
-					transactions: [
-						{
-							amount: {
-								total: '0.36',
-								currency: 'USD',
-								details: {
-									subtotal: '0.30',
-									tax: '0.03',
-									shipping: '0.02',
-									handling_fee: '1.00',
-									shipping_discount: '-1.00',
-									insurance: '0.01',
-								},
-							},
-							description: 'Mark2win Full Stack Developer Bootcamp Ultimate version',
-							custom: '90048630024435',
-							//invoice_number: '12345', Insert a unique invoice number
-							payment_options: {
-								allowed_payment_method: 'INSTANT_FUNDING_SOURCE',
-							},
-							soft_descriptor: 'ECHI5786786',
-							item_list: {
-								items: [
-									{
-										name: 'React',
-										description: 'React-from scratch to master',
-										quantity: '2',
-										price: '0.10',
-										tax: '0.01',
-										sku: '1',
-										currency: 'USD',
-									},
-									{
-										name: '',
-										description: 'Front end developer.',
-										quantity: '1',
-										price: '0.10',
-										tax: '0.01',
-										sku: 'product34',
-										currency: 'USD',
-									},
-								],
-								shipping_address: {
-									recipient_name: 'Mark Xu',
-									line1: '50 Acadia Ave, Markham, ON L3R 0B3',
-									line2: 'Unit #200',
-									city: 'Toronto',
-									country_code: 'CA',
-									postal_code: 'L3R 0B3',
-									phone: '6474017219',
-									state: 'Ontario',
-								},
-							},
-						},
-					],
-					note_to_payer: 'Contact us markxu@mark2win.com for any questions on your order.',
-				});
-			},
-			// Execute the payment
-			onAuthorize: (data, actions) => {
-				return actions.payment.execute().then(function (res) {
-					// Show a confirmation message to the buyer
-					// call your action to tackle after payment process
-					console.log('payment returned results', res);
-					window.alert('payment success');
-					// dispatch(PaymentSuccess()) // call my PaymentSucess action
-				});
-			},
-		};
+	const initialOptions = {
+		"client-id": "AS7hrpIxslJw5hTb2GhaPvbUSQNy-jQOcQmBigOHFl6cxSdlFA0mDKwk8t9urjF4N_B2kL3yfmMDcry4",
+		"enable-funding": "",
+		"disable-funding": "paylater,venmo,card",
+		"data-sdk-integration-source": "integrationbuilder_sc",
+		components: 'buttons',
+		currency: "CAD",
 	};
 
-	return <div id="paypal-button"></div>;
-};
+	const [message, setMessage] = useState("");
+
+	const paypalButtonStyle = {
+		shape: "rect",
+		layout: "horizontal",
+		color: "blue",
+		label: "paypal"
+	}
+
+	const createOrder = async ()=> {
+		try {
+			const response = await fetch(`${Constants.BACKEND_BASE_URL}/paypal/orders`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				// use the "body" param to optionally pass additional order information
+				// like product ids and quantities
+				body: JSON.stringify({
+					// cart: [
+					// 	{
+					// 		id: "YOUR_PRODUCT_ID",
+					// 		quantity: "YOUR_PRODUCT_QUANTITY",
+					// 	},
+					// ],
+					orderId: 1,
+					totalCost: 178.12
+				}),
+			});
+
+			const orderData = await response.json();
+
+			if (orderData.id) {
+				return orderData.id;
+			} else {
+				const errorDetail = orderData?.details?.[0];
+				const errorMessage = errorDetail
+					? `${errorDetail.issue} ${errorDetail.description} (${orderData.debug_id})`
+					: JSON.stringify(orderData);
+
+				throw new Error(errorMessage);
+			}
+		} catch (error) {
+			console.error(error);
+			setMessage(`Could not initiate PayPal Checkout...${error}`);
+		}
+	}
+
+	const onApprove = async (data, actions) => {
+		try {
+			const response = await fetch(
+				`${Constants.BACKEND_BASE_URL}/paypal/orders/${data.orderID}/capture`,
+				{
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+				},
+			);
+
+			const orderData = await response.json();
+			// Three cases to handle:
+			//   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
+			//   (2) Other non-recoverable errors -> Show a failure message
+			//   (3) Successful transaction -> Show confirmation or thank you message
+
+			const errorDetail = orderData?.details?.[0];
+
+			if (errorDetail?.issue === "INSTRUMENT_DECLINED") {
+				// (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
+				// recoverable state, per https://developer.paypal.com/docs/checkout/standard/customize/handle-funding-failures/
+				return actions.restart();
+			} else if (errorDetail) {
+				// (2) Other non-recoverable errors -> Show a failure message
+				throw new Error(
+					`${errorDetail.description} (${orderData.debug_id})`,
+				);
+			} else {
+				// (3) Successful transaction -> Show confirmation or thank you message
+				// Or go to another URL:  actions.redirect('thank_you.html');
+				const transaction =
+					orderData.purchase_units[0].payments.captures[0];
+				setMessage(
+					`Transaction ${transaction.status}: ${transaction.id}. See console for all available details`,
+				);
+				console.log(
+					"Capture result",
+					orderData,
+					JSON.stringify(orderData, null, 2),
+				);
+				handlePayment()
+			}
+		} catch (error) {
+			console.error(error);
+			setMessage(
+				`Sorry, your transaction could not be processed...${error}`,
+			);
+		}
+	}
+
+	return <>
+		<PayPalScriptProvider options={initialOptions}>
+			<PayPalButtons style={paypalButtonStyle} createOrder={createOrder} onApprove={onApprove} />
+		</PayPalScriptProvider>
+		<Message content={message} />
+	</>
+}

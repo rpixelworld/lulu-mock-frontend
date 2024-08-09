@@ -85,6 +85,7 @@ export const Checkout = () => {
 						setFailureMsg('Login Expired. Please logn again.');
 						UserHelper.logoutUser({}, () => {
 							UserHelper.clearCookies({
+								_userId: '',
 								_email: '',
 								_firstname: '',
 								_token: '',
@@ -128,19 +129,20 @@ export const Checkout = () => {
 			body: JSON.stringify(postBody),
 		};
 		console.log(options);
-		fetch(url, options)
-			.then(resp => {
-				return resp.json();
-			})
-			.then(res => {
-				if (res.status == 'success') {
-					onSuccess && onSuccess();
-				} else {
-					if (res.status.toLowerCase() == 'failed') {
-						onError && onError(res.message);
-					}
-				}
-			});
+		onSuccess && onSuccess();
+		// fetch(url, options)
+		// 	.then(resp => {
+		// 		return resp.json();
+		// 	})
+		// 	.then(res => {
+		// 		if (res.status == 'success') {
+		// 			onSuccess && onSuccess();
+		// 		} else {
+		// 			if (res.status.toLowerCase() == 'failed') {
+		// 				onError && onError(res.message);
+		// 			}
+		// 		}
+		// 	});
 	};
 
 	useEffect(() => {

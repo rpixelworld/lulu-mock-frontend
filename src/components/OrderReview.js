@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Alert, Snackbar } from '@mui/material';
+import { Paypal } from './Paypal';
 
 export const OrderReview = ({ handlePayment }) => {
 	const [openedIcon1, setOpenIcon1] = useState(false);
@@ -129,9 +130,9 @@ export const OrderReview = ({ handlePayment }) => {
 								<span>
 									{orderInfo.shipping.firstName} {orderInfo.shipping.lastName}
 								</span>
-								<span>{orderInfo.shipping.line1}</span>
-								<span>{`${orderInfo.shipping.city}, ${orderInfo.shipping.state} ${orderInfo.shipping.postalCode}, ${orderInfo.shipping.countryCode}`}</span>
-								<span>{formatPhoneNumber(orderInfo.shipping.phone)}</span>
+								<span>{orderInfo.shipping.addressLine}</span>
+								<span>{`${orderInfo.shipping.city}, ${orderInfo.shipping.province} ${orderInfo.shipping.postalCode}, ${orderInfo.shipping.countryCode}`}</span>
+								<span>{formatPhoneNumber(orderInfo.shipping.phoneNumber)}</span>
 							</div>
 						</div>
 						<div
@@ -315,7 +316,8 @@ export const OrderReview = ({ handlePayment }) => {
 										You will be redirected to PayPal to login to your account and return here to
 										complete your order.
 									</span>
-									<div className="payment-button" onClick={handlePayment}></div>
+									<Paypal handlePayment={handlePayment}/>
+									{/*<div className="payment-button" onClick={handlePayment}></div>*/}
 								</div>
 							</div>
 						)}
