@@ -2,12 +2,12 @@ import StorefrontIcon from '@mui/icons-material/Storefront';
 import AddedMinusMark from './Add-MinusMark';
 import { useEffect, useRef, useState } from 'react';
 import '../assets/css/ProductInfo.scss';
-import { getRandomInt } from '../Helper';
 import { useSearchParams } from 'react-router-dom';
 import * as CartIndexedDBHelper from '../IndexedDBHelper';
 import { useDispatch, useSelector } from 'react-redux';
 import { dispatchShoppingCart } from '../redux/actions/shoppingAction';
 import { AddToBag } from './AddToBag';
+import Constants from '../Constants';
 
 const ProductInfo = ({ product, colorIndex, handleColorChange }) => {
 	const dispatch = useDispatch();
@@ -47,10 +47,10 @@ const ProductInfo = ({ product, colorIndex, handleColorChange }) => {
 		setSelectedSize(size);
 		setSizeNotSelected(false);
 		setExceedLimit(false);
-		if (storage === 0) {
+		if (storage <= 0) {
 			setOutOfStock(true);
 			setOnly1Left(false);
-		} else if (storage === 1) {
+		} else if (storage <= 5) {
 			setOutOfStock(false);
 			setOnly1Left(true);
 		} else {
@@ -65,7 +65,7 @@ const ProductInfo = ({ product, colorIndex, handleColorChange }) => {
 				'?color=' +
 				product.swatches[selectedColorIndex].colorId +
 				'&sz=' +
-				size.replace(' ', '')
+				(size?size:'')
 		);
 	};
 
@@ -81,10 +81,11 @@ const ProductInfo = ({ product, colorIndex, handleColorChange }) => {
 		handleColorChange(index);
 		setSelectedColor(colorAlt);
 		setExceedLimit(false);
+		fetchStorage(product.productId, colorId)
 		window.history.replaceState(
 			null,
 			'',
-			'/product/' + product.productId + '?color=' + colorId + '&sz=' + selectedSize.replace(' ', '')
+			'/product/' + product.productId + '?color=' + colorId + '&sz=' + (selectedSize?selectedSize:'')
 		);
 	};
 	const showTooltip = () => {
@@ -140,6 +141,41 @@ const ProductInfo = ({ product, colorIndex, handleColorChange }) => {
 		);
 	};
 
+	const fetchStorage = (productId, colorId) => {
+		let currentStorages = []
+		fetch(`${Constants.BACKEND_BASE_URL}/inventory/${productId}/${colorId}`)
+			.then(resp => resp.json())
+			.then(obj => {
+				let stocks = obj.data;
+				for(let j=0; j<product.sizes[0].details.length; j++) {
+					for(let i=0; i<stocks.length; i++) {
+						if(product.sizes[0].details[j]==stocks[i].size) {
+							currentStorages.push(stocks[i].stock)
+							break;
+						}
+					}
+					if(currentStorages.length==j){
+						currentStorages.push(0)
+					}
+
+				}
+				setStorages(currentStorages)
+				setOutOfStock(false)
+				setOnly1Left(false)
+				let activeSize = queryParams.get('sz');
+				let index = product.sizes[0].details.indexOf(activeSize);
+				setSelectedSize(activeSize)
+				setSelectedSizeIndex(index)
+				if(currentStorages[index] <= 0) {
+					setOutOfStock(true);
+				}
+				else if (currentStorages[index] <= 5) {
+					setOnly1Left(true);
+				}
+
+			})
+	}
+
 	useEffect(() => {
 		let activeColor = queryParams.get('color');
 		for (let i = 0; i < product.swatches.length; i++) {
@@ -150,31 +186,23 @@ const ProductInfo = ({ product, colorIndex, handleColorChange }) => {
 			}
 		}
 
-		let randomStorages = [];
-		if (product.sizes[0].details.length == 0) {
-			setSelectedSize('One Size');
-		} else {
-			product.sizes[0].details.forEach(size => {
-				randomStorages.push(getRandomInt(3));
-				setStorages(randomStorages);
-			});
+		if(product.sizes[0].details.length==0) {
+			product.sizes[0].details.push('ONESIZE')
 		}
 
-		let activeSize = queryParams.get('sz');
-		if (activeSize && activeSize != 'ONESIZE') {
-			for (let i = 0; i < product.sizes[0].details.length; i++) {
-				if (activeSize === product.sizes[0].details[i]) {
-					setSelectedSize(product.sizes[0].details[i]);
-					setSelectedSizeIndex(i);
-					if (randomStorages[i] == 0) {
-						setOutOfStock(true);
-					} else if (randomStorages[i] == 1) {
-						setOnly1Left(true);
-					}
-					break;
-				}
-			}
-		}
+		fetchStorage(product.productId, activeColor)
+
+
+		// let randomStorages = [];
+		// if (product.sizes[0].details.length == 0) {
+		// 	setSelectedSize('One Size');
+		// } else {
+		// 	product.sizes[0].details.forEach(size => {
+		// 		randomStorages.push(getRandomInt(3));
+		// 		setStorages(randomStorages);
+		// 	});
+		// }
+
 	}, []);
 
 	useEffect(() => {
@@ -218,7 +246,7 @@ const ProductInfo = ({ product, colorIndex, handleColorChange }) => {
 
 			<div className="alert">
 				{outOfStock && <div className="out-of-stock">Sold out online.</div>}
-				{only1Left && <div className="only-1-left">Hurry, only a few left!</div>}
+				{only1Left && <div className="only-1-left">Hurry, only {storages[selectedSizeIndex]} left!</div>}
 				{sizeNotSelected && <div className="out-of-stock">Please select a size.</div>}
 			</div>
 
@@ -241,12 +269,13 @@ const ProductInfo = ({ product, colorIndex, handleColorChange }) => {
 								key={index}
 							>
 								{item}
+								{/*<span className='stock'>({storages[index]})</span>*/}
 							</button>
 						);
 					})}
-				{product.sizes && product.sizes[0].details.length == 0 && (
-					<button className="onesizeButton selectedButton">ONE SIZE</button>
-				)}
+				{/*{product.sizes && product.sizes[0].details.length == 0 && (*/}
+				{/*	<button className="onesizeButton selectedButton">ONE SIZE</button>*/}
+				{/*)}*/}
 			</div>
 
 			<div

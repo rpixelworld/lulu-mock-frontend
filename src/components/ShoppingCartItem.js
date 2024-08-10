@@ -17,6 +17,7 @@ export const ShoppingCartItem = ({ item }) => {
 	const [totalPrice, setTotalPrice] = useState(item.amount * item.price);
 	const [arrowUp, setArrowUp] = useState(false);
 	const [exceedLimit, setExceedLimit] = useState(false);
+	const [qtyArray, setQtyArray] = useState([])
 
 	const openRemoveConfirmDialog = () => {
 		setOpenRemoveDialog(true);
@@ -101,11 +102,14 @@ export const ShoppingCartItem = ({ item }) => {
 			></path>
 		</svg>
 	);
+	useEffect(() => {
+		setQtyArray(Array.from({ length: item.stock>=5?5:item.stock }, (_, index) => index + 1))
+	}, []);
 
 	return (
 		<div className="cart-item">
 			<div className="alert">
-				{item.stock > 0 && item.stock <= 10 && (
+				{item.stock > 0 && item.stock <= 5 && (
 					<div className="only-1-left">Hurry, only {item.stock} left!</div>
 				)}
 				{item.stock <= 0 && <div className="out-of-stock">Sold out. Unavailable online!</div>}
@@ -142,52 +146,21 @@ export const ShoppingCartItem = ({ item }) => {
 										</button>
 										<div className="dropdown-arrow">{dropdownArrow}</div>
 									</div>
+
 									{isOpen && (
-										<div className="dropdown-options">
-											<div className="option-container">
-												<div
-													className="dropdown-option"
-													onClick={() => handleQuantityChange(1)}
-												>
-													1
+										<div className="dropdown-options" style={{"height":64.5*qtyArray.length}}>
+											{qtyArray.map(i => (<>
+												<div className="option-container">
+													<div
+														className="dropdown-option"
+														onClick={() => handleQuantityChange(i)}
+													>
+														{i}
+													</div>
 												</div>
-											</div>
-											<div className="dropdown-separator"></div>
-											<div className="option-container">
-												<div
-													className="dropdown-option"
-													onClick={() => handleQuantityChange(2)}
-												>
-													2
-												</div>
-											</div>
-											<div className="dropdown-separator"></div>
-											<div className="option-container">
-												<div
-													className="dropdown-option"
-													onClick={() => handleQuantityChange(3)}
-												>
-													3
-												</div>
-											</div>
-											<div className="dropdown-separator"></div>
-											<div className="option-container">
-												<div
-													className="dropdown-option"
-													onClick={() => handleQuantityChange(4)}
-												>
-													4
-												</div>
-											</div>
-											<div className="dropdown-separator"></div>
-											<div className="option-container">
-												<div
-													className="dropdown-option"
-													onClick={() => handleQuantityChange(5)}
-												>
-													5
-												</div>
-											</div>
+												{i<qtyArray.length && <div className="dropdown-separator"></div>}
+											</>))}
+
 										</div>
 									)}
 								</div>

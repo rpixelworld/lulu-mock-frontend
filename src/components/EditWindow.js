@@ -12,6 +12,9 @@ const EditWindow = ({ state, closeEdit, item, handleUpdate, handleExceedLimitRes
 	const [selectedSizeIndex, setSelectedSizeIndex] = useState(0);
 	const [selectedColor, setSelectedColor] = useState('');
 	const [selectedSize, setSelectedSize] = useState('');
+	const [storages, setStorages] = useState([])
+	const [outOfStock, setOutOfStock] = useState(false);
+	const [only1Left, setOnly1Left] = useState(false);
 
 	const [bgIndex, setBgIndex] = useState('0');
 	const [bgImg, setBgImg] = useState(null);
@@ -31,12 +34,23 @@ const EditWindow = ({ state, closeEdit, item, handleUpdate, handleExceedLimitRes
 		handleUpdate(item.itemKey, newItem);
 	};
 
-	const sizeButtonClick = (index, item) => {
+	const sizeButtonClick = (storage, index, item) => {
 		if (selectedSizeIndex != index) {
 			handleExceedLimitReset();
 		}
 		setSelectedSizeIndex(index);
 		setSelectedSize(item);
+
+		if (storage <= 0) {
+			setOutOfStock(true);
+			setOnly1Left(false);
+		} else if (storage <= 5) {
+			setOutOfStock(false);
+			setOnly1Left(true);
+		} else {
+			setOutOfStock(false);
+			setOnly1Left(false);
+		}
 	};
 
 	const colorButtonClick = (index, swatchAlt) => {
@@ -48,6 +62,7 @@ const EditWindow = ({ state, closeEdit, item, handleUpdate, handleExceedLimitRes
 		setBgImg(product.images[index].mainCarousel.media.split(' | ')[0]);
 		setBgIndex(index);
 		setPageIndex(0);
+		fetchStorage(product.productId, product.swatches[index].colorId)
 	};
 
 	const handleNextPage = () => {
@@ -66,6 +81,39 @@ const EditWindow = ({ state, closeEdit, item, handleUpdate, handleExceedLimitRes
 		}
 	};
 
+	const fetchStorage = (productId, colorId) => {
+		let currentStorages = []
+		fetch(`${Constants.BACKEND_BASE_URL}/inventory/${productId}/${colorId}`)
+			.then(resp => resp.json())
+			.then(obj => {
+				let stocks = obj.data;
+				for(let j=0; j<product.sizes[0].details.length; j++) {
+					for(let i=0; i<stocks.length; i++) {
+						if(product.sizes[0].details[j]==stocks[i].size) {
+							currentStorages.push(stocks[i].stock)
+							break;
+						}
+					}
+					if(currentStorages.length==j){
+						currentStorages.push(0)
+					}
+
+				}
+				setStorages(currentStorages)
+				setOutOfStock(false)
+				setOnly1Left(false)
+				// let activeSize = queryParams.get('sz');
+				let index = product.sizes[0].details.indexOf(selectedSize);
+				if(currentStorages[index] <= 0) {
+					setOutOfStock(true);
+				}
+				else if (currentStorages[index] <= 5) {
+					setOnly1Left(true);
+				}
+
+			})
+	}
+
 	useEffect(() => {
 		console.log('useeffect, state=', state);
 		let arr = item.itemKey.split('_');
@@ -81,9 +129,8 @@ const EditWindow = ({ state, closeEdit, item, handleUpdate, handleExceedLimitRes
 				}
 			})
 			.then(res => {
-				setProduct(res.rs);
-				let productDetail = res.rs;
 
+				let productDetail = res.rs;
 				for (let i = 0; i < productDetail.swatches.length; i++) {
 					if (arr[1] === productDetail.swatches[i].colorId) {
 						setSelectedColorIndex(i);
@@ -91,20 +138,29 @@ const EditWindow = ({ state, closeEdit, item, handleUpdate, handleExceedLimitRes
 						break;
 					}
 				}
-				if (arr[2] === 'ONE SIZE' || arr[2] === '') {
-					setSelectedSizeIndex(0);
-					setSelectedSize(arr[2]);
-				} else {
+				if(productDetail.sizes[0].details.length==0) {
+					productDetail.sizes[0].details.push('ONESIZE')
+				}
+
+				// if (arr[2] === 'ONESIZE' || arr[2] === '') {
+				// 	setSelectedSizeIndex(0);
+				// 	setSelectedSize(arr[2]);
+				// } else {
 					for (let i = 0; i < productDetail.sizes[0].details.length; i++) {
 						if (arr[2] === productDetail.sizes[0].details[i]) {
 							setSelectedSizeIndex(i);
+							setSelectedSize(arr[2])
 						}
 					}
-				}
+				// }
+				setProduct(res.rs);
 			});
 	}, []);
 
 	useEffect(() => {
+		setOutOfStock(false)
+		setOnly1Left(false)
+
 		if (state && product.name) {
 			let arr = item.itemKey.split('_');
 			let productId = arr[0];
@@ -118,17 +174,25 @@ const EditWindow = ({ state, closeEdit, item, handleUpdate, handleExceedLimitRes
 					break;
 				}
 			}
-			if (arr[2] === 'ONE SIZE' || arr[2] === '') {
-				setSelectedSizeIndex(0);
-				setSelectedSize(arr[2]);
-			} else {
-				for (let i = 0; i < product.sizes[0].details.length; i++) {
-					if (arr[2] === product.sizes[0].details[i]) {
-						setSelectedSizeIndex(i);
-					}
-				}
-			}
+
+
+
+			// if (arr[2] === 'ONESIZE' || arr[2] === '') {
+			// 	setSelectedSizeIndex(0);
+			// 	setSelectedSize(arr[2]);
+			// } else {
+			// 	for (let i = 0; i < product.sizes[0].details.length; i++) {
+			// 		if (arr[2] === product.sizes[0].details[i]) {
+			// 			setSelectedSizeIndex(i);
+			// 			setSelectedSize(arr[2]);
+			// 		}
+			// 	}
+			// }
+			fetchStorage(product.productId, product.swatches[selectedColorIndex].colorId)
 		}
+
+
+
 	}, [state]);
 
 	return (
@@ -200,23 +264,28 @@ const EditWindow = ({ state, closeEdit, item, handleUpdate, handleExceedLimitRes
 									))}
 								</div>
 								{/*size*/}
+								<div className="alert">
+									{outOfStock && <div className="out-of-stock">Sold out online.</div>}
+									{only1Left && <div className="only-1-left">Hurry, only {storages[selectedSizeIndex]} left!</div>}
+								</div>
 								<p>Size:{selectedSize}</p>
 								<div className="edit-sizeList">
 									{product.sizes[0].details.length > 0 &&
-										product.sizes[0].details.map((size, index) => (
-											<div className="edit-sizeBox" key={index}>
+										product.sizes[0].details.map((size, index) => {
+											let storage = storages[index];
+											return (<div className="edit-sizeBox" key={index}>
 												<button
-													className={
-														selectedSizeIndex === index
-															? 'edit-size-buttonClicked'
-															: 'edit-size-button'
-													}
-													onClick={() => sizeButtonClick(index, size)}
+													className={`
+														${selectedSizeIndex === index
+														? 'edit-size-buttonClicked'
+														: 'edit-size-button'} ${storage === 0 && ' outOfStock'}`}
+													onClick={() => sizeButtonClick(storage, index, size)}
 												>
 													{size}
+													{/*({storage})*/}
 												</button>
-											</div>
-										))}
+											</div>)
+										})}
 									{product.sizes[0].details.length == 0 && (
 										<button className="onesize-buttonClicked">ONE SIZE</button>
 									)}
@@ -230,9 +299,8 @@ const EditWindow = ({ state, closeEdit, item, handleUpdate, handleExceedLimitRes
 										</div>
 									)}
 								</div>
-								<button className="update-edit" onClick={confirmUpdate}>
-									UPDATE ITEM
-								</button>
+								{!outOfStock &&<button className="update-edit" onClick={confirmUpdate}>UPDATE ITEM</button>}
+								{outOfStock && <button className="soldout-button">SOLD OUT - NOTIFY ME</button>}
 								<div className="view-detail-link">
 									<span>
 										<a
