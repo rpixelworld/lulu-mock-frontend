@@ -11,6 +11,7 @@ import { ShoppingCart } from './pages/ShoppingCart';
 import ScrollToTop from './components/ScrollToTop';
 import { Checkout } from './pages/Checkout';
 import { Payment } from './pages/Payment';
+import { Login } from './pages/Login';
 
 function App() {
 	return (
@@ -24,6 +25,7 @@ function App() {
 					<Route path="/shop/cart" element={<ShoppingCart />} />
 					<Route path="/shop/checkout" element={<Checkout />} />
 					<Route path="/shop/checkout/payment" element={<Payment />} />
+					<Route path="/admin/login" element={<Login />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>
