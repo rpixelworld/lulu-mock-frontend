@@ -65,7 +65,7 @@ const ProductInfo = ({ product, colorIndex, handleColorChange }) => {
 				'?color=' +
 				product.swatches[selectedColorIndex].colorId +
 				'&sz=' +
-				(size?size:'')
+				(size ? size : '')
 		);
 	};
 
@@ -81,11 +81,11 @@ const ProductInfo = ({ product, colorIndex, handleColorChange }) => {
 		handleColorChange(index);
 		setSelectedColor(colorAlt);
 		setExceedLimit(false);
-		fetchStorage(product.productId, colorId)
+		fetchStorage(product.productId, colorId);
 		window.history.replaceState(
 			null,
 			'',
-			'/product/' + product.productId + '?color=' + colorId + '&sz=' + (selectedSize?selectedSize:'')
+			'/product/' + product.productId + '?color=' + colorId + '&sz=' + (selectedSize ? selectedSize : '')
 		);
 	};
 	const showTooltip = () => {
@@ -142,39 +142,36 @@ const ProductInfo = ({ product, colorIndex, handleColorChange }) => {
 	};
 
 	const fetchStorage = (productId, colorId) => {
-		let currentStorages = []
+		let currentStorages = [];
 		fetch(`${Constants.BACKEND_BASE_URL}/inventory/${productId}/${colorId}`)
 			.then(resp => resp.json())
 			.then(obj => {
 				let stocks = obj.data;
-				for(let j=0; j<product.sizes[0].details.length; j++) {
-					for(let i=0; i<stocks.length; i++) {
-						if(product.sizes[0].details[j]==stocks[i].size) {
-							currentStorages.push(stocks[i].stock)
+				for (let j = 0; j < product.sizes[0].details.length; j++) {
+					for (let i = 0; i < stocks.length; i++) {
+						if (product.sizes[0].details[j] == stocks[i].size) {
+							currentStorages.push(stocks[i].stock);
 							break;
 						}
 					}
-					if(currentStorages.length==j){
-						currentStorages.push(0)
+					if (currentStorages.length == j) {
+						currentStorages.push(0);
 					}
-
 				}
-				setStorages(currentStorages)
-				setOutOfStock(false)
-				setOnly1Left(false)
+				setStorages(currentStorages);
+				setOutOfStock(false);
+				setOnly1Left(false);
 				let activeSize = queryParams.get('sz');
 				let index = product.sizes[0].details.indexOf(activeSize);
-				setSelectedSize(activeSize)
-				setSelectedSizeIndex(index)
-				if(currentStorages[index] <= 0) {
+				setSelectedSize(activeSize);
+				setSelectedSizeIndex(index);
+				if (currentStorages[index] <= 0) {
 					setOutOfStock(true);
-				}
-				else if (currentStorages[index] <= 5) {
+				} else if (currentStorages[index] <= 5) {
 					setOnly1Left(true);
 				}
-
-			})
-	}
+			});
+	};
 
 	useEffect(() => {
 		let activeColor = queryParams.get('color');
@@ -186,12 +183,11 @@ const ProductInfo = ({ product, colorIndex, handleColorChange }) => {
 			}
 		}
 
-		if(product.sizes[0].details.length==0) {
-			product.sizes[0].details.push('ONESIZE')
+		if (product.sizes[0].details.length == 0) {
+			product.sizes[0].details.push('ONESIZE');
 		}
 
-		fetchStorage(product.productId, activeColor)
-
+		fetchStorage(product.productId, activeColor);
 
 		// let randomStorages = [];
 		// if (product.sizes[0].details.length == 0) {
@@ -202,7 +198,6 @@ const ProductInfo = ({ product, colorIndex, handleColorChange }) => {
 		// 		setStorages(randomStorages);
 		// 	});
 		// }
-
 	}, []);
 
 	useEffect(() => {
