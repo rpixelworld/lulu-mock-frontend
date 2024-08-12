@@ -95,6 +95,9 @@ export const OrderReview = ({ orderInfo, handlePayment }) => {
 		<div className="order-review-container">
 			<div className="order-summary">
 				<div className="detailed-information">
+					<div className='row-0'>
+						Order Number # &nbsp;&nbsp;{String(orderInfo.id).padStart(10, '0')}
+					</div>
 					{/*notification*/}
 					<div className="row-1">
 						<div className="title-container">
