@@ -1,14 +1,43 @@
 import { useState } from 'react';
 import '../assets/css/Login.scss';
+import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
 export const Login = () => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
+	const [error, setError] = useState('');
+	const navigate = useNavigate();
 
-	const handleSubmit = e => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log('username', username);
-		console.log('password', password);
+		setError('')
+		if (!username || !password) {
+			setError('Enter username or password please')
+			return
+		}
+
+		try {
+			const response = await fetch('http://localhost:3399/auth/admin/login', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({username, password})
+			})
+			if (!response.ok) {
+				if (response.status === 400) {
+					throw new Error('username or password incorrect, please try again')
+				} else {
+					throw new Error('Login failed, please try again')
+				}
+			}
+			const data = await response.json();
+			console.log('login success', data);
+			navigate('/auth/admin/management');
+		} catch (error) {
+			setError(error.message)
+		}
 	};
 
 	return (
@@ -32,6 +61,7 @@ export const Login = () => {
 					<div className="button">
 						<button type="submit">Login</button>
 					</div>
+					{error && <p>{error}</p>}
 				</form>
 			</div>
 		</div>
