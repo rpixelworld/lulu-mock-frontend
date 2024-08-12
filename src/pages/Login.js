@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import '../assets/css/Login.scss';
-import {useNavigate} from "react-router-dom";
-import axios from "axios";
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 export const Login = () => {
 	const [username, setUsername] = useState('');
@@ -9,12 +9,12 @@ export const Login = () => {
 	const [error, setError] = useState('');
 	const navigate = useNavigate();
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async e => {
 		e.preventDefault();
-		setError('')
+		setError('');
 		if (!username || !password) {
-			setError('Enter username or password please')
-			return
+			setError('Enter username or password please');
+			return;
 		}
 
 		try {
@@ -23,20 +23,20 @@ export const Login = () => {
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify({username, password})
-			})
+				body: JSON.stringify({ username, password }),
+			});
 			if (!response.ok) {
 				if (response.status === 400) {
-					throw new Error('username or password incorrect, please try again')
+					throw new Error('username or password incorrect, please try again');
 				} else {
-					throw new Error('Login failed, please try again')
+					throw new Error('Login failed, please try again');
 				}
 			}
 			const data = await response.json();
 			console.log('login success', data);
 			navigate('/auth/admin/management');
 		} catch (error) {
-			setError(error.message)
+			setError(error.message);
 		}
 	};
 

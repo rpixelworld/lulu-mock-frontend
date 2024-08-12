@@ -12,7 +12,7 @@ import ScrollToTop from './components/ScrollToTop';
 import { Checkout } from './pages/Checkout';
 import { Payment } from './pages/Payment';
 import { Login } from './pages/Login';
-import {AdminOrderManagement} from "./pages/AdminOrderManagement";
+import { AdminOrderManagement } from './pages/AdminOrderManagement';
 
 function App() {
 	return (
@@ -27,7 +27,7 @@ function App() {
 					<Route path="/shop/checkout" element={<Checkout />} />
 					<Route path="/shop/checkout/payment" element={<Payment />} />
 					<Route path="/auth/admin/login" element={<Login />} />
-					<Route path="/auth/admin/management" element={<AdminOrderManagement/>}/>
+					<Route path="/auth/admin/management" element={<AdminOrderManagement />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>
