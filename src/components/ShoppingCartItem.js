@@ -136,7 +136,7 @@ export const ShoppingCartItem = ({ item }) => {
 						</div>
 						<div className="col-3">
 							<label htmlFor="quantity">Quantity</label>
-							{item.stock > 0 && (
+							{item.stock >= item.amount  && (
 								<div className="dropdown-container" onClick={toggleDropdown}>
 									<div className="box-content" onClick={handleArrowRotate}>
 										<button className="custom-dropdown" value={item.amount}>
@@ -146,7 +146,7 @@ export const ShoppingCartItem = ({ item }) => {
 									</div>
 
 									{isOpen && (
-										<div className="dropdown-options" style={{ height: 64.5 * qtyArray.length }}>
+										<div className="dropdown-options" style={{ height: 65 * qtyArray.length }}>
 											{qtyArray.map(i => (
 												<>
 													<div className="option-container">

@@ -90,7 +90,7 @@ export const LoginDialog = ({ isOpen, handleClose }) => {
 	const loginSuccess = authData => {
 		console.log(authData);
 		let cookies = {
-			_userId: authData.userId,
+			_userId: authData.id,
 			_email: authData.email,
 			_firstname: authData.firstName,
 			_token: authData.token,

@@ -1,6 +1,8 @@
 import '../assets/css/NewShippingAddress.scss';
 import { Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Select } from '@mui/material';
 import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { dispatchZeroTaxRate, fetchTaxRate } from '../redux/actions/shoppingAction';
+import { useDispatch } from 'react-redux';
 
 export const NewShippingAddress = forwardRef((props, ref) => {
 	const fieldRefs = useRef(new Array(7));
@@ -19,6 +21,7 @@ export const NewShippingAddress = forwardRef((props, ref) => {
 
 	const [touched, setTouched] = useState({});
 	const [errors, setErrors] = useState({});
+	const dispatch = useDispatch();
 
 	useImperativeHandle(ref, () => ({
 		toSaveAddress: () => {
@@ -30,10 +33,10 @@ export const NewShippingAddress = forwardRef((props, ref) => {
 				lastName: address.lastName,
 				addressLine: address.addressLine,
 				city: address.city,
-				countryCode: 'CA',
 				postalCode: address.postalCode,
 				phoneNumber: address.phoneNumber.replace(/\D/g, ''),
 				province: address.province,
+				countryCode: 'CA',
 			};
 		},
 		isValid: () => {
@@ -81,8 +84,10 @@ export const NewShippingAddress = forwardRef((props, ref) => {
 	const validateProvince = province => {
 		if (province.trim() === '') {
 			setErrors(prev => ({ ...prev, province: 'Please select your province.' }));
+			dispatch(dispatchZeroTaxRate());
 		} else {
 			setErrors(prev => ({ ...prev, province: null }));
+			dispatch(fetchTaxRate(province));
 		}
 	};
 	const validate = () => {
@@ -197,6 +202,7 @@ export const NewShippingAddress = forwardRef((props, ref) => {
 						}
 						if (types.includes('administrative_area_level_1')) {
 							updatedAddress.province = component.short_name;
+							dispatch(fetchTaxRate(component.short_name))
 						}
 						if (types.includes('postal_code')) {
 							updatedAddress.postalCode = component.long_name;
