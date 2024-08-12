@@ -9,8 +9,8 @@ export const Paypal = ({ handlePayment }) => {
 		'enable-funding': '',
 		'disable-funding': 'paylater,venmo,card',
 		'data-sdk-integration-source': 'integrationbuilder_sc',
-		'components': 'buttons',
-		'currency': 'CAD',
+		components: 'buttons',
+		currency: 'CAD',
 	};
 
 	const [message, setMessage] = useState('');
