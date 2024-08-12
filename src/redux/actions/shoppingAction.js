@@ -68,10 +68,10 @@ const fetchStorage = async shoppingCart => {
 	let stockPromises = await Promise.allSettled(allPromises);
 	let totalItems = 0;
 	let totalCost = 0;
-	shoppingCart.items = []
+	shoppingCart.items = [];
 	for (let i = 0; i < stockPromises.length; i++) {
 		if (stockPromises[i].status === 'fulfilled') {
-			const {item, stock} = stockPromises[i].value
+			const { item, stock } = stockPromises[i].value;
 			// shoppingCart.items[i].stock = stockPromises[i].value.stock;
 			item.stock = stock;
 			// if (stockPromises[i].value.stock >= shoppingCart.items[i].amount) {
@@ -81,19 +81,18 @@ const fetchStorage = async shoppingCart => {
 			// } else {
 			// 	shoppingCart.items[i].available = false;
 			// }
-			if(item.stock > 0){
-				if(item.stock < item.amount) {
-					item.amount = item.stock
+			if (item.stock > 0) {
+				if (item.stock < item.amount) {
+					item.amount = item.stock;
 				}
 				item.available = true;
 				totalItems += item.amount;
 				totalCost += item.amount * item.price;
-			}
-			else {
+			} else {
 				// item.amount = 0;
 				item.available = false;
 			}
-			shoppingCart.items.push(item)
+			shoppingCart.items.push(item);
 		}
 	}
 	shoppingCart.total = totalItems;
@@ -106,7 +105,6 @@ const fetchStorage = async shoppingCart => {
 	//   totalCost: totalCost
 	// }
 };
-
 
 export const dispatchClearShoppingCart = () => {
 	return {

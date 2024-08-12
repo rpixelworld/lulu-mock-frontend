@@ -26,7 +26,7 @@ export const Checkout = () => {
 	const shippingRef = useRef();
 	const giftOptionRef = useRef();
 	const [validCheckout, setValidCheckout] = useState(true);
-	const [orderId, setOrderId] = useState(0)
+	const [orderId, setOrderId] = useState(0);
 	const [openAlert, setOpenAlert] = useState(false);
 	const [openPlaceOrderSuccess, setOpenPlaceOrderSuccess] = useState(false);
 	const [openPlaceOrderFailed, setOpenPlaceOrderFailed] = useState(false);
@@ -42,9 +42,12 @@ export const Checkout = () => {
 
 	const handlePlaceOrder = () => {
 		console.log(
-			'contact infomation valid=', contactRef.current.isValid(),
-			'shipping valid=', shippingRef.current.isValid(),
-			'gift valid=', giftOptionRef.current.isValid()
+			'contact infomation valid=',
+			contactRef.current.isValid(),
+			'shipping valid=',
+			shippingRef.current.isValid(),
+			'gift valid=',
+			giftOptionRef.current.isValid()
 		);
 		// console.log('toSaveShippingAddress', shippingRef.current.toSaveShippingAddress());
 
@@ -65,14 +68,14 @@ export const Checkout = () => {
 			placeOrder(
 				orderInfo,
 				shoppingCart,
-				(savedOrderInfo) => {
+				savedOrderInfo => {
 					// dispatch(dispatchOrderInfo(savedOrderInfo));
-					setOrderId(savedOrderInfo.id)
+					setOrderId(savedOrderInfo.id);
 					setOpenPlaceOrderSuccess(true);
 				},
 				error => {
 					if (error.errorCode == 'TOKEN_EXPIRED') {
-						handleLoginExpired()
+						handleLoginExpired();
 					} else {
 						setFailureMsg(error.message);
 					}
@@ -82,7 +85,7 @@ export const Checkout = () => {
 		}
 	};
 
-	const handleLoginExpired = ()=> {
+	const handleLoginExpired = () => {
 		setFailureMsg('Login Expired. Please logn again.');
 		UserHelper.logoutUser({}, () => {
 			UserHelper.clearCookies({
@@ -93,13 +96,12 @@ export const Checkout = () => {
 			});
 			dispatch(dispatchClearCookieAuth());
 		});
-	}
+	};
 
 	const placeOrder = (orderInfo, shoppingCart, onSuccess, onError) => {
-
 		let bodyItems = [];
 		shoppingCart.items.forEach(item => {
-			if(item.stock>=item.amount){
+			if (item.stock >= item.amount) {
 				bodyItems.push({
 					productId: item.itemKey.split('_')[0],
 					productName: item.productName,
@@ -113,22 +115,21 @@ export const Checkout = () => {
 			}
 		});
 		let postBody = {
-			userId:userInfo.id,
+			userId: userInfo.id,
 			notificationEmail: orderInfo.notification,
 			isNewShippingAddress: orderInfo.isNewShippingAddress,
 			shippingAddress: orderInfo.shipping,
 			deliveryOption: orderInfo.deliveryOption.option,
 			deliveryFee: orderInfo.deliveryOption.fee,
 			orderItems: bodyItems,
-			totalItem: bodyItems.reduce((total, item) => total+item.quantity, 0),
-			totalAmount: bodyItems.reduce((sum, item) => sum+item.quantity * item.price, 0),
+			totalItem: bodyItems.reduce((total, item) => total + item.quantity, 0),
+			totalAmount: bodyItems.reduce((sum, item) => sum + item.quantity * item.price, 0),
 			isGift: orderInfo.giftOption.isGift,
-
 		};
-		if(orderInfo.giftOption.isGift){
-			postBody.giftTo = orderInfo.giftOption.giftInfo.to
-			postBody.giftFrom = orderInfo.giftOption.giftInfo.from
-			postBody.giftMessage = orderInfo.giftOption.giftInfo.message
+		if (orderInfo.giftOption.isGift) {
+			postBody.giftTo = orderInfo.giftOption.giftInfo.to;
+			postBody.giftFrom = orderInfo.giftOption.giftInfo.from;
+			postBody.giftMessage = orderInfo.giftOption.giftInfo.message;
 		}
 
 		let url = `${Constants.BACKEND_BASE_URL}/orders`;
@@ -157,7 +158,6 @@ export const Checkout = () => {
 				}
 			});
 	};
-
 
 	useEffect(() => {
 		CartIndexedDBHelper.getAllItems(shoppingCart => dispatch(dispatchShoppingCart(shoppingCart)));

@@ -136,7 +136,7 @@ export const ShoppingCartItem = ({ item }) => {
 						</div>
 						<div className="col-3">
 							<label htmlFor="quantity">Quantity</label>
-							{item.stock >= item.amount  && (
+							{item.stock >= item.amount && (
 								<div className="dropdown-container" onClick={toggleDropdown}>
 									<div className="box-content" onClick={handleArrowRotate}>
 										<button className="custom-dropdown" value={item.amount}>

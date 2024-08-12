@@ -202,7 +202,7 @@ export const NewShippingAddress = forwardRef((props, ref) => {
 						}
 						if (types.includes('administrative_area_level_1')) {
 							updatedAddress.province = component.short_name;
-							dispatch(fetchTaxRate(component.short_name))
+							dispatch(fetchTaxRate(component.short_name));
 						}
 						if (types.includes('postal_code')) {
 							updatedAddress.postalCode = component.long_name;

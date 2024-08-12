@@ -20,7 +20,7 @@ import { dispatchClearCookieAuth } from '../redux/actions/userAction';
 export const Payment = () => {
 	const valuePassed = useParams();
 	const [openAlert, setOpenAlert] = useState(false);
-	const [orderInfo, setOrderInfo] = useState(null)
+	const [orderInfo, setOrderInfo] = useState(null);
 	const [openSuccessPayment, setOpenSuccessPayment] = useState(false);
 	const [openPaymentFailed, setOpenPaymentFailed] = useState(false);
 	const [failureMsg, setFailureMsg] = useState('');
@@ -46,7 +46,7 @@ export const Payment = () => {
 		setOpenPaymentFailed(false);
 	};
 
-	const handleLoginExpired = ()=> {
+	const handleLoginExpired = () => {
 		setFailureMsg('Login Expired. Please logn again.');
 		UserHelper.logoutUser({}, () => {
 			UserHelper.clearCookies({
@@ -57,7 +57,7 @@ export const Payment = () => {
 			});
 			dispatch(dispatchClearCookieAuth());
 		});
-	}
+	};
 	useEffect(() => {
 		if (valuePassed && valuePassed.orderId) {
 			const option = {
@@ -67,27 +67,25 @@ export const Payment = () => {
 					'Content-Type': 'application/json',
 					authorization: 'Bearer ' + UserHelper.getCookie('_token'),
 				},
-			}
+			};
 			fetch(`${Constants.BACKEND_BASE_URL}/orders/${valuePassed.orderId}`, option)
 				.then(resp => resp.json())
 				.then(result => {
-					if(result.status == 'success'){
-						setOrderInfo(result.data)
+					if (result.status == 'success') {
+						setOrderInfo(result.data);
 						dispatch(fetchTaxRate(result.data.shippingAddress.province));
 						dispatch(dispatchShippingFee(result.data.deliveryFee));
 						// console.log(result.data)
-					}
-					else {
-						let error = result.error
+					} else {
+						let error = result.error;
 						if (error.errorCode == 'TOKEN_EXPIRED') {
-							handleLoginExpired()
+							handleLoginExpired();
 						} else {
 							setFailureMsg(error.message);
 						}
 						setOpenPaymentFailed(true);
 					}
-
-				})
+				});
 		}
 	}, [valuePassed]);
 
@@ -138,33 +136,28 @@ export const Payment = () => {
 				anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
 				onClose={handleClosePaymentFailed}
 			>
-				<Alert
-					onClose={handleClosePaymentFailed}
-					severity="error"
-					variant="filled"
-					sx={{ width: '100%' }}
-				>
+				<Alert onClose={handleClosePaymentFailed} severity="error" variant="filled" sx={{ width: '100%' }}>
 					{failureMsg}
 				</Alert>
 			</Snackbar>
-			{orderInfo  && (
-					<div className="main">
-						<div className="col-1">
-							<div className="order-review">
-								<OrderReview orderInfo={orderInfo} handlePayment={handlePayment} />
-								{/*<div className="paypal">*/}
-								{/*<Paypal />*/}
-								{/*<button onClick={handlePayment}></button>*/}
-								{/*</div>*/}
-							</div>
-						</div>
-						<div className="col-2">
-							<div className="order-summary">
-								<OrderSummary shoppingCart={shoppingCart} />
-							</div>
+			{orderInfo && (
+				<div className="main">
+					<div className="col-1">
+						<div className="order-review">
+							<OrderReview orderInfo={orderInfo} handlePayment={handlePayment} />
+							{/*<div className="paypal">*/}
+							{/*<Paypal />*/}
+							{/*<button onClick={handlePayment}></button>*/}
+							{/*</div>*/}
 						</div>
 					</div>
-				)}
+					<div className="col-2">
+						<div className="order-summary">
+							<OrderSummary shoppingCart={shoppingCart} />
+						</div>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 };

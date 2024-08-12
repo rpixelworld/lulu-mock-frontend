@@ -26,21 +26,21 @@ export const GiftOptions = forwardRef((props, ref) => {
 					return {
 						option: 'Standard',
 						optionName: '2-7 business days (FREE)',
-						fee: 0
+						fee: 0,
 					};
 				case 1:
 					// return '2-4 business days ($20.00)';
 					return {
 						option: 'Express',
 						optionName: '2-4 business days ($20.00)',
-						fee: 20
+						fee: 20,
 					};
 				case 2:
 					// return '2-3 business days ($30.00)';
 					return {
 						option: 'Priority',
 						optionName: '2-3 business days ($30.00)',
-						fee: 30
+						fee: 30,
 					};
 				default:
 					return '';

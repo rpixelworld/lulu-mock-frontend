@@ -30,10 +30,10 @@ const Constants = {
 	INDEXED_DB_READWRITE_MODE: 'readwrite',
 
 	deliveryOptions: {
-		'Standard': '2-7 business days (FREE)',
-		'Express': '2-4 business days ($20.00)',
-		'Priority': '2-3 business days ($30.00)'
-	}
+		Standard: '2-7 business days (FREE)',
+		Express: '2-4 business days ($20.00)',
+		Priority: '2-3 business days ($30.00)',
+	},
 };
 
 export default Constants;

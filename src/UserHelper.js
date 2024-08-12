@@ -47,4 +47,3 @@ export const clearCookies = pairs => {
 		document.cookie = `${key}=; path=/; max-age=0`;
 	}
 };
-

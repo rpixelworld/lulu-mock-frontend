@@ -133,16 +133,15 @@ const ProductInfo = ({ product, colorIndex, handleColorChange }) => {
 				});
 				setStorages(prev => {
 					prev[selectedSizeIndex]--;
-					if(prev[selectedSizeIndex] == 0){
-						setOutOfStock(true)
-						setOnly1Left(false)
-					}
-					else if (prev[selectedSizeIndex] <= 5) {
-						setOnly1Left(true)
+					if (prev[selectedSizeIndex] == 0) {
+						setOutOfStock(true);
+						setOnly1Left(false);
+					} else if (prev[selectedSizeIndex] <= 5) {
+						setOnly1Left(true);
 					}
 
-					return prev
-				})
+					return prev;
+				});
 				openAddToBagDialog();
 			},
 			evt => {
