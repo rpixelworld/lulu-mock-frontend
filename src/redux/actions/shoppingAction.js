@@ -68,16 +68,31 @@ const fetchStorage = async shoppingCart => {
 	let stockPromises = await Promise.allSettled(allPromises);
 	let totalItems = 0;
 	let totalCost = 0;
+	shoppingCart.items = [];
 	for (let i = 0; i < stockPromises.length; i++) {
 		if (stockPromises[i].status === 'fulfilled') {
-			shoppingCart.items[i].stock = stockPromises[i].value.stock;
-			if (stockPromises[i].value.stock > 0) {
-				shoppingCart.items[i].available = true;
-				totalItems += stockPromises[i].value.item.amount;
-				totalCost += stockPromises[i].value.item.amount * stockPromises[i].value.item.price;
+			const { item, stock } = stockPromises[i].value;
+			// shoppingCart.items[i].stock = stockPromises[i].value.stock;
+			item.stock = stock;
+			// if (stockPromises[i].value.stock >= shoppingCart.items[i].amount) {
+			// 	shoppingCart.items[i].available = true;
+			// 	totalItems += stockPromises[i].value.item.amount;
+			// 	totalCost += stockPromises[i].value.item.amount * stockPromises[i].value.item.price;
+			// } else {
+			// 	shoppingCart.items[i].available = false;
+			// }
+			if (item.stock > 0) {
+				if (item.stock < item.amount) {
+					item.amount = item.stock;
+				}
+				item.available = true;
+				totalItems += item.amount;
+				totalCost += item.amount * item.price;
 			} else {
-				shoppingCart.items[i].available = false;
+				// item.amount = 0;
+				item.available = false;
 			}
+			shoppingCart.items.push(item);
 		}
 	}
 	shoppingCart.total = totalItems;

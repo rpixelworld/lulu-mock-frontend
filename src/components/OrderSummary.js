@@ -66,8 +66,8 @@ const OrderSummary = ({ shoppingCart }) => {
 				</div>
 				<div className="final-list">
 					<span>GST/HST</span>
-					{taxRate > 0 && <span>${(shoppingCart.totalCost * taxRate).toFixed(2)}</span>}
-					{taxRate == 0 && <span>Calculated at payment</span>}
+					{taxRate > 0 && <span>${((shoppingCart.totalCost + shippingFee) * taxRate).toFixed(2)}</span>}
+					{taxRate == 0 && <span>Province not selected</span>}
 				</div>
 			</div>
 			<hr />
@@ -75,7 +75,9 @@ const OrderSummary = ({ shoppingCart }) => {
 				<div>Order total</div>
 				<div>
 					CAD <span>$</span>
-					{(shoppingCart.totalCost + shippingFee + shoppingCart.totalCost * 0.12).toFixed(2)}
+					{(shoppingCart.totalCost + shippingFee + (shoppingCart.totalCost + shippingFee) * taxRate).toFixed(
+						2
+					)}
 				</div>
 			</div>
 		</div>

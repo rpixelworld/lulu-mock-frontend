@@ -4,14 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { Alert, Snackbar } from '@mui/material';
 import { Paypal } from './Paypal';
+import Constants from '../Constants';
 
-export const OrderReview = ({ handlePayment }) => {
+export const OrderReview = ({ orderInfo, handlePayment }) => {
 	const [openedIcon1, setOpenIcon1] = useState(false);
 	const [openedIcon2, setOpenIcon2] = useState(false);
 	const [openedIcon3, setOpenIcon3] = useState(false);
 	const [openedIcon4, setOpenIcon4] = useState(true);
-
-	const orderInfo = useSelector(state => state.shoppingReducer.orderInfo);
 
 	const navigate = useNavigate();
 
@@ -96,6 +95,7 @@ export const OrderReview = ({ handlePayment }) => {
 		<div className="order-review-container">
 			<div className="order-summary">
 				<div className="detailed-information">
+					<div className="row-0">Order Number # &nbsp;&nbsp;{String(orderInfo.id).padStart(10, '0')}</div>
 					{/*notification*/}
 					<div className="row-1">
 						<div className="title-container">
@@ -105,7 +105,7 @@ export const OrderReview = ({ handlePayment }) => {
 						<div className="content-container">
 							<span className="content-title">Email</span>
 							<div className="content">
-								<span>{orderInfo && orderInfo.notification}</span>
+								<span>{orderInfo && orderInfo.notificationEmail}</span>
 							</div>
 						</div>
 						<div
@@ -128,11 +128,11 @@ export const OrderReview = ({ handlePayment }) => {
 							<span className="content-title">Address</span>
 							<div className="content">
 								<span>
-									{orderInfo.shipping.firstName} {orderInfo.shipping.lastName}
+									{orderInfo.shippingAddress.firstName} {orderInfo.shippingAddress.lastName}
 								</span>
-								<span>{orderInfo.shipping.addressLine}</span>
-								<span>{`${orderInfo.shipping.city}, ${orderInfo.shipping.province} ${orderInfo.shipping.postalCode}, ${orderInfo.shipping.countryCode}`}</span>
-								<span>{formatPhoneNumber(orderInfo.shipping.phoneNumber)}</span>
+								<span>{orderInfo.shippingAddress.addressLine}</span>
+								<span>{`${orderInfo.shippingAddress.city}, ${orderInfo.shippingAddress.province} ${orderInfo.shippingAddress.postalCode}, ${orderInfo.shippingAddress.countryCode}`}</span>
+								<span>{formatPhoneNumber(orderInfo.shippingAddress.phoneNumber)}</span>
 							</div>
 						</div>
 						<div
@@ -187,7 +187,7 @@ export const OrderReview = ({ handlePayment }) => {
 								</svg>
 							</div>
 							<div className="content">
-								<span>{orderInfo.deliveryOption}</span>
+								<span>{Constants.deliveryOptions[orderInfo.deliveryOption]}</span>
 							</div>
 						</div>
 						<div
@@ -200,7 +200,7 @@ export const OrderReview = ({ handlePayment }) => {
 						</div>
 					</div>
 
-					{orderInfo.giftOption.isGift && orderInfo.giftOption.giftInfo && (
+					{orderInfo.isGift && (
 						<div className="row-4">
 							<div className="title-container">
 								<div className="icon">{titleIcon}</div>
@@ -209,7 +209,7 @@ export const OrderReview = ({ handlePayment }) => {
 							<div className="content-container">
 								<span className="content-title">To</span>
 								<div className="content">
-									<span>{orderInfo.giftOption.giftInfo.to}</span>
+									<span>{orderInfo.giftTo}</span>
 									{/*<span>Toronto</span>*/}
 								</div>
 							</div>
@@ -224,14 +224,14 @@ export const OrderReview = ({ handlePayment }) => {
 							<div className="content-container">
 								<span className="content-title">From</span>
 								<div className="content">
-									<span>{orderInfo.giftOption.giftInfo.from}</span>
+									<span>{orderInfo.giftFrom}</span>
 									{/*<span>Toronto</span>*/}
 								</div>
 							</div>
 							<div className="content-container">
 								<span className="content-title">Message</span>
 								<div className="content">
-									<span>{orderInfo.giftOption.giftInfo.message}</span>
+									<span>{orderInfo.giftMessage}</span>
 									{/*<span>Toronto</span>*/}
 								</div>
 							</div>

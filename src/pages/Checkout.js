@@ -22,11 +22,11 @@ export const Checkout = () => {
 	const userInfo = useSelector(state => state.userReducer.userInfo);
 
 	const navigate = useNavigate();
-	const timeoutRef = useRef(null);
 	const contactRef = useRef();
 	const shippingRef = useRef();
 	const giftOptionRef = useRef();
 	const [validCheckout, setValidCheckout] = useState(true);
+	const [orderId, setOrderId] = useState(0);
 	const [openAlert, setOpenAlert] = useState(false);
 	const [openPlaceOrderSuccess, setOpenPlaceOrderSuccess] = useState(false);
 	const [openPlaceOrderFailed, setOpenPlaceOrderFailed] = useState(false);
@@ -34,17 +34,13 @@ export const Checkout = () => {
 
 	const handleClosePladeOrderSuccess = () => {
 		setOpenPlaceOrderSuccess(false);
-		navigate('/shop/checkout/payment');
+		navigate(`/shop/checkout/payment/${orderId}`);
 	};
 	const handleClosePladeOrderFailed = () => {
 		setOpenPlaceOrderFailed(false);
 	};
 
 	const handlePlaceOrder = () => {
-		// console.log('contact information got from contactInformation: ', contactRef.current.getContact())
-		// console.log('shipping: ', shippingRef.current.getShippingAddress())
-		// console.log('delivery==>', giftOptionRef.current.getDeliveryOption())
-		// console.log('gift==>', giftOptionRef.current.getGiftOption())
 		console.log(
 			'contact infomation valid=',
 			contactRef.current.isValid(),
@@ -53,21 +49,17 @@ export const Checkout = () => {
 			'gift valid=',
 			giftOptionRef.current.isValid()
 		);
-		console.log('toSaveShippingAddress', shippingRef.current.toSaveShippingAddress());
+		// console.log('toSaveShippingAddress', shippingRef.current.toSaveShippingAddress());
 
 		if (!contactRef.current.isValid() || !shippingRef.current.isValid() || !giftOptionRef.current.isValid()) {
 			setValidCheckout(false);
 			setOpenAlert(true);
 		} else {
 			setValidCheckout(true);
-			if (shippingRef.current.toSaveShippingAddress()) {
-				userInfo.addresses.push(shippingRef.current.getShippingAddress());
-				IndexedDBHelper.insertOrUpdateUser(userInfo.email, userInfo, () => {
-					dispatch(dispatchUserInfo(userInfo));
-				});
-			}
+
 			const orderInfo = {
 				notification: contactRef.current.getContact(),
+				isNewShippingAddress: shippingRef.current.toSaveShippingAddress(),
 				shipping: shippingRef.current.getShippingAddress(),
 				deliveryOption: giftOptionRef.current.getDeliveryOption(),
 				giftOption: giftOptionRef.current.getGiftOption(),
@@ -76,24 +68,16 @@ export const Checkout = () => {
 			placeOrder(
 				orderInfo,
 				shoppingCart,
-				() => {
-					dispatch(dispatchOrderInfo(orderInfo));
+				savedOrderInfo => {
+					// dispatch(dispatchOrderInfo(savedOrderInfo));
+					setOrderId(savedOrderInfo.id);
 					setOpenPlaceOrderSuccess(true);
 				},
-				message => {
-					if (message.substring(0, message.indexOf('/')) == 'Invalid token. ') {
-						setFailureMsg('Login Expired. Please logn again.');
-						UserHelper.logoutUser({}, () => {
-							UserHelper.clearCookies({
-								_userId: '',
-								_email: '',
-								_firstname: '',
-								_token: '',
-							});
-							dispatch(dispatchClearCookieAuth());
-						});
+				error => {
+					if (error.errorCode == 'TOKEN_EXPIRED') {
+						handleLoginExpired();
 					} else {
-						setFailureMsg(message.substring(0, message.indexOf('/')));
+						setFailureMsg(error.message);
 					}
 					setOpenPlaceOrderFailed(true);
 				}
@@ -101,48 +85,78 @@ export const Checkout = () => {
 		}
 	};
 
+	const handleLoginExpired = () => {
+		setFailureMsg('Login Expired. Please logn again.');
+		UserHelper.logoutUser({}, () => {
+			UserHelper.clearCookies({
+				_userId: '',
+				_email: '',
+				_firstname: '',
+				_token: '',
+			});
+			dispatch(dispatchClearCookieAuth());
+		});
+	};
+
 	const placeOrder = (orderInfo, shoppingCart, onSuccess, onError) => {
 		let bodyItems = [];
 		shoppingCart.items.forEach(item => {
-			bodyItems.push({
-				productId: item.itemKey.split('_')[0],
-				colorId: item.itemKey.split('_')[1],
-				size: item.itemKey.split('_')[2],
-				quantity: item.amount,
-			});
+			if (item.stock >= item.amount) {
+				bodyItems.push({
+					productId: item.itemKey.split('_')[0],
+					productName: item.productName,
+					imageUrl: item.imageUrl,
+					colorId: item.itemKey.split('_')[1],
+					colorAlt: item.colorAlt,
+					size: item.itemKey.split('_')[2],
+					price: item.price,
+					quantity: item.amount,
+				});
+			}
 		});
 		let postBody = {
-			taxRate: 1.2,
-			isActive: true,
-			isDelete: false,
+			userId: userInfo.id,
+			notificationEmail: orderInfo.notification,
+			isNewShippingAddress: orderInfo.isNewShippingAddress,
+			shippingAddress: orderInfo.shipping,
+			deliveryOption: orderInfo.deliveryOption.option,
+			deliveryFee: orderInfo.deliveryOption.fee,
 			orderItems: bodyItems,
+			totalItem: bodyItems.reduce((total, item) => total + item.quantity, 0),
+			totalAmount: bodyItems.reduce((sum, item) => sum + item.quantity * item.price, 0),
+			isGift: orderInfo.giftOption.isGift,
 		};
+		if (orderInfo.giftOption.isGift) {
+			postBody.giftTo = orderInfo.giftOption.giftInfo.to;
+			postBody.giftFrom = orderInfo.giftOption.giftInfo.from;
+			postBody.giftMessage = orderInfo.giftOption.giftInfo.message;
+		}
 
-		let url = `${Constants.BASE_URL}/order?mykey=${Constants.MY_KEY}`;
+		let url = `${Constants.BACKEND_BASE_URL}/orders`;
 		let options = {
 			method: 'POST',
 			mode: 'cors',
 			headers: {
 				'Content-Type': 'application/json',
-				authorization: 'bear ' + UserHelper.getCookie('_token'),
+				authorization: 'Bearer ' + UserHelper.getCookie('_token'),
 			},
 			body: JSON.stringify(postBody),
 		};
 		console.log(options);
-		onSuccess && onSuccess();
-		// fetch(url, options)
-		// 	.then(resp => {
-		// 		return resp.json();
-		// 	})
-		// 	.then(res => {
-		// 		if (res.status == 'success') {
-		// 			onSuccess && onSuccess();
-		// 		} else {
-		// 			if (res.status.toLowerCase() == 'failed') {
-		// 				onError && onError(res.message);
-		// 			}
-		// 		}
-		// 	});
+		//onSuccess && onSuccess();
+		fetch(url, options)
+			.then(resp => {
+				return resp.json();
+			})
+			.then(res => {
+				if (res.status == 'success') {
+					onSuccess && onSuccess(res.data);
+				} else {
+					if (res.status.toLowerCase() == 'failed') {
+						onError && onError(res.error);
+					}
+				}
+			});
 	};
 
 	useEffect(() => {

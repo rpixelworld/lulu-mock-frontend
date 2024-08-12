@@ -20,7 +20,7 @@ export const loginUser = (user, onSuccess, onFailure) => {
 			if (status && status === 'success') {
 				onSuccess && onSuccess(result.data);
 			} else {
-				onFailure && onFailure(result);
+				onFailure && onFailure(result.error);
 			}
 		});
 };
