@@ -27,7 +27,7 @@ function App() {
 					<Route path="/shop/checkout" element={<Checkout />} />
 					<Route path="/shop/checkout/payment" element={<Payment />} />
 					<Route path="/admin/login" element={<Login />} />
-					<Route path='/forgot-password' element={<ForgotPassword />} />
+					<Route path="/forgot-password" element={<ForgotPassword />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>

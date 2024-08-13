@@ -20,7 +20,6 @@ const ForgotPassword = () => {
 		isConfirmPassword: true,
 	});
 
-
 	const changeHandler = ({ target }) => {
 		const { name, value } = target;
 		switch (name) {
@@ -90,88 +89,114 @@ const ForgotPassword = () => {
 		}
 		setIsReset(!isReset);
 	};
-	return <>
-		<div className="forgot-password"
-			 style={{ display: isReset ? 'none' : '' }}>
-			<h3>Set a new password</h3>
-			<p>Enter the email address associated with your lululemon account and we’ll send you a link to reset your
-				password.</p>
-			<form onSubmit={submitHandler}>
-				{/*email*/}
-				<label htmlFor="email">Email Address</label>
-				<div className="row">
-					<input type="email"
-						   id="email"
-						   name="email"
-						   minLength="5"
-						   onChange={changeHandler}
-						   onBlur={errorHandler}
-					/>
-					{!state.isEmail && <CloseIcon style={{ color: 'red' }} />}
+	return (
+		<>
+			<div className="forgot-password" style={{ display: isReset ? 'none' : '' }}>
+				<h3>Set a new password</h3>
+				<p>
+					Enter the email address associated with your lululemon account and we’ll send you a link to reset
+					your password.
+				</p>
+				<form onSubmit={submitHandler}>
+					{/*email*/}
+					<label htmlFor="email">Email Address</label>
+					<div className="row">
+						<input
+							type="email"
+							id="email"
+							name="email"
+							minLength="5"
+							onChange={changeHandler}
+							onBlur={errorHandler}
+						/>
+						{!state.isEmail && <CloseIcon style={{ color: 'red' }} />}
+					</div>
+
+					{!state.isEmail && (
+						<p className="error-message">
+							The password must be at least 5 characters long or longer with"@". Try again!
+						</p>
+					)}
+
+					{/*new password*/}
+					<label htmlFor="password">New Password</label>
+					<div className="row">
+						<input
+							type={showPassword ? 'password' : 'text'}
+							id="password"
+							name="password"
+							minLength="6"
+							onChange={changeHandler}
+							onBlur={errorHandler}
+						/>
+						<button type="button" className="eye" onClick={displayPassword}>
+							{showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+						</button>
+					</div>
+
+					{!state.isPassword && (
+						<p className="error-message">
+							The password must be at least 6 characters long or longer. Try again!
+						</p>
+					)}
+
+					{/*confirm password*/}
+					<label htmlFor="confirmPassword">Confirm Password</label>
+					<div className="row">
+						<input
+							type={showPassword ? 'password' : 'text'}
+							id="confirmPassword"
+							name="confirmPassword"
+							minLength="6"
+							onChange={changeHandler}
+							onBlur={errorHandler}
+						/>
+						<button type="button" className="eye" onClick={displayPassword}>
+							{showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+						</button>
+					</div>
+
+					{!state.isConfirmPassword && (
+						<p className="error-message">
+							The Confirm Password is not same with New Password, please try it again!
+						</p>
+					)}
+					<p className="error-message">{error}</p>
+					<button
+						type="submit"
+						className={
+							state &&
+							formData.email.length > 0 &&
+							formData.password.length > 0 &&
+							formData.confirmPassword.length > 0
+								? 'ready'
+								: 'reset'
+						}
+						disabled={
+							!(
+								state &&
+								formData.email.length > 0 &&
+								formData.password.length > 0 &&
+								formData.confirmPassword.length > 0
+							)
+						}
+					>
+						RESET
+					</button>
+				</form>
+			</div>
+			{isReset && (
+				<div className="reseted">
+					<h3>Set a new password</h3>
+					<p>
+						Keep an eye out for your password link! Please note you'll only receive a link if the email
+						address you entered is associated with a lululemon account.
+						<br /> Having trouble? Contact us.
+					</p>
 				</div>
-
-				{!state.isEmail &&
-					<p className="error-message">The password must be at least 5 characters long or longer with"@". Try
-						again!</p>}
-
-				{/*new password*/}
-				<label htmlFor="password">New Password</label>
-				<div className="row">
-					<input type={showPassword ? 'password' : 'text'}
-						   id="password"
-						   name="password"
-						   minLength="6"
-						   onChange={changeHandler}
-						   onBlur={errorHandler}
-					/>
-					<button type="button"
-							className="eye"
-							onClick={displayPassword}>{showPassword ? <VisibilityIcon /> :
-						<VisibilityOffIcon />}</button>
-				</div>
-
-				{!state.isPassword &&
-					<p className="error-message">The password must be at least 6 characters long or longer. Try
-						again!</p>}
-
-				{/*confirm password*/}
-				<label htmlFor="confirmPassword">Confirm Password</label>
-				<div className="row">
-					<input type={showPassword ? 'password' : 'text'}
-						   id="confirmPassword"
-						   name="confirmPassword"
-						   minLength="6"
-						   onChange={changeHandler}
-						   onBlur={errorHandler}
-					/>
-					<button type="button"
-							className="eye"
-							onClick={displayPassword}>{showPassword ? <VisibilityIcon /> :
-						<VisibilityOffIcon />}</button>
-				</div>
-
-				{!state.isConfirmPassword &&
-					<p className="error-message">The Confirm Password is not same with New Password, please try it
-						again!</p>}
-				<p className="error-message">{error}</p>
-				<button type="submit"
-						className={(state &&
-							formData.email.length > 0 && formData.password.length > 0 && formData.confirmPassword.length > 0) ? 'ready' : 'reset'}
-						disabled={!(state &&
-							formData.email.length > 0 && formData.password.length > 0 && formData.confirmPassword.length > 0)}
-				>RESET
-				</button>
-
-			</form>
-		</div>
-		{isReset && <div className="reseted">
-			<h3>Set a new password</h3>
-			<p>Keep an eye out for your password link! Please note you'll only receive a link if the email address you
-				entered is associated with a lululemon account.
-				<br /> Having trouble? Contact us.</p>
-		</div>}
-
-	</>;
+			)}
+		</>
+	);
 };
 
 export default ForgotPassword;
