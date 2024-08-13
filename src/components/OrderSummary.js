@@ -75,7 +75,7 @@ const OrderSummary = ({ shoppingCart }) => {
 				<div>Order total</div>
 				<div>
 					CAD <span>$</span>
-					{((shoppingCart.totalCost + shippingFee) * (1+taxRate)).toFixed(2)}
+					{((shoppingCart.totalCost + shippingFee) * (1 + taxRate)).toFixed(2)}
 				</div>
 			</div>
 		</div>

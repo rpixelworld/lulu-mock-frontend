@@ -280,7 +280,7 @@ export const OrderReview = ({ orderInfo, handlePayment }) => {
 									aria-labelledby="icon_:rl:"
 									aria-hidden="false"
 								>
-										<title id="icon_:rl:">PayPal</title>
+									<title id="icon_:rl:">PayPal</title>
 									<g fill="none" fill-rule="evenodd">
 										<rect
 											height="34"

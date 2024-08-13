@@ -34,9 +34,9 @@ export const Checkout = () => {
 
 	const handleClosePladeOrderSuccess = () => {
 		setOpenPlaceOrderSuccess(false);
-		IndexedDBHelper.clearShoppingCart(()=>{
-			dispatch(dispatchClearShoppingCart())
-		})
+		IndexedDBHelper.clearShoppingCart(() => {
+			dispatch(dispatchClearShoppingCart());
+		});
 		navigate(`/shop/checkout/payment/${orderId}`);
 	};
 	const handleClosePladeOrderFailed = () => {

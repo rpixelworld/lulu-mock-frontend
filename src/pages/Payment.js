@@ -61,13 +61,13 @@ export const Payment = () => {
 		});
 	};
 
-	const populateShoppingCartFromOrder = (order) => {
+	const populateShoppingCartFromOrder = order => {
 		let shoppingCart = {
 			total: order.totalItem,
 			totalCost: order.totalAmount,
-			items: []
+			items: [],
 		};
-		for (let i=0; i<order.orderItems.length; i++) {
+		for (let i = 0; i < order.orderItems.length; i++) {
 			shoppingCart.items.push({
 				available: true,
 				productId: order.orderItems[i].productId,
@@ -77,11 +77,11 @@ export const Payment = () => {
 				colorAlt: order.orderItems[i].colorAlt,
 				size: order.orderItems[i].size,
 				amount: order.orderItems[i].quantity,
-				price: order.orderItems[i].price
-			})
+				price: order.orderItems[i].price,
+			});
 		}
 		return shoppingCart;
-	}
+	};
 	useEffect(() => {
 		if (UserHelper.getCookie('_userId') && valuePassed && valuePassed.orderId) {
 			const option = {
@@ -97,7 +97,7 @@ export const Payment = () => {
 				.then(result => {
 					if (result.status == 'success') {
 						setOrderInfo(result.data);
-						setShoppingCart(populateShoppingCartFromOrder(result.data))
+						setShoppingCart(populateShoppingCartFromOrder(result.data));
 						dispatch(fetchTaxRate(result.data.shippingAddress.province));
 						dispatch(dispatchShippingFee(result.data.deliveryFee));
 						// console.log(result.data)
@@ -111,12 +111,10 @@ export const Payment = () => {
 						setOpenPaymentFailed(true);
 					}
 				});
-		}
-		else {
-			setOrderInfo(null)
+		} else {
+			setOrderInfo(null);
 		}
 	}, [valuePassed, userInfo]);
-
 
 	return (
 		<div className="payment-fluid-container">
