@@ -1,9 +1,10 @@
 import { useState } from 'react';
-import '../assets/css/Login.scss';
+import '../assets/css/AdminLogin.scss';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import Constants from '../Constants';
 
-export const Login = () => {
+export const AdminLogin = () => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
@@ -18,7 +19,7 @@ export const Login = () => {
 		}
 
 		try {
-			const response = await fetch('http://localhost:3399/auth/admin/login', {
+			const response = await fetch(`${Constants.BACKEND_BASE_URL}/auth/admin/login`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -34,7 +35,7 @@ export const Login = () => {
 			}
 			const data = await response.json();
 			console.log('login success', data);
-			navigate('/auth/admin/management');
+			navigate(`${Constants.BASE_URL}/admin/management`);
 		} catch (error) {
 			setError(error.message);
 		}
