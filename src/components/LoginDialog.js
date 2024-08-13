@@ -90,7 +90,7 @@ export const LoginDialog = ({ isOpen, handleClose }) => {
 	const loginSuccess = authData => {
 		console.log(authData);
 		let cookies = {
-			_userId: authData.userId,
+			_userId: authData.id,
 			_email: authData.email,
 			_firstname: authData.firstName,
 			_token: authData.token,
@@ -102,7 +102,7 @@ export const LoginDialog = ({ isOpen, handleClose }) => {
 		timeoutRef.current = setTimeout(() => {
 			UserHelper.setCookies(cookies);
 			dispatch(dispatchCookieAuth(cookies));
-			dispatch(fetchUserInfo(authData.userId));
+			dispatch(fetchUserInfo(authData.id));
 			// IndexedDBHelper.getUser(authData.user.email, userInfo => {
 			// 	dispatch(dispatchUserInfo(userInfo));
 			// });

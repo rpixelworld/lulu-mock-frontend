@@ -22,69 +22,87 @@ export const ProductDetail = () => {
 	const templateFilters = useSelector(state => state.productReducer.templateFilters);
 	const productCatagories = useSelector(state => state.productReducer.productCatagories);
 	const [selectedColorIndex, setSelectedColorIndex] = useState(0);
+	const [showUnavailable, setShowUnavailable] = useState(false);
 
 	const handleColorChange = index => {
 		setSelectedColorIndex(index);
 	};
 
 	useEffect(() => {
+		setShowUnavailable(false);
 		dispatch(fetchTemplateFilters());
 	}, []);
 
 	useEffect(() => {
 		if (valuePassed && valuePassed.productId) {
 			dispatch(fetchProductDetail(valuePassed.productId));
-			// dispatch(fetchProductCatagories(valuePassed.productId))
+
+			// setTimeout(()=>{
+			// 	if(!productDetail) {
+			// 		setShowUnavailable(true)
+			// 	}
+			// }, 3000)
 		}
 	}, [valuePassed]);
 
-	if (productDetail && productDetail.productId) {
-		document.title = productDetail.name;
-		return (
-			<div className="productdetail-container">
-				<div className="productdetail-container-wrapper">
-					<div className="productintro-container">
-						<div className="carousel-container">
-							<ProductCarousel product={productDetail} colorIndex={selectedColorIndex} />
+	useEffect(() => {
+		if (productDetail && productDetail.name) {
+			document.title = productDetail.name;
+		} else {
+			setShowUnavailable(true);
+		}
+	}, [productDetail]);
+
+	return (
+		<div className="productdetail-container">
+			<div className="productdetail-container-wrapper">
+				{productDetail && productDetail.productId && (
+					<>
+						<div className="productintro-container">
+							<div className="carousel-container">
+								<ProductCarousel product={productDetail} colorIndex={selectedColorIndex} />
+							</div>
+							<div className="detailinfo-container">
+								<Breadcrumb />
+								<ProductInfo
+									product={productDetail}
+									colorIndex={selectedColorIndex}
+									handleColorChange={handleColorChange}
+								/>
+							</div>
+							<div className="verticalrecos-container">
+								<YouMayLike />
+							</div>
 						</div>
-						<div className="detailinfo-container">
-							<Breadcrumb />
-							<ProductInfo
-								product={productDetail}
-								colorIndex={selectedColorIndex}
-								handleColorChange={handleColorChange}
-							/>
+
+						<div className="whywemadethis-container">
+							<WhyWeMadeThis product={productDetail} colorIndex={selectedColorIndex} />
 						</div>
-						<div className="verticalrecos-container">
-							<YouMayLike />
+
+						<div className="featurepanel-container">
+							<FeaturePanel product={productDetail} />
 						</div>
-					</div>
 
-					<div className="whywemadethis-container">
-						<WhyWeMadeThis product={productDetail} colorIndex={selectedColorIndex} />
-					</div>
+						<div className="youmayalsolike-container">
+							<YouMayAlsoLike />
+						</div>
 
-					<div className="featurepanel-container">
-						<FeaturePanel product={productDetail} />
-					</div>
-
-					<div className="youmayalsolike-container">
-						<YouMayAlsoLike />
-					</div>
-
-					<div className="reviews-container">
-						<Reviews />
-					</div>
-				</div>
+						<div className="reviews-container">
+							<Reviews />
+						</div>
+					</>
+				)}
+				{showUnavailable && <h2 style={{ textAlign: 'center' }}>Not available</h2>}
 			</div>
-		);
-	} else {
-		return (
-			<div className="productdetail-container">
-				<div className="productdetail-container-wrapper">
-					<h2 style={{ textAlign: 'center' }}>Not available</h2>
-				</div>
-			</div>
-		);
-	}
+		</div>
+	);
+	// } else {
+	// 	return (
+	// 		<div className="productdetail-container">
+	// 			<div className="productdetail-container-wrapper">
+	// 				<h2 style={{ textAlign: 'center' }}>Not available</h2>
+	// 			</div>
+	// 		</div>
+	// 	);
+	// }
 };

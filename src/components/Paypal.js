@@ -3,7 +3,7 @@ import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import { Message } from '@mui/icons-material';
 import Constants from '../Constants';
 
-export const Paypal = ({ handlePayment }) => {
+export const Paypal = ({ orderInfo, handlePayment }) => {
 	const initialOptions = {
 		'client-id': 'AS7hrpIxslJw5hTb2GhaPvbUSQNy-jQOcQmBigOHFl6cxSdlFA0mDKwk8t9urjF4N_B2kL3yfmMDcry4',
 		'enable-funding': '',
@@ -38,8 +38,8 @@ export const Paypal = ({ handlePayment }) => {
 					// 		quantity: "YOUR_PRODUCT_QUANTITY",
 					// 	},
 					// ],
-					orderId: 1,
-					totalCost: 178.12,
+					orderId: orderInfo.id,
+					totalCost: orderInfo.orderTotalAmount,
 				}),
 			});
 

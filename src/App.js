@@ -11,7 +11,9 @@ import { ShoppingCart } from './pages/ShoppingCart';
 import ScrollToTop from './components/ScrollToTop';
 import { Checkout } from './pages/Checkout';
 import { Payment } from './pages/Payment';
-import { Login } from './pages/Login';
+import { AdminLogin } from './pages/AdminLogin';
+import { AdminOrderManagement } from './pages/AdminOrderManagement';
+import { NoHeaderAndFooter } from './components/NoHeaderAndFooter';
 import ForgotPassword from './components/ForgotPassword';
 
 function App() {
@@ -26,7 +28,12 @@ function App() {
 					<Route path="/shop/cart" element={<ShoppingCart />} />
 					<Route path="/shop/checkout" element={<Checkout />} />
 					<Route path="/shop/checkout/payment" element={<Payment />} />
-					<Route path="/admin/login" element={<Login />} />
+					{/*<Route path="/admin/login" element={<AdminLogin />} />*/}
+					{/*<Route path="/admin/management" element={<AdminOrderManagement />} />*/}
+				</Route>
+				<Route path="/admin" element={<NoHeaderAndFooter />}>
+					<Route path="/admin/login" element={<AdminLogin />} />
+					<Route path="/admin/management" element={<AdminOrderManagement />} />
 					<Route path="/forgot-password" element={<ForgotPassword />} />
 				</Route>
 			</Routes>
