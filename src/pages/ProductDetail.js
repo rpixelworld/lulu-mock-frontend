@@ -29,7 +29,7 @@ export const ProductDetail = () => {
 	};
 
 	useEffect(() => {
-		setShowUnavailable(false)
+		setShowUnavailable(false);
 		dispatch(fetchTemplateFilters());
 	}, []);
 
@@ -37,63 +37,62 @@ export const ProductDetail = () => {
 		if (valuePassed && valuePassed.productId) {
 			dispatch(fetchProductDetail(valuePassed.productId));
 
-				// setTimeout(()=>{
-				// 	if(!productDetail) {
-				// 		setShowUnavailable(true)
-				// 	}
-				// }, 3000)
+			// setTimeout(()=>{
+			// 	if(!productDetail) {
+			// 		setShowUnavailable(true)
+			// 	}
+			// }, 3000)
 		}
 	}, [valuePassed]);
 
-	useEffect(()=>{
-		if(productDetail && productDetail.name) {
+	useEffect(() => {
+		if (productDetail && productDetail.name) {
 			document.title = productDetail.name;
+		} else {
+			setShowUnavailable(true);
 		}
-		else {
-			setShowUnavailable(true)
-		}
-	},[productDetail])
-
+	}, [productDetail]);
 
 	return (
 		<div className="productdetail-container">
 			<div className="productdetail-container-wrapper">
-				{productDetail && productDetail.productId && <>
-					<div className="productintro-container">
-						<div className="carousel-container">
-							<ProductCarousel product={productDetail} colorIndex={selectedColorIndex} />
+				{productDetail && productDetail.productId && (
+					<>
+						<div className="productintro-container">
+							<div className="carousel-container">
+								<ProductCarousel product={productDetail} colorIndex={selectedColorIndex} />
+							</div>
+							<div className="detailinfo-container">
+								<Breadcrumb />
+								<ProductInfo
+									product={productDetail}
+									colorIndex={selectedColorIndex}
+									handleColorChange={handleColorChange}
+								/>
+							</div>
+							<div className="verticalrecos-container">
+								<YouMayLike />
+							</div>
 						</div>
-						<div className="detailinfo-container">
-							<Breadcrumb />
-							<ProductInfo
-								product={productDetail}
-								colorIndex={selectedColorIndex}
-								handleColorChange={handleColorChange}
-							/>
+
+						<div className="whywemadethis-container">
+							<WhyWeMadeThis product={productDetail} colorIndex={selectedColorIndex} />
 						</div>
-						<div className="verticalrecos-container">
-							<YouMayLike />
+
+						<div className="featurepanel-container">
+							<FeaturePanel product={productDetail} />
 						</div>
-					</div>
 
-					<div className="whywemadethis-container">
-						<WhyWeMadeThis product={productDetail} colorIndex={selectedColorIndex} />
-					</div>
+						<div className="youmayalsolike-container">
+							<YouMayAlsoLike />
+						</div>
 
-					<div className="featurepanel-container">
-						<FeaturePanel product={productDetail} />
-					</div>
-
-					<div className="youmayalsolike-container">
-						<YouMayAlsoLike />
-					</div>
-
-					<div className="reviews-container">
-						<Reviews />
-					</div>
-				</>}
-				{showUnavailable &&
-					<h2 style={{ textAlign: 'center' }}>Not available</h2>}
+						<div className="reviews-container">
+							<Reviews />
+						</div>
+					</>
+				)}
+				{showUnavailable && <h2 style={{ textAlign: 'center' }}>Not available</h2>}
 			</div>
 		</div>
 	);

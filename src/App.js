@@ -30,7 +30,7 @@ function App() {
 					{/*<Route path="/admin/login" element={<AdminLogin />} />*/}
 					{/*<Route path="/admin/management" element={<AdminOrderManagement />} />*/}
 				</Route>
-				<Route path='/admin' element={<NoHeaderAndFooter />}>
+				<Route path="/admin" element={<NoHeaderAndFooter />}>
 					<Route path="/admin/login" element={<AdminLogin />} />
 					<Route path="/admin/management" element={<AdminOrderManagement />} />
 				</Route>
