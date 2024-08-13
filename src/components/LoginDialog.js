@@ -102,7 +102,7 @@ export const LoginDialog = ({ isOpen, handleClose }) => {
 		timeoutRef.current = setTimeout(() => {
 			UserHelper.setCookies(cookies);
 			dispatch(dispatchCookieAuth(cookies));
-			dispatch(fetchUserInfo(authData.userId));
+			dispatch(fetchUserInfo(authData.id));
 			// IndexedDBHelper.getUser(authData.user.email, userInfo => {
 			// 	dispatch(dispatchUserInfo(userInfo));
 			// });

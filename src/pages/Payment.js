@@ -21,24 +21,26 @@ export const Payment = () => {
 	const valuePassed = useParams();
 	const [openAlert, setOpenAlert] = useState(false);
 	const [orderInfo, setOrderInfo] = useState(null);
+	const [shoppingCart, setShoppingCart] = useState(null);
 	const [openSuccessPayment, setOpenSuccessPayment] = useState(false);
 	const [openPaymentFailed, setOpenPaymentFailed] = useState(false);
 	const [failureMsg, setFailureMsg] = useState('');
 
 	const dispatch = useDispatch();
-	const shoppingCart = useSelector(state => state.shoppingReducer.shoppingCart);
+	const userInfo = useSelector(state => state.userReducer.userInfo);
 	// const orderInfo = useSelector(state => state.shoppingReducer.orderInfo);
 
 	const navigate = useNavigate();
 
 	const handlePayment = () => {
-		IndexedDBHelper.clearShoppingCart(() => {
-			setOpenSuccessPayment(true);
-		});
+		setOpenSuccessPayment(true);
+		// IndexedDBHelper.clearShoppingCart(() => {
+		// 	setOpenSuccessPayment(true);
+		// });
 	};
 
 	const handleClosePaymentSuccess = () => {
-		dispatch(dispatchClearShoppingCart());
+		// dispatch(dispatchClearShoppingCart());
 		navigate('/shop/cart');
 	};
 
@@ -58,8 +60,30 @@ export const Payment = () => {
 			dispatch(dispatchClearCookieAuth());
 		});
 	};
+
+	const populateShoppingCartFromOrder = (order) => {
+		let shoppingCart = {
+			total: order.totalItem,
+			totalCost: order.totalAmount,
+			items: []
+		};
+		for (let i=0; i<order.orderItems.length; i++) {
+			shoppingCart.items.push({
+				available: true,
+				productId: order.orderItems[i].productId,
+				productName: order.orderItems[i].productName,
+				imageUrl: order.orderItems[i].imageUrl,
+				colorId: order.orderItems[i].colorId,
+				colorAlt: order.orderItems[i].colorAlt,
+				size: order.orderItems[i].size,
+				amount: order.orderItems[i].quantity,
+				price: order.orderItems[i].price
+			})
+		}
+		return shoppingCart;
+	}
 	useEffect(() => {
-		if (valuePassed && valuePassed.orderId) {
+		if (UserHelper.getCookie('_userId') && valuePassed && valuePassed.orderId) {
 			const option = {
 				method: 'GET',
 				mode: 'cors',
@@ -73,6 +97,7 @@ export const Payment = () => {
 				.then(result => {
 					if (result.status == 'success') {
 						setOrderInfo(result.data);
+						setShoppingCart(populateShoppingCartFromOrder(result.data))
 						dispatch(fetchTaxRate(result.data.shippingAddress.province));
 						dispatch(dispatchShippingFee(result.data.deliveryFee));
 						// console.log(result.data)
@@ -87,14 +112,11 @@ export const Payment = () => {
 					}
 				});
 		}
-	}, [valuePassed]);
+		else {
+			setOrderInfo(null)
+		}
+	}, [valuePassed, userInfo]);
 
-	useEffect(() => {
-		CartIndexedDBHelper.getAllItems(shoppingCart => dispatch(dispatchShoppingCart(shoppingCart)));
-		// if (!orderInfo || !orderInfo.shipping || !orderInfo.deliveryOption || !orderInfo.giftOption) {
-		// 	setOpenAlert(true);
-		// }
-	}, []);
 
 	return (
 		<div className="payment-fluid-container">

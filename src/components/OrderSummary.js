@@ -10,7 +10,7 @@ const OrderSummary = ({ shoppingCart }) => {
 	const taxRate = useSelector(state => state.shoppingReducer.taxRate);
 
 	// console.log('this is summary',summary);
-	const [isOPen, setOpen] = useState(true);
+	const [isOpen, setOpen] = useState(true);
 	return (
 		<div className="order-summary">
 			<div className="summary-title">
@@ -22,7 +22,7 @@ const OrderSummary = ({ shoppingCart }) => {
 						alt=""
 					/>
 					{shoppingCart.total} items
-					{isOPen ? (
+					{isOpen ? (
 						<ExpandLessIcon onClick={() => setOpen(false)} />
 					) : (
 						<ExpandMoreIcon onClick={() => setOpen(true)} />
@@ -31,7 +31,7 @@ const OrderSummary = ({ shoppingCart }) => {
 				</div>
 			</div>
 			<hr />
-			{isOPen && (
+			{isOpen && (
 				<>
 					<div className="order-summary-container">
 						{shoppingCart?.items?.map(
@@ -75,9 +75,7 @@ const OrderSummary = ({ shoppingCart }) => {
 				<div>Order total</div>
 				<div>
 					CAD <span>$</span>
-					{(shoppingCart.totalCost + shippingFee + (shoppingCart.totalCost + shippingFee) * taxRate).toFixed(
-						2
-					)}
+					{((shoppingCart.totalCost + shippingFee) * (1+taxRate)).toFixed(2)}
 				</div>
 			</div>
 		</div>

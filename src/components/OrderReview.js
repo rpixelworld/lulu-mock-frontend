@@ -280,7 +280,7 @@ export const OrderReview = ({ orderInfo, handlePayment }) => {
 									aria-labelledby="icon_:rl:"
 									aria-hidden="false"
 								>
-									<title id="icon_:rl:">PayPal</title>
+										<title id="icon_:rl:">PayPal</title>
 									<g fill="none" fill-rule="evenodd">
 										<rect
 											height="34"
@@ -316,7 +316,7 @@ export const OrderReview = ({ orderInfo, handlePayment }) => {
 										You will be redirected to PayPal to login to your account and return here to
 										complete your order.
 									</span>
-									<Paypal handlePayment={handlePayment} />
+									<Paypal orderInfo={orderInfo} handlePayment={handlePayment} />
 									{/*<div className="payment-button" onClick={handlePayment}></div>*/}
 								</div>
 							</div>

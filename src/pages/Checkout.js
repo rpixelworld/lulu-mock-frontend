@@ -8,7 +8,7 @@ import { GiftOptions } from '../components/GiftOptions';
 import { useEffect, useRef, useState } from 'react';
 import { Alert, Snackbar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { dispatchOrderInfo, dispatchShoppingCart } from '../redux/actions/shoppingAction';
+import { dispatchClearShoppingCart, dispatchOrderInfo, dispatchShoppingCart } from '../redux/actions/shoppingAction';
 import Constants from '../Constants';
 import * as UserHelper from '../UserHelper';
 import { dispatchClearCookieAuth, dispatchUserInfo } from '../redux/actions/userAction';
@@ -34,6 +34,9 @@ export const Checkout = () => {
 
 	const handleClosePladeOrderSuccess = () => {
 		setOpenPlaceOrderSuccess(false);
+		IndexedDBHelper.clearShoppingCart(()=>{
+			dispatch(dispatchClearShoppingCart())
+		})
 		navigate(`/shop/checkout/payment/${orderId}`);
 	};
 	const handleClosePladeOrderFailed = () => {
