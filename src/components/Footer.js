@@ -21,7 +21,7 @@ export const Footer = () => {
 	return (
 		<div className="footer-mainContainer">
 			<div className="footer-mainPageContainer">
-				{!location.pathname.includes('cart') && (
+				{!(location.pathname.includes('cart')|| location.pathname.includes('forgot-password')) && (
 					<>
 						<div className="footer-container">
 							{topMenuItems.map((item, index) => (
@@ -196,7 +196,7 @@ export const Footer = () => {
 			</div>
 
 			<div className="footer-paging">
-				{location.pathname.includes('cart') && (
+				{(location.pathname.includes('cart')|| location.pathname.includes('forgot-password')) && (
 					<>
 						<div className="contactMenu">
 							<a href="#">Contact Us</a>
