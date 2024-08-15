@@ -28,15 +28,11 @@ function App() {
 					<Route path="/shop/cart" element={<ShoppingCart />} />
 					<Route path="/shop/checkout" element={<Checkout />} />
 					<Route path="/shop/checkout/payment/:orderId" element={<Payment />} />
-					{/*<Route path="/admin/login" element={<AdminLogin />} />*/}
-					{/*<Route path="/admin/management" element={<AdminOrderManagement />} />*/}
-					{/*<Route path="/admin/login" element={<AdminLogin />} />*/}
-					{/*<Route path="/admin/management" element={<AdminOrderManagement />} />*/}
+					<Route path="/forgot-password" element={<ForgotPassword />} />
 				</Route>
 				<Route path="/admin" element={<NoHeaderAndFooter />}>
 					<Route path="/admin/login" element={<AdminLogin />} />
 					<Route path="/admin/management" element={<AdminOrderManagement />} />
-					<Route path="/forgot-password" element={<ForgotPassword />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>

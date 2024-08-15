@@ -92,7 +92,7 @@ const ForgotPassword = () => {
 	return (
 		<>
 			<div className="forgot-password" style={{ display: isReset ? 'none' : '' }}>
-				<h3>Set a new password</h3>
+				<h3>Reset password</h3>
 				<p>
 					Enter the email address associated with your lululemon account and we’ll send you a link to reset
 					your password.
