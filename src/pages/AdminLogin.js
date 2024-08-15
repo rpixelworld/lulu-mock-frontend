@@ -1,6 +1,6 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import '../assets/css/AdminLogin.scss';
-import {json, useNavigate} from 'react-router-dom';
+import { json, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Constants from '../Constants';
 
@@ -31,7 +31,7 @@ export const AdminLogin = () => {
 				},
 				body: JSON.stringify({
 					email: username,
-					password: password
+					password: password,
 				}),
 			};
 
@@ -44,7 +44,6 @@ export const AdminLogin = () => {
 				console.log('Login successful:', result);
 				navigate(`/admin/management`);
 			}
-
 		} catch (error) {
 			console.error('Login error:', error);
 			setError('System errors, please try again later');
@@ -73,7 +72,7 @@ export const AdminLogin = () => {
 					<div className="button">
 						<button type="submit">Login</button>
 					</div>
-					<p className='error-msg'>{error}</p>
+					<p className="error-msg">{error}</p>
 				</form>
 			</div>
 		</div>
