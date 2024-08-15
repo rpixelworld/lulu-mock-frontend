@@ -158,7 +158,7 @@ export const Header = () => {
 
 	return (
 		<header>
-			{!location.pathname.includes('shop') && (
+			{!(location.pathname.includes('shop') || location.pathname.includes('forgot-password')) && (
 				<div className="header-menu">
 					<div className="menu-item">
 						<PinDropOutlinedIcon sx={{ paddingTop: '4px' }} />
@@ -192,7 +192,7 @@ export const Header = () => {
 							/>
 						</div>
 
-						{!location.pathname.includes('shop') && (
+						{!(location.pathname.includes('shop') || location.pathname.includes('forgot-password')) && (
 							<ul>
 								{menuList
 									.filter(menu => menu.parent == 0)
@@ -228,7 +228,7 @@ export const Header = () => {
 						)}
 					</div>
 					<div className="header-input">
-						{!location.pathname.includes('shop') && (
+						{!(location.pathname.includes('shop') || location.pathname.includes('forgot-password')) && (
 							<>
 								<div className="header-input-icon1">
 									<SearchOutlinedIcon />
@@ -266,7 +266,7 @@ export const Header = () => {
 								</a>
 							)}
 						</div>
-						{!location.pathname.includes('shop') && (
+						{!(location.pathname.includes('shop') || location.pathname.includes('forgot-password')) && (
 							<>
 								<div className="header-input-icon3">
 									<FavoriteBorderOutlinedIcon />
