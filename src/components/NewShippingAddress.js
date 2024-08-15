@@ -212,7 +212,7 @@ export const NewShippingAddress = forwardRef((props, ref) => {
 						}
 					});
 					setAddress(updatedAddress);
-					setErrors(prev => ({...prev, addressLine:'', city:'', province:'', postalCode:''}))
+					setErrors(prev => ({ ...prev, addressLine: '', city: '', province: '', postalCode: '' }));
 				});
 			}
 		};
