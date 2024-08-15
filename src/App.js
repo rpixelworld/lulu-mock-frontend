@@ -14,6 +14,7 @@ import { Payment } from './pages/Payment';
 import { AdminLogin } from './pages/AdminLogin';
 import { AdminOrderManagement } from './pages/AdminOrderManagement';
 import { NoHeaderAndFooter } from './components/NoHeaderAndFooter';
+import ForgotPassword from './components/ForgotPassword';
 
 function App() {
 	return (
@@ -35,6 +36,7 @@ function App() {
 				<Route path="/admin" element={<NoHeaderAndFooter />}>
 					<Route path="/admin/login" element={<AdminLogin />} />
 					<Route path="/admin/management" element={<AdminOrderManagement />} />
+					<Route path="/forgot-password" element={<ForgotPassword />} />
 				</Route>
 			</Routes>
 		</BrowserRouter>

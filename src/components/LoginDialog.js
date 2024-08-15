@@ -214,7 +214,7 @@ export const LoginDialog = ({ isOpen, handleClose }) => {
 							</section>
 						</div>
 						<div className="forgot-password">
-							<a href="">Forgot your password</a>
+							<a href="/forgot-password">Forgot your password</a>
 						</div>
 						{validForm && touched.email && touched.password && (
 							<button className="sign-in" onClick={login}>
