@@ -155,31 +155,73 @@
     }
 
   }
+  .about-account {
+    width: auto;
+    height: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+    .signup {
+      display: flex;
+      flex-direction: row;
+      height: 20px;
+      padding: 0 10px;
 
-  .forgot-password {
+      a {
+        color: black;
+        font-size: 16px;
+        text-decoration: none;
+        position: relative;
 
-    a {
-      color: black;
-      font-size: 13px;
-      text-decoration: none;
-      position: relative;
+        &::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          right:0;
+          bottom: -5px; /* Adjust the offset value */
+          width: auto;
+          height: 1px; /* Adjust the thickness */
+          background-color: #aaaaaa; /* Adjust the color */
+        }
 
-      &::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        right:0;
-        bottom: -5px; /* Adjust the offset value */
-        width: auto;
-        height: 1px; /* Adjust the thickness */
-        background-color: #aaaaaa; /* Adjust the color */
+        &:hover::after {
+          background-color: #d21919; /* Adjust the color */
+        }
       }
+    }
+    .forgot-password {
+      width: 130px;
+      height: 20px;
+      margin: 35px 5px 10px;
+      padding: 0;
+      position: absolute;
+      right: 5px;
+      bottom: -10px;
+      a {
+        color: black;
+        font-size: 13px;
+        text-decoration: none;
+        position: relative;
 
-      &:hover::after {
-        background-color: #d21919; /* Adjust the color */
+        &::after {
+          content: '';
+          position: absolute;
+          left: 0;
+          right:0;
+          bottom: -5px; /* Adjust the offset value */
+          width: auto;
+          height: 1px; /* Adjust the thickness */
+          background-color: #aaaaaa; /* Adjust the color */
+        }
+
+        &:hover::after {
+          background-color: #d21919; /* Adjust the color */
+        }
       }
     }
   }
+
 
   button.sign-in {
     margin: 20px 0 10px 0;
