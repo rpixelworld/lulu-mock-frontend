@@ -213,7 +213,9 @@ export const LoginDialog = ({ isOpen, handleClose }) => {
 								{errors.password && <div className="errr-hint">{errors.password}</div>}
 							</section>
 						</div>
-						<p><strong>Not have a account yet?</strong></p>
+						<p>
+							<strong>Not have a account yet?</strong>
+						</p>
 						<div className="about-account">
 							<div className="signup">
 								<a href="/registeraccount">create a account</a>
