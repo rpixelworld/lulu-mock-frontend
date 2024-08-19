@@ -15,8 +15,10 @@ import { AdminLogin } from './pages/AdminLogin';
 import { AdminOrderManagement } from './pages/AdminOrderManagement';
 import { NoHeaderAndFooter } from './components/NoHeaderAndFooter';
 import ForgotPassword from './components/ForgotPassword';
-import { AppRegistration } from '@mui/icons-material';
-import Registration from './components/Registration';
+import { Account } from './pages/Account';
+import { AccountProfile } from './components/AccountProfile';
+import { AccountAddresses } from './components/AccountAddresses';
+import { AccountPurchaseHistory } from './components/AccountPurchaseHistory';
 
 function App() {
 	return (
@@ -31,6 +33,11 @@ function App() {
 					<Route path="/shop/checkout" element={<Checkout />} />
 					<Route path="/shop/checkout/payment/:orderId" element={<Payment />} />
 					<Route path="/forgot-password" element={<ForgotPassword />} />
+					<Route path="/account" element={<Account />}>
+						<Route path="/account/profile" element={<AccountProfile />} />
+						<Route path="/account/shipping-addresses" element={<AccountAddresses />} />
+						<Route path="/account/purchase-history" element={<AccountPurchaseHistory />} />
+					</Route>
 				</Route>
 				<Route path="/registeraccount" element={<Registration />}></Route>
 				<Route path="/admin" element={<NoHeaderAndFooter />}>

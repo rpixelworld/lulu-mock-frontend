@@ -17,7 +17,7 @@ export const userReducer = (state = initState, action) => {
 				isLoggedIn: false,
 			};
 		case Constants.ACTION_DISPATCH_USERINFO:
-			return { ...state, userInfo: action.payload };
+			return { ...state, userInfo: action.payload, isLoggedIn: true };
 		default:
 			return state;
 	}
