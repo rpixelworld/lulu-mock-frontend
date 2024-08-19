@@ -3,14 +3,22 @@ import './../assets/css/Breadcrumb.scss';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AskForLogin } from '../components/AskForLogin';
+import { useEffect } from 'react';
+import { fetchUserInfo } from '../redux/actions/userAction';
+import * as UserHelper from '../UserHelper';
 
 export const Account = () => {
 	const location = useLocation();
-	// const dispatch = useDispatch();
+	const dispatch = useDispatch();
 	const isLoggedIn = useSelector(state => state.userReducer.isLoggedIn);
 	// const shoppingCart = useSelector(state => state.shoppingReducer.shoppingCart);
 	// const userInfo = useSelector(state => state.userReducer.userInfo);
 
+	useEffect(() => {
+		if(isLoggedIn) {
+			dispatch(fetchUserInfo(UserHelper.getCookie('_userId')));
+		}
+	}, []);
 	return (
 		<div className="fluid-container">
 			<div className="account-container">

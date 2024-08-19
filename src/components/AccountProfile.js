@@ -1,9 +1,16 @@
 import '../assets/css/AccountProfile.scss';
 import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchUserInfo } from '../redux/actions/userAction';
+import * as UserHelper from '../UserHelper';
 
 export const AccountProfile = () => {
 	// const dispatch = useDispatch();
 	const userInfo = useSelector(state => state.userReducer.userInfo);
+
+	// useEffect(() => {
+	// 	dispatch(fetchUserInfo(UserHelper.getCookie('_userId')));
+	// }, []);
 
 	return (
 		<div className="account-profile">

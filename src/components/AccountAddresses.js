@@ -24,6 +24,8 @@ export const AccountAddresses = () => {
 			});
 	};
 
+
+
 	return (
 		<div className="account-addresses">
 			<h1>Checkout Preferences</h1>
@@ -32,7 +34,7 @@ export const AccountAddresses = () => {
 				<div className="content-section">
 					{userInfo &&
 						userInfo.shippingAddresses &&
-						userInfo.shippingAddresses.length &&
+						Array.isArray(userInfo.shippingAddresses) &&
 						userInfo.shippingAddresses.map((address, index) => (
 							<>
 								<div className="one-address">
