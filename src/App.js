@@ -19,6 +19,7 @@ import { Account } from './pages/Account';
 import { AccountProfile } from './components/AccountProfile';
 import { AccountAddresses } from './components/AccountAddresses';
 import { AccountPurchaseHistory } from './components/AccountPurchaseHistory';
+import Registration from './components/Registration';
 
 function App() {
 	return (
