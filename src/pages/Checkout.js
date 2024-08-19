@@ -223,7 +223,7 @@ export const Checkout = () => {
 						</Alert>
 					</Snackbar>
 					{isLoggedIn && <ContactInformation ref={contactRef} />}
-					{!isLoggedIn && <AskForLogin message='checkout more quickly and easily'/>}
+					{!isLoggedIn && <AskForLogin message="checkout more quickly and easily" />}
 					{isLoggedIn && <ShippingAddress ref={shippingRef} />}
 					{isLoggedIn && <GiftOptions ref={giftOptionRef} />}
 					{/*{!validCheckout && <Alert className='alert' severity="error">Please correct the information you provided.</Alert>}*/}

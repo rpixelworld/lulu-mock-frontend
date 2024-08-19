@@ -33,13 +33,11 @@ function App() {
 					<Route path="/shop/checkout" element={<Checkout />} />
 					<Route path="/shop/checkout/payment/:orderId" element={<Payment />} />
 					<Route path="/forgot-password" element={<ForgotPassword />} />
-					<Route path="/account" element={<Account />} >
+					<Route path="/account" element={<Account />}>
 						<Route path="/account/profile" element={<AccountProfile />} />
 						<Route path="/account/shipping-addresses" element={<AccountAddresses />} />
 						<Route path="/account/purchase-history" element={<AccountPurchaseHistory />} />
 					</Route>
-
-
 				</Route>
 				<Route path="/admin" element={<NoHeaderAndFooter />}>
 					<Route path="/admin/login" element={<AdminLogin />} />

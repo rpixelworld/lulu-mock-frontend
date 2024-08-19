@@ -2,7 +2,7 @@ import '../assets/css/AskForLogin.scss';
 import { LoginDialog } from './LoginDialog';
 import { useState } from 'react';
 
-export const AskForLogin = ({message}) => {
+export const AskForLogin = ({ message }) => {
 	const [openLogin, setOpenLogin] = useState(false);
 
 	const openLoginDialog = () => {

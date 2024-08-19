@@ -15,11 +15,7 @@ import { dispatchShoppingCart } from '../redux/actions/shoppingAction';
 import * as CartIndexedDBHelper from '../IndexedDBHelper';
 import { LoginDialog } from './LoginDialog';
 import * as UserHelper from '../UserHelper';
-import {
-	dispatchClearCookieAuth,
-	dispatchCookieAuth,
-	fetchUserInfo,
-} from '../redux/actions/userAction';
+import { dispatchClearCookieAuth, dispatchCookieAuth, fetchUserInfo } from '../redux/actions/userAction';
 
 export const Header = () => {
 	const location = useLocation();
@@ -125,14 +121,15 @@ export const Header = () => {
 			);
 			dispatch(fetchUserInfo(userId));
 		}
-
 	}, []);
 
 	return (
 		<header>
-			{!(location.pathname.includes('shop')
-				|| location.pathname.includes('forgot-password')
-				|| location.pathname.includes('account')) && (
+			{!(
+				location.pathname.includes('shop') ||
+				location.pathname.includes('forgot-password') ||
+				location.pathname.includes('account')
+			) && (
 				<div className="header-menu">
 					<div className="menu-item">
 						<PinDropOutlinedIcon sx={{ paddingTop: '4px' }} />
@@ -166,9 +163,11 @@ export const Header = () => {
 							/>
 						</div>
 
-						{!(location.pathname.includes('shop')
-							|| location.pathname.includes('forgot-password')
-							|| location.pathname.includes('account')) && (
+						{!(
+							location.pathname.includes('shop') ||
+							location.pathname.includes('forgot-password') ||
+							location.pathname.includes('account')
+						) && (
 							<ul>
 								{menuList
 									.filter(menu => menu.parent == 0)
@@ -204,9 +203,11 @@ export const Header = () => {
 						)}
 					</div>
 					<div className="header-input">
-						{!(location.pathname.includes('shop')
-							|| location.pathname.includes('forgot-password')
-							|| location.pathname.includes('account')) && (
+						{!(
+							location.pathname.includes('shop') ||
+							location.pathname.includes('forgot-password') ||
+							location.pathname.includes('account')
+						) && (
 							<>
 								<div className="header-input-icon1">
 									<SearchOutlinedIcon />
@@ -216,15 +217,20 @@ export const Header = () => {
 						)}
 
 						<div className="header-input-icon2">
-							{isLoggedIn && <Link className='icon-link' to={'/account/profile'}><AccountCircleOutlinedIcon /></Link>}
+							{isLoggedIn && (
+								<Link className="icon-link" to={'/account/profile'}>
+									<AccountCircleOutlinedIcon />
+								</Link>
+							)}
 							{!isLoggedIn && <AccountCircleOutlinedIcon />}
 							{!isLoggedIn && (
-								<a className='text-link' href="#" onClick={openLoginDialog}>
+								<a className="text-link" href="#" onClick={openLoginDialog}>
 									Sign In
 								</a>
 							)}
 							{isLoggedIn && !showLogout && (
-								<a className='text-link'
+								<a
+									className="text-link"
 									onMouseEnter={() => {
 										setShowLogout(true);
 									}}
@@ -234,7 +240,8 @@ export const Header = () => {
 								</a>
 							)}
 							{isLoggedIn && showLogout && (
-								<a className='text-link'
+								<a
+									className="text-link"
 									onMouseLeave={() => {
 										setShowLogout(false);
 									}}
@@ -245,9 +252,11 @@ export const Header = () => {
 								</a>
 							)}
 						</div>
-						{!(location.pathname.includes('shop')
-							|| location.pathname.includes('forgot-password')
-							|| location.pathname.includes('account')) && (
+						{!(
+							location.pathname.includes('shop') ||
+							location.pathname.includes('forgot-password') ||
+							location.pathname.includes('account')
+						) && (
 							<>
 								<div className="header-input-icon3">
 									<FavoriteBorderOutlinedIcon />

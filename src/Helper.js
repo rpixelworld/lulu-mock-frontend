@@ -18,22 +18,22 @@ export const formatPhoneNumber = phoneNumber => {
 	return null;
 };
 
-export const generateOrderNumber = orderId => String(orderId).padStart(10, '0')
+export const generateOrderNumber = orderId => String(orderId).padStart(10, '0');
 
 export const formatDate = dateString => {
 	const formattedDate = new Date(dateString).toLocaleDateString('en-US', {
 		year: 'numeric',
 		month: 'short',
-		day: 'numeric'
+		day: 'numeric',
 	});
-	return formattedDate
-}
+	return formattedDate;
+};
 
 export const formatDateTime = dateTimeString => {
 	const formattedDate = new Date(dateTimeString).toLocaleDateString('en-US', {
 		year: 'numeric',
 		month: 'short',
-		day: 'numeric'
+		day: 'numeric',
 	});
 
 	const formattedTime = new Date(dateTimeString).toLocaleTimeString('en-US', {
@@ -41,15 +41,20 @@ export const formatDateTime = dateTimeString => {
 		hour: '2-digit',
 		minute: '2-digit',
 	});
-	return formattedDate + ' ' + formattedTime
-}
+	return formattedDate + ' ' + formattedTime;
+};
 
 export const getStatus = status => {
 	switch (status) {
-		case 1: return 'Created'
-		case 2: return 'Paid'
-		case 3: return 'Shipped'
-		case 9: return 'Cancelled'
-		default: return
+		case 1:
+			return 'Created';
+		case 2:
+			return 'Paid';
+		case 3:
+			return 'Shipped';
+		case 9:
+			return 'Cancelled';
+		default:
+			return;
 	}
-}
+};

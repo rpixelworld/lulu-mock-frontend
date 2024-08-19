@@ -26,7 +26,7 @@ export const NoIconHtmlTooltip = ({ positon, text, tooltip }) => {
 				disableHoverListener
 				disableTouchListener
 				title={
-					<div className="tooltip-container" style={{whiteSpace: 'nowrap'}}>
+					<div className="tooltip-container" style={{ whiteSpace: 'nowrap' }}>
 						{tooltip}
 					</div>
 				}
