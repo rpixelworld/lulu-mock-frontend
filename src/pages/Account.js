@@ -15,7 +15,7 @@ export const Account = () => {
 	// const userInfo = useSelector(state => state.userReducer.userInfo);
 
 	useEffect(() => {
-		if(isLoggedIn) {
+		if (isLoggedIn) {
 			dispatch(fetchUserInfo(UserHelper.getCookie('_userId')));
 		}
 	}, []);

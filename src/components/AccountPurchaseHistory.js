@@ -9,7 +9,7 @@ import { NoIconHtmlTooltip } from './NoIconHtmlToolTip';
 import { useNavigate } from 'react-router-dom';
 
 export const AccountPurchaseHistory = () => {
-	const navigator = useNavigate()
+	const navigator = useNavigate();
 	const [orders, setOrders] = useState([]);
 	const [expandedIndex, setExpandedIndex] = useState(-1);
 	const [pagination, setPagination] = useState({
@@ -84,9 +84,9 @@ export const AccountPurchaseHistory = () => {
 			});
 	};
 
-	const handlePayOrder = (orderId) => {
-		navigator(`/shop/checkout/payment/${orderId}`)
-	}
+	const handlePayOrder = orderId => {
+		navigator(`/shop/checkout/payment/${orderId}`);
+	};
 
 	useEffect(() => {
 		fetchAndSetOrders();
@@ -288,7 +288,15 @@ export const AccountPurchaseHistory = () => {
 									)}
 								</div>
 								<div className="operation left">
-									{order.status === 1 && <span onClick={()=>{handlePayOrder(order.id)}}>Pay</span>}
+									{order.status === 1 && (
+										<span
+											onClick={() => {
+												handlePayOrder(order.id);
+											}}
+										>
+											Pay
+										</span>
+									)}
 									{order.status === 1 && <span>Cancel</span>}
 								</div>
 							</div>
