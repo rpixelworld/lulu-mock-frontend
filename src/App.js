@@ -39,6 +39,7 @@ function App() {
 						<Route path="/account/purchase-history" element={<AccountPurchaseHistory />} />
 					</Route>
 				</Route>
+				<Route path="/registeraccount" element={<Registration />}></Route>
 				<Route path="/admin" element={<NoHeaderAndFooter />}>
 					<Route path="/admin/login" element={<AdminLogin />} />
 					<Route path="/admin/management" element={<AdminOrderManagement />} />
