@@ -1,5 +1,5 @@
-nav {
-  width: 80%;
+nav.breadcrumb {
+  //width: 80%;
   margin: 0 auto 20px auto;
   font-weight: 400;
   line-height: 1.2;
@@ -45,8 +45,8 @@ nav {
         text-decoration-color: #d21919;
       }
     }
-
-
   }
-
+}
+nav.product-info {
+  width: 80%;
 }

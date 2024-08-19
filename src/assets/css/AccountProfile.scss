@@ -1,0 +1,77 @@
+
+.account-profile {
+
+  //* {
+  //  border: 0.5px dashed lightcoral;
+  //}
+
+  h1 {
+    margin: 0;
+  }
+
+  .detail {
+    margin: 20px 0;
+    background-color: white;
+
+    .title {
+      padding-top: 20px;
+      margin: 15px;
+      background-color: white;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .content-section {
+      margin: 0 15px;
+      display: flex;
+      flex-display: row;
+
+      .content {
+        width: 80%;
+
+        .subtitle {
+          font-size: 20px;
+          font-weight: 600;
+          margin: 10px 0;
+        }
+
+        .value {
+          font-size: 16px;
+          margin: 10px 0;
+        }
+      }
+
+      .operation {
+        width: 20%;
+        padding-bottom: 10px;
+        display: flex;
+        align-items: end;
+
+        span {
+          position: relative;
+          cursor: pointer;
+
+          &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            right:0;
+            bottom: -2px; /* Adjust the offset value */
+            width: auto;
+            height: 1px; /* Adjust the thickness */
+            background-color: black; /* Adjust the color */
+          }
+
+          &:hover::after {
+            background-color: #d21919;
+          }
+        }
+      }
+    }
+    .seperator {
+      margin: 1px 190px 1px 15px;
+      height: 1px;
+      background-color: #bababa;
+    }
+  }
+}
