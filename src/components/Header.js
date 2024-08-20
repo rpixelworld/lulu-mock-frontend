@@ -15,13 +15,7 @@ import { dispatchShoppingCart } from '../redux/actions/shoppingAction';
 import * as CartIndexedDBHelper from '../IndexedDBHelper';
 import { LoginDialog } from './LoginDialog';
 import * as UserHelper from '../UserHelper';
-import {
-	dispatchClearCookieAuth,
-	dispatchCookieAuth,
-	dispatchUserInfo,
-	fetchUserInfo,
-} from '../redux/actions/userAction';
-import * as IndexedDBHelper from '../IndexedDBHelper';
+import { dispatchClearCookieAuth, dispatchCookieAuth, fetchUserInfo } from '../redux/actions/userAction';
 
 export const Header = () => {
 	const location = useLocation();
@@ -127,38 +121,15 @@ export const Header = () => {
 			);
 			dispatch(fetchUserInfo(userId));
 		}
-		// if(isLoggedIn) {
-		//     let firstName = UserHelper.getCookie('_firstname')
-		//     let token = UserHelper.getCookie('_token')
-		//     let email = UserHelper.getCookie('_email')
-		//     if(firstName && token && email) {
-		//         dispatch(dispatchCookieAuth({
-		//             _firstname: firstName,
-		//             _token: token,
-		//             _email: email
-		//         }))
-		//         IndexedDBHelper.getUser(email, (userInfo)=>{ dispatch(dispatchUserInfo(userInfo)) })
-		//     }
-		// }
-		// if(!cookieAuth || !cookieAuth._firstname ||!cookieAuth._token || !cookieAuth._email) {
-		//     console.log('user logged in, fetch info')
-		//     let firstName = UserHelper.getCookie('_firstname')
-		//     let token = UserHelper.getCookie('_token')
-		//     let email = UserHelper.getCookie('_email')
-		//     if(firstName && token && email) {
-		//         dispatch(dispatchCookieAuth({
-		//             _firstname: firstName,
-		//             _token: token,
-		//             _email: email
-		//         }))
-		//     }
-		//     IndexedDBHelper.getUser(email, (userInfo)=>{ dispatch(dispatchUserInfo(userInfo)) })
-		// }
 	}, []);
 
 	return (
 		<header>
-			{!(location.pathname.includes('shop') || location.pathname.includes('forgot-password')) && (
+			{!(
+				location.pathname.includes('shop') ||
+				location.pathname.includes('forgot-password') ||
+				location.pathname.includes('account')
+			) && (
 				<div className="header-menu">
 					<div className="menu-item">
 						<PinDropOutlinedIcon sx={{ paddingTop: '4px' }} />
@@ -192,7 +163,11 @@ export const Header = () => {
 							/>
 						</div>
 
-						{!(location.pathname.includes('shop') || location.pathname.includes('forgot-password')) && (
+						{!(
+							location.pathname.includes('shop') ||
+							location.pathname.includes('forgot-password') ||
+							location.pathname.includes('account')
+						) && (
 							<ul>
 								{menuList
 									.filter(menu => menu.parent == 0)
@@ -228,7 +203,11 @@ export const Header = () => {
 						)}
 					</div>
 					<div className="header-input">
-						{!(location.pathname.includes('shop') || location.pathname.includes('forgot-password')) && (
+						{!(
+							location.pathname.includes('shop') ||
+							location.pathname.includes('forgot-password') ||
+							location.pathname.includes('account')
+						) && (
 							<>
 								<div className="header-input-icon1">
 									<SearchOutlinedIcon />
@@ -238,14 +217,20 @@ export const Header = () => {
 						)}
 
 						<div className="header-input-icon2">
-							<AccountCircleOutlinedIcon />
+							{isLoggedIn && (
+								<Link className="icon-link" to={'/account/profile'}>
+									<AccountCircleOutlinedIcon />
+								</Link>
+							)}
+							{!isLoggedIn && <AccountCircleOutlinedIcon />}
 							{!isLoggedIn && (
-								<a href="#" onClick={openLoginDialog}>
+								<a className="text-link" href="#" onClick={openLoginDialog}>
 									Sign In
 								</a>
 							)}
 							{isLoggedIn && !showLogout && (
 								<a
+									className="text-link"
 									onMouseEnter={() => {
 										setShowLogout(true);
 									}}
@@ -256,6 +241,7 @@ export const Header = () => {
 							)}
 							{isLoggedIn && showLogout && (
 								<a
+									className="text-link"
 									onMouseLeave={() => {
 										setShowLogout(false);
 									}}
@@ -266,7 +252,11 @@ export const Header = () => {
 								</a>
 							)}
 						</div>
-						{!(location.pathname.includes('shop') || location.pathname.includes('forgot-password')) && (
+						{!(
+							location.pathname.includes('shop') ||
+							location.pathname.includes('forgot-password') ||
+							location.pathname.includes('account')
+						) && (
 							<>
 								<div className="header-input-icon3">
 									<FavoriteBorderOutlinedIcon />

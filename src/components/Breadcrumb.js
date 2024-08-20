@@ -42,7 +42,7 @@ export const Breadcrumb = () => {
 	}, [templateFilters]);
 
 	return (
-		<nav>
+		<nav className="breadcrumb product-info">
 			<ul className="breadcrumb">
 				{categoryArr.length > 0 &&
 					categoryArr[0] != '' &&

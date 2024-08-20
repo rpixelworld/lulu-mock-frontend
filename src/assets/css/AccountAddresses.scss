@@ -1,0 +1,82 @@
+
+.account-addresses {
+
+  //* {
+  //  border: 0.5px dashed lightcoral;
+  //}
+
+  h1 {
+    margin: 0;
+  }
+
+  .detail {
+    margin: 20px 0;
+    background-color: white;
+
+    .title {
+      padding-top: 20px;
+      margin: 15px;
+      background-color: white;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .content-section {
+      margin: 0 15px;
+
+      .one-address {
+        display: flex;
+        flex-display: row;
+        .content {
+          width: 50%;
+
+          .name {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 2px 0;
+          }
+
+          .value {
+            font-size: 16px;
+            margin: 2px 0;
+          }
+        }
+
+        .operation {
+          width: 50%;
+          padding-top: 2px;
+          display: flex;
+          flex-direction: row;
+          align-items: flex-start;
+          gap: 8px;
+
+          span {
+            position: relative;
+            cursor: pointer;
+
+            &::after {
+              content: '';
+              position: absolute;
+              left: 0;
+              right:0;
+              bottom: -2px; /* Adjust the offset value */
+              width: auto;
+              height: 1px; /* Adjust the thickness */
+              background-color: black; /* Adjust the color */
+            }
+
+            &:hover::after {
+              background-color: #d21919;
+            }
+          }
+        }
+      }
+
+    }
+    .seperator {
+      margin: 15px 420px 10px 0;
+      height: 1px;
+      background-color: #bababa;
+    }
+  }
+}

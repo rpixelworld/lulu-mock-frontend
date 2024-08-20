@@ -2,7 +2,7 @@ import '../assets/css/AskForLogin.scss';
 import { LoginDialog } from './LoginDialog';
 import { useState } from 'react';
 
-export const AskForLogin = () => {
+export const AskForLogin = ({ message }) => {
 	const [openLogin, setOpenLogin] = useState(false);
 
 	const openLoginDialog = () => {
@@ -17,7 +17,7 @@ export const AskForLogin = () => {
 		<div className="no-login-block">
 			<h2>Have an account?</h2>
 			<div onClick={openLoginDialog}>
-				<span>Log in</span> to checkout more quickly and easily
+				<span>Log in</span> to {message}
 			</div>
 			<LoginDialog isOpen={openLogin} handleClose={closeLoginDialog} />
 		</div>

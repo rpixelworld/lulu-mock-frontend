@@ -1,0 +1,127 @@
+* {
+  box-sizing: border-box;
+}
+.regi-basebord {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.side-face {
+  width: 50%;
+  height: 100vh;
+  //border: 1px red dotted;
+  background: url("https://images.lululemon.com/is/image/lululemon/NA_Jul24_Membership_Partner-Perks_LogInScreen_Main_Sign-in_D_Membership")center center ;
+  background-size: cover;
+}
+.success-signup {
+  width: 50%;
+  height: 100%;
+  position: relative;
+  margin: 50px 10px 0;
+}
+.registration {
+  width: 50%;
+  height: 100vh;
+  position: relative;
+  .signup-box {
+    .logo {
+      height: 40px;
+      img {
+        width: 35px;
+      }
+    }
+    .regi-title {
+      h2 {
+        margin: 16px 0 8px;
+      }
+    }&::after {
+    content: '';
+    width: 25px;
+    height: 4px;
+    background-color: #c8102e;
+    position: absolute;
+    top: 86px;}
+
+    //shape
+    width: 400px;
+    //position
+    position: absolute;
+    left: 40%;
+    top: 50%;
+    transform: translateX(-55%) translateY(-50%);
+    //display
+    display: flex;
+    flex-direction: column;
+    form {
+      display: flex;
+      flex-direction: column;
+      .regi-err {
+        margin: 0;
+      }
+      .row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        position: relative;
+        width: 450px;
+      }
+      input {
+        width: 400px;
+        height: 40px;
+        border: 1px solid #6e6e6e;
+        border-radius: 4px;
+        outline: none;
+        font-size: 16px;
+        margin: 8px 0;
+        &:focus {
+          border: 1px solid red;
+          box-shadow: 0 0 8px black;
+        }
+      }
+
+      .policy {
+        p {
+          margin: 8px 0 16px;
+        }
+        color: #6e6e6e;
+      }
+      .not-ready{
+        width: 400px;
+        height: 50px;
+        background-color: #8d9196;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        &:disabled {
+          cursor: not-allowed;
+        }
+      }
+      .already {
+        width: 400px;
+        height: 50px;
+        background-color: #c8102e;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .regi-err {
+        width: 600px;
+        color: red;
+      }
+      .eye {
+        position: absolute;
+        right: 13%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        border: none;
+        background-color: transparent;
+        cursor: pointer;
+      }
+    }
+  }
+}

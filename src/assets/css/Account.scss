@@ -1,0 +1,62 @@
+.account-container {
+  //border: 1px solid blue;
+  //height: 1000px;
+  width: 97%;
+  margin: 0 auto;
+  background-color: #FAFAFA;
+
+  .account-breadcrumb {
+    height: 40px;
+  }
+
+  .account-main-container {
+    //width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .left-nav {
+      width: 18%;
+      //border: 1px dashed rebeccapurple;
+      //height: 1000px;
+      //padding-top: .75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      a.nav-item {
+        display: block;
+        width: 100%;
+        padding: .75rem .3125rem;
+        text-decoration: none;
+        color: #000;
+        flex: 0 0 auto;
+        min-height: 2.75rem;
+        border: .0625rem solid #d3d5d7;
+        border-radius: .25rem;
+        font-size: 0.925rem;
+        //padding: .75rem .8125rem .75rem 1rem;
+        word-break: keep-all;
+        text-align: center;
+
+        &:hover, &:focus {
+          background-color: #333333;
+          color: #fff;
+        }
+      }
+      .active {
+        background-color: #333333;
+        color: #fff !important;
+      }
+
+    }
+
+    .right-main {
+      width: 80%;
+      //border: 1px dashed rebeccapurple;
+      //height: 1000px;
+    }
+
+  }
+
+}

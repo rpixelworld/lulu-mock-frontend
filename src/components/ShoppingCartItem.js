@@ -197,6 +197,9 @@ export const ShoppingCartItem = ({ item }) => {
 						exceedLimit={exceedLimit}
 					/>
 					<RemoveConfirmDialog
+						confirmMessage="Are you sure you want to remove this item from your bag?"
+						yesMessage="Yes, remove this item"
+						noMessage="No, keep this item"
 						isOpen={openRemoveDialog}
 						itemKey={item.itemKey}
 						handleRemove={removeItem}

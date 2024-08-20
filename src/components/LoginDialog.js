@@ -117,19 +117,21 @@ export const LoginDialog = ({ isOpen, handleClose }) => {
 	};
 
 	useEffect(() => {
-		console.log('isOpen change');
-		setUser({
-			email: '',
-			password: '',
-		});
-		setSuccess(false);
-		setFailed(false);
-		setAlertMsg('');
-		clearTimeout(timeoutRef.current);
-		setShowPassword(false);
-		setTouched({});
-		setErrors({});
-		setValidForm(true);
+		console.log('isOpen change', isOpen);
+		if (isOpen) {
+			setUser({
+				email: '',
+				password: '',
+			});
+			setSuccess(false);
+			setFailed(false);
+			setAlertMsg('');
+			clearTimeout(timeoutRef.current);
+			setShowPassword(false);
+			setTouched({});
+			setErrors({});
+			setValidForm(true);
+		}
 	}, [isOpen]);
 
 	return (
@@ -174,7 +176,7 @@ export const LoginDialog = ({ isOpen, handleClose }) => {
 										name="email"
 										value={user.email}
 										ref={ele => {
-											inputRefs.current.push(ele);
+											inputRefs.current[0] = ele;
 										}}
 										onChange={handleFieldChange}
 										onFocus={touchField}
@@ -195,7 +197,7 @@ export const LoginDialog = ({ isOpen, handleClose }) => {
 										name="password"
 										value={user.password}
 										ref={ele => {
-											inputRefs.current.push(ele);
+											inputRefs.current[1] = ele;
 										}}
 										onChange={handleFieldChange}
 										onFocus={touchField}
@@ -213,9 +215,18 @@ export const LoginDialog = ({ isOpen, handleClose }) => {
 								{errors.password && <div className="errr-hint">{errors.password}</div>}
 							</section>
 						</div>
-						<div className="forgot-password">
-							<a href="/forgot-password">Forgot your password</a>
+						<p>
+							<strong>Not have a account yet?</strong>
+						</p>
+						<div className="about-account">
+							<div className="signup">
+								<a href="/registeraccount">create a account</a>
+							</div>
+							<div className="forgot-password">
+								<a href="/forgot-password">Forgot your password</a>
+							</div>
 						</div>
+
 						{validForm && touched.email && touched.password && (
 							<button className="sign-in" onClick={login}>
 								sign in
