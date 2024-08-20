@@ -7,6 +7,8 @@ import { formatDate, formatDateTime, formatPhoneNumber, generateOrderNumber, get
 import { Pagination } from './Pagination';
 import { NoIconHtmlTooltip } from './NoIconHtmlToolTip';
 import { useNavigate } from 'react-router-dom';
+import { RemoveConfirmDialog } from './RemoveConfirmDialog';
+import { fetchUserInfo } from '../redux/actions/userAction';
 
 export const AccountPurchaseHistory = () => {
 	const navigator = useNavigate();
@@ -24,6 +26,8 @@ export const AccountPurchaseHistory = () => {
 		orderStatus: 0,
 		timeRange: 'PAST_1_MONTH',
 	});
+	const [openCancelOrderDialog, setOpenCancelOrderDialog] = useState(false)
+	const [orderIdToCancel, setOrderIdToCancel] = useState(0)
 
 	const handleExpand = selectedIndex => {
 		if (expandedIndex === selectedIndex) {
@@ -87,6 +91,35 @@ export const AccountPurchaseHistory = () => {
 	const handlePayOrder = orderId => {
 		navigator(`/shop/checkout/payment/${orderId}`);
 	};
+
+	const handleCancelOrder = orderId => {
+		setOpenCancelOrderDialog(true)
+		setOrderIdToCancel(orderId)
+	}
+
+	const closeCancelOrderDialog = () => {
+		setOpenCancelOrderDialog(false)
+		setOrderIdToCancel(0)
+	}
+
+	const cancelOrder = orderId => {
+		let options = {
+			method: 'POST',
+			headers: {
+				Authorization: `Bearer ${UserHelper.getCookie('_token')}`,
+				'Content-Type': 'application/json',
+			}
+		};
+		fetch(`${Constants.BACKEND_BASE_URL}/orders/${orderId}/cancel`, options)
+			.then(resp => resp.json())
+			.then(result => {
+				if (result.status === 'success') {
+					fetchAndSetOrders(pagination.pageNo)
+					setOpenCancelOrderDialog(false)
+					setOrderIdToCancel(0)
+				}
+			});
+	}
 
 	useEffect(() => {
 		fetchAndSetOrders();
@@ -297,7 +330,7 @@ export const AccountPurchaseHistory = () => {
 											Pay
 										</span>
 									)}
-									{order.status === 1 && <span>Cancel</span>}
+									{order.status === 1 && <span onClick={()=>{handleCancelOrder(order.id)}}>Cancel</span>}
 								</div>
 							</div>
 							{index < orders.length - 1 && <div className="seperator"></div>}
@@ -306,6 +339,16 @@ export const AccountPurchaseHistory = () => {
 			</div>
 
 			<Pagination pagination={pagination} handleGotoPage={handleGotoPage} />
+
+			<RemoveConfirmDialog
+				confirmMessage='Are you sure you want to cancel this order?'
+				yesMessage='Yes, cancel this order'
+				noMessage='No, keep this order'
+				isOpen={openCancelOrderDialog}
+				itemKey={orderIdToCancel}
+				handleRemove={cancelOrder}
+				handleClose={closeCancelOrderDialog}
+			/>
 		</div>
 	);
 };

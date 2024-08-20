@@ -5,12 +5,26 @@ import { getCookie } from '../UserHelper';
 import * as UserHelper from '../UserHelper';
 import Constants from '../Constants';
 import { fetchUserInfo } from '../redux/actions/userAction';
+import { RemoveConfirmDialog } from './RemoveConfirmDialog';
+import { useState } from 'react';
 
 export const AccountAddresses = () => {
 	const dispatch = useDispatch();
 	const userInfo = useSelector(state => state.userReducer.userInfo);
+	const [openRemoveDialog, setOpenRemoveDialog] = useState(false);
+	const [addressIdToRemove, setAddressIdToRemove] = useState(0);
 
 	const handleRemoveAddress = addressId => {
+		setOpenRemoveDialog(true)
+		setAddressIdToRemove(addressId)
+	};
+
+	const closeRemoveConfirmDialog = () => {
+		setOpenRemoveDialog(false)
+		setAddressIdToRemove(0)
+	}
+
+	const removeAddress = addressId => {
 		const options = {
 			method: 'DELETE',
 			headers: { Authorization: `Bearer ${UserHelper.getCookie('_token')}` },
@@ -20,9 +34,11 @@ export const AccountAddresses = () => {
 			.then(result => {
 				if (result.status === 'success') {
 					dispatch(fetchUserInfo(UserHelper.getCookie('_userId')));
+					setOpenRemoveDialog(false)
+					setAddressIdToRemove(0)
 				}
 			});
-	};
+	}
 
 	return (
 		<div className="account-addresses">
@@ -57,6 +73,15 @@ export const AccountAddresses = () => {
 						))}
 				</div>
 			</section>
+			<RemoveConfirmDialog
+				confirmMessage='Are you sure you want to remove this shipping address?'
+				yesMessage='Yes, remove this address'
+				noMessage='No, keep this address'
+				isOpen={openRemoveDialog}
+				itemKey={addressIdToRemove}
+				handleRemove={removeAddress}
+				handleClose={closeRemoveConfirmDialog}
+			/>
 		</div>
 	);
 };
