@@ -118,7 +118,7 @@ export const LoginDialog = ({ isOpen, handleClose }) => {
 
 	useEffect(() => {
 		console.log('isOpen change', isOpen);
-		if(isOpen) {
+		if (isOpen) {
 			setUser({
 				email: '',
 				password: '',
@@ -176,7 +176,7 @@ export const LoginDialog = ({ isOpen, handleClose }) => {
 										name="email"
 										value={user.email}
 										ref={ele => {
-											inputRefs.current[0]=ele;
+											inputRefs.current[0] = ele;
 										}}
 										onChange={handleFieldChange}
 										onFocus={touchField}
@@ -197,7 +197,7 @@ export const LoginDialog = ({ isOpen, handleClose }) => {
 										name="password"
 										value={user.password}
 										ref={ele => {
-											inputRefs.current[1]=ele;
+											inputRefs.current[1] = ele;
 										}}
 										onChange={handleFieldChange}
 										onFocus={touchField}

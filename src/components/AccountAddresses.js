@@ -15,14 +15,14 @@ export const AccountAddresses = () => {
 	const [addressIdToRemove, setAddressIdToRemove] = useState(0);
 
 	const handleRemoveAddress = addressId => {
-		setOpenRemoveDialog(true)
-		setAddressIdToRemove(addressId)
+		setOpenRemoveDialog(true);
+		setAddressIdToRemove(addressId);
 	};
 
 	const closeRemoveConfirmDialog = () => {
-		setOpenRemoveDialog(false)
-		setAddressIdToRemove(0)
-	}
+		setOpenRemoveDialog(false);
+		setAddressIdToRemove(0);
+	};
 
 	const removeAddress = addressId => {
 		const options = {
@@ -34,11 +34,11 @@ export const AccountAddresses = () => {
 			.then(result => {
 				if (result.status === 'success') {
 					dispatch(fetchUserInfo(UserHelper.getCookie('_userId')));
-					setOpenRemoveDialog(false)
-					setAddressIdToRemove(0)
+					setOpenRemoveDialog(false);
+					setAddressIdToRemove(0);
 				}
 			});
-	}
+	};
 
 	return (
 		<div className="account-addresses">
@@ -74,9 +74,9 @@ export const AccountAddresses = () => {
 				</div>
 			</section>
 			<RemoveConfirmDialog
-				confirmMessage='Are you sure you want to remove this shipping address?'
-				yesMessage='Yes, remove this address'
-				noMessage='No, keep this address'
+				confirmMessage="Are you sure you want to remove this shipping address?"
+				yesMessage="Yes, remove this address"
+				noMessage="No, keep this address"
 				isOpen={openRemoveDialog}
 				itemKey={addressIdToRemove}
 				handleRemove={removeAddress}

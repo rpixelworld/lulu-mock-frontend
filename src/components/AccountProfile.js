@@ -6,7 +6,7 @@ import * as UserHelper from '../UserHelper';
 
 export const AccountProfile = () => {
 	// const dispatch = useDispatch();
-	const userInfo = useSelector(state => state.userReducer.userInfo) || {firstName:'', lastName:''};
+	const userInfo = useSelector(state => state.userReducer.userInfo) || { firstName: '', lastName: '' };
 
 	return (
 		<div className="account-profile">

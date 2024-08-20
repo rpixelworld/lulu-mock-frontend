@@ -2,7 +2,15 @@ import '../assets/css/RemoveConfirmDialog.scss';
 import { Dialog, DialogContent } from '@mui/material';
 import { useState } from 'react';
 
-export const RemoveConfirmDialog = ({ confirmMessage, yesMessage, noMessage, isOpen, itemKey, handleRemove, handleClose }) => {
+export const RemoveConfirmDialog = ({
+	confirmMessage,
+	yesMessage,
+	noMessage,
+	isOpen,
+	itemKey,
+	handleRemove,
+	handleClose,
+}) => {
 	return (
 		<Dialog fullScreen={false} open={isOpen}>
 			<DialogContent className="remove-confirm-dialog-container">
