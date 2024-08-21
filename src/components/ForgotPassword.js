@@ -195,8 +195,9 @@ const ForgotPassword = () => {
 						address you entered is associated with a lululemon account.
 						<br /> Having trouble? Contact us.
 					</p>
-					<button className='backToHome'
-							onClick={()=> navigate('/')}>Back To Home</button>
+					<button className="backToHome" onClick={() => navigate('/')}>
+						Back To Home
+					</button>
 				</div>
 			)}
 		</>

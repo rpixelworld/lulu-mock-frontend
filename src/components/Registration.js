@@ -6,10 +6,10 @@ import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
 const Registration = () => {
-	const library=[
-		"https://images.lululemon.com/is/image/lululemon/NA_Jul24_Membership_Partner-Perks_LogInScreen_Main_Sign-in_D_Membership",
-		'https://images.lululemon.com/is/image/lululemon/NA_Jul24_Membership_Partner-Perks_LogInScreen_Main_Sign-in_D_PartnerPerks'
-	]
+	const library = [
+		'https://images.lululemon.com/is/image/lululemon/NA_Jul24_Membership_Partner-Perks_LogInScreen_Main_Sign-in_D_Membership',
+		'https://images.lululemon.com/is/image/lululemon/NA_Jul24_Membership_Partner-Perks_LogInScreen_Main_Sign-in_D_PartnerPerks',
+	];
 	const navigate = useNavigate();
 	const [isSuccess, setIsSuccess] = useState(false);
 	const [showPassword, setShowPassword] = useState(true);
@@ -131,20 +131,16 @@ const Registration = () => {
 		setShowPassword(!showPassword);
 	};
 
-
 	const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
 	useEffect(() => {
 		const timer = setInterval(() => {
-			setCurrentImageIndex((prevIndex) =>
-				prevIndex === library.length - 1 ? 0 : prevIndex + 1
-			);
+			setCurrentImageIndex(prevIndex => (prevIndex === library.length - 1 ? 0 : prevIndex + 1));
 		}, 5000);
 
 		// Clean up the interval on component unmount
 		return () => clearInterval(timer);
-	}, [library.length,currentImageIndex]);
-
+	}, [library.length, currentImageIndex]);
 
 	return (
 		<div className="regi-basebord">
@@ -158,7 +154,6 @@ const Registration = () => {
 				}}
 			/>
 
-
 			{isSuccess ? (
 				<div className="success-signup">
 					<div className="logo">
@@ -171,8 +166,8 @@ const Registration = () => {
 						Congratulations! <br />
 						You created an account successfully.
 					</h1>
-					<button className="backToShopping"
-							onClick={() => navigate('/')}>Back To Shopping
+					<button className="backToShopping" onClick={() => navigate('/')}>
+						Back To Shopping
 					</button>
 				</div>
 			) : (
