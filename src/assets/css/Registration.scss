@@ -9,15 +9,25 @@
 .side-face {
   width: 50%;
   height: 100vh;
-  //border: 1px red dotted;
-  background: url("https://images.lululemon.com/is/image/lululemon/NA_Jul24_Membership_Partner-Perks_LogInScreen_Main_Sign-in_D_Membership")center center ;
-  background-size: cover;
+
 }
 .success-signup {
   width: 50%;
   height: 100%;
   position: relative;
   margin: 50px 10px 0;
+  .backToShopping {
+    margin-top: 40px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 20px;
+    border: none;
+    border-radius: 5px;
+    width: 300px;
+    height: 50px;
+    background-color: #c8102e;
+    color: white;
+  }
 }
 .registration {
   width: 50%;
