@@ -3,6 +3,7 @@ import '../assets/css/AdminLogin.scss';
 import { json, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Constants from '../Constants';
+import * as UserHelper from '../UserHelper';
 
 export const AdminLogin = () => {
 	const [username, setUsername] = useState('');
@@ -42,6 +43,13 @@ export const AdminLogin = () => {
 				setError(result.error.message);
 			} else {
 				console.log('Login successful:', result);
+				let cookies = {
+					_userId: result.data.id,
+					_email: result.data.email,
+					_firstname: result.data.firstName,
+					_token: result.data.token,
+				};
+				UserHelper.setCookies(cookies);
 				navigate(`/admin/management`);
 			}
 		} catch (error) {
