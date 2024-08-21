@@ -83,7 +83,7 @@ const ForgotPassword = () => {
 		}
 		try {
 			setError('');
-			const { confirmedPassword, ...dataToSend } = formData;
+			const { confirmPassword, ...dataToSend } = formData;
 			const res = await axios.post(`http://localhost:3399/auth/reset-password`, dataToSend);
 			console.log(res);
 		} catch (e) {
