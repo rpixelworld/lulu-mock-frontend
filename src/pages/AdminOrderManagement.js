@@ -22,7 +22,7 @@ export const AdminOrderManagement = () => {
 		currentTotalRecords: 0,
 	});
 	const [filters, setFilters] = useState({
-		userEmail: '',
+		email: '',
 		orderStatus: 0,
 		timeRange: 'PAST_1_MONTH',
 	});
@@ -52,7 +52,7 @@ export const AdminOrderManagement = () => {
 	};
 	const setUserEmailFilter = userEmail => {
 		let newFilters = {
-			userEmail: userEmail,
+			email: userEmail,
 			orderStatus: 0,
 			timeRange: 'ALL',
 		};
@@ -138,9 +138,9 @@ export const AdminOrderManagement = () => {
 						<input
 							type="email"
 							placeholder="User email"
-							value={filters.userEmail}
+							value={filters.email}
 							onChange={e => {
-								setFilters(prev => ({ ...prev, userEmail: e.target.value }));
+								setFilters(prev => ({ ...prev, email: e.target.value }));
 							}}
 							onKeyDown={e => {
 								e.key == 'Enter' && setUserEmailFilter(e.target.value);
