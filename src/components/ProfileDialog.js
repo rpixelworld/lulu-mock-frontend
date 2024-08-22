@@ -13,9 +13,11 @@ const ProfileDialog = ({ isOpen, onClose, children }) => {
 
 	return (
 		<dialog ref={dialogRef} onClick={onClose}>
-			<div onClick={(e) => e.stopPropagation()}>
+			<div onClick={e => e.stopPropagation()}>
 				{children}
-				<button className="btn1" onClick={onClose}>x</button>
+				<button className="btn1" onClick={onClose}>
+					x
+				</button>
 			</div>
 		</dialog>
 	);
