@@ -4,8 +4,10 @@ import axios from 'axios';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import CloseIcon from '@mui/icons-material/Close';
+import { useNavigate } from 'react-router-dom';
 
 const ForgotPassword = () => {
+	const navigate = useNavigate();
 	const [error, setError] = useState('');
 	const [isReset, setIsReset] = useState(false);
 	const [showPassword, setShowPassword] = useState(true);
@@ -81,7 +83,7 @@ const ForgotPassword = () => {
 		}
 		try {
 			setError('');
-			const { confirmedPassword, ...dataToSend } = formData;
+			const { confirmPassword, ...dataToSend } = formData;
 			const res = await axios.post(`http://localhost:3399/auth/reset-password`, dataToSend);
 			console.log(res);
 		} catch (e) {
@@ -193,6 +195,9 @@ const ForgotPassword = () => {
 						address you entered is associated with a lululemon account.
 						<br /> Having trouble? Contact us.
 					</p>
+					<button className="backToHome" onClick={() => navigate('/')}>
+						Back To Home
+					</button>
 				</div>
 			)}
 		</>

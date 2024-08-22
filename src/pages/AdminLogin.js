@@ -1,14 +1,19 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../assets/css/AdminLogin.scss';
-import { useNavigate } from 'react-router-dom';
+import { json, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import Constants from '../Constants';
+import * as UserHelper from '../UserHelper';
 
 export const AdminLogin = () => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
 	const navigate = useNavigate();
+
+	// useEffect(() => {
+	// 	console.log('Error state changed:', error);
+	// }, [error]);
 
 	const handleSubmit = async e => {
 		e.preventDefault();
@@ -19,25 +24,38 @@ export const AdminLogin = () => {
 		}
 
 		try {
-			const response = await fetch(`${Constants.BACKEND_BASE_URL}/auth/admin/login`, {
+			const options = {
 				method: 'POST',
+				mode: 'cors',
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify({ username, password }),
-			});
+				body: JSON.stringify({
+					email: username,
+					password: password,
+				}),
+			};
+
+			const response = await fetch(`${Constants.BACKEND_BASE_URL}/auth/admin/login`, options);
+			const result = await response.json();
+
 			if (!response.ok) {
-				if (response.status === 400) {
-					throw new Error('username or password incorrect, please try again');
-				} else {
-					throw new Error('Login failed, please try again');
-				}
+				setError(result.error.message);
+			} else {
+				console.log('Login successful:', result);
+				let cookies = {
+					_userId: result.data.id,
+					_email: result.data.email,
+					_firstname: result.data.firstName,
+					_token: result.data.token,
+				};
+				UserHelper.setCookies(cookies);
+				navigate(`/admin/management`);
 			}
-			const data = await response.json();
-			console.log('login success', data);
-			navigate(`${Constants.BASE_URL}/admin/management`);
 		} catch (error) {
-			setError(error.message);
+			console.error('Login error:', error);
+			setError('System errors, please try again later');
+			console.log('Error set to: System errors, please try again later');
 		}
 	};
 
@@ -62,7 +80,7 @@ export const AdminLogin = () => {
 					<div className="button">
 						<button type="submit">Login</button>
 					</div>
-					{error && <p>{error}</p>}
+					<p className="error-msg">{error}</p>
 				</form>
 			</div>
 		</div>
