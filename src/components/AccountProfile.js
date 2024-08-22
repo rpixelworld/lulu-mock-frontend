@@ -1,14 +1,33 @@
-import '../assets/css/AccountProfile.scss';
+import React, { useState, useEffect } from 'react';
+import ProfileDialog from './ProfileDialog';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
-import { fetchUserInfo } from '../redux/actions/userAction';
-import * as UserHelper from '../UserHelper';
+import { fetchUserInfo, updateUserInfo } from '../redux/actions/userAction';
+import '../assets/css/AccountProfile.scss';
 
 export const AccountProfile = () => {
-	// const dispatch = useDispatch();
-	const userInfo = useSelector(state => state.userReducer.userInfo) || { firstName: '', lastName: '' };
+	const dispatch = useDispatch();
+	const userInfo = useSelector(state => state.userReducer.userInfo) || { firstName: '', lastName: '', email: '' };
+	const [dialogIsOpen, setDialogIsOpen] = useState(false);
+	const [firstName, setFirstName] = useState(userInfo.firstName || '');
+	const [lastName, setLastName] = useState(userInfo.lastName || '');
 
-	return (
+
+	useEffect(() => {
+		dispatch(fetchUserInfo());
+	}, [dispatch]);
+
+	const openDialog = () => {
+		setDialogIsOpen(true);
+	};
+
+	const closeDialog = () => setDialogIsOpen(false);
+
+	const handleSave = (e) => {
+		closeDialog();
+	};
+
+
+return (
 		<div className="account-profile">
 			<h1>Hi {userInfo.firstName}</h1>
 			<section className="detail">
@@ -21,7 +40,7 @@ export const AccountProfile = () => {
 						</div>
 					</div>
 					<div className="operation">
-						<span>Edit</span>
+						<span onClick={openDialog}>Edit</span>
 					</div>
 				</div>
 			</section>
@@ -48,6 +67,35 @@ export const AccountProfile = () => {
 					</div>
 				</div>
 			</section>
+			<ProfileDialog isOpen={dialogIsOpen} onClose={closeDialog}>
+				<h2>Edit your name</h2>
+				<form>
+					<div>
+						<label className="first-name">First name</label>
+						<div className="first-name-input">
+						<input
+							type="text"
+							value={firstName}
+							onChange={(e) => setFirstName(e.target.value)}
+						/>
+						</div>
+					</div>
+					<div>
+						<label className="last-name">Last name</label>
+						<div className="last-name-input">
+						<input
+							type="text"
+							value={lastName}
+							onChange={(e) => setLastName(e.target.value)}
+						/>
+						</div>
+					</div>
+					<div className="btn23">
+					<button className="btn2" onClick={handleSave}>SAVE NAME</button>
+					<button className="btn3" onClick={closeDialog}>Cancel</button>
+					</div>
+				</form>
+			</ProfileDialog>
 		</div>
-	);
+);
 };
