@@ -32,16 +32,16 @@ export const Header = () => {
 	const [openLogin, setOpenLogin] = useState(false);
 	const [showLogout, setShowLogout] = useState(false);
 	const fileInputRef = useRef(null);
-	const [openUploadFailedAlert, setOpenUploadFailedAlert] = useState(false)
-	const [openUploadSuccessAlert, setOpenUploadSuccessAlert] = useState(false)
-	const [alertMessage, setAlertMessage] = useState('')
-	const [filename, setFilename] = useState('')
+	const [openUploadFailedAlert, setOpenUploadFailedAlert] = useState(false);
+	const [openUploadSuccessAlert, setOpenUploadSuccessAlert] = useState(false);
+	const [alertMessage, setAlertMessage] = useState('');
+	const [filename, setFilename] = useState('');
 
 	const handleIconClick = () => {
 		fileInputRef.current.click(); // Trigger the hidden file input click
 	};
 
-	const handleFileChange = async (event) => {
+	const handleFileChange = async event => {
 		const file = event.target.files[0];
 		if (file) {
 			console.log('Selected file:', file);
@@ -57,19 +57,17 @@ export const Header = () => {
 					// },
 					body: formData,
 				})
-				.then(resp => resp.json())
-				.then(result => {
-					if(result.status == 'failed') {
-						setOpenUploadFailedAlert(true)
-						setAlertMessage(result.error.message)
-					}
-					else {
-						fileInputRef.current.value = ''
-						setFilename(result.data)
-						setOpenUploadSuccessAlert(true)
-					}
-				})
-
+					.then(resp => resp.json())
+					.then(result => {
+						if (result.status == 'failed') {
+							setOpenUploadFailedAlert(true);
+							setAlertMessage(result.error.message);
+						} else {
+							fileInputRef.current.value = '';
+							setFilename(result.data);
+							setOpenUploadSuccessAlert(true);
+						}
+					});
 			} catch (error) {
 				console.error('Error:', error);
 			}
@@ -81,9 +79,9 @@ export const Header = () => {
 	};
 
 	const handleCloseUploadSuccess = () => {
-		setOpenUploadSuccessAlert(false)
-		navigate(`/product/similar?f=${filename}`)
-	}
+		setOpenUploadSuccessAlert(false);
+		navigate(`/product/similar?f=${filename}`);
+	};
 
 	const navAnimation = obj => {
 		if (!obj || !obj.className) {
@@ -195,12 +193,7 @@ export const Header = () => {
 				anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
 				onClose={handleCloseUploadSuccess}
 			>
-				<Alert
-					onClose={handleCloseUploadSuccess}
-					severity="success"
-					variant="filled"
-					sx={{ width: '100%' }}
-				>
+				<Alert onClose={handleCloseUploadSuccess} severity="success" variant="filled" sx={{ width: '100%' }}>
 					We are searching for the similar products.
 				</Alert>
 			</Snackbar>
@@ -360,4 +353,4 @@ export const Header = () => {
 			</div>
 		</header>
 	);
-}
+};

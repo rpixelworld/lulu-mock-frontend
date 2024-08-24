@@ -75,9 +75,9 @@ const Product = ({ product, showColorCarousel, colorId }) => {
 
 	// eslint-disable-next-line react-hooks/rules-of-hooks
 	useEffect(() => {
-		if(colorId){
+		if (colorId) {
 			// console.log(colorId)
-			handleColorHover(colorId)
+			handleColorHover(colorId);
 			// product.images.forEach((image,index) => {
 			// 	if(image.colorId == colorId){
 			// 		setCurrentColorIndex(index)
@@ -104,7 +104,6 @@ const Product = ({ product, showColorCarousel, colorId }) => {
 						</div>
 					</a>
 
-
 					<LikedProducts
 						productId={product.productId}
 						isLiked={likedProducts.includes(product.productId)}
@@ -113,40 +112,43 @@ const Product = ({ product, showColorCarousel, colorId }) => {
 				</div>
 			</div>
 			<div className="product-details">
-
-				{showColorCarousel && <div className="color-carousel">
-					{product.swatches.length >= 8 && (
-						<button
-							onClick={handlePrevPage}
-							className="carousel-button prev-button"
-							disabled={currentPage === 0}
-						>
-							&lt;
-						</button>
-					)}
-					{product.swatches.slice(currentPage * colorsPerPage, (currentPage + 1) * colorsPerPage).map(((swa,index) => (
-						<div
-							key={swa.colorId}
-							className={`color-circle ${currentColorIndex == index ? 'hovered' : ''}`}
-							onMouseEnter={() => handleColorHover(swa.colorId)}
-						>
-							<a href={currentLink}>
-								<img src={swa.swatch} alt={swa.swatchAlt} />
-							</a>
-							<div className="tooltip">{swa.swatchAlt}</div>
-						</div>
-					)))}
-					{product.swatches.length >= 8 &&
-						currentPage < Math.floor(product.swatches.length / colorsPerPage) && (
+				{showColorCarousel && (
+					<div className="color-carousel">
+						{product.swatches.length >= 8 && (
 							<button
-								onClick={handleNextPage}
-								className="carousel-button next-button"
-								disabled={(currentPage + 1) * colorsPerPage >= product.swatches.length}
+								onClick={handlePrevPage}
+								className="carousel-button prev-button"
+								disabled={currentPage === 0}
 							>
-								&gt;
+								&lt;
 							</button>
 						)}
-				</div>}
+						{product.swatches
+							.slice(currentPage * colorsPerPage, (currentPage + 1) * colorsPerPage)
+							.map((swa, index) => (
+								<div
+									key={swa.colorId}
+									className={`color-circle ${currentColorIndex == index ? 'hovered' : ''}`}
+									onMouseEnter={() => handleColorHover(swa.colorId)}
+								>
+									<a href={currentLink}>
+										<img src={swa.swatch} alt={swa.swatchAlt} />
+									</a>
+									<div className="tooltip">{swa.swatchAlt}</div>
+								</div>
+							))}
+						{product.swatches.length >= 8 &&
+							currentPage < Math.floor(product.swatches.length / colorsPerPage) && (
+								<button
+									onClick={handleNextPage}
+									className="carousel-button next-button"
+									disabled={(currentPage + 1) * colorsPerPage >= product.swatches.length}
+								>
+									&gt;
+								</button>
+							)}
+					</div>
+				)}
 				<div className="title-and-price">
 					<div className="product-name">
 						<div>{product.name}</div>

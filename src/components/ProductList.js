@@ -14,7 +14,6 @@ export const ProductList = () => {
 	const pagination = useSelector(state => state.productReducer.pagination);
 	const selectedFilters = useSelector(state => state.productReducer.selectedFilters);
 
-
 	const handleViewMore = () => {
 		dispatch(fetchProducts(pagination.curPage + 1, selectedFilters));
 	};
@@ -22,7 +21,6 @@ export const ProductList = () => {
 	useEffect(() => {
 		dispatch(fetchProducts());
 	}, []);
-
 
 	useEffect(() => {
 		if (valuePassed && valuePassed.key && valuePassed.index) {
@@ -48,10 +46,7 @@ export const ProductList = () => {
 					{productList &&
 						productList.length > 0 &&
 						productList.map((prod, index) => {
-							return (
-								<Product key={prod.productId + index} product={prod} showColorCarousel={true}/>
-
-							);
+							return <Product key={prod.productId + index} product={prod} showColorCarousel={true} />;
 						})}
 				</div>
 			</div>

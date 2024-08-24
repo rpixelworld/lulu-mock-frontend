@@ -9,7 +9,7 @@ export const Similar = () => {
 		<div className="fluid-container">
 			<Filter />
 			<div className="main-container">
-				<Banner hideLink={true}/>
+				<Banner hideLink={true} />
 				{/*<SortContainer />*/}
 				<SimilarProductList />
 			</div>
