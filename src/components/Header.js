@@ -16,6 +16,7 @@ import * as CartIndexedDBHelper from '../IndexedDBHelper';
 import { LoginDialog } from './LoginDialog';
 import * as UserHelper from '../UserHelper';
 import { dispatchClearCookieAuth, dispatchCookieAuth, fetchUserInfo } from '../redux/actions/userAction';
+import { Alert, Snackbar } from '@mui/material';
 
 export const Header = () => {
 	const location = useLocation();
@@ -30,6 +31,59 @@ export const Header = () => {
 	const navigate = useNavigate();
 	const [openLogin, setOpenLogin] = useState(false);
 	const [showLogout, setShowLogout] = useState(false);
+	const fileInputRef = useRef(null);
+	const [openUploadFailedAlert, setOpenUploadFailedAlert] = useState(false)
+	const [openUploadSuccessAlert, setOpenUploadSuccessAlert] = useState(false)
+	const [alertMessage, setAlertMessage] = useState('')
+	const [filename, setFilename] = useState('')
+
+	const handleIconClick = () => {
+		fileInputRef.current.click(); // Trigger the hidden file input click
+	};
+
+	const handleFileChange = async (event) => {
+		const file = event.target.files[0];
+		if (file) {
+			console.log('Selected file:', file);
+			// You can handle the file upload here, e.g., send it to your server
+			const formData = new FormData();
+			formData.append('file', file);
+
+			try {
+				fetch(`${Constants.BACKEND_BASE_URL}/products/uploadSearch`, {
+					method: 'POST',
+					// headers: {
+					// 	'Content-Type': 'multipart/form-data'
+					// },
+					body: formData,
+				})
+				.then(resp => resp.json())
+				.then(result => {
+					if(result.status == 'failed') {
+						setOpenUploadFailedAlert(true)
+						setAlertMessage(result.error.message)
+					}
+					else {
+						fileInputRef.current.value = ''
+						setFilename(result.data)
+						setOpenUploadSuccessAlert(true)
+					}
+				})
+
+			} catch (error) {
+				console.error('Error:', error);
+			}
+		}
+	};
+
+	const handleCloseUploadFailed = () => {
+		setOpenUploadFailedAlert(false);
+	};
+
+	const handleCloseUploadSuccess = () => {
+		setOpenUploadSuccessAlert(false)
+		navigate(`/product/similar?f=${filename}`)
+	}
 
 	const navAnimation = obj => {
 		if (!obj || !obj.className) {
@@ -125,6 +179,31 @@ export const Header = () => {
 
 	return (
 		<header>
+			<Snackbar
+				open={openUploadFailedAlert}
+				autoHideDuration={3000}
+				anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+				onClose={handleCloseUploadFailed}
+			>
+				<Alert onClose={handleCloseUploadFailed} severity="error" variant="filled" sx={{ width: '100%' }}>
+					{alertMessage}
+				</Alert>
+			</Snackbar>
+			<Snackbar
+				open={openUploadSuccessAlert}
+				autoHideDuration={3000}
+				anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+				onClose={handleCloseUploadSuccess}
+			>
+				<Alert
+					onClose={handleCloseUploadSuccess}
+					severity="success"
+					variant="filled"
+					sx={{ width: '100%' }}
+				>
+					We are searching for the similar products.
+				</Alert>
+			</Snackbar>
 			{!(
 				location.pathname.includes('shop') ||
 				location.pathname.includes('forgot-password') ||
@@ -213,6 +292,15 @@ export const Header = () => {
 									<SearchOutlinedIcon />
 								</div>
 								<input type="text" placeholder={'Search'} />
+								<div className="camera" onClick={handleIconClick}>
+									<ion-icon name="camera"></ion-icon>
+								</div>
+								<input
+									type="file"
+									ref={fileInputRef}
+									style={{ display: 'none' }} // Hide the file input
+									onChange={handleFileChange}
+								/>
 							</>
 						)}
 
@@ -272,4 +360,4 @@ export const Header = () => {
 			</div>
 		</header>
 	);
-};
+}

@@ -14,21 +14,6 @@ export const ProductList = () => {
 	const pagination = useSelector(state => state.productReducer.pagination);
 	const selectedFilters = useSelector(state => state.productReducer.selectedFilters);
 
-	//for infinite scrolling
-	// const handleScroll = ()=> {
-	//     // console.log("scrolling")
-	//     let scrollY = window.scrollY;
-	//     let windowHeight = window.innerHeight;
-	//     const documentHeight = document.documentElement.scrollHeight;
-	//     // console.log('scrollY===>', scrollY, 'windowHeight===>', windowHeight, 'documentHeight===>', documentHeight)
-	//     if (scrollY + windowHeight >= documentHeight - 1000) {
-	//         console.log("last line, scroll listener removed")
-	//         window.removeEventListener('scroll', handleScroll);
-	//         if(pagination && pagination.curPage<pagination.totalPage){
-	//             dispatch(fetchProducts(pagination.curPage+1, selectedFilters))
-	//         }
-	//     }
-	// }
 
 	const handleViewMore = () => {
 		dispatch(fetchProducts(pagination.curPage + 1, selectedFilters));
@@ -38,11 +23,6 @@ export const ProductList = () => {
 		dispatch(fetchProducts());
 	}, []);
 
-	// useEffect(() => {
-	//     if(pagination.curPage==1 && pagination.totalPage>1) {
-	//         window.addEventListener('scroll', handleScroll)
-	//     }
-	// }, [productList])
 
 	useEffect(() => {
 		if (valuePassed && valuePassed.key && valuePassed.index) {
@@ -69,13 +49,8 @@ export const ProductList = () => {
 						productList.length > 0 &&
 						productList.map((prod, index) => {
 							return (
-								<Product key={prod.productId + index} product={prod} />
-								// <div key={prod.productId + index} className="product">
-								//     <p>{index+1}</p>
-								//     <p>{prod.productId}</p>
-								//     <p>{prod.name}</p>
-								//     <p>{prod.price}</p>
-								// </div>
+								<Product key={prod.productId + index} product={prod} showColorCarousel={true}/>
+
 							);
 						})}
 				</div>

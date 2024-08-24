@@ -20,6 +20,7 @@ import { AccountProfile } from './components/AccountProfile';
 import { AccountAddresses } from './components/AccountAddresses';
 import { AccountPurchaseHistory } from './components/AccountPurchaseHistory';
 import Registration from './components/Registration';
+import { Similar } from './pages/Similar';
 
 function App() {
 	return (
@@ -29,6 +30,7 @@ function App() {
 				<Route path="/" element={<Layout />}>
 					<Route index element={<WhatsNew />} />
 					<Route path="/whatsnew/:key/:index" element={<WhatsNew />} />
+					<Route path="/product/similar" element={<Similar />} />
 					<Route path="/product/:productId" element={<ProductDetail />} />
 					<Route path="/shop/cart" element={<ShoppingCart />} />
 					<Route path="/shop/checkout" element={<Checkout />} />

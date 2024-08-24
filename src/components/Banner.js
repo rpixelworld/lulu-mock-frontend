@@ -2,7 +2,7 @@ import '../assets/css/Banner.scss';
 import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 
-export const Banner = () => {
+export const Banner = ({hideLink}) => {
 	const anchorRefs = useRef([]);
 
 	const handleSwipeClick = index => {
@@ -19,7 +19,7 @@ export const Banner = () => {
 			<div className="banner">
 				<p className="banner-text">Goes so easy together.</p>
 			</div>
-			<div className="swipe-container">
+			{!hideLink && <div className="swipe-container">
 				<ul className="swipe-wrapper">
 					<li
 						onClick={() => {
@@ -79,7 +79,7 @@ export const Banner = () => {
 						</a>
 					</li>
 				</ul>
-			</div>
+			</div>}
 		</div>
 	);
 };

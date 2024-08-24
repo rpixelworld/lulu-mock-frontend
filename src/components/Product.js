@@ -1,5 +1,5 @@
 import '../assets/css/Product.scss';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LikedProducts } from './LikedProducts';
 import { useLikedProducts } from '../hook/useLikedProducts';
 
@@ -10,7 +10,7 @@ import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import Constants from '../Constants';
 import { Link } from 'react-router-dom';
 
-const Product = ({ product }) => {
+const Product = ({ product, showColorCarousel, colorId }) => {
 	const [currentImage, setCurrentImage] = useState(product.images[0].whyWeMadeThis[0]);
 	const [currentColorIndex, setCurrentColorIndex] = useState(0);
 	const [currentBg, setCurrentBg] = useState(product.images[currentColorIndex].mainCarousel.media.split(' | ')[0]);
@@ -38,26 +38,22 @@ const Product = ({ product }) => {
 		}
 	};
 
-	// const handleImageHover = (isHovering) => {
-	//     if(whyWeMadeThis){
-	//         const imageToShow = isHovering ? product.images[currentColorIndex].whyWeMadeThis[1] : product.images[currentColorIndex].whyWeMadeThis[0];
-	//     }
-	//
-	//     setCurrentImage(imageToShow);
-	// }
 	const handleColorHover = (colorId, isHovering) => {
 		const colorImageObject = product.images.find((img, index) => {
 			if (img.colorId === colorId) {
 				setCurrentColorIndex(index);
+				// setHoveredColorId()
 				setCurrentBg(product.images[index].mainCarousel.media.split(' | ')[0]);
 				return true;
 			}
+
 			return false;
 		});
 		if (colorImageObject) {
 			setCurrentImage(colorImageObject.whyWeMadeThis[0]);
 		}
 		setHoveredColorId(colorId);
+
 		setCurrentLink(
 			`${Constants.LOCAL_BASE_URL}/product/${product.productId}?color=${colorId}${product.sizes[0].details.length === 0 ? '&sz=ONESIZE' : ''}`
 		);
@@ -71,11 +67,24 @@ const Product = ({ product }) => {
 		setCurrentPage(page => Math.max(page - 1, 0));
 	};
 
-	const displayColors = product.swatches.slice(currentPage * colorsPerPage, (currentPage + 1) * colorsPerPage);
+	// const displayColors = product.swatches.slice(currentPage * colorsPerPage, (currentPage + 1) * colorsPerPage);
 
 	const handleCheckboxClick = () => {
 		setIsChecked(!isChecked);
 	};
+
+	// eslint-disable-next-line react-hooks/rules-of-hooks
+	useEffect(() => {
+		if(colorId){
+			// console.log(colorId)
+			handleColorHover(colorId)
+			// product.images.forEach((image,index) => {
+			// 	if(image.colorId == colorId){
+			// 		setCurrentColorIndex(index)
+			// 	}
+			// })
+		}
+	}, [colorId]);
 
 	return (
 		<div className="product">
@@ -95,16 +104,7 @@ const Product = ({ product }) => {
 						</div>
 					</a>
 
-					{/*<div className="image-wrapper"*/}
-					{/*     onMouseEnter={() => handleImageHover(true)}*/}
-					{/*     onMouseLeave={() => handleImageHover(false)}*/}
-					{/*>*/}
-					{/*    <img*/}
-					{/*        className="product-image"*/}
-					{/*        src={currentImage}*/}
-					{/*        alt={product.name}*/}
-					{/*    />*/}
-					{/*</div>*/}
+
 					<LikedProducts
 						productId={product.productId}
 						isLiked={likedProducts.includes(product.productId)}
@@ -113,7 +113,8 @@ const Product = ({ product }) => {
 				</div>
 			</div>
 			<div className="product-details">
-				<div className="color-carousel">
+
+				{showColorCarousel && <div className="color-carousel">
 					{product.swatches.length >= 8 && (
 						<button
 							onClick={handlePrevPage}
@@ -123,10 +124,10 @@ const Product = ({ product }) => {
 							&lt;
 						</button>
 					)}
-					{displayColors.map(swa => (
+					{product.swatches.slice(currentPage * colorsPerPage, (currentPage + 1) * colorsPerPage).map(((swa,index) => (
 						<div
 							key={swa.colorId}
-							className={`color-circle ${hoveredColorId === swa.colorId ? 'hovered' : ''}`}
+							className={`color-circle ${currentColorIndex == index ? 'hovered' : ''}`}
 							onMouseEnter={() => handleColorHover(swa.colorId)}
 						>
 							<a href={currentLink}>
@@ -134,7 +135,7 @@ const Product = ({ product }) => {
 							</a>
 							<div className="tooltip">{swa.swatchAlt}</div>
 						</div>
-					))}
+					)))}
 					{product.swatches.length >= 8 &&
 						currentPage < Math.floor(product.swatches.length / colorsPerPage) && (
 							<button
@@ -145,7 +146,7 @@ const Product = ({ product }) => {
 								&gt;
 							</button>
 						)}
-				</div>
+				</div>}
 				<div className="title-and-price">
 					<div className="product-name">
 						<div>{product.name}</div>
