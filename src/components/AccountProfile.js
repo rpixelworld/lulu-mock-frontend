@@ -46,7 +46,7 @@ export const AccountProfile = () => {
 
 	const closePasswordDialog = () => setPasswordDialogIsOpen(false);
 
-	const handleSave = async (e) => {
+	const handleSave = async e => {
 		e.preventDefault();
 		try {
 			const userId = userInfo?.id;
@@ -60,14 +60,18 @@ export const AccountProfile = () => {
 				return;
 			}
 
-			const response = await axios.put(`http://localhost:3399/users/update/${userId}`, {
-				firstName,
-				lastName
-			}, {
-				headers: {
-					'Content-Type': 'application/json'
+			const response = await axios.put(
+				`http://localhost:3399/users/update/${userId}`,
+				{
+					firstName,
+					lastName,
+				},
+				{
+					headers: {
+						'Content-Type': 'application/json',
+					},
 				}
-			});
+			);
 
 			if (response.status === 200) {
 				dispatch(fetchUserInfo(userId));
@@ -78,7 +82,7 @@ export const AccountProfile = () => {
 		}
 	};
 
-	const handleEmailSave = async (e) => {
+	const handleEmailSave = async e => {
 		e.preventDefault();
 		try {
 			const userId = userInfo?.id;
@@ -92,13 +96,17 @@ export const AccountProfile = () => {
 				return;
 			}
 
-			const response = await axios.put(`http://localhost:3399/users/update/${userId}`, {
-				email
-			}, {
-				headers: {
-					'Content-Type': 'application/json'
+			const response = await axios.put(
+				`http://localhost:3399/users/update/${userId}`,
+				{
+					email,
+				},
+				{
+					headers: {
+						'Content-Type': 'application/json',
+					},
 				}
-			});
+			);
 
 			if (response.status === 200) {
 				dispatch(fetchUserInfo(userId));
@@ -109,7 +117,7 @@ export const AccountProfile = () => {
 		}
 	};
 
-	const handlePasswordSave = async (e) => {
+	const handlePasswordSave = async e => {
 		e.preventDefault();
 		try {
 			const userId = userInfo?.id;
@@ -123,13 +131,17 @@ export const AccountProfile = () => {
 				return;
 			}
 
-			const response = await axios.put(`http://localhost:3399/users/update/${userId}`, {
-				password
-			}, {
-				headers: {
-					'Content-Type': 'application/json'
+			const response = await axios.put(
+				`http://localhost:3399/users/update/${userId}`,
+				{
+					password,
+				},
+				{
+					headers: {
+						'Content-Type': 'application/json',
+					},
 				}
-			});
+			);
 
 			if (response.status === 200) {
 				dispatch(fetchUserInfo(userId));

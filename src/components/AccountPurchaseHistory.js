@@ -133,12 +133,12 @@ export const AccountPurchaseHistory = () => {
 			.then(resp => resp.blob())
 			.then(blob => {
 				const url = window.URL.createObjectURL(blob);
-				window.open(url, '_blank')
+				window.open(url, '_blank');
 				setTimeout(() => {
 					window.URL.revokeObjectURL(url);
 				}, 100);
-			})
-	}
+			});
+	};
 
 	const downloadReceipt = orderId => {
 		let options = {
@@ -152,12 +152,12 @@ export const AccountPurchaseHistory = () => {
 			.then(resp => resp.blob())
 			.then(blob => {
 				const url = window.URL.createObjectURL(blob);
-				window.open(url, '_blank')
+				window.open(url, '_blank');
 				setTimeout(() => {
 					window.URL.revokeObjectURL(url);
 				}, 100);
-			})
-	}
+			});
+	};
 
 	useEffect(() => {
 		fetchAndSetOrders();
@@ -377,12 +377,32 @@ export const AccountPurchaseHistory = () => {
 											Cancel
 										</span>
 									)}
-									{(order.status === 2 ||order.status === 3) && <span><a href='#' title='Invoice' onClick={()=>{downloadInvoice(order.id)}}>
-										<ion-icon name="document-attach-outline"></ion-icon>
-									</a></span>}
-									{(order.status === 2 ||order.status === 3) && <span><a href='#' title='Reciept' onClick={()=>{downloadReceipt(order.id)}}>
-										<ion-icon name="document-outline"></ion-icon>
-									</a></span>}
+									{(order.status === 2 || order.status === 3) && (
+										<span>
+											<a
+												href="#"
+												title="Invoice"
+												onClick={() => {
+													downloadInvoice(order.id);
+												}}
+											>
+												<ion-icon name="document-attach-outline"></ion-icon>
+											</a>
+										</span>
+									)}
+									{(order.status === 2 || order.status === 3) && (
+										<span>
+											<a
+												href="#"
+												title="Reciept"
+												onClick={() => {
+													downloadReceipt(order.id);
+												}}
+											>
+												<ion-icon name="document-outline"></ion-icon>
+											</a>
+										</span>
+									)}
 								</div>
 							</div>
 							{index < orders.length - 1 && <div className="seperator"></div>}
