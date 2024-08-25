@@ -15,3 +15,32 @@
     cursor: pointer;
   }
 }
+.chatBotBox {
+  position: fixed;
+  bottom: 10vh;
+  right: 5vw;
+  z-index: 10;
+  .chatBotIcon {
+    width: 50px;
+    height: 50px;
+    background-color: #c8102e;
+    color: white;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    &:hover {
+      transform: scale(1.5);
+    }
+  }
+  .botMessage {
+    padding: 0 10px;
+    width: 200px;
+    position: absolute;
+    right: 20px;
+    bottom: 70px;
+    background-color: white;
+    border-radius: 40px;
+    box-shadow: 0 0 8px black;
+
+  }
+}
