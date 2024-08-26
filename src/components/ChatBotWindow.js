@@ -17,37 +17,38 @@ const ChatBotWindow = ({ closeWindow }) => {
 		setMessage(value);
 	};
 
-	const resetConversation = ()=> {
-
-		axios.post(`${Constants.BACKEND_BASE_URL}/chat/reset`)
-			.then(resp => {
-				setConversations(conversations.splice(0, 1))
-			})
-	}
+	const resetConversation = () => {
+		axios.post(`${Constants.BACKEND_BASE_URL}/chat/reset`).then(resp => {
+			setConversations(conversations.splice(0, 1));
+		});
+	};
 
 	const submitHandler = source => {
 		if (!message.trim()) {
 			setMessage('');
-			return
+			return;
 		}
 		const prompt = message;
 		setConversations(prevConversations => [...prevConversations, { role: source, content: message }]);
 		setMessage('');
 
-		axios.post(`${Constants.BACKEND_BASE_URL}/chat/prompt`, {prompt: prompt})
-			.then(resp => {
-				if(resp.data.status = 'success') {
-					if(Array.isArray(resp.data.data)) {
-						resp.data.data.forEach(conv => {
-							setConversations(prevConversations => [...prevConversations, { role: conv.role, content: conv.content }])
-						})
-					}
-					else {
-						setConversations(prevConversations => [...prevConversations, { role: resp.data.data.role, content: resp.data.data.content }])
-					}
+		axios.post(`${Constants.BACKEND_BASE_URL}/chat/prompt`, { prompt: prompt }).then(resp => {
+			if ((resp.data.status = 'success')) {
+				if (Array.isArray(resp.data.data)) {
+					resp.data.data.forEach(conv => {
+						setConversations(prevConversations => [
+							...prevConversations,
+							{ role: conv.role, content: conv.content },
+						]);
+					});
+				} else {
+					setConversations(prevConversations => [
+						...prevConversations,
+						{ role: resp.data.data.role, content: resp.data.data.content },
+					]);
 				}
-			})
-
+			}
+		});
 	};
 
 	// make sure the newest message show at the end
@@ -59,30 +60,36 @@ const ChatBotWindow = ({ closeWindow }) => {
 
 	useEffect(() => {
 		// setConversations([{ role: "system", content: "My name is LULUBot, I am your shopping assistent. How can I help you today?" }])
-		axios.get(`${Constants.BACKEND_BASE_URL}/chat/history`)
-			.then(resp => {
-				if(resp.data.status = 'success') {
-					if(Array.isArray(resp.data.data)) {
-						resp.data.data.forEach(conv => {
-							setConversations(prevConversations => [...prevConversations, { role: conv.role, content: conv.content }])
-						})
-					}
-					else {
-						setConversations(prevConversations => [...prevConversations, { role: resp.data.data.role, content: resp.data.data.content }])
-					}
+		axios.get(`${Constants.BACKEND_BASE_URL}/chat/history`).then(resp => {
+			if ((resp.data.status = 'success')) {
+				if (Array.isArray(resp.data.data)) {
+					resp.data.data.forEach(conv => {
+						setConversations(prevConversations => [
+							...prevConversations,
+							{ role: conv.role, content: conv.content },
+						]);
+					});
+				} else {
+					setConversations(prevConversations => [
+						...prevConversations,
+						{ role: resp.data.data.role, content: resp.data.data.content },
+					]);
 				}
-			})
+			}
+		});
 	}, []);
 
 	return (
 		<div className="chatBotWindow-baseBord">
 			{/*nav*/}
 			<div className="chatWindow-nav">
-				<div className="reset"><span onClick={resetConversation}>Reset History</span></div>
-				<div className='icon'>
+				<div className="reset">
+					<span onClick={resetConversation}>Reset History</span>
+				</div>
+				<div className="icon">
 					<MinimizeIcon onClick={closeWindow} />
 				</div>
-				<div className='icon'>
+				<div className="icon">
 					<CloseIcon onClick={closeWindow} />
 				</div>
 			</div>
@@ -103,9 +110,19 @@ const ChatBotWindow = ({ closeWindow }) => {
 			{/*users input*/}
 			<div className="chatButtonLine">
 				<div className="input-message">
-					<input className="message" type="text" value={message} onChange={handlerMessage} onKeyDown={(e)=>{e.key=='Enter'&&submitHandler('user')}}/>
+					<input
+						className="message"
+						type="text"
+						value={message}
+						onChange={handlerMessage}
+						onKeyDown={e => {
+							e.key == 'Enter' && submitHandler('user');
+						}}
+					/>
 				</div>
-				<div className="send-button" onClick={() => submitHandler('user')}>Send</div>
+				<div className="send-button" onClick={() => submitHandler('user')}>
+					Send
+				</div>
 			</div>
 			{/*robot input*/}
 			{/*<div className="chatButtonLine">*/}
