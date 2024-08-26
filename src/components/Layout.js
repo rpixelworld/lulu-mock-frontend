@@ -17,18 +17,26 @@ export const Layout = () => {
 			<div className="right-fixed">
 				<img src={feedback} alt="Feedback" />
 			</div>
-			{isRobot ? <div className='chatBotBox'>
-				<button className='chatBotIcon'
+			{isRobot ? (
+				<div className="chatBotBox">
+					<button
+						className="chatBotIcon"
 						onMouseEnter={() => setHover(!isHover)}
 						onMouseLeave={() => setHover(!isHover)}
-				><SmartToyIcon style={{ width: '30px', height: '30px' }}
-							   onClick={()=>{
-								   setIsRobot(!isRobot)
-								   setHover(false)}}/></button>
-				{isHover && <div className='botMessage'>Click me, I will help you!</div>}
-			</div>
-				: <ChatBotWindow  closeWindow={() => setIsRobot(!isRobot)} />}
-
+					>
+						<SmartToyIcon
+							style={{ width: '30px', height: '30px' }}
+							onClick={() => {
+								setIsRobot(!isRobot);
+								setHover(false);
+							}}
+						/>
+					</button>
+					{isHover && <div className="botMessage">Click me, I will help you!</div>}
+				</div>
+			) : (
+				<ChatBotWindow closeWindow={() => setIsRobot(!isRobot)} />
+			)}
 
 			<Outlet />
 			<Footer />

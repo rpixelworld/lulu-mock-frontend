@@ -15,10 +15,11 @@
     cursor: pointer;
   }
 }
+
 .chatBotBox {
   position: fixed;
-  bottom: 10vh;
-  right: 5vw;
+  bottom: 4vh;
+  right: 4vw;
   z-index: 10;
   .chatBotIcon {
     width: 50px;

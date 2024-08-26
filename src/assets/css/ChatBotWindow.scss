@@ -1,106 +1,147 @@
 * {
   box-sizing: border-box;
 }
+
 .chatBotWindow-baseBord {
   position: fixed;
-  bottom: 10vh;
-  right: 5vw;
+  bottom: 4vh;
+  right: 4vw;
   z-index: 10;
-  width: 300px;
+  width: 360px;
   height: 500px;
-  background-color: #c8102e;
+  background-color: black;
+  opacity: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-radius: 13px;
-}
-.chatWindow-nav {
-  color: white;
-  position: absolute;
-  display: flex;
-  flex-direction: row;
-  right: 8px;
-  top: 2px;
-  div {
-    cursor: pointer;
-  }
-}
+  //grid-auto-rows: 1px;
+  //border-radius: 4px;
+  border: 1px solid black;
 
-.conversation {
-  display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
-  scroll-behavior: smooth;
-  margin: 30px 0 0;
-  width: 280px;
-  height: 450px;
-  max-height: 450px;
-  background-color: #f2f2f2;
-  border-radius: 15px;
-  .userMessage {
-    display: flex;
-    flex-direction: column;
-    p {
-      margin: 8px 16px;
-    }
-    overflow-wrap: break-word;
-    margin: 20px 30px 0 auto;
-    box-shadow: 3px 4px 6px black;
-    max-width: 200px;
-    background-color: #fff;
-    color: black;
-    border: 1px solid #c8102e;
-    border-radius: 15px;
-    position: relative;
-    right: 0;
-    .person-head {
-      position: absolute;
-      right: -30px;
-    }
-
-  }
-  .AIMessage {
-    display: flex;
-    flex-direction: column;
-    p {
-      margin: 8px 16px;
-    }
-    overflow-wrap: break-word;
-    //min-height: 20px;
-    margin: 20px auto 0 30px;
-    box-shadow: -3px 4px 6px black;
-    max-width: 200px;
-    background-color: #c8102e;
+  .chatWindow-nav {
+    width: 352px;
     color: white;
-    border: 1px solid #d3d5d7;
-    border-radius: 15px;
-    position: relative;
-    .AIhead {
-      position: absolute;
-      left: -30px;
-      color: #c8102e;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    right: 8px;
+    top: 8px;
+
+    div.icon {
+      cursor: pointer;
+    }
+
+    div.reset {
+      padding-left: 8px;
+      margin-left: 0;
+      width: 320px;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+
+      span {
+        cursor: pointer;
+      }
     }
   }
-}
-.chatButtonLine {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  width: 280px;
-  input {
-    margin: 5px 0 10px;
-    width: 250px;
-    height: 30px;
-    border-radius: 10px;
-    border: none;
-    outline: none;
-  }
-  button {
-    height: 20px;
-    border: none;
+
+  .conversation {
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    margin: 40px 0 0 0;
+    width: 100%;
+    height: 420px;
+    max-height: 450px;
     background-color: white;
-    color: #c8102e;
-    border-radius: 20px;
-    margin: 0 0 0 5px;
+    //border-radius: 15px;
+
+    .userMessage {
+      display: flex;
+      flex-direction: column;
+      p {
+        margin: 8px 16px;
+      }
+      overflow-wrap: break-word;
+      margin: 20px 34px 0 auto;
+      box-shadow: 3px 4px 6px black;
+      max-width: 280px;
+      background-color: #fff;
+      color: black;
+      border: 1px solid #c8102e;
+      border-radius: 15px;
+      position: relative;
+      font-size: 12px;
+      right: 0;
+      .person-head {
+        position: absolute;
+        right: -30px;
+      }
+    }
+    .AIMessage {
+      display: flex;
+      flex-direction: column;
+      p {
+        margin: 8px 16px;
+      }
+      overflow-wrap: break-word;
+      //min-height: 20px;
+      margin: 20px auto 0 34px;
+      box-shadow: -3px 4px 6px black;
+      max-width: 280px;
+      background-color: #c8102e;
+      color: white;
+      border: 1px solid #d3d5d7;
+      border-radius: 15px;
+      position: relative;
+      font-size: 12px;
+
+      .AIhead {
+        position: absolute;
+        left: -30px;
+        color: #c8102e;
+      }
+    }
+  }
+
+  .chatButtonLine {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 42px;
+    border-top: 2px solid black;
+    //gap:1px;
+
+    .input-message {
+      width: 280px;
+
+      input.message {
+        //margin: 1px 0px;
+        width: 100%;
+        height: 40px;
+        //border-radius: 10px;
+        border: none;
+        outline: none;
+        padding-left: 6px;
+        font-size: 16px;
+      }
+    }
+
+
+    .send-button {
+      width: 80px;
+      height: 40px;
+      border: none;
+      background-color: #c8102e;
+      color: white;
+      //border-radius: 20px;
+      margin-left: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 }

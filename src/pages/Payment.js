@@ -16,6 +16,7 @@ import * as CartIndexedDBHelper from '../IndexedDBHelper';
 import Constants from '../Constants';
 import * as UserHelper from '../UserHelper';
 import { dispatchClearCookieAuth } from '../redux/actions/userAction';
+import { AskForLogin } from '../components/AskForLogin';
 
 export const Payment = () => {
 	const valuePassed = useParams();
@@ -28,7 +29,7 @@ export const Payment = () => {
 
 	const dispatch = useDispatch();
 	const userInfo = useSelector(state => state.userReducer.userInfo);
-	// const orderInfo = useSelector(state => state.shoppingReducer.orderInfo);
+	const isLoggedIn = useSelector(state => state.userReducer.isLoggedIn);
 
 	const navigate = useNavigate();
 
@@ -160,6 +161,7 @@ export const Payment = () => {
 					{failureMsg}
 				</Alert>
 			</Snackbar>
+			{!isLoggedIn && <AskForLogin message="checkout more quickly and easily" />}
 			{orderInfo && (
 				<div className="main">
 					<div className="col-1">

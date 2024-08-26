@@ -24,7 +24,7 @@ export const AccountPurchaseHistory = () => {
 	const [filters, setFilters] = useState({
 		orderNumber: '',
 		orderStatus: 0,
-		timeRange: 'PAST_1_MONTH',
+		timeRange: 'ALL',
 	});
 	const [openCancelOrderDialog, setOpenCancelOrderDialog] = useState(false);
 	const [orderIdToCancel, setOrderIdToCancel] = useState(0);
