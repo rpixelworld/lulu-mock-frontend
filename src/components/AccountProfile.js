@@ -61,7 +61,7 @@ export const AccountProfile = () => {
 			}
 
 			const response = await axios.put(
-				`http://localhost:3399/users/update/${userId}`,
+				`http://localhost:3399/users/${userId}`,
 				{
 					firstName,
 					lastName,
