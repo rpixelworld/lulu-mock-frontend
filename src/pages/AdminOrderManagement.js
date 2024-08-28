@@ -122,6 +122,61 @@ export const AdminOrderManagement = () => {
 			});
 	};
 
+	const shipOrder = orderId => {
+		let options = {
+			method: 'POST',
+			headers: {
+				Authorization: `Bearer ${UserHelper.getCookie('_token')}`,
+				'Content-Type': 'application/json',
+			},
+		};
+		fetch(`${Constants.BACKEND_BASE_URL}/orders/${orderId}/ship`, options)
+			.then(resp => resp.json())
+			.then(result => {
+				if (result.status === 'success') {
+					fetchAndSetOrders(pagination.pageNo);
+				}
+			});
+	};
+
+	const downloadInvoice = orderId => {
+		let options = {
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${UserHelper.getCookie('_token')}`,
+				'Content-Type': 'application/json',
+			},
+		};
+		fetch(`${Constants.BACKEND_BASE_URL}/orders/${orderId}/invoice`, options)
+			.then(resp => resp.blob())
+			.then(blob => {
+				const url = window.URL.createObjectURL(blob);
+				window.open(url, '_blank');
+				setTimeout(() => {
+					window.URL.revokeObjectURL(url);
+				}, 100);
+			});
+	};
+
+	const downloadReceipt = orderId => {
+		let options = {
+			method: 'GET',
+			headers: {
+				Authorization: `Bearer ${UserHelper.getCookie('_token')}`,
+				'Content-Type': 'application/json',
+			},
+		};
+		fetch(`${Constants.BACKEND_BASE_URL}/orders/${orderId}/receipt`, options)
+			.then(resp => resp.blob())
+			.then(blob => {
+				const url = window.URL.createObjectURL(blob);
+				window.open(url, '_blank');
+				setTimeout(() => {
+					window.URL.revokeObjectURL(url);
+				}, 100);
+			});
+	};
+
 	useEffect(() => {
 		fetchAndSetOrders();
 	}, []);
@@ -338,6 +393,41 @@ export const AdminOrderManagement = () => {
 											}}
 										>
 											Cancel
+										</span>
+									)}
+									{order.status === 2 && (
+										<span
+											onClick={() => {
+												shipOrder(order.id);
+											}}
+										>
+											Ship
+										</span>
+									)}
+									{(order.status === 2 || order.status === 3) && (
+										<span>
+											<a
+												href="#"
+												title="Invoice"
+												onClick={() => {
+													downloadInvoice(order.id);
+												}}
+											>
+												<ion-icon name="document-attach-outline"></ion-icon>
+											</a>
+										</span>
+									)}
+									{(order.status === 2 || order.status === 3) && (
+										<span>
+											<a
+												href="#"
+												title="Reciept"
+												onClick={() => {
+													downloadReceipt(order.id);
+												}}
+											>
+												<ion-icon name="document-outline"></ion-icon>
+											</a>
 										</span>
 									)}
 								</div>
