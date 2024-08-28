@@ -398,7 +398,7 @@ export const AdminOrderManagement = () => {
 									{order.status === 2 && (
 										<span
 											onClick={() => {
-												shipOrder(order.id)
+												shipOrder(order.id);
 											}}
 										>
 											Ship
