@@ -39,7 +39,7 @@ export const Paypal = ({ orderInfo, handlePayment }) => {
 					// 	},
 					// ],
 					orderId: orderInfo.id,
-					totalCost: orderInfo.orderTotalAmount,
+					totalCost: orderInfo.orderTotalAmount.toFixed(2),
 				}),
 			});
 

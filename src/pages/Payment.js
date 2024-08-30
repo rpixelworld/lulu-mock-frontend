@@ -7,12 +7,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as IndexedDBHelper from '../IndexedDBHelper';
 import {
-	dispatchClearShoppingCart,
 	dispatchShippingFee,
-	dispatchShoppingCart,
 	fetchTaxRate,
 } from '../redux/actions/shoppingAction';
-import * as CartIndexedDBHelper from '../IndexedDBHelper';
 import Constants from '../Constants';
 import * as UserHelper from '../UserHelper';
 import { dispatchClearCookieAuth } from '../redux/actions/userAction';
