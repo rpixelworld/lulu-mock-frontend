@@ -170,7 +170,9 @@ export const AccountProfile = () => {
 						</div>
 					</div>
 					<div className="operation">
-						<Button variant="outlined" onClick={() => setDialogIsOpen(true)}>Edit</Button>
+						<Button variant="outlined" onClick={() => setDialogIsOpen(true)}>
+							Edit
+						</Button>
 					</div>
 				</div>
 			</section>
@@ -183,7 +185,9 @@ export const AccountProfile = () => {
 						<div className="value">{userInfo.email}</div>
 					</div>
 					<div className="operation">
-						<Button variant="outlined" onClick={() => setEmailDialogIsOpen(true)}>Edit</Button>
+						<Button variant="outlined" onClick={() => setEmailDialogIsOpen(true)}>
+							Edit
+						</Button>
 					</div>
 				</div>
 				<div className="seperator"></div>
@@ -193,7 +197,9 @@ export const AccountProfile = () => {
 						<div className="value">*******</div>
 					</div>
 					<div className="operation">
-						<Button variant="outlined" onClick={() => setPasswordDialogIsOpen(true)}>Edit</Button>
+						<Button variant="outlined" onClick={() => setPasswordDialogIsOpen(true)}>
+							Edit
+						</Button>
 					</div>
 				</div>
 			</section>
@@ -221,17 +227,28 @@ export const AccountProfile = () => {
 							helperText={errors.name}
 						/>
 						<div className="btn23">
-							<Button variant="contained" color="primary" onClick={handleSave}
-									sx={{ backgroundColor: 'gray', '&:hover': { backgroundColor: 'darkgray' } }}>SAVE NAME</Button>
-							<Button variant="outlined" onClick={() => setDialogIsOpen(false)}
-									sx={{
-										borderColor: 'black',
-										color: 'black',
-										'&:hover': {
-											borderColor: 'darkgray',
-											color: 'darkgray',
-										},
-									}}>Cancel</Button>
+							<Button
+								variant="contained"
+								color="primary"
+								onClick={handleSave}
+								sx={{ backgroundColor: 'gray', '&:hover': { backgroundColor: 'darkgray' } }}
+							>
+								SAVE NAME
+							</Button>
+							<Button
+								variant="outlined"
+								onClick={() => setDialogIsOpen(false)}
+								sx={{
+									borderColor: 'black',
+									color: 'black',
+									'&:hover': {
+										borderColor: 'darkgray',
+										color: 'darkgray',
+									},
+								}}
+							>
+								Cancel
+							</Button>
 						</div>
 					</form>
 				</DialogContent>
@@ -252,17 +269,28 @@ export const AccountProfile = () => {
 							helperText={errors.email}
 						/>
 						<div className="btn23">
-							<Button variant="contained" color="primary" onClick={handleEmailSave}
-									sx={{ backgroundColor: 'gray', '&:hover': { backgroundColor: 'darkgray' } }}>SAVE EMAIL</Button>
-							<Button variant="outlined" onClick={() => setEmailDialogIsOpen(false)}
-									sx={{
-										borderColor: 'black',
-										color: 'black',
-										'&:hover': {
-											borderColor: 'darkgray',
-											color: 'darkgray',
-										},
-									}}>Cancel</Button>
+							<Button
+								variant="contained"
+								color="primary"
+								onClick={handleEmailSave}
+								sx={{ backgroundColor: 'gray', '&:hover': { backgroundColor: 'darkgray' } }}
+							>
+								SAVE EMAIL
+							</Button>
+							<Button
+								variant="outlined"
+								onClick={() => setEmailDialogIsOpen(false)}
+								sx={{
+									borderColor: 'black',
+									color: 'black',
+									'&:hover': {
+										borderColor: 'darkgray',
+										color: 'darkgray',
+									},
+								}}
+							>
+								Cancel
+							</Button>
 						</div>
 					</form>
 				</DialogContent>
@@ -283,17 +311,28 @@ export const AccountProfile = () => {
 							helperText={errors.password}
 						/>
 						<div className="btn23">
-							<Button variant="contained" color="primary" onClick={handlePasswordSave}
-									sx={{ backgroundColor: 'gray', '&:hover': { backgroundColor: 'darkgray' } }}>SAVE PASSWORD</Button>
-							<Button variant="outlined" onClick={() => setPasswordDialogIsOpen(false)}
-									sx={{
-										borderColor: 'black',
-										color: 'black',
-										'&:hover': {
-											borderColor: 'darkgray',
-											color: 'darkgray',
-										},
-									}}>Cancel</Button>
+							<Button
+								variant="contained"
+								color="primary"
+								onClick={handlePasswordSave}
+								sx={{ backgroundColor: 'gray', '&:hover': { backgroundColor: 'darkgray' } }}
+							>
+								SAVE PASSWORD
+							</Button>
+							<Button
+								variant="outlined"
+								onClick={() => setPasswordDialogIsOpen(false)}
+								sx={{
+									borderColor: 'black',
+									color: 'black',
+									'&:hover': {
+										borderColor: 'darkgray',
+										color: 'darkgray',
+									},
+								}}
+							>
+								Cancel
+							</Button>
 						</div>
 					</form>
 				</DialogContent>
