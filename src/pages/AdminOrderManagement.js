@@ -24,7 +24,7 @@ export const AdminOrderManagement = () => {
 	const [filters, setFilters] = useState({
 		email: '',
 		orderStatus: 0,
-		timeRange: 'PAST_1_MONTH',
+		timeRange: 'ALL',
 	});
 	const [openCancelOrderDialog, setOpenCancelOrderDialog] = useState(false);
 	const [orderIdToCancel, setOrderIdToCancel] = useState(0);
@@ -377,15 +377,15 @@ export const AdminOrderManagement = () => {
 									)}
 								</div>
 								<div className="operation left">
-									{order.status === 1 && (
-										<span
-											onClick={() => {
-												handlePayOrder(order.id);
-											}}
-										>
-											Pay
-										</span>
-									)}
+									{/*{order.status === 1 && (*/}
+									{/*	<span*/}
+									{/*		onClick={() => {*/}
+									{/*			handlePayOrder(order.id);*/}
+									{/*		}}*/}
+									{/*	>*/}
+									{/*		Pay*/}
+									{/*	</span>*/}
+									{/*)}*/}
 									{order.status === 1 && (
 										<span
 											onClick={() => {
