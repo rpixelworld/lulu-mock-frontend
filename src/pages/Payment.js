@@ -6,10 +6,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import * as IndexedDBHelper from '../IndexedDBHelper';
-import {
-	dispatchShippingFee,
-	fetchTaxRate,
-} from '../redux/actions/shoppingAction';
+import { dispatchShippingFee, fetchTaxRate } from '../redux/actions/shoppingAction';
 import Constants from '../Constants';
 import * as UserHelper from '../UserHelper';
 import { dispatchClearCookieAuth } from '../redux/actions/userAction';
