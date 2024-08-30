@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import ProfileDialog from './ProfileDialog';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserInfo } from '../redux/actions/userAction';
+import { Dialog, DialogContent, DialogTitle, Button, TextField } from '@mui/material';
 import '../assets/css/AccountProfile.scss';
 import axios from 'axios';
 
@@ -15,6 +15,8 @@ export const AccountProfile = () => {
 	const [lastName, setLastName] = useState(userInfo.lastName || '');
 	const [email, setEmail] = useState(userInfo.email || '');
 	const [password, setPassword] = useState('');
+	const [errors, setErrors] = useState({});
+	const [validForm, setValidForm] = useState(true);
 
 	useEffect(() => {
 		if (userInfo.id) {
@@ -28,26 +30,57 @@ export const AccountProfile = () => {
 		setEmail(userInfo.email || '');
 	}, [userInfo]);
 
-	const openDialog = () => {
-		setDialogIsOpen(true);
+	const validateName = () => {
+		let valid = true;
+		setErrors(prev => ({ ...prev, name: '' }));
+		if (!firstName || !lastName) {
+			valid = false;
+			setErrors(prev => ({
+				...prev,
+				name: 'First name and last name are required',
+			}));
+		}
+		return valid;
 	};
 
-	const closeDialog = () => setDialogIsOpen(false);
-
-	const openEmailDialog = () => {
-		setEmailDialogIsOpen(true);
+	const validateEmail = () => {
+		let valid = true;
+		setErrors(prev => ({ ...prev, email: '' }));
+		const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+		if (!email) {
+			valid = false;
+			setErrors(prev => ({
+				...prev,
+				email: 'Please enter an email address',
+			}));
+		} else if (!re.test(String(email).toLowerCase())) {
+			valid = false;
+			setErrors(prev => ({
+				...prev,
+				email: 'Email address is not in the correct format (xxx@yyy.zzz).',
+			}));
+		}
+		return valid;
 	};
 
-	const closeEmailDialog = () => setEmailDialogIsOpen(false);
-
-	const openPasswordDialog = () => {
-		setPasswordDialogIsOpen(true);
+	const validatePassword = () => {
+		let valid = true;
+		setErrors(prev => ({ ...prev, password: '' }));
+		if (!password) {
+			valid = false;
+			setErrors(prev => ({
+				...prev,
+				password: 'Password is required',
+			}));
+		}
+		return valid;
 	};
-
-	const closePasswordDialog = () => setPasswordDialogIsOpen(false);
 
 	const handleSave = async e => {
 		e.preventDefault();
+		const isValid = validateName();
+		if (!isValid) return;
+
 		try {
 			const userId = userInfo?.id;
 			if (!userId) {
@@ -55,27 +88,15 @@ export const AccountProfile = () => {
 				return;
 			}
 
-			if (!firstName || !lastName) {
-				console.error('First name or last name is missing.');
-				return;
-			}
-
 			const response = await axios.put(
 				`http://localhost:3399/users/${userId}`,
-				{
-					firstName,
-					lastName,
-				},
-				{
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				}
+				{ firstName, lastName },
+				{ headers: { 'Content-Type': 'application/json' } }
 			);
 
 			if (response.status === 200) {
 				dispatch(fetchUserInfo(userId));
-				closeDialog();
+				setDialogIsOpen(false);
 			}
 		} catch (error) {
 			console.error('Error updating user information:', error.response?.data || error.message);
@@ -84,6 +105,9 @@ export const AccountProfile = () => {
 
 	const handleEmailSave = async e => {
 		e.preventDefault();
+		const isValid = validateEmail();
+		if (!isValid) return;
+
 		try {
 			const userId = userInfo?.id;
 			if (!userId) {
@@ -91,26 +115,15 @@ export const AccountProfile = () => {
 				return;
 			}
 
-			if (!email) {
-				console.error('Email is missing.');
-				return;
-			}
-
 			const response = await axios.put(
-				`http://localhost:3399/users/update/${userId}`,
-				{
-					email,
-				},
-				{
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				}
+				`http://localhost:3399/users/${userId}`,
+				{ email },
+				{ headers: { 'Content-Type': 'application/json' } }
 			);
 
 			if (response.status === 200) {
 				dispatch(fetchUserInfo(userId));
-				closeEmailDialog();
+				setEmailDialogIsOpen(false);
 			}
 		} catch (error) {
 			console.error('Error updating email information:', error.response?.data || error.message);
@@ -119,6 +132,9 @@ export const AccountProfile = () => {
 
 	const handlePasswordSave = async e => {
 		e.preventDefault();
+		const isValid = validatePassword();
+		if (!isValid) return;
+
 		try {
 			const userId = userInfo?.id;
 			if (!userId) {
@@ -126,26 +142,15 @@ export const AccountProfile = () => {
 				return;
 			}
 
-			if (!password) {
-				console.error('Password is missing.');
-				return;
-			}
-
 			const response = await axios.put(
-				`http://localhost:3399/users/update/${userId}`,
-				{
-					password,
-				},
-				{
-					headers: {
-						'Content-Type': 'application/json',
-					},
-				}
+				`http://localhost:3399/users/${userId}`,
+				{ password },
+				{ headers: { 'Content-Type': 'application/json' } }
 			);
 
 			if (response.status === 200) {
 				dispatch(fetchUserInfo(userId));
-				closePasswordDialog();
+				setPasswordDialogIsOpen(false);
 			}
 		} catch (error) {
 			console.error('Error updating password information:', error.response?.data || error.message);
@@ -165,7 +170,9 @@ export const AccountProfile = () => {
 						</div>
 					</div>
 					<div className="operation">
-						<span onClick={openDialog}>Edit</span>
+						<Button variant="outlined" onClick={() => setDialogIsOpen(true)}>
+							Edit
+						</Button>
 					</div>
 				</div>
 			</section>
@@ -178,7 +185,9 @@ export const AccountProfile = () => {
 						<div className="value">{userInfo.email}</div>
 					</div>
 					<div className="operation">
-						<span onClick={openEmailDialog}>Edit</span>
+						<Button variant="outlined" onClick={() => setEmailDialogIsOpen(true)}>
+							Edit
+						</Button>
 					</div>
 				</div>
 				<div className="seperator"></div>
@@ -188,76 +197,146 @@ export const AccountProfile = () => {
 						<div className="value">*******</div>
 					</div>
 					<div className="operation">
-						<span onClick={openPasswordDialog}>Edit</span>
+						<Button variant="outlined" onClick={() => setPasswordDialogIsOpen(true)}>
+							Edit
+						</Button>
 					</div>
 				</div>
 			</section>
 
-			<ProfileDialog isOpen={dialogIsOpen} onClose={closeDialog}>
-				<h2>Edit your name</h2>
-				<form>
-					<div>
-						<label className="first-name">First name</label>
-						<div className="first-name-input">
-							<input type="text" value={firstName} onChange={e => setFirstName(e.target.value)} />
+			<Dialog open={dialogIsOpen} onClose={() => setDialogIsOpen(false)}>
+				<DialogTitle>Edit your name</DialogTitle>
+				<DialogContent>
+					<form>
+						<TextField
+							label="First name"
+							value={firstName}
+							onChange={e => setFirstName(e.target.value)}
+							fullWidth
+							margin="normal"
+							error={!!errors.name}
+							helperText={errors.name}
+						/>
+						<TextField
+							label="Last name"
+							value={lastName}
+							onChange={e => setLastName(e.target.value)}
+							fullWidth
+							margin="normal"
+							error={!!errors.name}
+							helperText={errors.name}
+						/>
+						<div className="btn23">
+							<Button
+								variant="contained"
+								color="primary"
+								onClick={handleSave}
+								sx={{ backgroundColor: 'gray', '&:hover': { backgroundColor: 'darkgray' } }}
+							>
+								SAVE NAME
+							</Button>
+							<Button
+								variant="outlined"
+								onClick={() => setDialogIsOpen(false)}
+								sx={{
+									borderColor: 'black',
+									color: 'black',
+									'&:hover': {
+										borderColor: 'darkgray',
+										color: 'darkgray',
+									},
+								}}
+							>
+								Cancel
+							</Button>
 						</div>
-					</div>
-					<div>
-						<label className="last-name">Last name</label>
-						<div className="last-name-input">
-							<input type="text" value={lastName} onChange={e => setLastName(e.target.value)} />
-						</div>
-					</div>
-					<div className="btn23">
-						<button type="button" className="btn2" onClick={handleSave}>
-							SAVE NAME
-						</button>
-						<button type="button" className="btn3" onClick={closeDialog}>
-							Cancel
-						</button>
-					</div>
-				</form>
-			</ProfileDialog>
+					</form>
+				</DialogContent>
+			</Dialog>
 
-			<ProfileDialog isOpen={emailDialogIsOpen} onClose={closeEmailDialog}>
-				<h2>Change your email</h2>
-				<form>
-					<div>
-						<label className="email"> New Email</label>
-						<div className="email-input">
-							<input type="email" value={email} onChange={e => setEmail(e.target.value)} />
+			<Dialog open={emailDialogIsOpen} onClose={() => setEmailDialogIsOpen(false)}>
+				<DialogTitle>Change your email</DialogTitle>
+				<DialogContent>
+					<form>
+						<TextField
+							label="New Email"
+							type="email"
+							value={email}
+							onChange={e => setEmail(e.target.value)}
+							fullWidth
+							margin="normal"
+							error={!!errors.email}
+							helperText={errors.email}
+						/>
+						<div className="btn23">
+							<Button
+								variant="contained"
+								color="primary"
+								onClick={handleEmailSave}
+								sx={{ backgroundColor: 'gray', '&:hover': { backgroundColor: 'darkgray' } }}
+							>
+								SAVE EMAIL
+							</Button>
+							<Button
+								variant="outlined"
+								onClick={() => setEmailDialogIsOpen(false)}
+								sx={{
+									borderColor: 'black',
+									color: 'black',
+									'&:hover': {
+										borderColor: 'darkgray',
+										color: 'darkgray',
+									},
+								}}
+							>
+								Cancel
+							</Button>
 						</div>
-					</div>
-					<div className="btn23">
-						<button type="button" className="btn4" onClick={handleEmailSave}>
-							SAVE EMAIL
-						</button>
-						<button type="button" className="btn5" onClick={closeEmailDialog}>
-							Cancel
-						</button>
-					</div>
-				</form>
-			</ProfileDialog>
+					</form>
+				</DialogContent>
+			</Dialog>
 
-			<ProfileDialog isOpen={passwordDialogIsOpen} onClose={closePasswordDialog}>
-				<h2>Change your password</h2>
-				<form>
-					<div>
-						<label className="password">New Password</label>
-						<div className="password-input">
-							<input type="password" value={password} onChange={e => setPassword(e.target.value)} />
+			<Dialog open={passwordDialogIsOpen} onClose={() => setPasswordDialogIsOpen(false)}>
+				<DialogTitle>Change your password</DialogTitle>
+				<DialogContent>
+					<form>
+						<TextField
+							label="New Password"
+							type="password"
+							value={password}
+							onChange={e => setPassword(e.target.value)}
+							fullWidth
+							margin="normal"
+							error={!!errors.password}
+							helperText={errors.password}
+						/>
+						<div className="btn23">
+							<Button
+								variant="contained"
+								color="primary"
+								onClick={handlePasswordSave}
+								sx={{ backgroundColor: 'gray', '&:hover': { backgroundColor: 'darkgray' } }}
+							>
+								SAVE PASSWORD
+							</Button>
+							<Button
+								variant="outlined"
+								onClick={() => setPasswordDialogIsOpen(false)}
+								sx={{
+									borderColor: 'black',
+									color: 'black',
+									'&:hover': {
+										borderColor: 'darkgray',
+										color: 'darkgray',
+									},
+								}}
+							>
+								Cancel
+							</Button>
 						</div>
-					</div>
-					<div className="btn23">
-						<button type="button" className="btn4" onClick={handlePasswordSave}>
-							SAVE PASSWORD
-						</button>
-						<button type="button" className="btn5" onClick={closePasswordDialog}>
-							Cancel
-						</button>
-					</div>
-				</form>
-			</ProfileDialog>
+					</form>
+				</DialogContent>
+			</Dialog>
 		</div>
 	);
 };
