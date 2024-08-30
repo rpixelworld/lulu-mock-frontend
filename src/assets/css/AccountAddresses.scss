@@ -26,7 +26,8 @@
 
       .one-address {
         display: flex;
-        flex-display: row;
+        flex-display: row !important;
+        margin-bottom: 16px;
         .content {
           width: 50%;
 
