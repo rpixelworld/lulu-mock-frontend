@@ -44,7 +44,7 @@ export const AccountAddresses = () => {
 		setIsEditDialogOpen(false);
 		setAddressToEdit(null);
 		setDialogMode('');
-		await dispatch(fetchUserInfo(UserHelper.getCookie('_userId')))
+		await dispatch(fetchUserInfo(UserHelper.getCookie('_userId')));
 	};
 
 	const saveAddress = async address => {
@@ -65,18 +65,18 @@ export const AccountAddresses = () => {
 			body: JSON.stringify(updatedAddress),
 		};
 		try {
-			console.log("Sending update request for address:", updatedAddress);
+			console.log('Sending update request for address:', updatedAddress);
 			const response = await fetch(`${Constants.BACKEND_BASE_URL}/users/addresses/${updatedAddress.id}`, options);
 			const result = await response.json();
-			console.log("Received response:", result);
+			console.log('Received response:', result);
 
 			if (result.status === 'success') {
-				console.log("Address updated successfully, fetching new user info...");
+				console.log('Address updated successfully, fetching new user info...');
 				await dispatch(fetchUserInfo(UserHelper.getCookie('_userId')));
-				console.log("User info fetched, closing dialog...");
+				console.log('User info fetched, closing dialog...');
 				closeEditConfirmDialog();
 			} else {
-				console.error("Failed to update address:", result);
+				console.error('Failed to update address:', result);
 			}
 		} catch (error) {
 			console.error('Failed to edit address', error);
@@ -93,18 +93,19 @@ export const AccountAddresses = () => {
 			body: JSON.stringify(newAddress),
 		};
 		try {
-			console.log("Sending add request for address:", newAddress);
+			console.log('Sending add request for address:', newAddress);
 			const response = await fetch(`${Constants.BACKEND_BASE_URL}/users/addresses`, options);
 			const result = await response.json();
-			console.log("Received response:", result);
+			console.log('Received response:', result);
 
-			if (response.ok) { // Check if the response status is OK
-				console.log("Address added successfully, fetching new user info...");
+			if (response.ok) {
+				// Check if the response status is OK
+				console.log('Address added successfully, fetching new user info...');
 				await dispatch(fetchUserInfo(UserHelper.getCookie('_userId')));
-				console.log("User info fetched, closing dialog...");
+				console.log('User info fetched, closing dialog...');
 				closeEditConfirmDialog();
 			} else {
-				console.error("Failed to add address:", result);
+				console.error('Failed to add address:', result);
 			}
 		} catch (error) {
 			console.error('Failed to add address', error);
@@ -131,8 +132,11 @@ export const AccountAddresses = () => {
 		<div className="account-addresses">
 			<h1>Checkout Preferences</h1>
 			<section className="detail">
-				<div className="title">Shipping addresses
-					<span className='add-user' onClick={handleAddClick}>+</span>
+				<div className="title">
+					Shipping addresses
+					<span className="add-user" onClick={handleAddClick}>
+						+
+					</span>
 				</div>
 				<div className="content-section">
 					{userInfo &&
