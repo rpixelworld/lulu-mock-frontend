@@ -14,6 +14,8 @@
     background-color: white;
 
     .title {
+      display: flex;
+      align-items: center;
       padding-top: 20px;
       margin: 15px;
       background-color: white;
@@ -79,4 +81,14 @@
       background-color: #bababa;
     }
   }
+}
+
+.add-user {
+  position: relative;
+  margin-left: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+.add-user:hover {
+  color: #0056b3;
 }
