@@ -118,7 +118,7 @@ const EditWindow = ({ state, closeEdit, item, handleUpdate, handleExceedLimitRes
 		setSelectedColor(item.colorAlt);
 		setSelectedSize(arr[2]);
 
-		fetch(`${Constants.BASE_URL}/product/${productId}?mykey=${Constants.MY_KEY}`)
+		fetch(`${Constants.BASE_URL}/products/${productId}`)
 			.then(resp => {
 				// console.log(resp)
 				if (resp.ok && resp.status == 200) {
@@ -303,7 +303,7 @@ const EditWindow = ({ state, closeEdit, item, handleUpdate, handleExceedLimitRes
 								<div className="view-detail-link">
 									<span>
 										<a
-											href={`/product/${product.productId}?color=${product.swatches[selectedColorIndex].colorId}&sz=${selectedSize.replace(' ', '')}`}
+											href={`/products/${product.productId}?color=${product.swatches[selectedColorIndex].colorId}&sz=${selectedSize.replace(' ', '')}`}
 										>
 											View product details
 										</a>

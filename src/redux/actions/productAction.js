@@ -3,7 +3,7 @@ import Constants from '../../Constants';
 export const fetchProducts =
 	(pageNo = 1, filters = {}) =>
 	dispatch => {
-		let url = `${Constants.BASE_URL}/product/allProducts?page=${pageNo}&mykey=${Constants.MY_KEY}`;
+		let url = `${Constants.BASE_URL}/products/allProducts?page=${pageNo}`;
 		let options = {
 			method: 'POST',
 			mode: 'cors',
@@ -37,7 +37,7 @@ export const fetchProducts =
 export const fetchRecommendations =
 	(productId, filters = {}) =>
 	dispatch => {
-		let url = `${Constants.BASE_URL}/product/allProducts?page=1&mykey=${Constants.MY_KEY}`;
+		let url = `${Constants.BASE_URL}/products/allProducts?page=1`;
 		// let url = Constants.LOCAL_BASE_URL + `/data/mock_allproducts_${pageNo}.json`
 		let options = {
 			method: 'POST',
@@ -75,7 +75,7 @@ export const sortProduct = (sortBy = 4) => {
 };
 
 export const fetchProductDetail = productId => dispatch => {
-	let url = `${Constants.BASE_URL}/product/${productId}?mykey=${Constants.MY_KEY}`;
+	let url = `${Constants.BASE_URL}/products/${productId}`;
 	// let url = Constants.LOCAL_BASE_URL + '/data/product_'+productId+'.json'
 	// console.log(url)
 	fetch(url)
